@@ -16,6 +16,7 @@ class Product extends Model
         'slug',
         'stock',
         'discount',
+        'can_buy_with_lenses',
         'category_id',
         'description',
         'price',
@@ -81,5 +82,5 @@ class Product extends Model
 
 
 
-    
+
 }

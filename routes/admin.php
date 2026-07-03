@@ -49,6 +49,8 @@ Route::prefix('admin')
             Route::get('/{slug}', [AdminProductsController::class, 'show'])->name('admin.products.show');
             Route::post('/create/{product?}', [AdminProductsController::class, 'create'])->name('admin.product.create');
 
+            Route::patch('/toggle-lenses/{product}', [AdminProductsController::class, 'toggleProductLenses'])->name('admin.products.toggle-lenses');
+
             Route::put('/{product}', [AdminProductsController::class, 'update'])->name('admin.product.update');
             Route::delete('/{product:slug}', [AdminProductsController::class, 'destroy'])->name('admin.products.destroy');
         });

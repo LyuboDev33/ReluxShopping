@@ -3,23 +3,26 @@
 namespace App\Http\Controllers;
 
 use App\Mail\OrderCreated;
+use App\Models\Admin\GlassValue;
+use App\Models\Admin\LensIndex;
 use App\Models\Order;
 use App\Models\OrderProduct;
 use App\Models\Product;
+use App\Services\ProductService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
-use App\Services\ProductService;
 
 
 class OrdersController extends Controller
 {
 
 
-    /** Add a product to the session
+    /**
+     * Add a product to the session.
      *
      * @param Request $request
      * @param Product $product
@@ -28,23 +31,37 @@ class OrdersController extends Controller
     public function addProduct(Request $request, Product $product): RedirectResponse
     {
         $validated = $request->validate([
-            'quantity' => ['required', 'integer', 'min:1'],
+            'purchase_type' => ['required', 'in:frame_only,frame_with_glasses'],
+            'quantity'      => ['required', 'integer', 'min:1'],
+
+            'lens_index_id' => [
+                'required_if:purchase_type,frame_with_glasses',
+                'nullable',
+                'exists:lens_indexes,id',
+            ],
+
+            'glass_value_id' => [
+                'required_if:purchase_type,frame_with_glasses',
+                'nullable',
+                'exists:glass_values,id',
+            ],
 
             'prescription_image' => ['nullable', 'file', 'mimes:jpg,jpeg,png,webp,pdf', 'max:5120'],
 
-            'right_eye' => ['nullable', 'array'],
-            'right_eye.sph' => ['nullable', 'string'],
-            'right_eye.cyl' => ['nullable', 'string'],
+            'right_eye'      => ['nullable', 'array'],
+            'right_eye.sph'  => ['nullable', 'string'],
+            'right_eye.cyl'  => ['nullable', 'string'],
             'right_eye.axis' => ['nullable', 'string'],
-            'right_eye.add' => ['nullable', 'string'],
+            'right_eye.add'  => ['nullable', 'string'],
 
-            'left_eye' => ['nullable', 'array'],
-            'left_eye.sph' => ['nullable', 'string'],
-            'left_eye.cyl' => ['nullable', 'string'],
+            'left_eye'      => ['nullable', 'array'],
+            'left_eye.sph'  => ['nullable', 'string'],
+            'left_eye.cyl'  => ['nullable', 'string'],
             'left_eye.axis' => ['nullable', 'string'],
-            'left_eye.add' => ['nullable', 'string'],
+            'left_eye.add'  => ['nullable', 'string'],
         ]);
 
+        $purchaseType = $validated['purchase_type'];
         $quantity = (int) $validated['quantity'];
         $stock = (int) $product->stock;
 
@@ -54,16 +71,18 @@ class OrdersController extends Controller
             ]);
         }
 
-        $products = Session::get('products', []);
+        $lensIndex = null;
+        $glassValue = null;
 
-        $key = $product->id;
+        if ($purchaseType === 'frame_with_glasses') {
+            if (! $product->can_buy_with_lenses) {
+                return back()->withErrors([
+                    'purchase_type' => 'Този продукт не може да бъде закупен със стъкла.',
+                ]);
+            }
 
-        $existingQuantity = isset($products[$key]) ? (int) $products[$key]['quantity'] : 0;
-
-        if (($existingQuantity + $quantity) > $stock) {
-            return back()->withErrors([
-                'quantity' => 'Няма достатъчна наличност за желаното количество.',
-            ]);
+            $lensIndex = LensIndex::findOrFail($validated['lens_index_id']);
+            $glassValue = GlassValue::with('glass')->findOrFail($validated['glass_value_id']);
         }
 
         $hasUploadedPrescription = $request->hasFile('prescription_image');
@@ -72,23 +91,14 @@ class OrdersController extends Controller
         $leftEye = $validated['left_eye'] ?? [];
 
         $hasManualPrescription =
-            !empty(array_filter($rightEye)) ||
-            !empty(array_filter($leftEye));
+            ! empty(array_filter($rightEye)) ||
+            ! empty(array_filter($leftEye));
 
-
-        $isProductDioptric = ProductService::isProductDioptric($product);
-
-        /** Check if the products is dioptric */
-        if ($isProductDioptric) {
-
-            /** If the product is dioptric, it requires  */
-            if (! $hasUploadedPrescription && ! $hasManualPrescription) {
-                return back()->withErrors([
-                    'prescription' => 'Моля, качете снимка с рецепта или въведете ръчно данните за диоптър.',
-                ]);
-            }
+        if ($purchaseType === 'frame_with_glasses' && ! $hasUploadedPrescription && ! $hasManualPrescription) {
+            return back()->withErrors([
+                'prescription' => 'Моля, качете снимка с рецепта или въведете ръчно данните за диоптър.',
+            ])->withInput();
         }
-
 
         $prescriptionImageName = null;
 
@@ -98,37 +108,82 @@ class OrdersController extends Controller
             $file->move(public_path('assets/images/prescriptions'), $prescriptionImageName);
         }
 
-        $finalPrice = $product->discount
+        $baseFinalPrice = $product->discount
             ? $product->price - (($product->price * $product->discount) / 100)
             : $product->price;
 
-        if (isset($products[$key])) {
-            $products[$key]['quantity'] += $quantity;
+        $finalPrice = $baseFinalPrice;
 
-            if ($prescriptionImageName) {
-                $products[$key]['prescription_image'] = $prescriptionImageName;
-            }
-
-            if ($hasManualPrescription) {
-                $products[$key]['right_eye'] = $rightEye;
-                $products[$key]['left_eye'] = $leftEye;
-            }
-        } else {
-            $products[$key] = [
-                'product_id' => $product->id,
-                'name' => $product->name,
-                'slug' => $product->slug,
-                'price' => (float) $product->price,
-                'discount' => $product->discount,
-                'final_price' => (float) $finalPrice,
-                'quantity' => $quantity,
-                'image' => $product->main_image,
-
-                'prescription_image' => $prescriptionImageName,
-                'right_eye' => $rightEye,
-                'left_eye' => $leftEye,
-            ];
+        if ($purchaseType === 'frame_with_glasses') {
+            $finalPrice += $lensIndex->price;
+            $finalPrice += $glassValue->price;
         }
+
+        $products = Session::get('products', []);
+
+        $existingProductKey = null;
+
+        foreach ($products as $cartKey => $cartProduct) {
+            if ((int) $cartProduct['product_id'] === (int) $product->id) {
+                $existingProductKey = $cartKey;
+                break;
+            }
+        }
+
+        $newKey = $product->id . '-' . $purchaseType . '-' . ($lensIndex?->id ?? 0) . '-' . ($glassValue?->id ?? 0);
+
+        $existingQuantity = 0;
+
+        if ($existingProductKey && $existingProductKey === $newKey) {
+            $existingQuantity = (int) $products[$existingProductKey]['quantity'];
+        }
+
+        if (($existingQuantity + $quantity) > $stock) {
+            return back()->withErrors([
+                'quantity' => 'Няма достатъчна наличност за желаното количество.',
+            ])->withInput();
+        }
+
+        $cartItem = [
+            'product_id'    => $product->id,
+            'name'          => $product->name,
+            'slug'          => $product->slug,
+            'price'         => (float) $product->price,
+            'discount'      => $product->discount,
+            'base_price'    => (float) $baseFinalPrice,
+            'final_price'   => (float) $finalPrice,
+            'quantity'      => $quantity,
+            'image'         => $product->main_image,
+            'purchase_type' => $purchaseType,
+
+            'lens_index' => $lensIndex ? [
+                'id'    => $lensIndex->id,
+                'name'  => $lensIndex->name,
+                'price' => (float) $lensIndex->price,
+            ] : null,
+
+            'glass_value' => $glassValue ? [
+                'id'         => $glassValue->id,
+                'glass_id'   => $glassValue->glass_id,
+                'glass_name' => $glassValue->glass?->name,
+                'value'      => $glassValue->value,
+                'price'      => (float) $glassValue->price,
+            ] : null,
+
+            'prescription_image' => $prescriptionImageName,
+            'right_eye'          => $rightEye,
+            'left_eye'           => $leftEye,
+        ];
+
+        if ($existingProductKey) {
+            if ($existingProductKey === $newKey) {
+                $cartItem['quantity'] = $products[$existingProductKey]['quantity'] + $quantity;
+            }
+
+            unset($products[$existingProductKey]);
+        }
+
+        $products[$newKey] = $cartItem;
 
         Session::put('products', $products);
 
@@ -141,15 +196,12 @@ class OrdersController extends Controller
      * @param int $productId
      * @return RedirectResponse
      */
-    public function removeProduct(int $productId): RedirectResponse
+    public function removeProduct($productId): RedirectResponse
     {
         $products = Session::get('products', []);
 
         if (isset($products[$productId])) {
-            /*
-         * Optional:
-         * Delete uploaded prescription image as well
-         */
+
             if (! empty($products[$productId]['prescription_image'])) {
 
                 Storage::disk('public')->delete(

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Admin\Glass;
 use App\Models\Admin\GlassValue;
 use App\Models\Admin\LensIndex;
+use App\Models\Category;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -20,8 +21,9 @@ class AdminGlassesController extends Controller
     public function index(): View
     {
         return view('admin.Glasses.Index', [
-            'glasses' => Glass::with('values')->get(),
-            'lances'  => LensIndex::get(),
+            'glasses'    => Glass::with('values')->get(),
+            'lances'     => LensIndex::get(),
+            'categories' => Category::whereNull('category_parent_id')->get()
         ]);
     }
 
@@ -34,18 +36,26 @@ class AdminGlassesController extends Controller
     public function storeGlass(Request $request): RedirectResponse
     {
         $validated = $request->validate([
-            'name' => ['required', 'string', 'max:255'],
+            'category_id' => ['required', 'exists:categories,id'],
+            'name'        => ['required', 'string', 'max:255'],
         ], [
+            'category_id.required' => 'Моля, изберете основна категория.',
+            'category_id.exists'   => 'Избраната категория не съществува.',
+
             'name.required' => 'Моля, въведете име на стъклото.',
             'name.string'   => 'Името трябва да бъде текст.',
             'name.max'      => 'Името не може да бъде по-дълго от 255 символа.',
         ]);
 
         Glass::create([
-            'name' => $validated['name'],
+            'category_id' => $validated['category_id'],
+            'name'        => $validated['name'],
         ]);
 
-        return back()->with('success', 'Типът стъкло беше добавен успешно!');
+        return back()->with(
+            'success',
+            'Типът стъкло беше добавен успешно!'
+        );
     }
 
     /**
@@ -210,6 +220,4 @@ class AdminGlassesController extends Controller
 
         return back()->with('success', 'Индексът на изтъняване беше изтрит успешно!');
     }
-
-    
 }

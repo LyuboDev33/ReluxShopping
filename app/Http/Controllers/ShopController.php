@@ -76,6 +76,7 @@ class ShopController extends Controller
     public function cart()
     {
         $sessionProducts = Session::get('products', []);
+        // dd($sessionProducts);
         $productIds = array_keys($sessionProducts);
 
         $databaseProducts = Product::whereIn('id', $productIds)
@@ -126,7 +127,7 @@ class ShopController extends Controller
      */
     public function show(string $slug)
     {
-        $product = Product::with(['categories.children', 'attributeValues.type', 'variants', 'variantParent'])
+        $product = Product::with(['categories.parent', 'categories.children', 'attributeValues.type', 'variants', 'variantParent'])
             ->where('slug', $slug)
             ->first();
 
@@ -139,6 +140,16 @@ class ShopController extends Controller
 
         $isProductDioptric = ProductService::isProductDioptric($product);
 
+        $category = $product->categories->first();
+
+        while ($category && $category->parent) {
+            $category = $category->parent;
+        }
+
+        $glasses = Glass::with('values')
+            ->where('category_id', $category->id)
+            ->get();
+
         return view('Frontend.shop.Show', [
             'product'           => $product,
             'isProductDioptric' => $isProductDioptric,
@@ -147,7 +158,7 @@ class ShopController extends Controller
             'addValues'         => PrescriptionOptions::CYL,
             'axisValues'        => PrescriptionOptions::AXIS,
             'lens'              => LensIndex::get(),
-            'glasses'           => Glass::with('values')->get(),
+            'glasses'           => $glasses,
             'productFinalPrice' => $product->discount
                 ? $product->price - ($product->price * $product->discount) / 100
                 : $product->price,

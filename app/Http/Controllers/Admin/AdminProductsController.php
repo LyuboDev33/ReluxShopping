@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Admin\CreateProductRequest;
+use App\Http\Requests\Admin\Product\CreateProductRequest;
+use App\Http\Requests\Admin\Product\UpdateProductRequest;
 use App\Models\Admin\Glass;
 use App\Models\Admin\LensIndex;
-use App\Models\Admin\LensIndexProduct;
 use App\Models\Admin\ProductVariants;
 use App\Models\AttributeType;
 use App\Models\Category;
@@ -201,62 +201,15 @@ class AdminProductsController extends Controller
 
     /** Update the product
      *
-     * @param Request $request
+     * @param UpdateProductRequest $request
      * @param Product $product
      * @return RedirectResponse
      */
-    public function update(Request $request, Product $product): RedirectResponse
+    public function update(UpdateProductRequest $request, Product $product): RedirectResponse
     {
+        /** Validate the request */
+        $validated = $request->validated();
 
-        $request->merge([
-            'attribute_values' => array_values(array_filter($request->input('attribute_values', [])))
-        ]);
-
-        $validated = $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'sku' => ['required', 'string', 'max:255', Rule::unique('products', 'sku')->ignore($product->id)],
-            'category_id'        => ['required', 'exists:categories,id'],
-            'description'        => ['required', 'string'],
-            'discount'           => ['nullable', 'numeric', 'min:0', 'max:99'],
-            'stock'              => ['required', 'integer', 'min:0'],
-            'price'              => ['required', 'numeric', 'min:0'],
-            'main_image'         => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp'],
-            'gallery'            => ['nullable', 'array'],
-            'gallery.*'          => ['image', 'mimes:jpg,jpeg,png,webp'],
-
-            'attribute_values'   => ['nullable', 'array'],
-            // 'attribute_values.*' => ['exists:attribute_values,id'],
-        ], [
-            'name.required' => 'Името на продукта е задължително.',
-            // 'name.unique'   => 'Вече съществува продукт със същото име.',
-
-            'sku.required' => 'SKU е задължително.',
-            'sku.unique'   => 'Вече съществува продукт със същото SKU.',
-
-            'discount.max'  => 'Максималната отстъпка може да бъде 99%',
-            'discount.min'  => 'Минималната отстъпка трябва да бъде 0%',
-
-            'category_id.required' => 'Моля изберете категория.',
-            'category_id.exists'   => 'Избраната категория не съществува.',
-
-            'description.required' => 'Описанието на продукта е задължително.',
-
-            'price.required' => 'Цената е задължителна.',
-            'price.numeric'  => 'Цената трябва да бъде число.',
-            'price.min'      => 'Цената не може да бъде отрицателна.',
-
-            'main_image.image' => 'Файлът трябва да бъде изображение.',
-            'main_image.mimes' => 'Главната снимка трябва да бъде JPG, JPEG, PNG или WEBP.',
-            'main_image.max'   => 'Главната снимка не може да бъде по-голяма от 0.5MB.',
-
-            'gallery.array'   => 'Галерията е невалидна.',
-            'gallery.*.image' => 'Всеки файл в галерията трябва да бъде изображение.',
-            'gallery.*.mimes' => 'Снимките трябва да бъдат JPG, JPEG, PNG или WEBP.',
-            'gallery.*.max'   => 'Всяка снимка не може да бъде по-голяма от 0.5MB.',
-
-            // 'attribute_values.*.integer' => 'Невалиден атрибут.',
-            'attribute_values.*.exists'   => 'Избран атрибут не съществува.',
-        ]);
 
         $slug = Str::slug($validated['name']) . '-' . Str::slug($validated['sku']);
 
@@ -323,6 +276,25 @@ class AdminProductsController extends Controller
 
         return  redirect(route('admin.products.show', $product->slug))
             ->with('success', 'Продуктът беше обновен успешно!');
+    }
+
+    /**
+     * Toggle whether the product can be purchased with lenses.
+     *
+     * @param Product $product
+     * @return RedirectResponse
+     */
+    public function toggleProductLenses(Product $product): RedirectResponse
+    {
+
+        $product->update([
+            'can_buy_with_lenses' => ! $product->can_buy_with_lenses,
+        ]);
+
+        return back()->with(
+            'success',
+            'Настройката за закупуване със стъкла беше обновена успешно.'
+        );
     }
 
 

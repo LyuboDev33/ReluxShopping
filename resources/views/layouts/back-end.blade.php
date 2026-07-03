@@ -62,8 +62,11 @@
     <script src="https://cdn.tiny.cloud/1/daj9dftxtp56iiymy0p7tr418kjkhmf54509unx3enwwzrca/tinymce/8/tinymce.min.js"
         referrerpolicy="origin" crossorigin="anonymous"></script>
 
-        <script src="/assets/js/jquery-3.6.0.min.js?v=<?php echo time(); ?>"></script>
+    <script src="/assets/js/jquery-3.6.0.min.js?v=<?php echo time(); ?>"></script>
 
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
 
 </head>
@@ -94,60 +97,87 @@
 
 
     <script>
-        // User dropdown toggle
-        document.addEventListener('click', function(e) {
-            const trigger = e.target.closest('[data-dropdown-toggle]');
-            const openDropdown = document.querySelector('.dashboard-dropdown.is-open');
+        $(document).ready(function() {
+            initDashboardDropdown();
+            initSidebarToggle();
+            initSearchableSelect();
+            initTinyMce();
+        });
 
-            if (trigger) {
-                const dropdown = trigger.closest('.dashboard-dropdown');
-                if (openDropdown && openDropdown !== dropdown) {
+        function initDashboardDropdown() {
+            document.addEventListener('click', function(e) {
+                const trigger = e.target.closest('[data-dropdown-toggle]');
+                const openDropdown = document.querySelector('.dashboard-dropdown.is-open');
+
+                if (trigger) {
+                    const dropdown = trigger.closest('.dashboard-dropdown');
+
+                    if (openDropdown && openDropdown !== dropdown) {
+                        openDropdown.classList.remove('is-open');
+                    }
+
+                    dropdown.classList.toggle('is-open');
+                    e.stopPropagation();
+
+                    return;
+                }
+
+                if (openDropdown && !e.target.closest('.dashboard-dropdown')) {
                     openDropdown.classList.remove('is-open');
                 }
-                dropdown.classList.toggle('is-open');
-                e.stopPropagation();
-                return;
-            }
+            });
+        }
 
-            if (openDropdown && !e.target.closest('.dashboard-dropdown')) {
-                openDropdown.classList.remove('is-open');
-            }
-        });
+        function initSidebarToggle() {
+            document.addEventListener('click', function(e) {
+                if (e.target.closest('[data-sidebar-toggle]')) {
+                    document.body.classList.toggle('sidebar-open');
+                }
 
-        // Sidebar toggle (mobile)
-        document.addEventListener('click', function(e) {
-            if (e.target.closest('[data-sidebar-toggle]')) {
-                document.body.classList.toggle('sidebar-open');
-            }
-            if (e.target.closest('[data-sidebar-close]') ||
-                (document.body.classList.contains('sidebar-open') &&
-                    !e.target.closest('.dashboard-sidebar') &&
-                    !e.target.closest('[data-sidebar-toggle]'))) {
-                document.body.classList.remove('sidebar-open');
-            }
-        });
+                if (
+                    e.target.closest('[data-sidebar-close]') ||
+                    (
+                        document.body.classList.contains('sidebar-open') &&
+                        !e.target.closest('.dashboard-sidebar') &&
+                        !e.target.closest('[data-sidebar-toggle]')
+                    )
+                ) {
+                    document.body.classList.remove('sidebar-open');
+                }
+            });
+        }
 
-        tinymce.init({
-            selector: 'textarea',
-            plugins: [
-                // Core editing features
-                'anchor', 'autolink', 'charmap', 'codesample', 'emoticons', 'link', 'lists', 'media',
-                'searchreplace', 'table', 'visualblocks', 'wordcount',
+        function initSearchableSelect() {
+            if ($('.searchable-select').length > 0) {
+                $('.searchable-select').select2({
+                    width: '100%',
+                    placeholder: 'Търси...',
+                    allowClear: true
+                });
+            }
+        }
 
-            ],
-            toolbar: 'undo redo | tinymceai-chat tinymceai-quickactions tinymceai-review | blocks fontfamily fontsize | bold italic underline strikethrough | link media table mergetags | addcomment showcomments | spellcheckdialog a11ycheck typography uploadcare | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat',
-            tinycomments_mode: 'embedded',
-            tinycomments_author: 'Author name',
-            mergetags_list: [{
-                    value: 'First.Name',
-                    title: 'First Name'
-                },
-                {
-                    value: 'Email',
-                    title: 'Email'
-                },
-            ],
-        });
+        function initTinyMce() {
+            tinymce.init({
+                selector: 'textarea',
+                plugins: [
+                    'anchor', 'autolink', 'charmap', 'codesample', 'emoticons', 'link', 'lists', 'media',
+                    'searchreplace', 'table', 'visualblocks', 'wordcount',
+                ],
+                toolbar: 'undo redo | tinymceai-chat tinymceai-quickactions tinymceai-review | blocks fontfamily fontsize | bold italic underline strikethrough | link media table mergetags | addcomment showcomments | spellcheckdialog a11ycheck typography uploadcare | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat',
+                tinycomments_mode: 'embedded',
+                tinycomments_author: 'Author name',
+                mergetags_list: [{
+                        value: 'First.Name',
+                        title: 'First Name'
+                    },
+                    {
+                        value: 'Email',
+                        title: 'Email'
+                    },
+                ],
+            });
+        }
     </script>
 
 

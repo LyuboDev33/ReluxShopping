@@ -19,6 +19,7 @@ return new class extends Migration
             $table->text('description');
             $table->string('stock');
             $table->integer('discount')->nullable();
+            $table->boolean('can_buy_with_lenses')->default(true);
 
             $table->foreignId('category_id')
                 ->constrained('categories')

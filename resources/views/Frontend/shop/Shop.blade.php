@@ -123,7 +123,7 @@
 
                                                 <form method="POST"
                                                     action="{{ route('wishlist.add', $product) }}"
-                                                    class="product__all-btn-box d-flex justify-content-center">
+                                                    class="product__all-btn-box d-flex justify-content-center wishlist-form">
 
                                                     @csrf
 

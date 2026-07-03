@@ -81,24 +81,25 @@ function checkoutDelivery() {
 
 function addToWishlist() {
 
-    document.addEventListener('submit', function (e) {
+    document.querySelectorAll('.wishlist-form').forEach(function (form) {
 
-        e.preventDefault();
+        form.addEventListener('submit', function (e) {
 
-        const form = e.target;
-        const button = form.querySelector('.wishlist-btn');
-        const icon = button.querySelector('i');
+            e.preventDefault();
 
-        if(!button) return;
+            const button = form.querySelector('.wishlist-btn');
+            const icon = button.querySelector('i');
 
-        fetch(form.action, {
-            method: 'POST',
-            headers: {
-                'X-CSRF-TOKEN': form.querySelector('input[name="_token"]').value,
-                'Accept': 'application/json',
-                'X-Requested-With': 'XMLHttpRequest'
-            }
-        })
+            
+
+            fetch(form.action, {
+                method: 'POST',
+                headers: {
+                    'X-CSRF-TOKEN': form.querySelector('input[name="_token"]').value,
+                    'Accept': 'application/json',
+                    'X-Requested-With': 'XMLHttpRequest'
+                }
+            })
             .then(response => response.json())
             .then(data => {
 
@@ -106,8 +107,7 @@ function addToWishlist() {
                     return;
                 }
 
-                let wishlistCount = document.querySelectorAll('.wishlist-count');
-                wishlistCount.forEach(wishlist => {
+                document.querySelectorAll('.wishlist-count').forEach(function (wishlist) {
                     wishlist.innerHTML = data.count;
                 });
 
@@ -120,9 +120,11 @@ function addToWishlist() {
                 }
 
             })
-            .catch(error => {
+            .catch(function (error) {
                 console.error(error);
             });
+
+        });
 
     });
 

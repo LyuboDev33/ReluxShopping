@@ -80,7 +80,7 @@
 
                     @if ($type->is_multiple)
                         {{-- multi-select --}}
-                        <select name="attribute_values[]" class="form-control" multiple size="4">
+                        <select name="attribute_values[]" class="form-control searchable-select" multiple size="4">
                             @foreach ($type->values as $value)
                                 <option value="{{ $value->id }}"
                                     {{ in_array($value->id, old('attribute_values', [])) ? 'selected' : '' }}>
@@ -90,7 +90,7 @@
                         </select>
                     @else
                         {{-- single-select --}}
-                        <select name="attribute_values[]" class="form-control">
+                        <select name="attribute_values[]" class="form-control searchable-select">
                             <option value="">— Избери —</option>
                             @foreach ($type->values as $value)
                                 <option value="{{ $value->id }}"

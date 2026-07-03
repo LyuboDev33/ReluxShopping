@@ -145,10 +145,11 @@
                                 <input type="hidden" name="purchase_type" id="purchase_type"
                                     value="{{ old('purchase_type', 'frame_only') }}">
 
-                                <ul class="nav nav-tabs mb-3" id="purchaseTabs" role="tablist">
+                                <ul class="nav nav-tabs mb-3 gap-3" id="purchaseTabs" role="tablist">
                                     <li class="nav-item" role="presentation">
                                         <button
-                                            class="nav-link {{ old('purchase_type', 'frame_only') === 'frame_only' ? 'active' : '' }} purchase-type-tab"
+                                            class="nav-link {{ old('purchase_type', 'frame_only') === 'frame_only'
+                                            && !$errors->has('prescription') ? 'active' : '' }} purchase-type-tab"
                                             id="frame-only-tab-button" data-bs-toggle="tab"
                                             data-bs-target="#frame-only-tab" type="button" role="tab"
                                             data-purchase-type="frame_only">
@@ -158,7 +159,8 @@
 
                                     <li class="nav-item" role="presentation">
                                         <button
-                                            class="nav-link {{ old('purchase_type') === 'frame_with_glasses' ? 'active' : '' }} purchase-type-tab"
+                                            class="nav-link {{ old('purchase_type') === 'frame_with_glasses'
+                                            || $errors->has('prescription') ? 'active' : '' }} purchase-type-tab"
                                             id="frame-with-glasses-tab-button" data-bs-toggle="tab"
                                             data-bs-target="#frame-with-glasses-tab" type="button" role="tab"
                                             data-purchase-type="frame_with_glasses">
@@ -174,11 +176,12 @@
 
                                     </div>
 
-                                    <div class="tab-pane fade {{ old('purchase_type') === 'frame_with_glasses' ? 'show active' : '' }}"
-                                        id="frame-with-glasses-tab" role="tabpanel"
-                                        aria-labelledby="frame-with-glasses-tab-button">
+                                    @if ($product->can_buy_with_lenses === 1)
+                                        <div class="tab-pane fade {{ old('purchase_type') === 'frame_with_glasses'
+                                        || $errors->has('prescription') ? 'show active' : '' }}"
+                                            id="frame-with-glasses-tab" role="tabpanel"
+                                            aria-labelledby="frame-with-glasses-tab-button">
 
-                                        {{-- @if ($isProductDioptric) --}}
                                             <div class="prescription-box mt-4 mb-4">
                                                 <p class="prescription-box__notice">
                                                     За да добавите този продукт в количката е нужно да предоставите
@@ -365,115 +368,138 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                        {{-- @endif --}}
 
-                                        <div class="mb-4">
-                                            <h6 class="mb-3">Изберете индекс на изтъняване</h6>
-
-                                            @error('lens_index_id')
-                                                <p class="field-error">{{ $message }}</p>
-                                            @enderror
-
-                                            <div class="row g-3">
-                                                @foreach ($lens as $lensIndex)
-                                                    <div class="col-lg-6">
-                                                        <label class="border rounded-3 p-3 h-100 d-block">
-                                                            <input type="radio" name="lens_index_id"
-                                                                value="{{ $lensIndex->id }}"
-                                                                class="lens-option frame-with-glasses-field"
-                                                                data-price="{{ $lensIndex->price }}"
-                                                                {{ old('lens_index_id') == $lensIndex->id ? 'checked' : '' }}>
-
-                                                            <span class="fw-semibold d-block">
-                                                                {{ $lensIndex->name }}
-                                                            </span>
-
-                                                            <span class="text-muted">
-                                                                + {{ number_format($lensIndex->price, 2) }} €
-                                                            </span>
-                                                        </label>
+                                            <div class="configurator-section mb-4">
+                                                <div class="configurator-section__header">
+                                                    <span class="configurator-step">1</span>
+                                                    <div>
+                                                        <h6 class="mb-1">Изберете индекс на изтъняване</h6>
+                                                        <p class="mb-0 text-muted">Изберете колко тънки да бъдат
+                                                            стъклата.
+                                                        </p>
                                                     </div>
-                                                @endforeach
-                                            </div>
-                                        </div>
+                                                </div>
 
-                                        <div class="mb-4">
-                                            <h6 class="mb-3">Изберете стъкла</h6>
+                                                @error('lens_index_id')
+                                                    <p class="field-error">{{ $message }}</p>
+                                                @enderror
 
-                                            @error('glass_value_id')
-                                                <p class="field-error">{{ $message }}</p>
-                                            @enderror
+                                                <div class="row g-3">
+                                                    @foreach ($lens as $lensIndex)
+                                                        <div class="col-lg-6">
+                                                            <label class="configurator-option">
+                                                                <input type="radio" name="lens_index_id"
+                                                                    value="{{ $lensIndex->id }}"
+                                                                    class="configurator-option__input lens-option frame-with-glasses-field"
+                                                                    data-price="{{ $lensIndex->price }}"
+                                                                    {{ old('lens_index_id') == $lensIndex->id ? 'checked' : '' }}>
 
-                                            <div class="accordion" id="glassesAccordion">
-                                                @foreach ($glasses as $glass)
-                                                    <div class="accordion-item">
-                                                        <h2 class="accordion-header"
-                                                            id="glass-heading-{{ $glass->id }}">
-                                                            <button
-                                                                class="accordion-button {{ $loop->first ? '' : 'collapsed' }}"
-                                                                type="button" data-bs-toggle="collapse"
-                                                                data-bs-target="#glass-collapse-{{ $glass->id }}"
-                                                                aria-expanded="{{ $loop->first ? 'true' : 'false' }}"
-                                                                aria-controls="glass-collapse-{{ $glass->id }}">
-                                                                {{ $glass->name }}
-                                                            </button>
-                                                        </h2>
+                                                                <div class="configurator-option__card">
+                                                                    <div class="configurator-option__check"></div>
 
-                                                        <div id="glass-collapse-{{ $glass->id }}"
-                                                            class="accordion-collapse collapse {{ $loop->first ? 'show' : '' }}"
-                                                            aria-labelledby="glass-heading-{{ $glass->id }}"
-                                                            data-bs-parent="#glassesAccordion">
-
-                                                            <div class="accordion-body">
-                                                                @if ($glass->values->isEmpty())
-                                                                    <p class="text-muted mb-0">
-                                                                        Няма добавени стойности към това стъкло.
-                                                                    </p>
-                                                                @else
-                                                                    <div class="row g-3">
-                                                                        @foreach ($glass->values as $value)
-                                                                            <div class="col-lg-6">
-                                                                                <label
-                                                                                    class="border rounded-3 p-3 h-100 d-block">
-                                                                                    <input type="radio"
-                                                                                        name="glass_value_id"
-                                                                                        value="{{ $value->id }}"
-                                                                                        class="glass-option frame-with-glasses-field"
-                                                                                        data-price="{{ $value->price }}"
-                                                                                        {{ old('glass_value_id') == $value->id ? 'checked' : '' }}>
-
-                                                                                    <span class="fw-semibold d-block">
-                                                                                        {{ $value->value }}
-                                                                                    </span>
-
-                                                                                    <span class="text-muted">
-                                                                                        +
-                                                                                        {{ number_format($value->price, 2) }}
-                                                                                        €
-                                                                                    </span>
-                                                                                </label>
-                                                                            </div>
-                                                                        @endforeach
+                                                                    <div class="configurator-option__content">
+                                                                        <strong class="configurator-option__title">
+                                                                            {{ $lensIndex->name }}
+                                                                        </strong>
                                                                     </div>
-                                                                @endif
-                                                            </div>
+
+                                                                    <div class="configurator-option__price">
+                                                                        + {{ number_format($lensIndex->price, 2) }} €
+                                                                    </div>
+                                                                </div>
+                                                            </label>
                                                         </div>
+                                                    @endforeach
+                                                </div>
+                                            </div>
+
+
+                                            <div class="configurator-section mb-4">
+                                                <div class="configurator-section__header">
+                                                    <span class="configurator-step">2</span>
+                                                    <div>
+                                                        <h6 class="mb-1">Изберете стъкла</h6>
+                                                        <p class="mb-0 text-muted">Изберете покритие или тип стъкло
+                                                            според
+                                                            нуждите ви.</p>
+                                                    </div>
+                                                </div>
+
+                                                @error('glass_value_id')
+                                                    <p class="field-error">{{ $message }}</p>
+                                                @enderror
+
+                                                @foreach ($glasses as $glass)
+                                                    <div class="glass-configurator-group">
+                                                        <h6 class="glass-configurator-group__title">
+                                                            {{ $glass->name }}
+                                                        </h6>
+
+                                                        @if ($glass->values->isEmpty())
+                                                            <p class="text-muted mb-3">
+                                                                Няма добавени стойности към това стъкло.
+                                                            </p>
+                                                        @else
+                                                            <div class="row g-3">
+                                                                @foreach ($glass->values as $value)
+                                                                    <div class="col-lg-12">
+                                                                        <label class="configurator-option">
+                                                                            <input type="radio"
+                                                                                name="glass_value_id"
+                                                                                value="{{ $value->id }}"
+                                                                                class="configurator-option__input glass-option frame-with-glasses-field"
+                                                                                data-price="{{ $value->price }}"
+                                                                                {{ old('glass_value_id') == $value->id ? 'checked' : '' }}>
+
+                                                                            <div
+                                                                                class="configurator-option__card shadow">
+                                                                                <div
+                                                                                    class="configurator-option__check">
+                                                                                </div>
+
+                                                                                <div
+                                                                                    class="configurator-option__content">
+                                                                                    <strong
+                                                                                        class="configurator-option__title">
+                                                                                        {{ $value->value }}
+                                                                                    </strong>
+
+                                                                                    {{-- <span
+                                                                                    class="configurator-option__subtitle">
+                                                                                    {{ $glass->name }}
+                                                                                </span> --}}
+                                                                                </div>
+
+                                                                                <div
+                                                                                    class="configurator-option__price">
+                                                                                    +
+                                                                                    {{ number_format($value->price, 2) }}
+                                                                                    €
+                                                                                </div>
+                                                                            </div>
+                                                                        </label>
+                                                                    </div>
+                                                                @endforeach
+                                                            </div>
+                                                        @endif
                                                     </div>
                                                 @endforeach
                                             </div>
+
                                         </div>
-                                    </div>
+                                    @else
+                                        <div class="tab-pane fade {{ old('purchase_type') === 'frame_with_glasses' ? 'show active' : '' }}"
+                                            id="frame-with-glasses-tab" role="tabpanel"
+                                            aria-labelledby="frame-with-glasses-tab-button">
+                                            <div class="alert alert-danger p-2 rounded-pill text-center">
+                                                Няма подходящи стъкла за тези очила
+                                            </div>
+                                        </div>
+
+
+                                    @endif
+
                                 </div>
-
-                                <hr>
-
-                                <h5 class="mb-0">
-                                    Крайна цена:
-                                    <span id="final-product-price">
-                                        {{ number_format($productFinalPrice, 2) }}
-                                    </span>
-                                    €
-                                </h5>
                             </div>
                         </div>
 
@@ -665,6 +691,9 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            resetRadioButtons();
+            changeInputType();
+
             @if (session('success'))
                 new bootstrap.Modal(document.getElementById('cartSuccessModal')).show();
             @endif
@@ -673,5 +702,32 @@
                 new bootstrap.Modal(document.getElementById('cartErrorModal')).show();
             @endif
         });
+
+        function resetRadioButtons() {
+            const resetButton = document.getElementById('frame-with-glasses-tab-button');
+
+            if (!resetButton) {
+                return;
+            }
+
+            resetButton.addEventListener('click', function() {
+                document.querySelectorAll('input[type="radio"]').forEach(function(radioButton) {
+                    radioButton.checked = false;
+                });
+            });
+        }
+
+        function changeInputType() {
+            document.querySelectorAll('.purchase-type-tab').forEach(function(tab) {
+
+                tab.addEventListener('shown.bs.tab', function() {
+
+                    document.getElementById('purchase_type').value =
+                        this.dataset.purchaseType;
+
+                });
+
+            });
+        }
     </script>
 </x-frontend>

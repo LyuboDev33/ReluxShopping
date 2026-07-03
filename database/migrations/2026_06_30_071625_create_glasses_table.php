@@ -13,7 +13,13 @@ return new class extends Migration
     {
         Schema::create('glasses', function (Blueprint $table) {
             $table->id();
+
+            $table->foreignId('category_id')
+                ->constrained('categories')
+                ->cascadeOnDelete();
+
             $table->string('name');
+
             $table->timestamps();
         });
     }
