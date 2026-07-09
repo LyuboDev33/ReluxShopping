@@ -308,7 +308,9 @@
     position: relative;
     display: block;
     z-index: 10;
-    background: url(/assets/images/bg-main.png);
+     background: url(/assets/images/bg-main.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
 }
 
 .main-slider-two {
@@ -412,9 +414,9 @@
     right: 0;
 }
 
-.main-slider-two__img-box img {
+/* .main-slider-two__img-box img {
     max-width: 500px;
-}
+} */
 
 .main-slider-two__shape-1 {
     position: absolute;

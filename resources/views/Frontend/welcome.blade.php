@@ -15,44 +15,51 @@
 
 
     <!-- Main Slider Two Start -->
-    <section class="main-slider-two">
-        <div class="main-slider-two__wrap">
-            <div class="main-slider-two__carousel">
-                <div class="item">
+   <section class="main-slider-two">
+    <div class="main-slider-two__wrap">
+        <div class="main-slider-two__carousel">
+            <div class="item">
 
-                    <div class="container">
-                        <div class="main-slider-two__content">
+                <div class="container welcome-container">
+                    <div class="main-slider-two__content">
 
-                            <h2 class="main-slider-two__title">
-                                Качествени очила <br />
-                                за вашето зрение <br />
-                                с грижа от 2014
-                            </h2>
+                        <p class="main-slider-two__subtitle-custom">
+                            Погледни света
+                        </p>
 
-                            <p class="main-slider-two__text">
-                                Над 19 години опит в оптиката, индивидуален подход <br />
-                                и внимателно подбрани диоптрични рамки, слънчеви очила и стъкла
-                            </p>
+                        <h2 class="main-slider-two__title main-slider-two__title-custom">
+                            ПО СВОЙ НАЧИН
+                        </h2>
 
-                            <div class="main-slider-two__btn">
-                                <a href="{{ route('contact') }}" class="thm-btn">
-                                    Запази час
-                                    <span class="icon-arrow-up-right"></span>
-                                </a>
-                            </div>
-
-                            <div class="main-slider-two__img-box">
-                                <div class="">
-                                    <img src="/assets/images/mimito.png"
-                                        alt="Valente Optic — главна снимка">
-                                </div>
-                            </div>
-
+                        <div class="main-slider-two__divider-custom">
+                            <span></span>
+                            <i class="fa-regular fa-heart"></i>
+                            <span></span>
                         </div>
-                    </div>
 
-                    <!-- Black Services Strip -->
-                    <div class="services-strip">
+                        <p class="main-slider-two__text main-slider-two__text-custom">
+                            Стилни очила за всеки твой момент.<br>
+                            Защото красотата е в детайлите.
+                        </p>
+
+                        <div class="main-slider-two__btn">
+                            <a href="{{ route('shop.index') }}" class="main-slider-two__btn-custom rounded-pill">
+                                Разгледай колекцията
+                            </a>
+                        </div>
+
+                        <div class="main-slider-two__img-box">
+                            <div class="">
+                                <img src="/assets/images/couple.png"
+                                    alt="Valente Optic — главна снимка">
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- Black Services Strip -->
+                 <div class="services-strip">
 
                         <div class="services-strip__inner">
 
@@ -131,12 +138,12 @@
                         </div>
 
                     </div>
-                    <!-- End Black Services Strip -->
+                <!-- End Black Services Strip -->
 
-                </div>
             </div>
         </div>
-    </section>
+    </div>
+</section>
     <!-- Main Slider Two End -->
 
 
@@ -197,7 +204,7 @@
 
                     <!-- Service -->
                     <div class="col-xl-3 col-lg-6 col-md-6">
-                        <div class="services-four__single">
+                        <div class="services-four__single shadow">
                             <div class="services-four__icon">
                                 <span class="fa-solid fa-glasses"></span>
                             </div>
@@ -217,7 +224,7 @@
 
                     <!-- Service -->
                     <div class="col-xl-3 col-lg-6 col-md-6 ">
-                        <div class="services-four__single">
+                        <div class="services-four__single shadow">
                             <div class="services-four__icon">
                                 <span class="fa-solid fa-eye"></span>
                             </div>
@@ -237,7 +244,7 @@
 
                     <!-- Service -->
                     <div class="col-xl-3 col-lg-6 col-md-6">
-                        <div class="services-four__single">
+                        <div class="services-four__single shadow">
                             <div class="services-four__icon">
                                 <span class="fa-solid fa-screwdriver-wrench"></span>
                             </div>
@@ -257,7 +264,7 @@
 
                     <!-- Service -->
                     <div class="col-xl-3 col-lg-6 col-md-6">
-                        <div class="services-four__single">
+                        <div class="services-four__single shadow">
                             <div class="services-four__icon">
                                 <span class="fa-solid fa-screwdriver"></span>
                             </div>

@@ -3,7 +3,6 @@
     @section('SEO')
         <title>Valente Optic | Чекаут</title>
     @endsection
-
     <!--Start Checkout Page-->
     <section class="checkout-page">
         <div class="container">
@@ -248,18 +247,75 @@
                             <div class="order_table_box">
                                 <table class="order_table_detail">
                                     <tbody>
+
                                         @foreach ($products ?? [] as $product)
-                                            <tr>
+                                            <tr class="produc-td">
                                                 <td class="pro__title">
-                                                    <a href="/shop/product/{{ $product['slug'] }}">
-                                                        <img src="/assets/images/products/{{ $product['image'] }}"
-                                                            alt="{{ $product['name'] }}">
-                                                        {{ $product['name'] }}
-                                                    </a>
-                                                    - {{ $product['quantity'] }} бр.
+
+                                                    <div class="row align-items-start">
+
+                                                        <div class="col-lg-6">
+
+                                                            <a href="/shop/product/{{ $product['slug'] }}">
+                                                                <img src="/assets/images/products/{{ $product['image'] }}"
+                                                                    alt="{{ $product['name'] }}">
+
+                                                                {{ $product['name'] }}
+                                                            </a>
+
+                                                            <div class="mt-2">
+                                                                <strong>Количество:</strong>
+                                                                {{ $product['quantity'] }} бр.
+                                                            </div>
+
+
+                                                        </div>
+
+                                                        <div class="col-lg-6">
+
+                                                            @if (($product['purchase_type'] ?? 'frame_only') === 'frame_with_glasses')
+                                                                @if (!empty($product['lens_index']))
+                                                                    <div class="d-flex justify-content-between mb-2">
+                                                                        <span>Индекс</span>
+
+                                                                        <strong>
+                                                                            +{{ number_format($product['lens_index']['price'], 2) }}
+                                                                            €
+                                                                        </strong>
+                                                                    </div>
+                                                                @endif
+
+                                                                @if (!empty($product['glass_value']))
+                                                                    <div class="d-flex justify-content-between mb-2">
+                                                                        <span>Стъкло</span>
+
+                                                                        <strong>
+                                                                            +{{ number_format($product['glass_value']['price'], 2) }}
+                                                                            €
+                                                                        </strong>
+                                                                    </div>
+                                                                @endif
+
+                                                                @if (!empty($product['lance_color']))
+                                                                    <div class="d-flex justify-content-between mb-2">
+                                                                        <span>Цвят</span>
+
+                                                                        <strong>
+                                                                            +{{ number_format($product['lance_color']['price'], 2) }}
+                                                                            €
+                                                                        </strong>
+                                                                    </div>
+                                                                @endif
+                                                            @endif
+
+                                                        </div>
+
+                                                    </div>
+
                                                 </td>
 
                                                 <td class="pro__price">
+
                                                     @if ($product['discount'] > 0)
                                                         <del class="text-muted me-2">
                                                             {{ number_format($product['price'] * $product['quantity'], 2) }}
@@ -270,44 +326,60 @@
                                                             -{{ $product['discount'] }}%
                                                         </span>
 
-                                                        <span class="text-danger fw-bold">
+                                                        <div class="mt-2">
+                                                            <strong class="text-danger">
+                                                                {{ number_format($product['final_price'] * $product['quantity'], 2) }}
+                                                                €
+                                                            </strong>
+                                                        </div>
+                                                    @else
+                                                        <strong>
                                                             {{ number_format($product['final_price'] * $product['quantity'], 2) }}
                                                             €
-                                                        </span>
-                                                    @else
-                                                        {{ number_format($product['price'] * $product['quantity'], 2) }}
-                                                        €
+                                                        </strong>
                                                     @endif
+
                                                 </td>
                                             </tr>
                                         @endforeach
 
                                         <tr>
-                                            <td class="pro__title">Междинна сума</td>
+                                            <td class="pro__title">
+                                                Междинна сума
+                                            </td>
+
                                             <td class="pro__price">
                                                 {{ number_format($subtotal ?? 0, 2) }} €
                                             </td>
                                         </tr>
 
                                         <tr>
-                                            <td class="pro__title">Доставка</td>
+                                            <td class="pro__title">
+                                                Доставка
+                                            </td>
+
                                             <td class="pro__price">
                                                 Потвърждава се по телефона
                                             </td>
                                         </tr>
 
                                         <tr>
-                                            <td class="pro__title">Общо</td>
+                                            <td class="pro__title">
+                                                <strong>Общо</strong>
+                                            </td>
+
                                             <td class="pro__price">
                                                 <strong>{{ number_format($subtotal ?? 0, 2) }} €</strong>
                                             </td>
                                         </tr>
+
                                     </tbody>
                                 </table>
                             </div>
 
                             <div class="checkout__payment">
                                 <div class="checkout__payment__item checkout__payment__item--active">
+
                                     <h3 class="checkout__payment__title">
                                         Плащане при получаване
                                     </h3>
@@ -319,10 +391,13 @@
                                     <button type="submit" class="thm-btn order-btn">
                                         Завърши поръчката
                                     </button>
+
                                 </div>
                             </div>
+
                         </div>
                     </div>
+
                 </div>
             </form>
 

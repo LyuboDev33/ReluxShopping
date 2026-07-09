@@ -14,6 +14,8 @@ Route::get('/', [FrontEndController::class, 'welcome']);
 
 Route::get('/contact', [FrontEndController::class, 'contact'])->name('contact');
 Route::get('/about', [FrontEndController::class, 'about'])->name('about');
+Route::get('/obshti-usloviya', [FrontEndController::class, 'conditions'])->name('conditions');
+Route::get('/politika-za-poveritelnost', [FrontEndController::class, 'privacy'])->name('privacy');
 
 /** All routes for the shop*/
 Route::get('/shop', [ShopController::class, 'index'])->name('shop.index');
@@ -31,7 +33,6 @@ Route::post('/order/create', [OrdersController::class, 'create'])->name('order.c
 
 
 /** All wishlist routes */
-
 Route::prefix('wishlist')->group(function () {
     Route::get('/', [ShopController::class, 'wishlist'])->name('wishlist');
     Route::post('/add-to-wishlist/{product}', [ShopController::class, 'addToWishlist'])->name('wishlist.add');

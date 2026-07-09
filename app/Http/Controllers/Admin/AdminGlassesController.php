@@ -3,9 +3,12 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+
 use App\Models\Admin\Glass;
 use App\Models\Admin\GlassValue;
+use App\Models\Admin\LanceColor;
 use App\Models\Admin\LensIndex;
+
 use App\Models\Category;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -21,9 +24,10 @@ class AdminGlassesController extends Controller
     public function index(): View
     {
         return view('admin.Glasses.Index', [
-            'glasses'    => Glass::with('values')->get(),
-            'lances'     => LensIndex::get(),
-            'categories' => Category::whereNull('category_parent_id')->get()
+            'glasses'     => Glass::with('values')->get(),
+            'lances'      => LensIndex::get(),
+            'categories'  => Category::whereNull('category_parent_id')->get(),
+            'lanceColors' => LanceColor::get()
         ]);
     }
 
@@ -69,7 +73,7 @@ class AdminGlassesController extends Controller
         $validated = $request->validate([
             'glass_id' => ['required', 'exists:glasses,id'],
             'value'    => ['required', 'string', 'max:255'],
-            'price'    => ['required', 'integer', 'min:0'],
+            'price'    => ['required', 'numeric', 'min:0'],
         ], [
             'glass_id.required' => 'Моля, изберете тип стъкло.',
             'glass_id.exists'   => 'Избраният тип стъкло не съществува.',
@@ -79,7 +83,7 @@ class AdminGlassesController extends Controller
             'value.max'      => 'Стойността не може да бъде по-дълга от 255 символа.',
 
             'price.required' => 'Моля, въведете цена.',
-            'price.integer'  => 'Цената трябва да бъде цяло число.',
+            // 'price.numeric'  => 'Цената трябва да бъде цяло число.',
             'price.min'      => 'Цената не може да бъде отрицателна.',
         ]);
 
@@ -103,14 +107,14 @@ class AdminGlassesController extends Controller
     {
         $validated = $request->validate([
             'value' => ['required', 'string', 'max:255'],
-            'price' => ['required', 'integer', 'min:0'],
+            'price' => ['required', 'numeric', 'min:0'],
         ], [
             'value.required' => 'Моля, въведете стойност.',
             'value.string'   => 'Стойността трябва да бъде текст.',
             'value.max'      => 'Стойността не може да бъде по-дълга от 255 символа.',
 
             'price.required' => 'Моля, въведете цена.',
-            'price.integer'  => 'Цената трябва да бъде цяло число.',
+            // 'price.integer'  => 'Цената трябва да бъде цяло число.',
             'price.min'      => 'Цената не може да бъде отрицателна.',
         ]);
 
@@ -158,7 +162,7 @@ class AdminGlassesController extends Controller
     {
         $validated = $request->validate([
             'name'  => ['required', 'string', 'max:255', 'unique:lens_indexes,name'],
-            'price' => ['required', 'integer', 'min:0'],
+            'price' => ['required', 'numeric', 'min:0'],
         ], [
             'name.required' => 'Моля, въведете име на индекса.',
             'name.string'   => 'Името трябва да бъде текст.',
@@ -166,7 +170,7 @@ class AdminGlassesController extends Controller
             'name.unique'   => 'Такъв индекс вече съществува.',
 
             'price.required' => 'Моля, въведете цена.',
-            'price.integer'  => 'Цената трябва да бъде цяло число.',
+            // 'price.integer'  => 'Цената трябва да бъде цяло число.',
             'price.min'      => 'Цената не може да бъде отрицателна.',
         ]);
 
@@ -189,14 +193,14 @@ class AdminGlassesController extends Controller
     {
         $validated = $request->validate([
             'name'  => ['required', 'string', 'max:255'],
-            'price' => ['required', 'integer', 'min:0'],
+            'price' => ['required', 'numeric', 'min:0'],
         ], [
             'name.required' => 'Моля, въведете име на индекса.',
             'name.string'   => 'Името трябва да бъде текст.',
             'name.max'      => 'Името не може да бъде по-дълго от 255 символа.',
 
             'price.required' => 'Моля, въведете цена.',
-            'price.integer'  => 'Цената трябва да бъде цяло число.',
+            // 'price.integer'  => 'Цената трябва да бъде цяло число.',
             'price.min'      => 'Цената не може да бъде отрицателна.',
         ]);
 
@@ -219,5 +223,70 @@ class AdminGlassesController extends Controller
         $lance->delete();
 
         return back()->with('success', 'Индексът на изтъняване беше изтрит успешно!');
+    }
+
+    /**
+     * Store a new lance color.
+     *
+     * @param Request $request
+     * @return RedirectResponse
+     */
+    public function storeLanceColor(Request $request): RedirectResponse
+    {
+        $validated = $request->validate([
+            'name_lance_color'  => ['required', 'string', 'max:255', 'unique:lance_colors,name'],
+            'lance_color_price' => ['required', 'numeric'],
+        ], [
+            'name_lance_color.required' => 'Моля, въведете цвят.',
+            'name_lance_color.string'   => 'Цветът трябва да бъде текст.',
+            'name_lance_color.max'      => 'Цветът не може да бъде по-дълъг от 255 символа.',
+            'name_lance_color.unique'   => 'Такъв цвят вече съществува.',
+        ]);
+
+        LanceColor::create([
+            'name'  => $validated['name_lance_color'],
+            'price' => $validated['lance_color_price']
+        ]);
+
+        return back()->with('success', 'Цветът беше добавен успешно!');
+    }
+
+    /**
+     * Update an existing lance color.
+     *
+     * @param Request $request
+     * @param LanceColor $lanceColor
+     * @return RedirectResponse
+     */
+    public function updateLanceColor(Request $request, LanceColor $lanceColor): RedirectResponse
+    {
+        $validated = $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'lance_color_price' => ['required', 'numeric'],
+        ], [
+            'name.required' => 'Моля, въведете цвят.',
+            'name.string'   => 'Цветът трябва да бъде текст.',
+            'name.max'      => 'Цветът не може да бъде по-дълъг от 255 символа.',
+        ]);
+
+        $lanceColor->update([
+            'name' => $validated['name'],
+            'price' => $validated['lance_color_price']
+        ]);
+
+        return back()->with('success', 'Цветът беше обновен успешно!');
+    }
+
+    /**
+     * Delete a lance color.
+     *
+     * @param LanceColor $lanceColor
+     * @return RedirectResponse
+     */
+    public function destroyLanceColor(LanceColor $lanceColor): RedirectResponse
+    {
+        $lanceColor->delete();
+
+        return back()->with('success', 'Цветът беше изтрит успешно!');
     }
 }

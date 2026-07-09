@@ -1353,7 +1353,11 @@ Product Details
     -webkit-overflow-scrolling: touch;
 }
 
-@media(max-width: 1199px) {
+.cart-product-options td {
+    text-align: center;
+}
+
+@media(max-width: 992px) {
     .cart-table {
         min-width: 1170px;
     }
@@ -1398,9 +1402,6 @@ Product Details
     padding-right: 0;
 }
 
-.cart-table tbody td:last-child {
-    text-align: right;
-}
 
 .cart-table .product-box {
     display: flex;
@@ -1848,6 +1849,8 @@ Product Details
     position: relative;
     width: 100%;
 }
+
+
 
 .order_table_head {
     position: relative;

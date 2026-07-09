@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Mail\OrderCreated;
 use App\Models\Admin\GlassValue;
+use App\Models\Admin\LanceColor;
 use App\Models\Admin\LensIndex;
 use App\Models\Order;
 use App\Models\OrderProduct;
@@ -46,6 +47,12 @@ class OrdersController extends Controller
                 'exists:glass_values,id',
             ],
 
+            'lance_color_id' => [
+                'required_if:purchase_type,frame_with_glasses',
+                'nullable',
+                'exists:lance_colors,id',
+            ],
+
             'prescription_image' => ['nullable', 'file', 'mimes:jpg,jpeg,png,webp,pdf', 'max:5120'],
 
             'right_eye'      => ['nullable', 'array'],
@@ -59,6 +66,10 @@ class OrdersController extends Controller
             'left_eye.cyl'  => ['nullable', 'string'],
             'left_eye.axis' => ['nullable', 'string'],
             'left_eye.add'  => ['nullable', 'string'],
+        ], [
+            'lens_index_id.required_if'  => 'Моля, изберете индекс на изтъняване.',
+            'glass_value_id.required_if' => 'Моля, изберете тип стъкло.',
+            'lance_color_id.required_if' => 'Моля, изберете цвят на стъклото.',
         ]);
 
         $purchaseType = $validated['purchase_type'];
@@ -68,21 +79,23 @@ class OrdersController extends Controller
         if ($stock <= 0) {
             return back()->withErrors([
                 'stock' => 'Този продукт няма наличност.',
-            ]);
+            ])->withInput();
         }
 
         $lensIndex = null;
         $glassValue = null;
+        $lanceColor = null;
 
         if ($purchaseType === 'frame_with_glasses') {
             if (! $product->can_buy_with_lenses) {
                 return back()->withErrors([
                     'purchase_type' => 'Този продукт не може да бъде закупен със стъкла.',
-                ]);
+                ])->withInput();
             }
 
             $lensIndex = LensIndex::findOrFail($validated['lens_index_id']);
             $glassValue = GlassValue::with('glass')->findOrFail($validated['glass_value_id']);
+            $lanceColor = LanceColor::findOrFail($validated['lance_color_id']);
         }
 
         $hasUploadedPrescription = $request->hasFile('prescription_image');
@@ -90,14 +103,36 @@ class OrdersController extends Controller
         $rightEye = $validated['right_eye'] ?? [];
         $leftEye = $validated['left_eye'] ?? [];
 
-        $hasManualPrescription =
+        $requiredEyeFields = ['sph', 'cyl', 'axis', 'add'];
+
+        $hasAnyManualPrescription =
             ! empty(array_filter($rightEye)) ||
             ! empty(array_filter($leftEye));
 
-        if ($purchaseType === 'frame_with_glasses' && ! $hasUploadedPrescription && ! $hasManualPrescription) {
-            return back()->withErrors([
-                'prescription' => 'Моля, качете снимка с рецепта или въведете ръчно данните за диоптър.',
-            ])->withInput();
+        $hasCompleteManualPrescription = true;
+
+        foreach ($requiredEyeFields as $field) {
+            if (
+                empty($rightEye[$field]) ||
+                empty($leftEye[$field])
+            ) {
+                $hasCompleteManualPrescription = false;
+                break;
+            }
+        }
+
+        if ($purchaseType === 'frame_with_glasses') {
+            if (! $hasUploadedPrescription && ! $hasAnyManualPrescription) {
+                return back()->withErrors([
+                    'prescription' => 'Моля, качете снимка с рецепта или въведете ръчно данните за диоптър.',
+                ])->withInput();
+            }
+
+            if ($hasAnyManualPrescription && ! $hasCompleteManualPrescription) {
+                return back()->withErrors([
+                    'prescription' => 'Моля, попълнете всички полета за дясно и ляво око.',
+                ])->withInput();
+            }
         }
 
         $prescriptionImageName = null;
@@ -117,6 +152,7 @@ class OrdersController extends Controller
         if ($purchaseType === 'frame_with_glasses') {
             $finalPrice += $lensIndex->price;
             $finalPrice += $glassValue->price;
+            $finalPrice += $lanceColor->price;
         }
 
         $products = Session::get('products', []);
@@ -130,7 +166,11 @@ class OrdersController extends Controller
             }
         }
 
-        $newKey = $product->id . '-' . $purchaseType . '-' . ($lensIndex?->id ?? 0) . '-' . ($glassValue?->id ?? 0);
+        $newKey = $product->id
+            . '-' . $purchaseType
+            . '-' . ($lensIndex?->id ?? 0)
+            . '-' . ($glassValue?->id ?? 0)
+            . '-' . ($lanceColor?->id ?? 0);
 
         $existingQuantity = 0;
 
@@ -170,6 +210,12 @@ class OrdersController extends Controller
                 'price'      => (float) $glassValue->price,
             ] : null,
 
+            'lance_color' => $lanceColor ? [
+                'id'    => $lanceColor->id,
+                'name'  => $lanceColor->name,
+                'price' => (float) $lanceColor->price,
+            ] : null,
+
             'prescription_image' => $prescriptionImageName,
             'right_eye'          => $rightEye,
             'left_eye'           => $leftEye,
@@ -189,7 +235,6 @@ class OrdersController extends Controller
 
         return back()->with('success', 'Продуктът беше добавен успешно в количката!');
     }
-
 
     /** Remove a product from the cart
      *
@@ -221,8 +266,9 @@ class OrdersController extends Controller
     }
 
     /**
+     * Create a new order.
      *
-     * @param Request
+     * @param Request $request
      * @return RedirectResponse
      */
     public function create(Request $request): RedirectResponse
@@ -247,33 +293,28 @@ class OrdersController extends Controller
         ]);
 
         $personalDelivery =
-            !empty($validated['city']) &&
-            !empty($validated['billing_address']);
+            ! empty($validated['city']) &&
+            ! empty($validated['billing_address']);
 
-        $officeDelivery =
-            !empty($validated['office_list']);
+        $officeDelivery = ! empty($validated['office_list']);
 
         if (! $personalDelivery && ! $officeDelivery) {
-
             return back()
                 ->withErrors([
-                    'delivery' => 'Моля попълнете адрес за доставка или изберете офис на Speedy и попълнете нужните данни.'
+                    'delivery' => 'Моля попълнете адрес за доставка или изберете офис на Speedy и попълнете нужните данни.',
                 ])
                 ->withInput();
         }
-
-        // dd($request);
 
         $cartProducts = Session::get('products', []);
 
         if (empty($cartProducts)) {
             return back()->withErrors([
-                'cart' => 'Количката е празна.'
+                'cart' => 'Количката е празна.',
             ]);
         }
 
         DB::transaction(function () use ($validated, $cartProducts) {
-
             $subtotal = 0;
 
             foreach ($cartProducts as $product) {
@@ -292,7 +333,7 @@ class OrdersController extends Controller
                 'city' => $validated['city'] ?? null,
                 'personal_address' => $validated['billing_address'] ?? null,
 
-                'courier' => !empty($validated['office_list']) ? 'speedy' : null,
+                'courier' => ! empty($validated['office_list']) ? 'speedy' : null,
                 'office_list' => $validated['office_list'] ?? null,
 
                 'request_invoice' => $validated['request_invoice'] ?? false,
@@ -343,8 +384,22 @@ class OrdersController extends Controller
                     'final_price' => $product['final_price'],
                     'quantity' => $product['quantity'],
 
-                    'prescription_image' => $product['prescription_image'] ?? null,
+                    'purchase_type' => $product['purchase_type'] ?? 'frame_only',
 
+                    'lens_index_id' => $product['lens_index']['id'] ?? null,
+                    'lens_index_name' => $product['lens_index']['name'] ?? null,
+                    'lens_index_price' => $product['lens_index']['price'] ?? null,
+
+                    'glass_value_id' => $product['glass_value']['id'] ?? null,
+                    'glass_name' => $product['glass_value']['glass_name'] ?? null,
+                    'glass_value_name' => $product['glass_value']['value'] ?? null,
+                    'glass_value_price' => $product['glass_value']['price'] ?? null,
+
+                    'lance_color_id' => $product['lance_color']['id'] ?? null,
+                    'lance_color_name' => $product['lance_color']['name'] ?? null,
+                    'lance_color_price' => $product['lance_color']['price'] ?? null,
+
+                    'prescription_image' => $product['prescription_image'] ?? null,
                     'right_eye' => $product['right_eye'] ?? null,
                     'left_eye' => $product['left_eye'] ?? null,
                 ]);
@@ -353,11 +408,7 @@ class OrdersController extends Controller
             Mail::to($order->email)->send(new OrderCreated($order));
         });
 
-
-
         Session::forget('products');
-
-
 
         return redirect(route('checkout.succes'));
     }

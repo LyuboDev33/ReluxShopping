@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Constants\PrescriptionOptions;
 use App\Models\Admin\Glass;
+use App\Models\Admin\LanceColor;
 use App\Models\Admin\LensIndex;
 use App\Models\Category;
 use App\Models\Product;
@@ -76,8 +77,12 @@ class ShopController extends Controller
     public function cart()
     {
         $sessionProducts = Session::get('products', []);
-        // dd($sessionProducts);
-        $productIds = array_keys($sessionProducts);
+
+        $productIds = [];
+
+        foreach ($sessionProducts as $product) {
+            $productIds[] = $product['product_id'];
+        }
 
         $databaseProducts = Product::whereIn('id', $productIds)
             ->get()
@@ -85,25 +90,23 @@ class ShopController extends Controller
 
         $products = [];
 
-        foreach ($sessionProducts as $productId => $cartProduct) {
-            $product = $databaseProducts->get((int) $productId);
+        foreach ($sessionProducts as $key => $cartProduct) {
+
+            $product = $databaseProducts->get($cartProduct['product_id']);
 
             if (! $product) {
                 continue;
             }
 
-            $price = (float) $product->price;
-            $discount = (int) $product->discount;
-            $finalPrice = $discount > 0 ? $price - (($price * $discount) / 100) : $price;
+            $products[$key] = array_merge($cartProduct, [
+                'product_id' => $product->id,
+                'name'       => $product->name,
+                'slug'       => $product->slug,
+                'price'      => (float) $product->price,
+                'discount'   => (int) $product->discount,
+                'image'      => $product->main_image,
 
-            $products[$productId] = array_merge($cartProduct, [
-                'product_id'  => $product->id,
-                'name'        => $product->name,
-                'slug'        => $product->slug,
-                'price'       => $price,
-                'discount'    => $discount,
-                'final_price' => round($finalPrice, 2),
-                'image'       => $product->main_image,
+                'final_price' => (float) $cartProduct['final_price'],
             ]);
         }
 
@@ -115,7 +118,7 @@ class ShopController extends Controller
 
         return view('Frontend.shop.Cart', [
             'products' => $products,
-            'subtotal' => $subtotal,
+            'subtotal' => round($subtotal, 2),
         ]);
     }
 
@@ -138,6 +141,12 @@ class ShopController extends Controller
         // Add the viewed product to Last 10 viewed products
         $this->lastViewedProducts($product);
 
+        $similarProducts = Product::where('category_id', $product->category_id)
+            ->where('id', '!=', $product->id)
+            ->latest('id')
+            ->take(4)
+            ->get();
+
         $isProductDioptric = ProductService::isProductDioptric($product);
 
         $category = $product->categories->first();
@@ -158,7 +167,9 @@ class ShopController extends Controller
             'addValues'         => PrescriptionOptions::CYL,
             'axisValues'        => PrescriptionOptions::AXIS,
             'lens'              => LensIndex::get(),
+            'lenceColors'       => LanceColor::get(),
             'glasses'           => $glasses,
+            'similarProducts'   => $similarProducts,
             'productFinalPrice' => $product->discount
                 ? $product->price - ($product->price * $product->discount) / 100
                 : $product->price,
@@ -257,11 +268,11 @@ class ShopController extends Controller
             ],
         ] + $lastViewedProducts;
 
-        // Keep only the latest 10 viewed products.
+        // Keep only the latest 4 viewed products.
         $lastViewedProducts = array_slice(
             $lastViewedProducts,
             0,
-            10,
+            4,
             true
         );
 

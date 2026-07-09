@@ -109,6 +109,9 @@
                        </span>
 
                    </a>
+                   @if(Auth::check())
+                   <a href="{{ route('dashboard') }}">Табло</a>
+                   @endif
                    <a href="#" class="mobile-nav__toggler">
                        <i class="fa fa-bars"></i>
                    </a>

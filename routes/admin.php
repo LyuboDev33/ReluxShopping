@@ -28,6 +28,12 @@ Route::prefix('admin')
             Route::post('/lances/store', [AdminGlassesController::class, 'storeLance'])->name('admin.lances.store');
             Route::put('/lances/update/{lance}', [AdminGlassesController::class, 'updateLance'])->name('admin.lances.update');
             Route::delete('/lances/destroy/{lance}', [AdminGlassesController::class, 'destroyLance'])->name('admin.lances.destroy');
+
+            Route::post('/lance-colors/store', [AdminGlassesController::class, 'storeLanceColor'])->name('admin.lance-colors.store');
+            Route::put('/lance-colors/update/{lanceColor}', [AdminGlassesController::class, 'updateLanceColor'])
+                ->name('admin.lance-colors.update');
+            Route::delete('/lance-colors/destroy/{lanceColor}', [AdminGlassesController::class, 'destroyLanceColor'])
+                ->name('admin.lance-colors.destroy');
         });
 
 

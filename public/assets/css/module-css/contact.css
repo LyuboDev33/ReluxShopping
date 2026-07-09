@@ -584,6 +584,7 @@
     display: block;
     padding: 160px 0 120px;
     z-index: 1;
+    background-color: #e3c6ac30;
 }
 
 .contact-four__left {

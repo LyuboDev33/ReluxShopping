@@ -66,8 +66,8 @@
                         @foreach ($product->variantParent as $parent)
                             <a href="{{ route('admin.products.show', $parent->slug) }}" class="product-variant-card">
 
-                                <img src="{{ asset('assets/images/products/' . $parent->main_image) }}"
-                                    alt="{{ $parent->name }}">
+                               <img src="/products/{{ $parent->main_image }}"
+    alt="{{ $parent->name }}">
 
                                 <span>Основен</span>
                             </a>
@@ -77,8 +77,8 @@
                         <a href="{{ route('admin.products.show', $product->slug) }}"
                             class="product-variant-card active">
 
-                            <img src="{{ asset('assets/images/products/' . $product->main_image) }}"
-                                alt="{{ $product->name }}">
+                           <img src="/products/{{ $parent->main_image }}"
+    alt="{{ $parent->name }}">
 
                             <span>
                                 @if ($product->variantParent->isEmpty())
@@ -179,11 +179,12 @@
                 <div class="col-lg-4">
                     <label>Галерия (множество снимки)</label>
 
-                    @if (!empty($product->gallery))
+                   @if (!empty($product->gallery))
                         <div class="mb-2 d-flex flex-wrap gap-2">
                             @foreach ($product->gallery as $galleryImage)
-                                <img src="{{ asset('assets/images/product_gallery/' . $galleryImage) }}"
-                                    alt="Gallery image" style="max-height: 80px; border-radius: 6px;">
+                                <img src="/assets/images/product_gallery/{{ $galleryImage }}"
+                                    alt="Gallery image"
+                                    style="max-height: 80px; border-radius: 6px;">
                             @endforeach
                         </div>
                     @endif

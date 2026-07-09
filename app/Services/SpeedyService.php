@@ -8,8 +8,8 @@ class SpeedyService
     /** This controller handles the logic for the Speedy API */
     /** This includes offices, cities etc. */
 
-    /**
-     * API request to Speedy
+    /** API request to Speedy
+     *
      * @param string $apiURL
      * @param array[] $jsonData
      *

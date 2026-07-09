@@ -33,6 +33,25 @@ return new class extends Migration
             $table->decimal('final_price', 10, 2);
             $table->integer('quantity');
 
+            // Purchase type
+            $table->string('purchase_type')->default('frame_only');
+
+            // Lens index snapshot
+            $table->unsignedBigInteger('lens_index_id')->nullable();
+            $table->string('lens_index_name')->nullable();
+            $table->decimal('lens_index_price', 10, 2)->nullable();
+
+            // Glass value snapshot
+            $table->unsignedBigInteger('glass_value_id')->nullable();
+            $table->string('glass_name')->nullable();
+            $table->string('glass_value_name')->nullable();
+            $table->decimal('glass_value_price', 10, 2)->nullable();
+
+            // Lens color snapshot
+            $table->unsignedBigInteger('lance_color_id')->nullable();
+            $table->string('lance_color_name')->nullable();
+            $table->decimal('lance_color_price', 10, 2)->nullable();
+
             // Prescription data
             $table->string('prescription_image')->nullable();
             $table->json('right_eye')->nullable();

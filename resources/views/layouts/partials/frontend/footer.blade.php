@@ -200,13 +200,13 @@
                                 <ul class="list-unstyled site-footer__bottom-menu">
 
                                     <li>
-                                        <a href="#">
+                                        <a href="{{ route('conditions') }}">
                                             Общи условия
                                         </a>
                                     </li>
 
                                     <li>
-                                        <a href="#">
+                                        <a href="{{ route('privacy') }}">
                                             Политика за поверителност
                                         </a>
                                     </li>

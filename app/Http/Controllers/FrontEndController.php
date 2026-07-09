@@ -25,10 +25,14 @@ class FrontEndController extends Controller
         return view('Frontend.about');
     }
 
-    /** Return the service view */
-    public function services()
-    {
-        return view('');
+    /** Return the conditions */
+    public function conditions () {
+        return view('Frontend.legal.conditions');
+    }
+
+    /** Return the privacy */
+    public function privacy () {
+        return view('Frontend.legal.privacy');
     }
 
     /** Return the view of a specific service

@@ -10,20 +10,22 @@
                     <div class="product-page-image">
                         <div class="product-details__img">
                             <img data-fancybox="product-gallery"
-                                src="{{ asset('/assets/images/products/' . $product->main_image) }}"
+                                src="/assets/images/products/{{ $product->main_image }}?v=<?= time() ?>"
                                 alt="{{ $product->name }}" />
                         </div>
-
+                
                         <div class="product-gallery mt-3">
                             @foreach ($product->gallery as $image)
-                                <a href="{{ asset('/assets/images/product_gallery/' . $image) }}"
-                                    class="product-gallery__item" data-fancybox="product-gallery">
-                                    <img src="{{ asset('/assets/images/product_gallery/' . $image) }}"
+                                <a href="/assets/images/product_gallery/{{ $image }}?v=<?= time() ?>"
+                                    class="product-gallery__item"
+                                    data-fancybox="product-gallery">
+                
+                                    <img src="/assets/images/product_gallery/{{ $image }}?v=<?= time() ?>"
                                         alt="{{ $product->name }}">
                                 </a>
                             @endforeach
                         </div>
-
+                
                         <div class="product-description__text1 mt-3 d-none d-lg-block">
                             {!! $product->description !!}
                         </div>
@@ -148,8 +150,7 @@
                                 <ul class="nav nav-tabs mb-3 gap-3" id="purchaseTabs" role="tablist">
                                     <li class="nav-item" role="presentation">
                                         <button
-                                            class="nav-link {{ old('purchase_type', 'frame_only') === 'frame_only'
-                                            && !$errors->has('prescription') ? 'active' : '' }} purchase-type-tab"
+                                            class="nav-link {{ old('purchase_type', 'frame_only') === 'frame_only' && !$errors->has('prescription') ? 'active' : '' }} purchase-type-tab"
                                             id="frame-only-tab-button" data-bs-toggle="tab"
                                             data-bs-target="#frame-only-tab" type="button" role="tab"
                                             data-purchase-type="frame_only">
@@ -159,8 +160,7 @@
 
                                     <li class="nav-item" role="presentation">
                                         <button
-                                            class="nav-link {{ old('purchase_type') === 'frame_with_glasses'
-                                            || $errors->has('prescription') ? 'active' : '' }} purchase-type-tab"
+                                            class="nav-link {{ old('purchase_type') === 'frame_with_glasses' || $errors->has('prescription') ? 'active' : '' }} purchase-type-tab"
                                             id="frame-with-glasses-tab-button" data-bs-toggle="tab"
                                             data-bs-target="#frame-with-glasses-tab" type="button" role="tab"
                                             data-purchase-type="frame_with_glasses">
@@ -177,8 +177,7 @@
                                     </div>
 
                                     @if ($product->can_buy_with_lenses === 1)
-                                        <div class="tab-pane fade {{ old('purchase_type') === 'frame_with_glasses'
-                                        || $errors->has('prescription') ? 'show active' : '' }}"
+                                        <div class="tab-pane fade {{ old('purchase_type') === 'frame_with_glasses' || $errors->has('prescription') ? 'show active' : '' }}"
                                             id="frame-with-glasses-tab" role="tabpanel"
                                             aria-labelledby="frame-with-glasses-tab-button">
 
@@ -258,12 +257,12 @@
                                                                             class="form-select">
                                                                             <option value="">Изберете</option>
                                                                             @foreach ($sphValues as $value)
-                                                                                <option value="{{ $value }}"
-                                                                                    @selected(old('right_eye.sph') == $value)>
+                                                                                <option value="{{ $value }}">
                                                                                     {{ $value }}
                                                                                 </option>
                                                                             @endforeach
                                                                         </select>
+
                                                                     </td>
 
                                                                     <td data-label="Цилиндър (CYL)">
@@ -271,8 +270,7 @@
                                                                             class="form-select">
                                                                             <option value="">Изберете</option>
                                                                             @foreach ($cylValues as $value)
-                                                                                <option value="{{ $value }}"
-                                                                                    @selected(old('right_eye.cyl') == $value)>
+                                                                                <option value="{{ $value }}">
                                                                                     {{ $value }}
                                                                                 </option>
                                                                             @endforeach
@@ -284,8 +282,7 @@
                                                                             class="form-select">
                                                                             <option value="">Изберете</option>
                                                                             @foreach ($axisValues as $value)
-                                                                                <option value="{{ $value }}"
-                                                                                    @selected(old('right_eye.axis') == $value)>
+                                                                                <option value="{{ $value }}">
                                                                                     {{ $value }}
                                                                                 </option>
                                                                             @endforeach
@@ -297,8 +294,7 @@
                                                                             class="form-select">
                                                                             <option value="">Изберете</option>
                                                                             @foreach ($addValues as $value)
-                                                                                <option value="{{ $value }}"
-                                                                                    @selected(old('right_eye.add') == $value)>
+                                                                                <option value="{{ $value }}">
                                                                                     {{ $value }}
                                                                                 </option>
                                                                             @endforeach
@@ -316,8 +312,7 @@
                                                                             class="form-select">
                                                                             <option value="">Изберете</option>
                                                                             @foreach ($sphValues as $value)
-                                                                                <option value="{{ $value }}"
-                                                                                    @selected(old('left_eye.sph') == $value)>
+                                                                                <option value="{{ $value }}">
                                                                                     {{ $value }}
                                                                                 </option>
                                                                             @endforeach
@@ -329,8 +324,7 @@
                                                                             class="form-select">
                                                                             <option value="">Изберете</option>
                                                                             @foreach ($cylValues as $value)
-                                                                                <option value="{{ $value }}"
-                                                                                    @selected(old('left_eye.cyl') == $value)>
+                                                                                <option value="{{ $value }}">
                                                                                     {{ $value }}
                                                                                 </option>
                                                                             @endforeach
@@ -342,8 +336,7 @@
                                                                             class="form-select">
                                                                             <option value="">Изберете</option>
                                                                             @foreach ($axisValues as $value)
-                                                                                <option value="{{ $value }}"
-                                                                                    @selected(old('left_eye.axis') == $value)>
+                                                                                <option value="{{ $value }}">
                                                                                     {{ $value }}
                                                                                 </option>
                                                                             @endforeach
@@ -355,8 +348,7 @@
                                                                             class="form-select">
                                                                             <option value="">Изберете</option>
                                                                             @foreach ($addValues as $value)
-                                                                                <option value="{{ $value }}"
-                                                                                    @selected(old('left_eye.add') == $value)>
+                                                                                <option value="{{ $value }}">
                                                                                     {{ $value }}
                                                                                 </option>
                                                                             @endforeach
@@ -486,6 +478,58 @@
                                                 @endforeach
                                             </div>
 
+                                            <div class="configurator-section mb-4">
+                                                <div class="configurator-section__header">
+                                                    <span class="configurator-step">3</span>
+                                                    <div>
+                                                        <h6 class="mb-1">Изберете цвят на стъклата</h6>
+                                                        <p class="mb-0 text-muted">
+                                                            Изберете желания цвят на стъклата.
+                                                        </p>
+                                                    </div>
+                                                </div>
+
+                                                @error('lance_color_id')
+                                                    <p class="field-error">{{ $message }}</p>
+                                                @enderror
+
+                                                @if ($lenceColors->isEmpty())
+                                                    <p class="text-muted mb-3">
+                                                        Няма налични цветове.
+                                                    </p>
+                                                @else
+                                                    <div class="row g-3">
+                                                        @foreach ($lenceColors as $lanceColor)
+                                                            <div class="col-lg-12">
+                                                                <label class="configurator-option">
+                                                                    <input type="radio" name="lance_color_id"
+                                                                        value="{{ $lanceColor->id }}"
+                                                                        class="configurator-option__input lance-color-option frame-with-glasses-field"
+                                                                        data-price="{{ $lanceColor->price }}"
+                                                                        {{ old('lance_color_id') == $lanceColor->id ? 'checked' : '' }}>
+
+                                                                    <div class="configurator-option__card shadow">
+                                                                        <div class="configurator-option__check"></div>
+
+                                                                        <div class="configurator-option__content">
+                                                                            <strong class="configurator-option__title">
+                                                                                {{ $lanceColor->name }}
+                                                                            </strong>
+                                                                        </div>
+
+                                                                        <div class="configurator-option__price">
+                                                                            +
+                                                                            {{ number_format($lanceColor->price, 2) }}
+                                                                            €
+                                                                        </div>
+                                                                    </div>
+                                                                </label>
+                                                            </div>
+                                                        @endforeach
+                                                    </div>
+                                                @endif
+                                            </div>
+
                                         </div>
                                     @else
                                         <div class="tab-pane fade {{ old('purchase_type') === 'frame_with_glasses' ? 'show active' : '' }}"
@@ -566,6 +610,78 @@
 
         <h3 class="mb-4 mt-3 text-center">Подобни продукти</h3>
 
+        @foreach ($similarProducts as $product)
+            <div class="col-xl-3 col-lg-3 col-md-6 col-6">
+                <div class="product__all-single">
+
+                    <div class="product__all-img">
+                        <a href="{{ route('shop.show', $product->slug) }}">
+                            @if ($product->main_image)
+                                <img src="{{ asset('assets//assets/images/products/' . $product->main_image) }}"
+                                    alt="{{ $product->name }}" />
+                                <img src="{{ asset('assets//assets/images/products/' . $product->main_image) }}"
+                                    alt="{{ $product->name }}" />
+                            @else
+                                <img src="{{ asset('assets/images/shop/shop-product-1-1.jpg') }}"
+                                    alt="{{ $product->name }}" />
+                                <img src="{{ asset('assets/images/shop/shop-product-1-1.jpg') }}"
+                                    alt="{{ $product->name }}" />
+                            @endif
+                        </a>
+                    </div>
+
+                    <div class="product__all-content">
+
+                        @if ($product->categories->isNotEmpty())
+                            <p class="small text-muted mb-1">
+                                {{ $product->categories->pluck('name')->join(' · ') }}
+                            </p>
+                        @endif
+
+                        <h4 class="product__all-title">
+                            <a href="{{ route('shop.show', $product->slug) }}">
+                                {{ $product->name }}
+                            </a>
+                        </h4>
+
+                        <p class="product__all-price">
+                            @if ($product->discount)
+                                <del class="text-muted me-2">
+                                    {{ number_format($product->price, 2) }} €
+                                </del>
+
+                                <span class="text-danger">
+                                    {{ number_format($product->price - ($product->price * $product->discount) / 100, 2) }}
+                                    €
+                                </span>
+                                (-{{ $product->discount }}%)
+                            @else
+                                {{ number_format($product->price, 2) }} €
+                            @endif
+                        </p>
+
+                        <form method="POST" action="{{ route('wishlist.add', $product) }}"
+                            class="product__all-btn-box d-flex justify-content-center wishlist-form">
+
+                            @csrf
+
+                            <a class="thm-btn product__all-btn p-2" href="{{ route('shop.show', $product->slug) }}">
+                                Разгледай
+                            </a>
+                            @php
+                                $wishlist = Session::get('wishlist', []);
+                                $isInWishlist = isset($wishlist[$product->id]);
+                            @endphp
+                            <button type="submit" class="wishlist-btn">
+                                <i class="{{ $isInWishlist ? 'fa-solid' : 'fa-regular' }} fa-heart"></i>
+                            </button>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        @endforeach
+
     </div>
 
     <hr>
@@ -583,10 +699,10 @@
                         <a href="{{ $product['url'] }}">
 
                             @if (!empty($product['image']))
-                                <img src="{{ asset('assets/images/products/' . $product['image']) }}"
+                                <img src="{{ asset('assets//assets/images/products/' . $product['image']) }}"
                                     alt="{{ $product['name'] }}">
 
-                                <img src="{{ asset('assets/images/products/' . $product['image']) }}"
+                                <img src="{{ asset('assets//assets/images/products/' . $product['image']) }}"
                                     alt="{{ $product['name'] }}">
                             @else
                                 <img src="{{ asset('assets/images/shop/shop-product-1-1.jpg') }}"

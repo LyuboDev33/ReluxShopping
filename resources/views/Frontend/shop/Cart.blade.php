@@ -22,7 +22,7 @@
                                         <div class="product-box align-items-start">
                                             <div class="img-box">
                                                 <img src="{{ asset('/assets/images/products/' . $product['image']) }}"
-                                                    alt="{{ $product['name'] }}" />
+                                                    alt="{{ $product['name'] }}">
                                             </div>
 
                                             <div>
@@ -33,53 +33,75 @@
                                                 </h3>
 
                                                 @if (($product['purchase_type'] ?? 'frame_only') === 'frame_only')
-                                                    <span class="badge bg-secondary rounded-pill">
-                                                        Само рамка
+                                                    <span class="badge thm-btn rounded-pill mt-2 p-2">
+                                                        Купувате само рамка
                                                     </span>
                                                 @else
-                                                    <span class="badge bg-primary rounded-pill mb-2">
-                                                        Рамка със стъкла
+                                                    <span class="badge thm-btn rounded-pill mb-2 mt-2 p-2">
+                                                      Купувате рамка със стъкла
                                                     </span>
 
-                                                    <div class="cart-product-options mt-2">
+                                                    <div class="cart-product-options mt-3">
+
+                                                        {{-- Lens Index --}}
                                                         @if (!empty($product['lens_index']))
                                                             <p class="mb-1">
                                                                 <strong>Индекс на изтъняване:</strong>
                                                                 {{ $product['lens_index']['name'] }}
+
                                                                 <span class="text-muted">
                                                                     (+{{ number_format($product['lens_index']['price'], 2) }} €)
                                                                 </span>
                                                             </p>
                                                         @endif
 
+                                                        {{-- Glass --}}
                                                         @if (!empty($product['glass_value']))
                                                             <p class="mb-1">
-                                                                <strong>Стъкло:</strong>
+                                                                <strong>Тип стъкло:</strong>
                                                                 {{ $product['glass_value']['glass_name'] }}
                                                             </p>
 
                                                             <p class="mb-1">
-                                                                <strong>Стойност:</strong>
+                                                                <strong>Избран вариант:</strong>
                                                                 {{ $product['glass_value']['value'] }}
+
                                                                 <span class="text-muted">
                                                                     (+{{ number_format($product['glass_value']['price'], 2) }} €)
                                                                 </span>
                                                             </p>
                                                         @endif
 
+                                                        {{-- Glass Color --}}
+                                                        @if (!empty($product['lance_color']))
+                                                            <p class="mb-1">
+                                                                <strong>Цвят на стъклото:</strong>
+                                                                {{ $product['lance_color']['name'] }}
+
+                                                                <span class="text-muted">
+                                                                    (+{{ number_format($product['lance_color']['price'], 2) }} €)
+                                                                </span>
+                                                            </p>
+                                                        @endif
+
+                                                        {{-- Prescription Image --}}
                                                         @if (!empty($product['prescription_image']))
                                                             <p class="mb-1">
                                                                 <strong>Рецепта:</strong>
+
                                                                 <a href="{{ asset('assets/images/prescriptions/' . $product['prescription_image']) }}"
                                                                     target="_blank">
-                                                                    Виж прикачен файл
+                                                                    Виж прикачения файл
                                                                 </a>
                                                             </p>
                                                         @endif
 
-                                                        @if (!empty(array_filter($product['right_eye'] ?? [])) || !empty(array_filter($product['left_eye'] ?? [])))
-                                                            <div class="mt-2">
-                                                                <strong>Диоптър:</strong>
+                                                        {{-- Manual Prescription --}}
+                                                        @if (!empty(array_filter($product['right_eye'] ?? [])) ||
+                                                             !empty(array_filter($product['left_eye'] ?? [])))
+                                                            <div class="mt-3">
+
+                                                                <strong>Диоптрични стойности</strong>
 
                                                                 <div class="table-responsive mt-2">
                                                                     <table class="table table-sm table-bordered mb-0">
@@ -112,8 +134,10 @@
                                                                         </tbody>
                                                                     </table>
                                                                 </div>
+
                                                             </div>
                                                         @endif
+
                                                     </div>
                                                 @endif
                                             </div>
