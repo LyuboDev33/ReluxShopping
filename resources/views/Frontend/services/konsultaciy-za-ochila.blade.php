@@ -1,38 +1,42 @@
 <x-frontend>
 
     @section('SEO')
-    <title>Консултация при избор на рамки и диоптрични стъкла | Valente Optic</title>
+        <title>Консултация при избор на рамки и диоптрични стъкла | Valente Optic</title>
 
-    <meta name="description" content="Професионална консултация при избор на диоптрични рамки и стъкла. Ще ви помогнем да изберете най-подходящите очила според зрението, начина на живот и личния ви стил.">
-    <meta name="keywords" content="консултация за очила, избор на рамки, избор на диоптрични стъкла, диоптрични рамки, оптика, очила, антирефлексни стъкла, фотохромни лещи, Valente Optic">
-    <meta name="author" content="Valente Optic">
-    <meta name="robots" content="index, follow">
+        <meta name="description"
+            content="Професионална консултация при избор на диоптрични рамки и стъкла. Ще ви помогнем да изберете най-подходящите очила според зрението, начина на живот и личния ви стил.">
+        <meta name="keywords"
+            content="консултация за очила, избор на рамки, избор на диоптрични стъкла, диоптрични рамки, оптика, очила, антирефлексни стъкла, фотохромни лещи, Valente Optic">
+        <meta name="author" content="Valente Optic">
+        <meta name="robots" content="index, follow">
 
-    <link rel="canonical" href="{{ url()->current() }}">
+        <link rel="canonical" href="{{ url()->current() }}">
 
-    <meta property="og:type" content="website">
-    <meta property="og:locale" content="bg_BG">
-    <meta property="og:url" content="{{ url()->current() }}">
-    <meta property="og:title" content="Консултация при избор на рамки и диоптрични стъкла | Valente Optic">
-    <meta property="og:description" content="Получете професионална помощ при избора на рамки, диоптрични стъкла и покрития според вашите зрителни нужди, начин на живот и ежедневен комфорт.">
-    <meta property="og:image" content="{{ asset('/assets/images/seo.png') }}">
-    <meta property="og:image:secure_url" content="{{ asset('/assets/images/seo.png') }}">
-    <meta property="og:image:type" content="image/png">
-    <meta property="og:image:width" content="1200">
-    <meta property="og:image:height" content="630">
-    <meta property="og:site_name" content="Valente Optic">
+        <meta property="og:type" content="website">
+        <meta property="og:locale" content="bg_BG">
+        <meta property="og:url" content="{{ url()->current() }}">
+        <meta property="og:title" content="Консултация при избор на рамки и диоптрични стъкла | Valente Optic">
+        <meta property="og:description"
+            content="Получете професионална помощ при избора на рамки, диоптрични стъкла и покрития според вашите зрителни нужди, начин на живот и ежедневен комфорт.">
+        <meta property="og:image" content="{{ asset('/assets/images/seo.png') }}">
+        <meta property="og:image:secure_url" content="{{ asset('/assets/images/seo.png') }}">
+        <meta property="og:image:type" content="image/png">
+        <meta property="og:image:width" content="1200">
+        <meta property="og:image:height" content="630">
+        <meta property="og:site_name" content="Valente Optic">
 
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Консултация при избор на рамки и диоптрични стъкла | Valente Optic">
-    <meta name="twitter:description" content="Професионална консултация за избор на диоптрични рамки, стъкла и подходящи покрития според вашите нужди.">
-    <meta name="twitter:image" content="{{ asset('/assets/images/seo.png') }}">
-@endsection
+        <meta name="twitter:card" content="summary_large_image">
+        <meta name="twitter:title" content="Консултация при избор на рамки и диоптрични стъкла | Valente Optic">
+        <meta name="twitter:description"
+            content="Професионална консултация за избор на диоптрични рамки, стъкла и подходящи покрития според вашите нужди.">
+        <meta name="twitter:image" content="{{ asset('/assets/images/seo.png') }}">
+    @endsection
 
     <!--Service Details Start-->
     <section class="service-details">
         <div class="container">
             <div class="row">
-                <div class="col-xl-8 col-lg-7">
+                <div class="col-xl-8 col-lg-8">
                     <div class="service-details__left">
                         <h3 class="service-details__title-1">
                             Консултация при избор на рамка и диоптрични стъкла
@@ -44,9 +48,150 @@
                             на лицето, стила и индивидуалните ви предпочитания.
                         </p>
 
-                        <div class="service-details__img">
-                            <img src="/assets/images/resources/service-details-img-1.jpg" alt="" />
+                        <div class="heliomatic-banner">
+                            <div class="service-details__img">
+                                <img src="/assets/images/resources/konsultaciya-ochila1.jpg" alt="Хелиоматични стъкла">
+                            </div>
+
+                            <div class="heliomatic-banner__content">
+
+                                <div class="heliomatic-banner__heading">
+                                    <div class="heliomatic-banner__title">
+                                        <strong>ХЕЛИОМАТИК</strong>
+                                        <span>СТЪКЛА</span>
+                                    </div>
+
+                                    <div class="heliomatic-banner__line"></div>
+
+                                    <div class="heliomatic-banner__subtitle">
+                                        ЕДНО СТЪКЛО.
+                                        <strong>МНОГО ВЪЗМОЖНОСТИ.</strong>
+                                    </div>
+                                </div>
+
+                                <div class="heliomatic-banner__card heliomatic-banner__card--left">
+                                    <div class="heliomatic-banner__card-icon">
+                                        <i class="fa-solid fa-house"></i>
+                                    </div>
+
+                                    <div class="heliomatic-banner__card-title">
+                                        НА ЗАКРИТО
+                                    </div>
+
+                                    <div class="heliomatic-banner__card-text">
+                                        Прозрачни<br>
+                                        и напълно<br>
+                                        бистри
+                                    </div>
+                                </div>
+
+                                <div class="heliomatic-banner__card heliomatic-banner__card--right">
+                                    <div class="heliomatic-banner__card-icon">
+                                        <i class="fa-regular fa-sun"></i>
+                                    </div>
+
+                                    <div class="heliomatic-banner__card-title">
+                                        НА ОТКРИТО
+                                    </div>
+
+                                    <div class="heliomatic-banner__card-text">
+                                        Потъмняват при<br>
+                                        слънчева светлина<br>
+                                        и предпазват очите
+                                    </div>
+                                </div>
+
+                                <div class="heliomatic-banner__features">
+
+                                    <div class="heliomatic-banner__feature">
+                                        <div class="heliomatic-banner__feature-icon">
+                                            <i class="fa-solid fa-shield-halved"></i>
+                                        </div>
+
+                                        <div class="heliomatic-banner__feature-content">
+                                            <div class="heliomatic-banner__feature-title">
+                                                UV ЗАЩИТА
+                                            </div>
+
+                                            <div class="heliomatic-banner__feature-text">
+                                                100% защита от<br>
+                                                вредните UV лъчи
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="heliomatic-banner__feature">
+                                        <div class="heliomatic-banner__feature-icon">
+                                            <i class="fa-solid fa-glasses"></i>
+                                        </div>
+
+                                        <div class="heliomatic-banner__feature-content">
+                                            <div class="heliomatic-banner__feature-title">
+                                                КОМФОРТ
+                                            </div>
+
+                                            <div class="heliomatic-banner__feature-text">
+                                                Адаптират се към<br>
+                                                всяка светлина
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="heliomatic-banner__feature">
+                                        <div class="heliomatic-banner__feature-icon">
+                                            <i class="fa-regular fa-sun"></i>
+                                        </div>
+
+                                        <div class="heliomatic-banner__feature-content">
+                                            <div class="heliomatic-banner__feature-title">
+                                                ИНТЕЛИГЕНТНА<br>
+                                                ТЕХНОЛОГИЯ
+                                            </div>
+
+                                            <div class="heliomatic-banner__feature-text">
+                                                Бързо потъмняване<br>
+                                                и избистряне
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="heliomatic-banner__feature">
+                                        <div class="heliomatic-banner__feature-icon">
+                                            <i class="fa-solid fa-leaf"></i>
+                                        </div>
+
+                                        <div class="heliomatic-banner__feature-content">
+                                            <div class="heliomatic-banner__feature-title">
+                                                ПОДХОДЯЩИ ЗА<br>
+                                                ВСЕКИДНЕВИЕТО
+                                            </div>
+
+                                            <div class="heliomatic-banner__feature-text">
+                                                Идеални за шофиране,<br>
+                                                разходки и работа
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div class="heliomatic-banner__bottom">
+                                    <div class="heliomatic-banner__bottom-title">
+                                        <i class="fa-regular fa-sun"></i>
+
+                                        <span>ХЕЛИОМАТИК СТЪКЛА</span>
+                                    </div>
+
+                                    <div class="heliomatic-banner__bottom-divider"></div>
+
+                                    <div class="heliomatic-banner__bottom-text">
+                                        ЯСНО ЗРЕНИЕ. ЗАЩИТА. СВОБОДА.
+                                    </div>
+                                </div>
+
+                            </div>
                         </div>
+
 
                         <h3 class="service-details__title-2">
                             Индивидуален подход към вашите нужди
@@ -67,7 +212,7 @@
                                 <div class="service-details__single">
                                     <div class="service-details__icon-and-title">
                                         <div class="service-details__icon">
-                                            <span class="icon-broken-car"></span>
+                                            <i class="fa-regular fa-hand-point-left"></i>
                                         </div>
                                         <h4 class="service-details__single-title">
                                             Избор на рамка
@@ -83,7 +228,7 @@
                                 <div class="service-details__single">
                                     <div class="service-details__icon-and-title">
                                         <div class="service-details__icon">
-                                            <span class="icon-wheel-2"></span>
+                                            <i class="fa-regular fa-hand-pointer"></i>
                                         </div>
                                         <h4 class="service-details__single-title">
                                             Избор на диоптрични стъкла
@@ -103,69 +248,8 @@
                     </div>
                 </div>
 
-                <div class="col-xl-4 col-lg-5">
-                    <div class="service-details__right">
-                        <div class="service-details__service-list-box">
-                            <h3 class="service-details__service-title">
-                                Service Details
-                            </h3>
-                            <ul class="service-details__service-list list-unstyled">
-                                <li class="active">
-                                    <a href="easy-drive-maintenance.html">
-                                        Easy Drive Maintenance<span>01</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="elite-auto-services.html">
-                                        Elite Auto Services<span>02</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="smooth-ride-vehicle-care.html">
-                                        Smooth Ride Vehicle Care<span>03</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="careful-car-service-station.html">
-                                        Careful Car Service Station<span>04</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="auto-pro-mechanic-shop.html">
-                                        AutoPro Mechanic Shop<span>05</span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-
-                        <div class="service-details__contact-box">
-                            <div
-                                class="service-details__contact-box-bg"
-                                style="background-image: url(assets/images/backgrounds/service-details-contact-box-bg.jpg);">
-                            </div>
-
-                            <div
-                                class="service-details__contact-box-bg-shape"
-                                style="background-image: url(assets/images/shapes/service-details-contact-box-bg-shape.png);">
-                            </div>
-
-                            <h3 class="service-details__contact-title">
-                                Contact With Us For Any Advice
-                            </h3>
-
-                            <div class="service-details__contact-icon">
-                                <span class="icon-phone"></span>
-                            </div>
-
-                            <p class="service-details__contact-sub-title">
-                                Need Help? Call Us
-                            </p>
-
-                            <a href="tel:888178456765" class="service-details__contact-number">
-                                (+888) 178 456 765
-                            </a>
-                        </div>
-                    </div>
+                <div class="col-xl-4 col-lg-4">
+                    @include('Frontend.services.components.service-right')
                 </div>
             </div>
 
@@ -174,7 +258,20 @@
                     <div class="col-xl-6">
                         <div class="service-details__bottom-left">
                             <div class="service-details__bottom-img">
-                                <img src="/assets/images/resources/service-details-bottom-img.jpg" alt="" />
+                                <img src="/assets/images/resources/konsultaciya-ochila2.jpg"
+                                    alt="Консултация за очила">
+
+                                <div class="service-details__image-overlay">
+                                    <h3>
+                                        Знаехте ли, че?<br>
+                                        Очите ни могат да различават над 10 милиона цвята?
+                                    </h3>
+
+                                    <p>
+                                        Тази способност ни помага да разпознаваме детайли,
+                                        дълбочина, контраст и да виждаме ясно всеки ден.
+                                    </p>
+                                </div>
                             </div>
 
                             <h3 class="service-details__bottom-title">
@@ -253,9 +350,212 @@
                                 </ul>
                             </div>
 
-                            <div class="service-details__bottom-img-two">
-                                <img src="/assets/images/resources/service-details-bottom-img-1.jpg" alt="" />
+                            <div class="glasses-process">
+                                <div class="glasses-process__header">
+                                    <h2 class="glasses-process__title">
+                                        Как се изработват очила?
+                                    </h2>
+
+                                    <div class="glasses-process__subtitle">
+                                        <span></span>
+                                        <p>Процесът стъпка по стъпка</p>
+                                        <span></span>
+                                    </div>
+                                </div>
+
+                                <div class="glasses-process__grid">
+
+                                    <article class="glasses-process__item">
+                                        <div class="glasses-process__image">
+                                            <img src="/assets/images/resources/consult/clean_step_1.png"
+                                                alt="Проверка на зрението" />
+
+                                            <span class="glasses-process__number">1</span>
+                                        </div>
+
+                                        <div class="glasses-process__content">
+                                            <div class="glasses-process__icon">
+                                                <i class="fa-regular fa-eye"></i>
+                                            </div>
+
+                                            <div>
+                                                <h3>Проверка на зрението</h3>
+                                                <p>
+                                                    Правим прецизен преглед и определяме вашата диоптрична корекция.
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </article>
+
+                                    <article class="glasses-process__item">
+                                        <div class="glasses-process__image">
+                                            <img src="/assets/images/resources/consult/clean_step_2.png"
+                                                alt="Избор на рамка" />
+
+                                            <span class="glasses-process__number">2</span>
+                                        </div>
+
+                                        <div class="glasses-process__content">
+                                            <div class="glasses-process__icon">
+                                                <i class="fa-solid fa-glasses"></i>
+                                            </div>
+
+                                            <div>
+                                                <h3>Избор на рамка</h3>
+                                                <p>
+                                                    Избирате рамка, която подхожда на вашия стил, лице и ежедневни
+                                                    нужди.
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </article>
+
+                                    <article class="glasses-process__item">
+                                        <div class="glasses-process__image">
+                                            <img src="/assets/images/resources/consult/clean_step_3.png"
+                                                alt="Изработване на стъклата" />
+
+                                            <span class="glasses-process__number">3</span>
+                                        </div>
+
+                                        <div class="glasses-process__content">
+                                            <div class="glasses-process__icon">
+                                                <i class="fa-regular fa-circle"></i>
+                                            </div>
+
+                                            <div>
+                                                <h3>Изработване на стъклата</h3>
+                                                <p>
+                                                    Стъклата се изработват според вашата диоптрична корекция с висока
+                                                    прецизност.
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </article>
+
+                                    <article class="glasses-process__item">
+                                        <div class="glasses-process__image">
+                                            <img src="/assets/images/resources/consult/clean_step_4.png"
+                                                alt="Покрития и технологии" />
+
+                                            <span class="glasses-process__number">4</span>
+                                        </div>
+
+                                        <div class="glasses-process__content">
+                                            <div class="glasses-process__icon">
+                                                <i class="fa-solid fa-layer-group"></i>
+                                            </div>
+
+                                            <div>
+                                                <h3>Покрития и технологии</h3>
+                                                <p>
+                                                    Добавяме антирефлексни покрития, филтри за синя светлина,
+                                                    фотосоларни или други специални решения.
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </article>
+
+                                    <article class="glasses-process__item">
+                                        <div class="glasses-process__image">
+                                            <img src="/assets/images/resources/consult/clean_step_5.png"
+                                                alt="Сглобяване на очилата" />
+
+                                            <span class="glasses-process__number">5</span>
+                                        </div>
+
+                                        <div class="glasses-process__content">
+                                            <div class="glasses-process__icon">
+                                                <i class="fa-solid fa-screwdriver-wrench"></i>
+                                            </div>
+
+                                            <div>
+                                                <h3>Сглобяване на очилата</h3>
+                                                <p>
+                                                    Стъклата се поставят в рамката и се фиксират прецизно.
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </article>
+
+                                    <article class="glasses-process__item">
+                                        <div class="glasses-process__image">
+                                            <img src="/assets/images/resources/consult/clean_step_6.png"
+                                                alt="Качествен контрол" />
+
+                                            <span class="glasses-process__number">6</span>
+                                        </div>
+
+                                        <div class="glasses-process__content">
+                                            <div class="glasses-process__icon">
+                                                <i class="fa-regular fa-star"></i>
+                                            </div>
+
+                                            <div>
+                                                <h3>Качествен контрол</h3>
+                                                <p>
+                                                    Проверяваме всяко очило за отлично качество, точност и комфорт при
+                                                    носене.
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </article>
+
+                                    <article class="glasses-process__item">
+                                        <div class="glasses-process__image">
+                                            <img src="/assets/images/resources/consult/clean_step_7.png"
+                                                alt="Готови за вас" />
+
+                                            <span class="glasses-process__number">7</span>
+                                        </div>
+
+                                        <div class="glasses-process__content">
+                                            <div class="glasses-process__icon">
+                                                <i class="fa-solid fa-box"></i>
+                                            </div>
+
+                                            <div>
+                                                <h3>Готови за вас</h3>
+                                                <p>
+                                                    Вашите нови очила са готови. Опаковаме ги внимателно и ви ги
+                                                    предаваме.
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </article>
+
+                                    <article class="glasses-process__item">
+                                        <div class="glasses-process__image">
+                                            <img src="/assets/images/resources/consult/clean_step_8.png"
+                                                alt="Ясно зрение и повече увереност" />
+
+                                            <span class="glasses-process__number">8</span>
+                                        </div>
+
+                                        <div class="glasses-process__content">
+                                            <div class="glasses-process__icon">
+                                                <i class="fa-regular fa-face-smile"></i>
+                                            </div>
+
+                                            <div>
+                                                <h3>Ясно зрение, повече увереност</h3>
+                                                <p>
+                                                    Насладете се на кристално ясно зрение и комфорт всеки ден.
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </article>
+
+                                </div>
+
+                                <div class="glasses-process__footer">
+                                    <span></span>
+                                    <p>Прецизност. Качество. Грижа за вашето зрение.</p>
+                                    <span></span>
+                                </div>
                             </div>
+
+                            
                         </div>
                     </div>
                 </div>

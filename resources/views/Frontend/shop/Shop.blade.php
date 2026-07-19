@@ -16,7 +16,7 @@
 
                 <div class="col-xl-3 col-lg-12">
 
-                    <button class="shop-sidebar-toggle d-md-none" id="shopSidebarToggle">
+                    <button class="shop-sidebar-toggle d-xl-none" id="shopSidebarToggle">
                         <i class="fa-solid fa-bars"></i>
                         Категории
                     </button>
@@ -54,6 +54,29 @@
 
                         <div class="row">
                             <div class="col-xl-12">
+
+                                <nav class="shop-breadcrumb rounded-pill bg-dark w-fit p-3 mb-3 mt-3" aria-label="Навигация">
+                                    <a href="{{ route('shop.index') }}">
+                                        Магазин
+                                    </a>
+
+                                    @foreach ($breadcrumbs ?? [] as $breadcrumb)
+                                        <span class="shop-breadcrumb__separator">
+                                            <i class="fa-solid fa-chevron-right"></i>
+                                        </span>
+
+                                        @if ($loop->last)
+                                            <span class="shop-breadcrumb__current" aria-current="page">
+                                                {{ $breadcrumb['name'] }}
+                                            </span>
+                                        @else
+                                            <a href="{{ route('shop.category', $breadcrumb['slug']) }}">
+                                                {{ $breadcrumb['name'] }}
+                                            </a>
+                                        @endif
+                                    @endforeach
+                                </nav>
+
                                 <div class="product__showing-result">
                                     <div class="product__showing-text-box">
                                         <p class="product__showing-text">
@@ -63,6 +86,7 @@
                                         </p>
                                     </div>
                                 </div>
+
                             </div>
                         </div>
 
@@ -121,8 +145,7 @@
                                                     @endif
                                                 </p>
 
-                                                <form method="POST"
-                                                    action="{{ route('wishlist.add', $product) }}"
+                                                <form method="POST" action="{{ route('wishlist.add', $product) }}"
                                                     class="product__all-btn-box d-flex justify-content-center wishlist-form">
 
                                                     @csrf
@@ -190,8 +213,6 @@
             const shopSidebarOverlay = document.querySelector('.shop-sidebar-overlay');
 
             if (!shopSidebarToggle || !shopSidebar || !shopSidebarOverlay) {
-                console.log('test');
-
                 return;
             }
 
@@ -209,8 +230,6 @@
 
             shopSidebarOverlay.addEventListener('click', closeSidebar);
         }
-
-
     </script>
 
 </x-frontend>

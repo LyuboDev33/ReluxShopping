@@ -10,7 +10,7 @@
 .brand-one__inner {
     position: relative;
     display: block;
-    background-color: var(--crank-black);
+    background-color: rgba(227, 198, 172, 0.43);
     padding: 53px 0;
     border-radius: 20px;
 }

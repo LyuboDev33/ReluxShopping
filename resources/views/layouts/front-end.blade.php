@@ -16,11 +16,11 @@
     {{-- <link rel="stylesheet" href="/assets/css/jquery.magnific-popup.css?v=<?php echo time(); ?>" /> --}}
 
     <link rel="stylesheet" href="/assets/css/flaticon.css?v=<?php echo time(); ?>" />
-    {{-- <link rel="stylesheet" href="/assets/css/owl.carousel.min.css?v=<?php echo time(); ?>" /> --}}
+    <link rel="stylesheet" href="/assets/css/owl.carousel.min.css?v=<?php echo time(); ?>" />
 
-    {{-- <link rel="stylesheet" href="/assets/css/odometer.min.css?v=<?php echo time(); ?>" />
+    <link rel="stylesheet" href="/assets/css/odometer.min.css?v=<?php echo time(); ?>" />
     <link rel="stylesheet" href="/assets/css/owl.theme.default.min.css?v=<?php echo time(); ?>" />
-    <link rel="stylesheet" href="/assets/css/nice-select.css?v=<?php echo time(); ?>" /> --}}
+    <link rel="stylesheet" href="/assets/css/nice-select.css?v=<?php echo time(); ?>" />
 
     {{-- <link rel="stylesheet" href="/assets/css/jquery-ui.css?v=<?php echo time(); ?>" />
     <link rel="stylesheet" href="/assets/css/aos.css?v=<?php echo time(); ?>" /> --}}
@@ -49,27 +49,23 @@
     <link rel="stylesheet" href="/assets/css/shop.css?v=<?php echo time(); ?>" />
     <link rel="stylesheet" href="/assets/css/responsive.css?v=<?php echo time(); ?>" />
 
-    <link rel="icon"
-          type="image/png"
-          href="/assets/images/favicons/favicon-96x96.png?v=<?php echo time(); ?>"
-          sizes="96x96" />
+    <link rel="icon" type="image/png" href="/assets/images/favicons/favicon-96x96.png?v=<?php echo time(); ?>"
+        sizes="96x96" />
 
-    <link rel="icon" type="image/svg+xml" href="/assets/images/favicons/transparent-image.png?v=<?php echo time(); ?>" />
+    <link rel="icon" type="image/svg+xml"
+        href="/assets/images/favicons/transparent-image.png?v=<?php echo time(); ?>" />
     <link rel="shortcut icon" href="/assets/images/favicons/favicon-96x96.png?v=<?php echo time(); ?>" />
-    <link rel="apple-touch-icon" sizes="180x180" href="/assets/images/favicons/apple-touch-icon.png?v=<?php echo time(); ?>" />
+    <link rel="apple-touch-icon" sizes="180x180"
+        href="/assets/images/favicons/apple-touch-icon.png?v=<?php echo time(); ?>" />
     <link rel="manifest" href="/assets/images/favicons/site.webmanifest?v=<?php echo time(); ?>" />
 
-    <link rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
-          integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
-          crossorigin="anonymous"
-          referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+        integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-    <link rel="stylesheet"
-          href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.1/dist/fancybox/fancybox.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.1/dist/fancybox/fancybox.css" />
 
-    <link rel="stylesheet"
-          href="https://unpkg.com/lenis@1.3.23/dist/lenis.css">
+    <link rel="stylesheet" href="https://unpkg.com/lenis@1.3.23/dist/lenis.css">
 
     <script src="https://unpkg.com/lenis@1.3.23/dist/lenis.min.js"></script>
 
@@ -90,6 +86,12 @@
         requestAnimationFrame(raf);
     </script>
 
+    <script src="/assets/js/bootstrap.bundle.min.js?v=<?php echo time(); ?>"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css" rel="stylesheet">
+
+
 </head>
 
 <body class="font-sans antialiased">
@@ -106,7 +108,6 @@
     </div>
 
     <script src="/assets/js/jquery-3.6.0.min.js?v=<?php echo time(); ?>"></script>
-    <script src="/assets/js/bootstrap.bundle.min.js?v=<?php echo time(); ?>"></script>
     <script src="/assets/js/jarallax.min.js?v=<?php echo time(); ?>"></script>
 
     <script src="/assets/js/aos.js?v=<?php echo time(); ?>"></script>

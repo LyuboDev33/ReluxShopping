@@ -33,10 +33,11 @@
 .cta-one__title {
     position: relative;
     display: block;
-    font-size: 68px;
+    font-size: 58px;
     line-height: 80px;
     font-weight: 600;
     color: var(--crank-white);
+    margin-bottom: 20px;
 }
 
 .cta-one__title a {

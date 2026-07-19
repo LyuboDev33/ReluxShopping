@@ -31,98 +31,33 @@
     <div class="container">
         <div class="row g-4">
 
-            {{-- ================= CREATE LANCE INDEX ================= --}}
             <div class="col-md-4">
                 <div class="card shadow-sm">
                     <div class="card-header bg-dark text-white">
-                        <strong>Нов индекс на изтъняване</strong>
+                        <strong>Нов тип зрение</strong>
                         <small class="text-white-50 d-block">
-                            Напр. „1.5 стандартно“, „1.6 изтънено“, „1.67 изтънено“
+                            Напр. „За близо“, „За далеч“
                         </small>
                     </div>
 
                     <div class="card-body">
-                        <form action="{{ route('admin.lances.store') }}" method="POST">
+                        <form action="{{ route('admin.vision-types.store') }}" method="POST">
                             @csrf
 
                             <div class="mb-3">
-                                <label for="lance_name" class="form-label">Индекс на изтъняване</label>
+                                <label for="vision_type_name" class="form-label">Тип зрение</label>
 
-                                <input type="text" id="lance_name" name="name"
-                                    class="form-control @error('name') is-invalid @enderror"
-                                    placeholder="1.6 (изтънено)" value="{{ old('name') }}" required>
+                                <input type="text" id="vision_type_name" name="name"
+                                    class="form-control @error('name') is-invalid @enderror" placeholder="За далеч"
+                                    value="{{ old('name') }}" required>
 
                                 @error('name')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
 
-                            <div class="mb-3">
-                                <label for="lance_price" class="form-label">Цена</label>
-
-                                <input type="number" step="0.01" id="lance_price" name="price"
-                                    class="form-control @error('price') is-invalid @enderror" placeholder="Напр. 40"
-                                    value="{{ old('price') }}" min="0" required>
-
-                                @error('price')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            </div>
-
                             <button type="submit" class="btn btn-success rounded-5 px-4">
-                                + Добави индекс
-                            </button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-4">
-                <div class="card shadow-sm">
-                    <div class="card-header bg-dark text-white">
-                        <strong>Нов цвят на стъклото</strong>
-
-                        <small class="text-white-50 d-block">
-                            Напр. "Кафяв", "Сив", "Зелен", "Син"
-                        </small>
-                    </div>
-
-                    <div class="card-body">
-                        <form action="{{ route('admin.lance-colors.store') }}" method="POST">
-                            @csrf
-
-                            <div class="mb-3">
-                                <label for="lance_color_name" class="form-label">
-                                    Цвят
-                                </label>
-
-                                <input type="text" id="lance_color_name" name="name_lance_color"
-                                    class="form-control @error('name_lance_color') is-invalid @enderror"
-                                    placeholder="Кафяв" value="{{ old('name_lance_color') }}" required>
-
-                                @error('name_lance_color')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
-
-                                <label for="lance_color_price" class="form-label">
-                                    Цена
-                                </label>
-
-                                <input type="text" id="lance_color_price" name="lance_color_price"
-                                    class="form-control @error('lance_color_price') is-invalid @enderror"
-                                    placeholder="Напишете цена за този цвят" value="{{ old('lance_color_price') }}" required>
-
-                                @error('lance_color_price')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
-                            </div>
-
-                            <button type="submit" class="btn btn-success rounded-5 px-4">
-                                + Добави цвят
+                                + Добави тип зрение
                             </button>
                         </form>
                     </div>
@@ -144,11 +79,42 @@
                             @csrf
 
                             <div class="mb-3">
-                                <label for="category_id" class="form-label">Основна категория</label>
+                                <label for="vision_type_id" class="form-label">
+                                    Тип зрение
+                                </label>
+
+                                <select id="vision_type_id" name="vision_type_id"
+                                    class="form-select @error('vision_type_id') is-invalid @enderror" required>
+
+                                    <option value="">
+                                        — Изберете тип зрение —
+                                    </option>
+
+                                    @foreach ($visionTypes as $visionType)
+                                        <option value="{{ $visionType->id }}" @selected(old('vision_type_id') == $visionType->id)>
+                                            {{ $visionType->name }}
+                                        </option>
+                                    @endforeach
+                                </select>
+
+                                @error('vision_type_id')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="category_id" class="form-label">
+                                    Основна категория
+                                </label>
 
                                 <select id="category_id" name="category_id"
                                     class="form-select @error('category_id') is-invalid @enderror" required>
-                                    <option value="">— Изберете категория —</option>
+
+                                    <option value="">
+                                        — Изберете категория —
+                                    </option>
 
                                     @foreach ($categories as $category)
                                         <option value="{{ $category->id }}" @selected(old('category_id') == $category->id)>
@@ -158,19 +124,25 @@
                                 </select>
 
                                 @error('category_id')
-                                    <div class="invalid-feedback">{{ $message }}</div>
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
                                 @enderror
                             </div>
 
                             <div class="mb-3">
-                                <label for="glass_name" class="form-label">Име на стъклото</label>
+                                <label for="glass_name" class="form-label">
+                                    Име на стъклото
+                                </label>
 
                                 <input type="text" id="glass_name" name="name"
                                     class="form-control @error('name') is-invalid @enderror"
-                                    placeholder="Хелиоматични стъкла" value="{{ old('name') }}" required>
+                                    placeholder="Хелиоматични стъкла" required>
 
                                 @error('name')
-                                    <div class="invalid-feedback">{{ $message }}</div>
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
                                 @enderror
                             </div>
 
@@ -181,6 +153,8 @@
                     </div>
                 </div>
             </div>
+
+
 
             {{-- ================= CREATE GLASS VALUE BY CATEGORY ================= --}}
             <div>
@@ -204,7 +178,6 @@
                                 @else
                                     <form action="{{ route('admin.glass-values.store', $category) }}" method="POST">
                                         @csrf
-
                                         <div class="mb-3">
                                             <label class="form-label">Тип стъкло</label>
 
@@ -213,8 +186,8 @@
                                                 <option value="">— Избери тип стъкло —</option>
 
                                                 @foreach ($glasses->where('category_id', $category->id) as $glass)
-                                                    <option value="{{ $glass->id }}" @selected(old('glass_id') == $glass->id)>
-                                                        {{ $glass->name }}
+                                                    <option value="{{ $glass->id }}">
+                                                        {{ $glass->visionType?->name }} - {{ $glass->name }}
                                                     </option>
                                                 @endforeach
                                             </select>
@@ -269,24 +242,33 @@
         {{-- ================= LIST OF ALL GLASSES + VALUES BY CATEGORY ================= --}}
         <h4 class="mb-3">Съществуващи стъкла</h4>
 
-        {{-- ================= LIST OF ALL GLASSES + VALUES BY CATEGORY ================= --}}
-        @foreach ($categories as $category)
+        @foreach ($visionTypes as $visionType)
             <div class="glasses-category-card">
                 <div class="glasses-category-card__header">
-                    <h5>{{ $category->name }}</h5>
+                    <h5>{{ $visionType->name }}</h5>
                 </div>
 
                 <div class="glasses-category-card__body">
-                    @if ($glasses->where('category_id', $category->id)->isEmpty())
+                    @if ($glasses->where('vision_type_id', $visionType->id)->isEmpty())
                         <div class="alert alert-info mb-0">
-                            Все още няма създадени стъкла за тази категория.
+                            Все още няма създадени стъкла за този тип зрение.
                         </div>
                     @else
                         <div class="glasses-list">
-                            @foreach ($glasses->where('category_id', $category->id) as $glass)
+                            @foreach ($glasses->where('vision_type_id', $visionType->id) as $glass)
                                 <div class="glass-admin-card">
                                     <div class="glass-admin-card__header">
-                                        <h6>{{ $glass->name }}</h6>
+                                        <div>
+                                            <h6 class="mb-1">
+                                                {{ $glass->name }}
+                                            </h6>
+
+                                            @if ($glass->category)
+                                                <small class="text-muted">
+                                                    {{ $glass->category->name }}
+                                                </small>
+                                            @endif
+                                        </div>
 
                                         <form action="{{ route('admin.glasses.destroy', $glass) }}" method="POST"
                                             onsubmit="return confirm('Сигурен ли си? Това ще изтрие типа стъкло и всичките му стойности.');">
@@ -307,51 +289,167 @@
                                         @else
                                             <div class="glass-values-list">
                                                 @foreach ($glass->values as $value)
-                                                    <div class="glass-value-row">
-                                                        <form
-                                                            action="{{ route('admin.glass-values.update', $value) }}"
-                                                            method="POST" class="glass-value-row__form">
-                                                            @csrf
-                                                            @method('PUT')
+                                                    <div class="glass-value-box">
+                                                        {{-- ================= GLASS VALUE UPDATE ================= --}}
+                                                        <div class="glass-value-row">
+                                                            <form
+                                                                action="{{ route('admin.glass-values.update', $value) }}"
+                                                                method="POST" class="glass-value-row__form">
+                                                                @csrf
+                                                                @method('PUT')
 
-                                                            <div class="glass-value-row__field">
-                                                                <label>Стойност</label>
-                                                                <input type="text" name="value"
-                                                                    class="form-control"
-                                                                    value="{{ old("glass_values.$value->id.value", $value->value) }}"
-                                                                    required>
-                                                            </div>
+                                                                <div class="glass-value-row__field">
+                                                                    <label>Стойност</label>
 
-                                                            <div class="glass-value-row__field glass-value-row__price">
-                                                                <label>Цена</label>
-                                                                <input type="number" step="0.01" name="price"
-                                                                    class="form-control"
-                                                                    value="{{ old("glass_values.$value->id.price", $value->price) }}"
-                                                                    min="0" required>
-                                                            </div>
+                                                                    <input type="text" name="value"
+                                                                        class="form-control"
+                                                                        value="{{ old("glass_values.$value->id.value", $value->value) }}"
+                                                                        required>
+                                                                </div>
 
-                                                            <div class="glass-value-row__actions">
+                                                                <div
+                                                                    class="glass-value-row__field glass-value-row__price">
+                                                                    <label>Цена</label>
+
+                                                                    <input type="number" step="0.01"
+                                                                        name="price" class="form-control"
+                                                                        value="{{ old("glass_values.$value->id.price", $value->price) }}"
+                                                                        min="0" required>
+                                                                </div>
+
+                                                                <div class="glass-value-row__actions">
+                                                                    <button type="submit"
+                                                                        class="btn btn-outline-primary rounded-5">
+                                                                        Запази
+                                                                    </button>
+                                                                </div>
+                                                            </form>
+
+                                                            <form
+                                                                action="{{ route('admin.glass-values.destroy', $value) }}"
+                                                                method="POST" class="glass-value-row__delete"
+                                                                onsubmit="return confirm('Изтрий тази стойност и всички нейни индекси?');">
+                                                                @csrf
+                                                                @method('DELETE')
+
                                                                 <button type="submit"
-                                                                    class="btn btn-outline-primary rounded-5">
-                                                                    Запази
+                                                                    class="btn btn-outline-danger rounded-5">
+                                                                    Изтрий
                                                                 </button>
+                                                            </form>
+                                                        </div>
+
+                                                        {{-- ================= EXISTING LENS INDEXES ================= --}}
+                                                        <div class="glass-value-lens-indexes mt-4">
+                                                            <div
+                                                                class="d-flex justify-content-between align-items-center mb-3">
+                                                                {{-- <h6 class="mb-0">
+                                                                    Индекси на изтъняване
+                                                                </h6> --}}
+
+                                                                   <div class="lens-index-create-box col-lg-3">
+                                                                <h6 class="mb-3">
+                                                                    Добави нов индекс
+                                                                </h6>
+
+                                                                <form
+                                                                    action="{{ route('admin.glass-value-lens-indexes.store') }}"
+                                                                    method="POST" class="lens-index-create-form">
+                                                                    @csrf
+
+                                                                    <input type="hidden" name="glass_value_id"
+                                                                        value="{{ $value->id }}">
+
+                                                                    <div class="glass-value-row__field">
+                                                                        <label>Индекс</label>
+
+                                                                        <input type="text" name="name"
+                                                                            class="form-control"
+                                                                            placeholder="Напр. 1.60" required>
+                                                                    </div>
+
+                                                                    <div class="glass-value-row__field">
+                                                                        <label>Цена</label>
+
+                                                                        <input type="number" step="0.01"
+                                                                            name="price" class="form-control"
+                                                                            placeholder="Напр. 40.00" min="0"
+                                                                            required>
+                                                                    </div>
+
+                                                                    <button type="submit"
+                                                                        class="btn btn-success rounded-5 mt-3 mb-3">
+                                                                        + Добави индекс
+                                                                    </button>
+                                                                </form>
                                                             </div>
-                                                        </form>
 
-                                                        <form
-                                                            action="{{ route('admin.glass-values.destroy', $value) }}"
-                                                            method="POST"
-                                                            onsubmit="return confirm('Изтрий тази стойност?');"
-                                                            class="glass-value-row__delete">
-                                                            @csrf
-                                                            @method('DELETE')
+                                                            @if ($value->lensIndexes->isEmpty())
+                                                                <div class="alert alert-light border mb-3">
+                                                                    Няма добавени индекси към тази стойност.
+                                                                </div>
+                                                            @else
+                                                                <div class="d-flex gap-3 mb-4">
+                                                                    @foreach ($value->lensIndexes as $lensIndex)
+                                                                        <div class="lens-index-admin-row">
+                                                                            <form
+                                                                                action="{{ route('admin.glass-value-lens-indexes.update', $lensIndex) }}"
+                                                                                method="POST"
+                                                                                class="lens-index-admin-row__form">
+                                                                                @csrf
+                                                                                @method('PUT')
 
-                                                            <button type="submit"
-                                                                class="btn btn-outline-danger rounded-5">
-                                                                Изтрий
-                                                            </button>
-                                                        </form>
+                                                                                <div class="glass-value-row__field">
+                                                                                    <label>Индекс</label>
+
+                                                                                    <input type="text"
+                                                                                        name="name"
+                                                                                        class="form-control"
+                                                                                        value="{{ old("glass_value_lens_indexes.$lensIndex->id.name", $lensIndex->name) }}"
+                                                                                        placeholder="Напр. 1.60"
+                                                                                        required>
+                                                                                </div>
+
+                                                                                <div class="glass-value-row__field">
+                                                                                    <label>Цена</label>
+
+                                                                                    <input type="number"
+                                                                                        step="0.01" name="price"
+                                                                                        class="form-control"
+                                                                                        value="{{ old("glass_value_lens_indexes.$lensIndex->id.price", $lensIndex->price) }}"
+                                                                                        min="0" required>
+                                                                                </div>
+
+                                                                                <button type="submit"
+                                                                                    class="btn btn-primary text-white btn-outline-primary rounded-5 w-100 mt-2 mb-2">
+                                                                                    Запази
+                                                                                </button>
+                                                                            </form>
+
+                                                                            <form
+                                                                                action="{{ route('admin.glass-value-lens-indexes.destroy', $lensIndex) }}"
+                                                                                method="POST"
+                                                                                onsubmit="return confirm('Сигурен ли си, че искаш да изтриеш този индекс?');">
+                                                                                @csrf
+                                                                                @method('DELETE')
+
+                                                                                <button type="submit"
+                                                                                    class="btn btn-outline-danger rounded-5">
+                                                                                    Изтрий
+                                                                                </button>
+                                                                            </form>
+                                                                        </div>
+                                                                    @endforeach
+                                                                </div>
+                                                            @endif
+
+                                                            </div>
+
+
+
+                                                        </div>
                                                     </div>
+                                                    <hr>
                                                 @endforeach
                                             </div>
                                         @endif
@@ -363,54 +461,48 @@
                 </div>
             </div>
         @endforeach
+
+
         <hr class="my-3">
 
-        {{-- ================= LIST OF ALL LANCES ================= --}}
-        <h4 class="mb-3">Съществуващи индекси на изтъняване</h4>
 
-        @if ($lances->isEmpty())
+        <h4 class="mb-3">Съществуващи типове зрение</h4>
+
+
+        @if ($visionTypes->isEmpty())
             <div class="alert alert-info">
-                Все още няма създадени индекси на изтъняване.
+                Все още няма създадени типове зрение.
             </div>
         @else
             <div class="row g-3">
-                @foreach ($lances as $lance)
+                @foreach ($visionTypes as $visionType)
                     <div class="col-md-6 col-lg-4">
                         <div class="glass-admin-card h-100">
                             <div class="glass-admin-card__header">
-                                <h6>{{ $lance->name }}</h6>
+                                <h6>{{ $visionType->name }}</h6>
                             </div>
 
                             <div class="glass-admin-card__body">
-                                <form action="{{ route('admin.lances.update', $lance) }}" method="POST">
+                                <form action="{{ route('admin.vision-types.update', $visionType) }}" method="POST">
                                     @csrf
                                     @method('PUT')
 
                                     <div class="glass-value-row__field mb-3">
-                                        <label>Индекс на изтъняване</label>
+                                        <label>Тип зрение</label>
 
                                         <input type="text" name="name" class="form-control"
-                                            value="{{ old("lances.$lance->id.name", $lance->name) }}" required>
+                                            value="{{ old("visionTypes.$visionType->id.name", $visionType->name) }}"
+                                            required>
                                     </div>
 
-                                    <div class="glass-value-row__field mb-3">
-                                        <label>Цена</label>
-
-                                        <input type="number" step="0.01" name="price" class="form-control"
-                                            value="{{ old("lances.$lance->id.price", $lance->price) }}"
-                                            min="0" required>
-                                    </div>
-
-                                    <div class="d-flex gap-2">
-                                        <button type="submit" class="btn btn-outline-primary rounded-5 flex-fill">
-                                            Запази
-                                        </button>
-                                    </div>
+                                    <button type="submit" class="btn btn-outline-primary rounded-5 w-100">
+                                        Запази
+                                    </button>
                                 </form>
 
-                                <form action="{{ route('admin.lances.destroy', $lance) }}" method="POST"
+                                <form action="{{ route('admin.vision-types.destroy', $visionType) }}" method="POST"
                                     class="mt-3"
-                                    onsubmit="return confirm('Сигурен ли си, че искаш да изтриеш този индекс?');">
+                                    onsubmit="return confirm('Сигурен ли си, че искаш да изтриеш този тип зрение?');">
                                     @csrf
                                     @method('DELETE')
 
@@ -424,88 +516,6 @@
                 @endforeach
             </div>
         @endif
-
-
-      <hr class="my-3">
-
-{{-- ================= LIST OF ALL LENS COLORS ================= --}}
-<h4 class="mb-3">Съществуващи цветове на стъклата</h4>
-
-@if ($lanceColors->isEmpty())
-    <div class="alert alert-info">
-        Все още няма създадени цветове.
-    </div>
-@else
-    <div class="row g-3">
-        @foreach ($lanceColors as $lanceColor)
-            <div class="col-md-6 col-lg-4">
-                <div class="glass-admin-card h-100">
-
-                    <div class="glass-admin-card__header">
-                        <h6>{{ $lanceColor->name }}</h6>
-                    </div>
-
-                    <div class="glass-admin-card__body">
-
-                        <form action="{{ route('admin.lance-colors.update', $lanceColor) }}"
-                            method="POST">
-                            @csrf
-                            @method('PUT')
-
-                            <div class="glass-value-row__field mb-3">
-                                <label>Цвят</label>
-
-                                <input
-                                    type="text"
-                                    name="name"
-                                    class="form-control"
-                                    value="{{ old("lanceColors.$lanceColor->id.name", $lanceColor->name) }}"
-                                    required>
-                            </div>
-
-                            <div class="glass-value-row__field mb-3">
-                                <label>Цена</label>
-
-                                <input
-                                    type="number"
-                                    name="lance_color_price"
-                                    class="form-control"
-                                    value="{{ old("lanceColors.$lanceColor->id.price", $lanceColor->price) }}"
-                                    step="0.01"
-                                    min="0"
-                                    required>
-                            </div>
-
-                            <button
-                                type="submit"
-                                class="btn btn-outline-primary rounded-5 w-100">
-                                Запази
-                            </button>
-                        </form>
-
-                        <form
-                            action="{{ route('admin.lance-colors.destroy', $lanceColor) }}"
-                            method="POST"
-                            class="mt-3"
-                            onsubmit="return confirm('Сигурен ли си, че искаш да изтриеш този цвят?');">
-
-                            @csrf
-                            @method('DELETE')
-
-                            <button
-                                type="submit"
-                                class="btn btn-outline-danger rounded-5 w-100">
-                                Изтрий
-                            </button>
-
-                        </form>
-
-                    </div>
-                </div>
-            </div>
-        @endforeach
-    </div>
-@endif
 
 
     </div>

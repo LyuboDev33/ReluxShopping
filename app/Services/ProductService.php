@@ -113,4 +113,43 @@ class ProductService
 
         return $tree;
     }
+
+    /**
+     * Find the breadcrumb path for a category inside the category tree.
+     *
+     * @param array $categoriesTree
+     * @param string $activeSlug
+     * @return array
+     */
+    public static function getCategoryBreadcrumbs(array $categoriesTree, string $activeSlug): array {
+        
+        foreach ($categoriesTree as $category) {
+
+            if ($category['slug'] === $activeSlug) {
+                return [[
+                    'name' => $category['name'],
+                    'slug' => $category['slug'],
+                ]];
+            }
+
+            if (! empty($category['children'])) {
+                $childPath = self::getCategoryBreadcrumbs(
+                    $category['children'],
+                    $activeSlug
+                );
+
+                if (! empty($childPath)) {
+                    return array_merge(
+                        [[
+                            'name' => $category['name'],
+                            'slug' => $category['slug'],
+                        ]],
+                        $childPath
+                    );
+                }
+            }
+        }
+
+        return [];
+    }
 }

@@ -650,6 +650,16 @@
     display: block;
 }
 
+.contact-four__right img {
+    max-width: 100%;
+}
+
+@media (max-width: 768px) {
+    .contact-four__right img {
+        display: none;
+    }
+}
+
 .google-map__two {
     position: relative;
     display: block;

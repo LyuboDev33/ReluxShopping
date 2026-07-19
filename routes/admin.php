@@ -5,8 +5,8 @@ use App\Http\Controllers\Admin\AdminGlassesController;
 use App\Http\Controllers\Admin\AdminOrdersController;
 use App\Http\Controllers\Admin\AdminProductsController;
 use App\Http\Controllers\Admin\AdminPromoCodesController;
+use App\Http\Controllers\Admin\AdminVisionTypeController;
 use App\Http\Controllers\Admin\ProductAttributesController;
-
 use Illuminate\Support\Facades\Route;
 
 
@@ -25,15 +25,21 @@ Route::prefix('admin')
             Route::put('/values/update/{glassValue}', [AdminGlassesController::class, 'updateGlassValue'])->name('admin.glass-values.update');
             Route::delete('/values/destroy/{glassValue}', [AdminGlassesController::class, 'destroyGlassValue'])->name('admin.glass-values.destroy');
 
-            Route::post('/lances/store', [AdminGlassesController::class, 'storeLance'])->name('admin.lances.store');
-            Route::put('/lances/update/{lance}', [AdminGlassesController::class, 'updateLance'])->name('admin.lances.update');
-            Route::delete('/lances/destroy/{lance}', [AdminGlassesController::class, 'destroyLance'])->name('admin.lances.destroy');
 
-            Route::post('/lance-colors/store', [AdminGlassesController::class, 'storeLanceColor'])->name('admin.lance-colors.store');
-            Route::put('/lance-colors/update/{lanceColor}', [AdminGlassesController::class, 'updateLanceColor'])
-                ->name('admin.lance-colors.update');
-            Route::delete('/lance-colors/destroy/{lanceColor}', [AdminGlassesController::class, 'destroyLanceColor'])
-                ->name('admin.lance-colors.destroy');
+            Route::post('/value-lens-indexes/store', [AdminGlassesController::class, 'storeGlassValueLensIndex'])
+            ->name('admin.glass-value-lens-indexes.store');
+
+            Route::put('/value-lens-indexes/update/{glassValueLensIndex}',[AdminGlassesController::class, 'updateGlassValueLensIndex'])
+            ->name('admin.glass-value-lens-indexes.update');
+
+            Route::delete('/value-lens-indexes/destroy/{glassValueLensIndex}',[AdminGlassesController::class, 'destroyGlassValueLensIndex'])
+            ->name('admin.glass-value-lens-indexes.destroy');
+        });
+
+        Route::prefix('/vision-type')->group(function () {
+            Route::post('/store', [AdminVisionTypeController::class, 'store'])->name('admin.vision-types.store');
+            Route::put('/update/{visionType}', [AdminVisionTypeController::class, 'update'])->name('admin.vision-types.update');
+            Route::delete('/destroy/{visionType}', [AdminVisionTypeController::class, 'destroy'])->name('admin.vision-types.destroy');
         });
 
 

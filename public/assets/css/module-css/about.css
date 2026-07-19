@@ -554,7 +554,7 @@
     position: relative;
     display: block;
     counter-reset: count;
-    padding: 90px 0 120px;
+    padding: 90px 0 40px;
     z-index: 1;
     background: #f7ded23d;
 }
@@ -585,11 +585,13 @@
 }
 
 .about-four__right .section-title-two {
-    margin-bottom: 31px;
+    margin-bottom: 20px;
 }
 
 .about-four__text {
-    margin-bottom: 43px;
+    margin-bottom: 20px;
+    font-size: 18px;
+    line-height: 1.6;
 }
 
 .about-four__points-box {
@@ -674,12 +676,13 @@
     display: block;
     padding: 150px 0 0px;
     z-index: 1;
+    background-color: #f7ded23d;
 }
 
 .about-five__left {
     position: relative;
     display: block;
-    margin-top: 65px;
+    /* margin-top: 65px; */
 }
 
 .about-five__left .section-title {
@@ -687,7 +690,8 @@
 }
 
 .about-five__text-1 {
-    margin-bottom: 40px;
+    margin-bottom: 20px;
+    font-size: 18px;
 }
 
 .about-five__points {
@@ -737,7 +741,6 @@
 .about-five__right {
     position: relative;
     display: block;
-    margin-left: 119px;
 }
 
 .about-five__img-box {

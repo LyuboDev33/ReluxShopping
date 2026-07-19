@@ -10,11 +10,11 @@
                     <div class="row">
 
                         <!-- Logo + Contacts -->
-                        <div class="col-xl-3 col-lg-6 col-md-6 wow fadeInUp" data-wow-delay="100ms">
+                        <div class="col-xl-4 col-lg-6 col-md-6 wow fadeInUp" data-wow-delay="100ms">
                             <div class="footer-widget__about">
 
                                 <div class="footer-widget__about-logo">
-                                    <x-logo width="150" />
+                                    <x-logo width="250" mobileWidth="150" />
                                 </div>
 
                                 <div class="footer-widget__contact-info">
@@ -64,7 +64,7 @@
                         </div>
 
                         <!-- Pages -->
-                        <div class="col-xl-3 col-lg-6 col-md-6 wow fadeInUp" data-wow-delay="200ms">
+                        <div class="col-xl-4 col-lg-6 col-md-6 wow fadeInUp" data-wow-delay="200ms">
                             <div class="footer-widget__page-link">
 
                                 <h4 class="footer-widget__title">
@@ -94,13 +94,7 @@
                                         </a>
                                     </li>
 
-                                    <li>
-                                        <a href="/services">
-                                            <span class="icon-double-arrow-right"></span>
-                                            <p>Услуги</p>
-                                        </a>
-                                    </li>
-
+                        
                                     <li>
                                         <a href="/contact">
                                             <span class="icon-double-arrow-right"></span>
@@ -114,42 +108,36 @@
                         </div>
 
                         <!-- Services -->
-                  <div class="col-xl-3 col-lg-6 col-md-6 wow fadeInUp" data-wow-delay="300ms">
-    <div class="footer-widget__social-box">
+                        <div class="col-xl-4 col-lg-6 col-md-6 wow fadeInUp" data-wow-delay="300ms">
+                            <div class="footer-widget__social-box">
 
-        <h4 class="footer-widget__title">
-            Социални мрежи
-        </h4>
+                                <h4 class="footer-widget__title">
+                                    Социални мрежи
+                                </h4>
 
-        <p class="footer-widget__social-text mt-0">
-            Последвайте ни в социалните мрежи
-        </p>
+                                <p class="footer-widget__social-text mt-0">
+                                    Последвайте ни в социалните мрежи
+                                </p>
 
-        <div class="footer-widget__social">
+                                <div class="footer-widget__social">
 
-            <a href="#" target="_blank">
-                <span class="icon-facebook-f"></span>
-            </a>
+                                    <a target="_blank" href="https://www.facebook.com/valente.optic">
+                                        <i class="fa-brands fa-facebook"></i>
+                                    </a>
 
-            <a href="#" target="_blank">
-                <span class="icon-instagram"></span>
-            </a>
+                                     <a target="_blank" href="https://www.tiktok.com/@valenteoptic.burgas">
+                                       <i class="fa-brands fa-tiktok"></i>
+                                    </a>
 
-            <a href="#" target="_blank">
-                <span class="icon-pintarest"></span>
-            </a>
 
-            <a href="#" target="_blank">
-                <span class="icon-Vector"></span>
-            </a>
 
-        </div>
+                                </div>
 
-    </div>
-</div>
+                            </div>
+                        </div>
 
                         <!-- Working Hours -->
-                        <div class="col-xl-3 col-lg-6 col-md-6 wow fadeInUp" data-wow-delay="400ms">
+                        {{-- <div class="col-xl-3 col-lg-6 col-md-6 wow fadeInUp" data-wow-delay="400ms">
                             <div class="site-footer-four__contact-box">
 
                                 <h4 class="site-footer-four__contact-title">
@@ -170,7 +158,7 @@
                                 </div>
 
                             </div>
-                        </div>
+                        </div> --}}
 
                     </div>
                 </div>

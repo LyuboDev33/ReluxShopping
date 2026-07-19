@@ -22,6 +22,7 @@ class OrdersController extends Controller
 {
 
 
+
     /**
      * Add a product to the session.
      *
@@ -32,44 +33,99 @@ class OrdersController extends Controller
     public function addProduct(Request $request, Product $product): RedirectResponse
     {
         $validated = $request->validate([
-            'purchase_type' => ['required', 'in:frame_only,frame_with_glasses'],
-            'quantity'      => ['required', 'integer', 'min:1'],
+            'purchase_type' => [
+                'required',
+                'in:frame_only,frame_with_glasses',
+            ],
 
-            'lens_index_id' => [
-                'required_if:purchase_type,frame_with_glasses',
-                'nullable',
-                'exists:lens_indexes,id',
+            'quantity' => [
+                'required',
+                'integer',
+                'min:1',
             ],
 
             'glass_value_id' => [
-                'required_if:purchase_type,frame_with_glasses',
                 'nullable',
+                'required_if:purchase_type,frame_with_glasses',
+                'integer',
                 'exists:glass_values,id',
             ],
 
-            'lance_color_id' => [
-                'required_if:purchase_type,frame_with_glasses',
+            'glass_value_lens_index_id' => [
                 'nullable',
-                'exists:lance_colors,id',
+                'required_if:purchase_type,frame_with_glasses',
+                'integer',
+                'exists:glass_value_lens_indexes,id',
             ],
 
-            'prescription_image' => ['nullable', 'file', 'mimes:jpg,jpeg,png,webp,pdf', 'max:5120'],
+            'prescription_image' => [
+                'nullable',
+                'file',
+                'mimes:jpg,jpeg,png,webp,pdf',
+                'max:5120',
+            ],
 
-            'right_eye'      => ['nullable', 'array'],
-            'right_eye.sph'  => ['nullable', 'string'],
-            'right_eye.cyl'  => ['nullable', 'string'],
-            'right_eye.axis' => ['nullable', 'string'],
-            'right_eye.add'  => ['nullable', 'string'],
+            'right_eye' => [
+                'nullable',
+                'array',
+            ],
 
-            'left_eye'      => ['nullable', 'array'],
-            'left_eye.sph'  => ['nullable', 'string'],
-            'left_eye.cyl'  => ['nullable', 'string'],
-            'left_eye.axis' => ['nullable', 'string'],
-            'left_eye.add'  => ['nullable', 'string'],
+            'right_eye.sph' => [
+                'nullable',
+                'string',
+            ],
+
+            'right_eye.cyl' => [
+                'nullable',
+                'string',
+            ],
+
+            'right_eye.axis' => [
+                'nullable',
+                'string',
+            ],
+
+            'left_eye' => [
+                'nullable',
+                'array',
+            ],
+
+            'left_eye.sph' => [
+                'nullable',
+                'string',
+            ],
+
+            'left_eye.cyl' => [
+                'nullable',
+                'string',
+            ],
+
+            'left_eye.axis' => [
+                'nullable',
+                'string',
+            ],
+
+            'pd' => [
+                'nullable',
+                'string',
+            ],
         ], [
-            'lens_index_id.required_if'  => 'Моля, изберете индекс на изтъняване.',
+            'purchase_type.required' => 'Моля, изберете начин на покупка.',
+            'purchase_type.in' => 'Избраният начин на покупка е невалиден.',
+
+            'quantity.required' => 'Моля, изберете количество.',
+            'quantity.integer' => 'Количеството трябва да бъде цяло число.',
+            'quantity.min' => 'Количеството трябва да бъде поне 1.',
+
             'glass_value_id.required_if' => 'Моля, изберете тип стъкло.',
-            'lance_color_id.required_if' => 'Моля, изберете цвят на стъклото.',
+            'glass_value_id.exists' => 'Избраният тип стъкло е невалиден.',
+
+            'glass_value_lens_index_id.required_if' => 'Моля, изберете индекс на изтъняване.',
+            'glass_value_lens_index_id.exists' => 'Избраният индекс на изтъняване е невалиден.',
+
+            'prescription_image.file' => 'Прикачената рецепта трябва да бъде файл.',
+            'prescription_image.mimes' => 'Рецептата трябва да бъде JPG, JPEG, PNG, WEBP или PDF файл.',
+            'prescription_image.max' => 'Файлът с рецептата не може да бъде по-голям от 5 MB.',
         ]);
 
         $purchaseType = $validated['purchase_type'];
@@ -77,163 +133,236 @@ class OrdersController extends Controller
         $stock = (int) $product->stock;
 
         if ($stock <= 0) {
-            return back()->withErrors([
-                'stock' => 'Този продукт няма наличност.',
-            ])->withInput();
+            return back()
+                ->withErrors([
+                    'stock' => 'Този продукт няма наличност.',
+                ])
+                ->withInput();
         }
 
-        $lensIndex = null;
+        if ($quantity > $stock) {
+            return back()
+                ->withErrors([
+                    'quantity' => 'Няма достатъчна наличност за желаното количество.',
+                ])
+                ->withInput();
+        }
+
         $glassValue = null;
-        $lanceColor = null;
+        $lensIndex = null;
+        $rightEye = [];
+        $leftEye = [];
+        $pd = null;
+        $hasUploadedPrescription = false;
 
         if ($purchaseType === 'frame_with_glasses') {
             if (! $product->can_buy_with_lenses) {
-                return back()->withErrors([
-                    'purchase_type' => 'Този продукт не може да бъде закупен със стъкла.',
-                ])->withInput();
+                return back()
+                    ->withErrors([
+                        'purchase_type' => 'Този продукт не може да бъде закупен със стъкла.',
+                    ])
+                    ->withInput();
             }
 
-            $lensIndex = LensIndex::findOrFail($validated['lens_index_id']);
-            $glassValue = GlassValue::with('glass')->findOrFail($validated['glass_value_id']);
-            $lanceColor = LanceColor::findOrFail($validated['lance_color_id']);
-        }
+            $glassValue = GlassValue::with([
+                'glass',
+                'lensIndexes',
+            ])->findOrFail($validated['glass_value_id']);
 
-        $hasUploadedPrescription = $request->hasFile('prescription_image');
+            $lensIndex = $glassValue->lensIndexes->firstWhere(
+                'id',
+                (int) $validated['glass_value_lens_index_id']
+            );
 
-        $rightEye = $validated['right_eye'] ?? [];
-        $leftEye = $validated['left_eye'] ?? [];
-
-        $requiredEyeFields = ['sph', 'cyl', 'axis', 'add'];
-
-        $hasAnyManualPrescription =
-            ! empty(array_filter($rightEye)) ||
-            ! empty(array_filter($leftEye));
-
-        $hasCompleteManualPrescription = true;
-
-        foreach ($requiredEyeFields as $field) {
-            if (
-                empty($rightEye[$field]) ||
-                empty($leftEye[$field])
-            ) {
-                $hasCompleteManualPrescription = false;
-                break;
+            if (! $lensIndex) {
+                return back()
+                    ->withErrors([
+                        'glass_value_lens_index_id' => 'Избраният индекс не е наличен за това стъкло.',
+                    ])
+                    ->withInput();
             }
-        }
 
-        if ($purchaseType === 'frame_with_glasses') {
+            $rightEye = $validated['right_eye'] ?? [];
+            $leftEye = $validated['left_eye'] ?? [];
+            $pd = $validated['pd'] ?? null;
+
+            $hasUploadedPrescription = $request->hasFile('prescription_image');
+
+            $rightSph = $rightEye['sph'] ?? null;
+            $rightCyl = $rightEye['cyl'] ?? null;
+            $rightAxis = $rightEye['axis'] ?? null;
+
+            $leftSph = $leftEye['sph'] ?? null;
+            $leftCyl = $leftEye['cyl'] ?? null;
+            $leftAxis = $leftEye['axis'] ?? null;
+
+            $hasRightSph = $rightSph !== null && $rightSph !== '';
+            $hasRightCyl = $rightCyl !== null && $rightCyl !== '';
+            $hasRightAxis = $rightAxis !== null && $rightAxis !== '';
+
+            $hasLeftSph = $leftSph !== null && $leftSph !== '';
+            $hasLeftCyl = $leftCyl !== null && $leftCyl !== '';
+            $hasLeftAxis = $leftAxis !== null && $leftAxis !== '';
+
+            $hasPd = $pd !== null && $pd !== '';
+
+            $hasRightEyeValues =
+                $hasRightSph ||
+                $hasRightCyl ||
+                $hasRightAxis;
+
+            $hasLeftEyeValues =
+                $hasLeftSph ||
+                $hasLeftCyl ||
+                $hasLeftAxis;
+
+            $hasAnyManualPrescription =
+                $hasRightEyeValues ||
+                $hasLeftEyeValues ||
+                $hasPd;
+
             if (! $hasUploadedPrescription && ! $hasAnyManualPrescription) {
-                return back()->withErrors([
-                    'prescription' => 'Моля, качете снимка с рецепта или въведете ръчно данните за диоптър.',
-                ])->withInput();
+                return back()
+                    ->withErrors([
+                        'prescription' => 'Моля, качете рецепта или въведете ръчно данните за диоптър.',
+                    ])
+                    ->withInput();
             }
 
-            if ($hasAnyManualPrescription && ! $hasCompleteManualPrescription) {
-                return back()->withErrors([
-                    'prescription' => 'Моля, попълнете всички полета за дясно и ляво око.',
-                ])->withInput();
+            if ($hasAnyManualPrescription) {
+                $prescriptionErrors = [];
+
+                if ($hasRightAxis && ! $hasRightCyl) {
+                    $prescriptionErrors[] = 'За дясното око трябва да изберете цилиндър (CYL), когато е избран градус (AXIS).';
+                }
+
+                if ($hasRightCyl && ! $hasRightAxis) {
+                    $prescriptionErrors[] = 'За дясното око градусът (AXIS) е задължителен, когато е избран цилиндър (CYL).';
+                }
+
+                if ($hasLeftAxis && ! $hasLeftCyl) {
+                    $prescriptionErrors[] = 'За лявото око трябва да изберете цилиндър (CYL), когато е избран градус (AXIS).';
+                }
+
+                if ($hasLeftCyl && ! $hasLeftAxis) {
+                    $prescriptionErrors[] = 'За лявото око градусът (AXIS) е задължителен, когато е избран цилиндър (CYL).';
+                }
+
+                if (
+                    ($hasRightSph || $hasRightCyl || $hasLeftSph || $hasLeftCyl) &&
+                    ! $hasPd
+                ) {
+                    $prescriptionErrors[] = 'Полето PD е задължително, когато е избрана сфера (SPH) или цилиндър (CYL).';
+                }
+
+                if (
+                    $hasPd &&
+                    ! $hasRightSph &&
+                    ! $hasRightCyl &&
+                    ! $hasLeftSph &&
+                    ! $hasLeftCyl
+                ) {
+                    $prescriptionErrors[] = 'Трябва да изберете сфера (SPH) или цилиндър (CYL), когато е въведено PD.';
+                }
+
+                if (! empty($prescriptionErrors)) {
+                    return back()
+                        ->withErrors([
+                            'prescription' => implode(' ', $prescriptionErrors),
+                        ])
+                        ->withInput();
+                }
             }
-        }
-
-        $prescriptionImageName = null;
-
-        if ($hasUploadedPrescription) {
-            $file = $request->file('prescription_image');
-            $prescriptionImageName = time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
-            $file->move(public_path('assets/images/prescriptions'), $prescriptionImageName);
         }
 
         $baseFinalPrice = $product->discount
             ? $product->price - (($product->price * $product->discount) / 100)
             : $product->price;
 
-        $finalPrice = $baseFinalPrice;
+        $finalPrice = (float) $baseFinalPrice;
 
         if ($purchaseType === 'frame_with_glasses') {
-            $finalPrice += $lensIndex->price;
-            $finalPrice += $glassValue->price;
-            $finalPrice += $lanceColor->price;
+            $finalPrice += (float) $glassValue->price;
+            $finalPrice += (float) $lensIndex->price;
         }
 
         $products = Session::get('products', []);
 
-        $existingProductKey = null;
+        $productKey = (string) $product->id;
 
-        foreach ($products as $cartKey => $cartProduct) {
-            if ((int) $cartProduct['product_id'] === (int) $product->id) {
-                $existingProductKey = $cartKey;
-                break;
-            }
-        }
-
-        $newKey = $product->id
-            . '-' . $purchaseType
-            . '-' . ($lensIndex?->id ?? 0)
-            . '-' . ($glassValue?->id ?? 0)
-            . '-' . ($lanceColor?->id ?? 0);
-
-        $existingQuantity = 0;
-
-        if ($existingProductKey && $existingProductKey === $newKey) {
-            $existingQuantity = (int) $products[$existingProductKey]['quantity'];
-        }
+        $existingQuantity = isset($products[$productKey])
+            ? (int) $products[$productKey]['quantity']
+            : 0;
 
         if (($existingQuantity + $quantity) > $stock) {
-            return back()->withErrors([
-                'quantity' => 'Няма достатъчна наличност за желаното количество.',
-            ])->withInput();
+            return back()
+                ->withErrors([
+                    'quantity' => 'Няма достатъчна наличност за желаното количество.',
+                ])
+                ->withInput();
+        }
+
+        $prescriptionImageName = null;
+
+        if (
+            $purchaseType === 'frame_with_glasses' &&
+            $hasUploadedPrescription
+        ) {
+            $file = $request->file('prescription_image');
+
+            $prescriptionImageName =
+                time()
+                . '_'
+                . uniqid()
+                . '.'
+                . $file->getClientOriginalExtension();
+
+            $file->move(
+                public_path('assets/images/prescriptions'),
+                $prescriptionImageName
+            );
         }
 
         $cartItem = [
-            'product_id'    => $product->id,
-            'name'          => $product->name,
-            'slug'          => $product->slug,
-            'price'         => (float) $product->price,
-            'discount'      => $product->discount,
-            'base_price'    => (float) $baseFinalPrice,
-            'final_price'   => (float) $finalPrice,
-            'quantity'      => $quantity,
-            'image'         => $product->main_image,
+            'product_id' => $product->id,
+            'name' => $product->name,
+            'slug' => $product->slug,
+            'price' => (float) $product->price,
+            'discount' => $product->discount,
+            'base_price' => (float) $baseFinalPrice,
+            'final_price' => (float) $finalPrice,
+            'quantity' => $existingQuantity + $quantity,
+            'image' => $product->main_image,
             'purchase_type' => $purchaseType,
 
+            'glass_value' => $glassValue ? [
+                'id' => $glassValue->id,
+                'glass_id' => $glassValue->glass_id,
+                'glass_name' => $glassValue->glass?->name,
+                'value' => $glassValue->value,
+                'price' => (float) $glassValue->price,
+            ] : null,
+
             'lens_index' => $lensIndex ? [
-                'id'    => $lensIndex->id,
-                'name'  => $lensIndex->name,
+                'id' => $lensIndex->id,
+                'name' => $lensIndex->name,
                 'price' => (float) $lensIndex->price,
             ] : null,
 
-            'glass_value' => $glassValue ? [
-                'id'         => $glassValue->id,
-                'glass_id'   => $glassValue->glass_id,
-                'glass_name' => $glassValue->glass?->name,
-                'value'      => $glassValue->value,
-                'price'      => (float) $glassValue->price,
-            ] : null,
-
-            'lance_color' => $lanceColor ? [
-                'id'    => $lanceColor->id,
-                'name'  => $lanceColor->name,
-                'price' => (float) $lanceColor->price,
-            ] : null,
-
             'prescription_image' => $prescriptionImageName,
-            'right_eye'          => $rightEye,
-            'left_eye'           => $leftEye,
+            'right_eye' => $rightEye,
+            'left_eye' => $leftEye,
+            'pd' => $pd,
         ];
 
-        if ($existingProductKey) {
-            if ($existingProductKey === $newKey) {
-                $cartItem['quantity'] = $products[$existingProductKey]['quantity'] + $quantity;
-            }
-
-            unset($products[$existingProductKey]);
-        }
-
-        $products[$newKey] = $cartItem;
+        $products[$productKey] = $cartItem;
 
         Session::put('products', $products);
 
-        return back()->with('success', 'Продуктът беше добавен успешно в количката!');
+        return back()->with(
+            'success',
+            'Продуктът беше добавен успешно в количката!'
+        );
     }
 
     /** Remove a product from the cart
@@ -309,107 +438,128 @@ class OrdersController extends Controller
         $cartProducts = Session::get('products', []);
 
         if (empty($cartProducts)) {
-            return back()->withErrors([
-                'cart' => 'Количката е празна.',
-            ]);
+            return back()
+                ->withErrors([
+                    'cart' => 'Количката е празна.',
+                ]);
         }
 
-        DB::transaction(function () use ($validated, $cartProducts) {
-            $subtotal = 0;
+        try {
+            $order = DB::transaction(function () use ($validated, $cartProducts) {
+                $subtotal = 0;
 
-            foreach ($cartProducts as $product) {
-                $subtotal += $product['final_price'] * $product['quantity'];
-            }
-
-            $order = Order::create([
-                'order_number' => 'ORD-' . date('ymd') . '-' . random_int(1000, 9999),
-                'first_name' => $validated['fname'],
-                'last_name' => $validated['lname'],
-                'phone' => $validated['phone'],
-                'email' => $validated['email'],
-
-                'delivery_method' => $validated['delivery_method'],
-
-                'city' => $validated['city'] ?? null,
-                'personal_address' => $validated['billing_address'] ?? null,
-
-                'courier' => ! empty($validated['office_list']) ? 'speedy' : null,
-                'office_list' => $validated['office_list'] ?? null,
-
-                'request_invoice' => $validated['request_invoice'] ?? false,
-
-                'company_name' => $validated['company_name'] ?? null,
-                'company_mol' => $validated['company_mol'] ?? null,
-                'company_bulstat' => $validated['company_bulstat'] ?? null,
-                'company_address' => $validated['company_address'] ?? null,
-
-                'subtotal' => $subtotal,
-                'delivery_price' => 0,
-                'total' => $subtotal,
-
-                'payment_option' => 'cash_on_delivery',
-                'status' => Order::STATUS_PENDING,
-            ]);
-
-            foreach ($cartProducts as $product) {
-                $databaseProduct = Product::where('id', $product['product_id'])
-                    ->lockForUpdate()
-                    ->first();
-
-                if (! $databaseProduct) {
-                    throw new \Exception('Продуктът не съществува.');
+                foreach ($cartProducts as $product) {
+                    $subtotal +=
+                        (float) $product['final_price'] *
+                        (int) $product['quantity'];
                 }
 
-                $currentStock = (int) $databaseProduct->stock;
-                $orderedQuantity = (int) $product['quantity'];
+                $order = Order::create([
+                    'order_number' => 'ORD-' . date('ymd') . '-' . random_int(1000, 9999),
 
-                if ($currentStock < $orderedQuantity) {
-                    throw new \Exception('Няма достатъчна наличност за продукт: ' . $product['name']);
+                    'first_name' => $validated['fname'],
+                    'last_name' => $validated['lname'],
+                    'phone' => $validated['phone'],
+                    'email' => $validated['email'],
+
+                    'delivery_method' => $validated['delivery_method'],
+
+                    'city' => $validated['city'] ?? null,
+                    'personal_address' => $validated['billing_address'] ?? null,
+
+                    'courier' => ! empty($validated['office_list']) ? 'speedy' : null,
+
+                    'office_list' => $validated['office_list'] ?? null,
+
+                    'request_invoice' => $validated['request_invoice'] ?? false,
+
+                    'company_name' => $validated['company_name'] ?? null,
+                    'company_mol' => $validated['company_mol'] ?? null,
+                    'company_bulstat' => $validated['company_bulstat'] ?? null,
+                    'company_address' => $validated['company_address'] ?? null,
+
+                    'subtotal' => $subtotal,
+                    'delivery_price' => 0,
+                    'total' => $subtotal,
+
+                    'payment_option' => 'cash_on_delivery',
+                    'status' => Order::STATUS_PENDING,
+                ]);
+
+                foreach ($cartProducts as $product) {
+                    $databaseProduct = Product::where('id', $product['product_id'])
+                        ->lockForUpdate()
+                        ->first();
+
+                    if (! $databaseProduct) {
+                        throw new \Exception(
+                            'Продуктът не съществува: ' . $product['name']
+                        );
+                    }
+
+                    $currentStock = (int) $databaseProduct->stock;
+                    $orderedQuantity = (int) $product['quantity'];
+
+                    if ($currentStock < $orderedQuantity) {
+                        throw new \Exception(
+                            'Няма достатъчна наличност за продукт: ' .
+                                $product['name']
+                        );
+                    }
+
+                    $databaseProduct->update([
+                        'stock' => $currentStock - $orderedQuantity,
+                    ]);
+
+                    OrderProduct::create([
+                        'order_id' => $order->id,
+                        'product_id' => $product['product_id'],
+
+                        'product_name' => $product['name'],
+                        'product_slug' => $product['slug'],
+                        'product_image' => $product['image'] ?? null,
+
+                        'price' => $product['price'],
+                        'discount' => $product['discount'] ?? null,
+                        'base_price' => $product['base_price'],
+                        'final_price' => $product['final_price'],
+                        'quantity' => $product['quantity'],
+
+                        'purchase_type' => $product['purchase_type'] ?? 'frame_only',
+
+                        'glass_id' => $product['glass_value']['glass_id'] ?? null,
+                        'glass_value_id' => $product['glass_value']['id'] ?? null,
+                        'glass_name' => $product['glass_value']['glass_name'] ?? null,
+                        'glass_value_name' => $product['glass_value']['value'] ?? null,
+                        'glass_value_price' => $product['glass_value']['price'] ?? null,
+
+                        'glass_value_lens_index_id' => $product['lens_index']['id'] ?? null,
+                        'glass_value_lens_index_name' => $product['lens_index']['name'] ?? null,
+                        'glass_value_lens_index_price' => $product['lens_index']['price'] ?? null,
+
+                        'prescription_image' => $product['prescription_image'] ?? null,
+                        'right_eye' => $product['right_eye'] ?? null,
+                        'left_eye' => $product['left_eye'] ?? null,
+                        'pd' => $product['pd'] ?? null,
+                    ]);
                 }
 
-                $databaseProduct->update([
-                    'stock' => $currentStock - $orderedQuantity,
-                ]);
-
-                OrderProduct::create([
-                    'order_id' => $order->id,
-                    'product_id' => $product['product_id'],
-
-                    'product_name' => $product['name'],
-                    'product_slug' => $product['slug'],
-                    'product_image' => $product['image'],
-
-                    'price' => $product['price'],
-                    'discount' => $product['discount'],
-                    'final_price' => $product['final_price'],
-                    'quantity' => $product['quantity'],
-
-                    'purchase_type' => $product['purchase_type'] ?? 'frame_only',
-
-                    'lens_index_id' => $product['lens_index']['id'] ?? null,
-                    'lens_index_name' => $product['lens_index']['name'] ?? null,
-                    'lens_index_price' => $product['lens_index']['price'] ?? null,
-
-                    'glass_value_id' => $product['glass_value']['id'] ?? null,
-                    'glass_name' => $product['glass_value']['glass_name'] ?? null,
-                    'glass_value_name' => $product['glass_value']['value'] ?? null,
-                    'glass_value_price' => $product['glass_value']['price'] ?? null,
-
-                    'lance_color_id' => $product['lance_color']['id'] ?? null,
-                    'lance_color_name' => $product['lance_color']['name'] ?? null,
-                    'lance_color_price' => $product['lance_color']['price'] ?? null,
-
-                    'prescription_image' => $product['prescription_image'] ?? null,
-                    'right_eye' => $product['right_eye'] ?? null,
-                    'left_eye' => $product['left_eye'] ?? null,
-                ]);
-            }
-
-            Mail::to($order->email)->send(new OrderCreated($order));
-        });
+                return $order;
+            });
+        } catch (\Exception $exception) {
+            return back()
+                ->withErrors([
+                    'order' => $exception->getMessage(),
+                ])
+                ->withInput();
+        }
 
         Session::forget('products');
 
-        return redirect(route('checkout.succes'));
+        Mail::to($order->email)->send(
+            new OrderCreated($order)
+        );
+
+        return redirect()->route('checkout.succes');
     }
 }

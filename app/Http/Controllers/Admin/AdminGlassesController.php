@@ -3,12 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-
 use App\Models\Admin\Glass;
 use App\Models\Admin\GlassValue;
-use App\Models\Admin\LanceColor;
-use App\Models\Admin\LensIndex;
+use App\Models\Admin\GlassValueLensIndex;
 
+use App\Models\Admin\VisionType;
 use App\Models\Category;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -24,10 +23,9 @@ class AdminGlassesController extends Controller
     public function index(): View
     {
         return view('admin.Glasses.Index', [
-            'glasses'     => Glass::with('values')->get(),
-            'lances'      => LensIndex::get(),
+            'glasses'     => Glass::with(['values.lensIndexes', 'category', 'visionType'])->get(),
             'categories'  => Category::whereNull('category_parent_id')->get(),
-            'lanceColors' => LanceColor::get()
+            'visionTypes' => VisionType::get()
         ]);
     }
 
@@ -40,9 +38,13 @@ class AdminGlassesController extends Controller
     public function storeGlass(Request $request): RedirectResponse
     {
         $validated = $request->validate([
-            'category_id' => ['required', 'exists:categories,id'],
-            'name'        => ['required', 'string', 'max:255'],
+            'vision_type_id' => ['required', 'exists:vision_types,id'],
+            'category_id'    => ['required', 'exists:categories,id'],
+            'name'           => ['required', 'string', 'max:255'],
         ], [
+            'vision_type_id.required' => 'Моля, изберете тип зрение.',
+            'vision_type_id.exists'   => 'Избраният тип зрение не съществува.',
+
             'category_id.required' => 'Моля, изберете основна категория.',
             'category_id.exists'   => 'Избраната категория не съществува.',
 
@@ -52,8 +54,9 @@ class AdminGlassesController extends Controller
         ]);
 
         Glass::create([
-            'category_id' => $validated['category_id'],
-            'name'        => $validated['name'],
+            'vision_type_id' => $validated['vision_type_id'],
+            'category_id'    => $validated['category_id'],
+            'name'           => $validated['name'],
         ]);
 
         return back()->with(
@@ -153,140 +156,114 @@ class AdminGlassesController extends Controller
     }
 
     /**
-     * Store a new lens index.
+     * Store a new lens index for a glass value.
      *
      * @param Request $request
      * @return RedirectResponse
      */
-    public function storeLance(Request $request): RedirectResponse
+    public function storeGlassValueLensIndex(Request $request): RedirectResponse
     {
         $validated = $request->validate([
-            'name'  => ['required', 'string', 'max:255', 'unique:lens_indexes,name'],
-            'price' => ['required', 'numeric', 'min:0'],
+            'glass_value_id' => [
+                'required',
+                'exists:glass_values,id',
+            ],
+
+            'name' => [
+                'required',
+                'string',
+                'max:255',
+            ],
+
+            'price' => [
+                'required',
+                'numeric',
+                'min:0',
+            ],
         ], [
-            'name.required' => 'Моля, въведете име на индекса.',
-            'name.string'   => 'Името трябва да бъде текст.',
-            'name.max'      => 'Името не може да бъде по-дълго от 255 символа.',
-            'name.unique'   => 'Такъв индекс вече съществува.',
+            'glass_value_id.required' => 'Моля, изберете стойност на стъклото.',
+            'glass_value_id.exists'   => 'Избраната стойност на стъклото не съществува.',
+
+            'name.required' => 'Моля, въведете индекс на изтъняване.',
+            'name.string'   => 'Индексът трябва да бъде текст.',
+            'name.max'      => 'Индексът не може да бъде по-дълъг от 255 символа.',
+            'name.unique'   => 'Този индекс вече е добавен към избраната стойност.',
 
             'price.required' => 'Моля, въведете цена.',
-            // 'price.integer'  => 'Цената трябва да бъде цяло число.',
+            'price.numeric'  => 'Цената трябва да бъде число.',
             'price.min'      => 'Цената не може да бъде отрицателна.',
         ]);
 
-        LensIndex::create([
+        GlassValueLensIndex::create([
+            'glass_value_id' => $validated['glass_value_id'],
+            'name'           => $validated['name'],
+            'price'          => $validated['price'],
+        ]);
+
+        return back()->with(
+            'success',
+            'Индексът на изтъняване беше добавен успешно!'
+        );
+    }
+
+
+    /**
+     * Update an existing lens index for a glass value.
+     *
+     * @param Request $request
+     * @param GlassValueLensIndex $glassValueLensIndex
+     * @return RedirectResponse
+     */
+    public function updateGlassValueLensIndex(Request $request, GlassValueLensIndex $glassValueLensIndex): RedirectResponse
+    {
+        $validated = $request->validate([
+            'name' => [
+                'required',
+                'string',
+                'max:255',
+            ],
+
+            'price' => [
+                'required',
+                'numeric',
+                'min:0',
+            ],
+        ], [
+            'name.required' => 'Моля, въведете индекс на изтъняване.',
+            'name.string'   => 'Индексът трябва да бъде текст.',
+            'name.max'      => 'Индексът не може да бъде по-дълъг от 255 символа.',
+            'name.unique'   => 'Този индекс вече съществува за стойността.',
+
+            'price.required' => 'Моля, въведете цена.',
+            'price.numeric'  => 'Цената трябва да бъде число.',
+            'price.min'      => 'Цената не може да бъде отрицателна.',
+        ]);
+
+        $glassValueLensIndex->update([
             'name'  => $validated['name'],
             'price' => $validated['price'],
         ]);
 
-        return back()->with('success', 'Индексът на изтъняване беше добавен успешно!');
+        return back()->with(
+            'success',
+            'Индексът на изтъняване беше обновен успешно!'
+        );
     }
 
     /**
-     * Update an existing lens index.
+     * Delete a lens index from a glass value.
      *
-     * @param Request $request
-     * @param LensIndex $lance
+     * @param GlassValueLensIndex $glassValueLensIndex
      * @return RedirectResponse
      */
-    public function updateLance(Request $request, LensIndex $lance): RedirectResponse
+    public function destroyGlassValueLensIndex(GlassValueLensIndex $glassValueLensIndex): RedirectResponse
     {
-        $validated = $request->validate([
-            'name'  => ['required', 'string', 'max:255'],
-            'price' => ['required', 'numeric', 'min:0'],
-        ], [
-            'name.required' => 'Моля, въведете име на индекса.',
-            'name.string'   => 'Името трябва да бъде текст.',
-            'name.max'      => 'Името не може да бъде по-дълго от 255 символа.',
+        $glassValueLensIndex->delete();
 
-            'price.required' => 'Моля, въведете цена.',
-            // 'price.integer'  => 'Цената трябва да бъде цяло число.',
-            'price.min'      => 'Цената не може да бъде отрицателна.',
-        ]);
-
-        $lance->update([
-            'name'  => $validated['name'],
-            'price' => $validated['price'],
-        ]);
-
-        return back()->with('success', 'Индексът беше обновен успешно!');
+        return back()->with(
+            'success',
+            'Индексът на изтъняване беше изтрит успешно!'
+        );
     }
 
-    /**
-     * Delete a lens index.
-     *
-     * @param LensIndex $lance
-     * @return RedirectResponse
-     */
-    public function destroyLance(LensIndex $lance): RedirectResponse
-    {
-        $lance->delete();
-
-        return back()->with('success', 'Индексът на изтъняване беше изтрит успешно!');
-    }
-
-    /**
-     * Store a new lance color.
-     *
-     * @param Request $request
-     * @return RedirectResponse
-     */
-    public function storeLanceColor(Request $request): RedirectResponse
-    {
-        $validated = $request->validate([
-            'name_lance_color'  => ['required', 'string', 'max:255', 'unique:lance_colors,name'],
-            'lance_color_price' => ['required', 'numeric'],
-        ], [
-            'name_lance_color.required' => 'Моля, въведете цвят.',
-            'name_lance_color.string'   => 'Цветът трябва да бъде текст.',
-            'name_lance_color.max'      => 'Цветът не може да бъде по-дълъг от 255 символа.',
-            'name_lance_color.unique'   => 'Такъв цвят вече съществува.',
-        ]);
-
-        LanceColor::create([
-            'name'  => $validated['name_lance_color'],
-            'price' => $validated['lance_color_price']
-        ]);
-
-        return back()->with('success', 'Цветът беше добавен успешно!');
-    }
-
-    /**
-     * Update an existing lance color.
-     *
-     * @param Request $request
-     * @param LanceColor $lanceColor
-     * @return RedirectResponse
-     */
-    public function updateLanceColor(Request $request, LanceColor $lanceColor): RedirectResponse
-    {
-        $validated = $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'lance_color_price' => ['required', 'numeric'],
-        ], [
-            'name.required' => 'Моля, въведете цвят.',
-            'name.string'   => 'Цветът трябва да бъде текст.',
-            'name.max'      => 'Цветът не може да бъде по-дълъг от 255 символа.',
-        ]);
-
-        $lanceColor->update([
-            'name' => $validated['name'],
-            'price' => $validated['lance_color_price']
-        ]);
-
-        return back()->with('success', 'Цветът беше обновен успешно!');
-    }
-
-    /**
-     * Delete a lance color.
-     *
-     * @param LanceColor $lanceColor
-     * @return RedirectResponse
-     */
-    public function destroyLanceColor(LanceColor $lanceColor): RedirectResponse
-    {
-        $lanceColor->delete();
-
-        return back()->with('success', 'Цветът беше изтрит успешно!');
-    }
 }

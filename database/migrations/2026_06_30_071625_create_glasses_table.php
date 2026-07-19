@@ -18,6 +18,10 @@ return new class extends Migration
                 ->constrained('categories')
                 ->cascadeOnDelete();
 
+            $table->foreignId('vision_type_id')
+                ->constrained('vision_types')
+                ->cascadeOnDelete();
+
             $table->string('name');
 
             $table->timestamps();

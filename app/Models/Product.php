@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use App\Models\Admin\GlassValue;
-use App\Models\Admin\LensIndex;
 use App\Models\AttributeValue;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -70,15 +69,6 @@ class Product extends Model
         )->withPivot('price')->withTimestamps();
     }
 
-    public function lensIndexes(): BelongsToMany
-    {
-        return $this->belongsToMany(
-            LensIndex::class,
-            'lens_index_product',
-            'product_id',
-            'lens_index_id'
-        )->withPivot('price')->withTimestamps();
-    }
 
 
 

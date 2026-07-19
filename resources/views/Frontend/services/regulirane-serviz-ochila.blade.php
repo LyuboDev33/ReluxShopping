@@ -46,7 +46,7 @@
                         </p>
 
                         <div class="service-details__img">
-                            <img src="/assets/images/resources/service-details-img-1.jpg"
+                            <img src="/assets/images/resources/regulirane1.jpg"
                                 alt="Регулиране и обслужване на очила" />
                         </div>
 
@@ -106,68 +106,7 @@
                 </div>
 
                 <div class="col-xl-4 col-lg-5">
-                    <div class="service-details__right">
-                        <div class="service-details__service-list-box">
-                            <h3 class="service-details__service-title">
-                                Услуги
-                            </h3>
-                            <ul class="service-details__service-list list-unstyled">
-                                <li class="active">
-                                    <a href="#">
-                                        Регулиране на очила<span>01</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        Изправяне на рамки<span>02</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        Стягане на винтчета<span>03</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        Почистване и полиране<span>04</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        Смяна на накрайници<span>05</span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-
-                        <div class="service-details__contact-box">
-                            <div
-                                class="service-details__contact-box-bg"
-                                style="background-image: url(assets/images/backgrounds/service-details-contact-box-bg.jpg);">
-                            </div>
-
-                            <div
-                                class="service-details__contact-box-bg-shape"
-                                style="background-image: url(assets/images/shapes/service-details-contact-box-bg-shape.png);">
-                            </div>
-
-                            <h3 class="service-details__contact-title">
-                                Нуждаете се от съдействие?
-                            </h3>
-
-                            <div class="service-details__contact-icon">
-                                <span class="icon-phone"></span>
-                            </div>
-
-                            <p class="service-details__contact-sub-title">
-                                Свържете се с нас
-                            </p>
-
-                            <a href="tel:0894938614" class="service-details__contact-number">
-                                0894 938 614
-                            </a>
-                        </div>
-                    </div>
+                   @include('Frontend.services.components.service-right')
                 </div>
             </div>
 
@@ -176,7 +115,7 @@
                     <div class="col-xl-6">
                         <div class="service-details__bottom-left">
                             <div class="service-details__bottom-img">
-                                <img src="/assets/images/resources/service-details-bottom-img.jpg"
+                                <img src="/assets/images/resources/regulirane2.jpg"
                                     alt="Професионално обслужване на очила" />
                             </div>
 
@@ -256,7 +195,7 @@
                             </div>
 
                             <div class="service-details__bottom-img-two">
-                                <img src="/assets/images/resources/service-details-bottom-img-1.jpg"
+                                <img src="/assets/images/resources/regulirane3.jpg"
                                     alt="Регулиране на рамки" />
                             </div>
                         </div>

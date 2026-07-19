@@ -330,7 +330,7 @@
 }
 
 /*--------------------------------------------------------------
-# Gallery Three 
+# Gallery Three
 --------------------------------------------------------------*/
 .gallery-three {
     position: relative;
@@ -461,7 +461,7 @@
 .gallery-four {
     position: relative;
     display: block;
-    padding: 90px 0 90px;
+    padding: 60px 0 30px;
     z-index: 1;
 }
 
@@ -502,6 +502,7 @@
     position: relative;
     display: block;
     overflow: hidden;
+    border-radius: 20px;
 }
 
 .gallery-four__img:before {
@@ -551,7 +552,7 @@
     z-index: 2;
 }
 
-.gallery-four__img-box:hover .gallery-four__content {
+.gallery-four__img-box .gallery-four__content {
     transform: scaleY(1.0);
 }
 

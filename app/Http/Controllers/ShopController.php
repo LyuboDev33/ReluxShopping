@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Constants\PrescriptionOptions;
 use App\Models\Admin\Glass;
 use App\Models\Admin\LanceColor;
-use App\Models\Admin\LensIndex;
 use App\Models\Category;
 use App\Models\Product;
 use App\Services\ProductService;
@@ -22,32 +21,45 @@ class ShopController extends Controller
     public function index()
     {
         return view('Frontend.shop.Shop', [
-            'products'       => Product::with(['categories', 'attributeValues'])->paginate(15),
+            'products'       => Product::with(['categories', 'attributeValues'])
+                ->orderBy('id', 'desc')
+                ->paginate(15),
             'category'       => null,
             'categoriesTree' => ProductService::buildCategoriesTree(),
         ]);
     }
 
-    /** Show products from a specific category (including descendants)
+    /**
+     * Show products from a specific category, including descendants.
      *
      * @param string $category_slug
      * @return View
      */
     public function category(string $category_slug)
     {
-        $category    = Category::where('slug', $category_slug)->firstOrFail();
+        $category = Category::where('slug', $category_slug)
+            ->firstOrFail();
+
         $categoryIds = ProductService::getCategoryIds($category);
 
-        $products = Product::with(['categories', 'attributeValues'])
+        $products = Product::with([
+            'categories',
+            'attributeValues',
+        ])
             ->whereHas('categories', function ($query) use ($categoryIds) {
                 $query->whereIn('category_id', $categoryIds);
             })
             ->paginate(15);
 
+        $categoriesTree = ProductService::buildCategoriesTree();
+
+        $breadcrumbs = ProductService::getCategoryBreadcrumbs($categoriesTree, $category->slug);
+
         return view('Frontend.shop.Shop', [
-            'products'       => $products,
-            'category'       => $category,
-            'categoriesTree' => ProductService::buildCategoriesTree(),
+            'products' => $products,
+            'category' => $category,
+            'categoriesTree' => $categoriesTree,
+            'breadcrumbs' => $breadcrumbs,
         ]);
     }
 
@@ -64,7 +76,16 @@ class ShopController extends Controller
 
         foreach ($products as $product) {
             $subtotal += $product['final_price'] * $product['quantity'];
+
+            if (! empty($product['lens_index'])) {
+                $subtotal += $product['lens_index']['price'] * $product['quantity'];
+            }
+
+            if (! empty($product['glass_value'])) {
+                $subtotal += $product['glass_value']['price'] * $product['quantity'];
+            }
         }
+
 
         return view('Frontend.shop.Checkout', [
             'speedyOffices' => SpeedyService::offices(),
@@ -80,8 +101,8 @@ class ShopController extends Controller
 
         $productIds = [];
 
-        foreach ($sessionProducts as $product) {
-            $productIds[] = $product['product_id'];
+        foreach ($sessionProducts as $sessionProduct) {
+            $productIds[] = $sessionProduct['product_id'];
         }
 
         $databaseProducts = Product::whereIn('id', $productIds)
@@ -89,31 +110,54 @@ class ShopController extends Controller
             ->keyBy('id');
 
         $products = [];
+        $subtotal = 0;
 
         foreach ($sessionProducts as $key => $cartProduct) {
-
             $product = $databaseProducts->get($cartProduct['product_id']);
 
             if (! $product) {
                 continue;
             }
 
+            $quantity = (int) ($cartProduct['quantity'] ?? 1);
+            $finalPrice = (float) ($cartProduct['final_price'] ?? 0);
+
+            /*
+         * Start with the frame price.
+         */
+            $lineTotal = $finalPrice * $quantity;
+
+            /*
+         * Add the lens index price.
+         */
+            if (! empty($cartProduct['lens_index'])) {
+                $lensIndexPrice = (float) ($cartProduct['lens_index']['price'] ?? 0);
+
+                $lineTotal += $lensIndexPrice * $quantity;
+            }
+
+            /*
+         * Add the glass option price.
+         */
+            if (! empty($cartProduct['glass_value'])) {
+                $glassValuePrice = (float) ($cartProduct['glass_value']['price'] ?? 0);
+
+                $lineTotal += $glassValuePrice * $quantity;
+            }
+
             $products[$key] = array_merge($cartProduct, [
-                'product_id' => $product->id,
-                'name'       => $product->name,
-                'slug'       => $product->slug,
-                'price'      => (float) $product->price,
-                'discount'   => (int) $product->discount,
-                'image'      => $product->main_image,
-
-                'final_price' => (float) $cartProduct['final_price'],
+                'product_id'  => $product->id,
+                'name'        => $product->name,
+                'slug'        => $product->slug,
+                'price'       => (float) $product->price,
+                'discount'    => (int) $product->discount,
+                'image'       => $product->main_image,
+                'quantity'    => $quantity,
+                'final_price' => $finalPrice,
+                'line_total'  => round($lineTotal, 2),
             ]);
-        }
 
-        $subtotal = 0;
-
-        foreach ($products as $product) {
-            $subtotal += $product['final_price'] * $product['quantity'];
+            $subtotal += $lineTotal;
         }
 
         return view('Frontend.shop.Cart', [
@@ -122,15 +166,21 @@ class ShopController extends Controller
         ]);
     }
 
-
-    /** Show a specific product
+    /**
+     * Show a specific product.
      *
      * @param string $slug
      * @return View
      */
     public function show(string $slug)
     {
-        $product = Product::with(['categories.parent', 'categories.children', 'attributeValues.type', 'variants', 'variantParent'])
+        $product = Product::with([
+            'categories.parent',
+            'categories.children',
+            'attributeValues.type',
+            'variants',
+            'variantParent',
+        ])
             ->where('slug', $slug)
             ->first();
 
@@ -138,14 +188,27 @@ class ShopController extends Controller
             return view('errors.ProductNotFound');
         }
 
-        // Add the viewed product to Last 10 viewed products
+        // Add each product to last viewed
         $this->lastViewedProducts($product);
 
-        $similarProducts = Product::where('category_id', $product->category_id)
+        $similarProducts = Product::with([
+            'categories',
+            'attributeValues.type',
+        ])
+            ->where('category_id', $product->category_id)
             ->where('id', '!=', $product->id)
             ->latest('id')
             ->take(4)
-            ->get();
+            ->get()
+            ->map(function ($similarProduct) {
+                $brand = $similarProduct->attributeValues->first(
+                    fn($attributeValue) => $attributeValue->type?->name === 'Марка'
+                );
+
+                $similarProduct->brand = $brand?->value;
+
+                return $similarProduct;
+            });
 
         $isProductDioptric = ProductService::isProductDioptric($product);
 
@@ -155,20 +218,31 @@ class ShopController extends Controller
             $category = $category->parent;
         }
 
-        $glasses = Glass::with('values')
+        $glasses = $category
+            ? Glass::with([
+                'values.lensIndexes',
+                'category',
+                'visionType',
+            ])
             ->where('category_id', $category->id)
-            ->get();
+            ->get()
+            : collect();
+
+        $visionTypes = $glasses
+            ->pluck('visionType')
+            ->filter()
+            ->unique('id')
+            ->values();
 
         return view('Frontend.shop.Show', [
             'product'           => $product,
             'isProductDioptric' => $isProductDioptric,
             'sphValues'         => PrescriptionOptions::SPH,
             'cylValues'         => PrescriptionOptions::CYL,
-            'addValues'         => PrescriptionOptions::CYL,
+            'pdValues'          => PrescriptionOptions::PD,
             'axisValues'        => PrescriptionOptions::AXIS,
-            'lens'              => LensIndex::get(),
-            'lenceColors'       => LanceColor::get(),
             'glasses'           => $glasses,
+            'visionTypes'       => $visionTypes,
             'similarProducts'   => $similarProducts,
             'productFinalPrice' => $product->discount
                 ? $product->price - ($product->price * $product->discount) / 100

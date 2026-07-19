@@ -103,7 +103,6 @@ class AdminProductsController extends Controller
         $selectedAttributeValueIds = $product->attributeValues->pluck('id')->toArray();
 
         $glasses = Glass::with('values')->orderBy('id', 'desc')->get();
-        $lens = LensIndex::orderBy('id', 'desc')->get();
 
         return view('admin.Products.Show', [
             'product'                   => $product,
@@ -111,7 +110,6 @@ class AdminProductsController extends Controller
             'attributeTypes'            => $attributeTypes,
             'selectedAttributeValueIds' => $selectedAttributeValueIds,
             'glasses'                   => $glasses,
-            'lens'                      => $lens
         ]);
     }
 

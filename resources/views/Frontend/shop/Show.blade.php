@@ -13,19 +13,18 @@
                                 src="/assets/images/products/{{ $product->main_image }}?v=<?= time() ?>"
                                 alt="{{ $product->name }}" />
                         </div>
-                
+
                         <div class="product-gallery mt-3">
                             @foreach ($product->gallery as $image)
                                 <a href="/assets/images/product_gallery/{{ $image }}?v=<?= time() ?>"
-                                    class="product-gallery__item"
-                                    data-fancybox="product-gallery">
-                
+                                    class="product-gallery__item" data-fancybox="product-gallery">
+
                                     <img src="/assets/images/product_gallery/{{ $image }}?v=<?= time() ?>"
                                         alt="{{ $product->name }}">
                                 </a>
                             @endforeach
                         </div>
-                
+
                         <div class="product-description__text1 mt-3 d-none d-lg-block">
                             {!! $product->description !!}
                         </div>
@@ -242,7 +241,7 @@
                                                                     <th>Сфера (SPH)</th>
                                                                     <th>Цилиндър (CYL)</th>
                                                                     <th>Градус (AXIS)</th>
-                                                                    <th>ADD</th>
+                                                                    <th>PD</th>
                                                                 </tr>
                                                             </thead>
 
@@ -289,17 +288,21 @@
                                                                         </select>
                                                                     </td>
 
-                                                                    <td data-label="ADD">
-                                                                        <select name="right_eye[add]"
-                                                                            class="form-select">
+                                                                    <td rowspan="2" data-label="PD">
+                                                                        <select name="pd" class="form-select">
                                                                             <option value="">Изберете</option>
-                                                                            @foreach ($addValues as $value)
-                                                                                <option value="{{ $value }}">
-                                                                                    {{ $value }}
+
+                                                                            @foreach ($pdValues as $value)
+                                                                                <option value="{{ $value }}"
+                                                                                    {{ old('pd') == $value ? 'selected' : '' }}>
+                                                                                    {{ $value }} mm
                                                                                 </option>
                                                                             @endforeach
                                                                         </select>
                                                                     </td>
+
+
+
                                                                 </tr>
 
                                                                 <tr>
@@ -343,77 +346,54 @@
                                                                         </select>
                                                                     </td>
 
-                                                                    <td data-label="ADD">
-                                                                        <select name="left_eye[add]"
-                                                                            class="form-select">
-                                                                            <option value="">Изберете</option>
-                                                                            @foreach ($addValues as $value)
-                                                                                <option value="{{ $value }}">
-                                                                                    {{ $value }}
-                                                                                </option>
-                                                                            @endforeach
-                                                                        </select>
-                                                                    </td>
+
+
                                                                 </tr>
+
+
                                                             </tbody>
                                                         </table>
                                                     </div>
                                                 </div>
                                             </div>
 
-                                            <div class="configurator-section mb-4">
-                                                <div class="configurator-section__header">
-                                                    <span class="configurator-step">1</span>
-                                                    <div>
-                                                        <h6 class="mb-1">Изберете индекс на изтъняване</h6>
-                                                        <p class="mb-0 text-muted">Изберете колко тънки да бъдат
-                                                            стъклата.
-                                                        </p>
-                                                    </div>
-                                                </div>
 
-                                                @error('lens_index_id')
-                                                    <p class="field-error">{{ $message }}</p>
-                                                @enderror
+                                            <div class="d-flex flex-column gap-2 pb-3 mt-0">
+                                                <h6 class="text-center alert alert-info rounded-pill p-2 mb-2">
+                                                    Моля изберете дали очилата са за близо или за далечно виждане
+                                                </h6>
 
-                                                <div class="row g-3">
-                                                    @foreach ($lens as $lensIndex)
-                                                        <div class="col-lg-6">
-                                                            <label class="configurator-option">
-                                                                <input type="radio" name="lens_index_id"
-                                                                    value="{{ $lensIndex->id }}"
-                                                                    class="configurator-option__input lens-option frame-with-glasses-field"
-                                                                    data-price="{{ $lensIndex->price }}"
-                                                                    {{ old('lens_index_id') == $lensIndex->id ? 'checked' : '' }}>
-
-                                                                <div class="configurator-option__card">
-                                                                    <div class="configurator-option__check"></div>
-
-                                                                    <div class="configurator-option__content">
-                                                                        <strong class="configurator-option__title">
-                                                                            {{ $lensIndex->name }}
-                                                                        </strong>
-                                                                    </div>
-
-                                                                    <div class="configurator-option__price">
-                                                                        + {{ number_format($lensIndex->price, 2) }} €
-                                                                    </div>
-                                                                </div>
-                                                            </label>
-                                                        </div>
+                                                <div class="nav nav-pills d-flex gap-2" id="vision-type-tabs"
+                                                    role="tablist">
+                                                    @foreach ($visionTypes as $visionType)
+                                                        <button type="button" class="thm-btn p-2 w-45 showVisionBtns"
+                                                            id="vision-type-tab-{{ $visionType->id }}"
+                                                            data-bs-toggle="tab"
+                                                            data-bs-target="#vision-type-pane-{{ $visionType->id }}"
+                                                            role="tab"
+                                                            aria-controls="vision-type-pane-{{ $visionType->id }}"
+                                                            aria-selected="{{ $loop->first ? 'true' : 'false' }}">
+                                                            {{ $visionType->name }}
+                                                        </button>
                                                     @endforeach
                                                 </div>
                                             </div>
 
 
+
+
+
                                             <div class="configurator-section mb-4">
                                                 <div class="configurator-section__header">
-                                                    <span class="configurator-step">2</span>
+                                                    {{-- <span class="configurator-step">2</span> --}}
+
                                                     <div>
-                                                        <h6 class="mb-1">Изберете стъкла</h6>
-                                                        <p class="mb-0 text-muted">Изберете покритие или тип стъкло
-                                                            според
-                                                            нуждите ви.</p>
+                                                        <h3 class="mb-1">Изберете стъкла</h3>
+
+                                                        <p class="mb-0 text-muted">
+                                                            Изберете тип зрение, стъкло, покритие и индекс на
+                                                            изтъняване.
+                                                        </p>
                                                     </div>
                                                 </div>
 
@@ -421,114 +401,161 @@
                                                     <p class="field-error">{{ $message }}</p>
                                                 @enderror
 
-                                                @foreach ($glasses as $glass)
-                                                    <div class="glass-configurator-group">
-                                                        <h6 class="glass-configurator-group__title">
-                                                            {{ $glass->name }}
-                                                        </h6>
-
-                                                        @if ($glass->values->isEmpty())
-                                                            <p class="text-muted mb-3">
-                                                                Няма добавени стойности към това стъкло.
-                                                            </p>
-                                                        @else
-                                                            <div class="row g-3">
-                                                                @foreach ($glass->values as $value)
-                                                                    <div class="col-lg-12">
-                                                                        <label class="configurator-option">
-                                                                            <input type="radio"
-                                                                                name="glass_value_id"
-                                                                                value="{{ $value->id }}"
-                                                                                class="configurator-option__input glass-option frame-with-glasses-field"
-                                                                                data-price="{{ $value->price }}"
-                                                                                {{ old('glass_value_id') == $value->id ? 'checked' : '' }}>
-
-                                                                            <div
-                                                                                class="configurator-option__card shadow">
-                                                                                <div
-                                                                                    class="configurator-option__check">
-                                                                                </div>
-
-                                                                                <div
-                                                                                    class="configurator-option__content">
-                                                                                    <strong
-                                                                                        class="configurator-option__title">
-                                                                                        {{ $value->value }}
-                                                                                    </strong>
-
-                                                                                    {{-- <span
-                                                                                    class="configurator-option__subtitle">
-                                                                                    {{ $glass->name }}
-                                                                                </span> --}}
-                                                                                </div>
-
-                                                                                <div
-                                                                                    class="configurator-option__price">
-                                                                                    +
-                                                                                    {{ number_format($value->price, 2) }}
-                                                                                    €
-                                                                                </div>
-                                                                            </div>
-                                                                        </label>
-                                                                    </div>
-                                                                @endforeach
-                                                            </div>
-                                                        @endif
-                                                    </div>
-                                                @endforeach
-                                            </div>
-
-                                            <div class="configurator-section mb-4">
-                                                <div class="configurator-section__header">
-                                                    <span class="configurator-step">3</span>
-                                                    <div>
-                                                        <h6 class="mb-1">Изберете цвят на стъклата</h6>
-                                                        <p class="mb-0 text-muted">
-                                                            Изберете желания цвят на стъклата.
-                                                        </p>
-                                                    </div>
-                                                </div>
-
-                                                @error('lance_color_id')
+                                                @error('glass_value_lens_index_id')
                                                     <p class="field-error">{{ $message }}</p>
                                                 @enderror
 
-                                                @if ($lenceColors->isEmpty())
-                                                    <p class="text-muted mb-3">
-                                                        Няма налични цветове.
-                                                    </p>
-                                                @else
-                                                    <div class="row g-3">
-                                                        @foreach ($lenceColors as $lanceColor)
-                                                            <div class="col-lg-12">
-                                                                <label class="configurator-option">
-                                                                    <input type="radio" name="lance_color_id"
-                                                                        value="{{ $lanceColor->id }}"
-                                                                        class="configurator-option__input lance-color-option frame-with-glasses-field"
-                                                                        data-price="{{ $lanceColor->price }}"
-                                                                        {{ old('lance_color_id') == $lanceColor->id ? 'checked' : '' }}>
+                                                <div class="tab-content" id="vision-type-tabs-content">
+                                                    @foreach ($visionTypes as $visionType)
+                                                        <div class="tab-pane"
+                                                            id="vision-type-pane-{{ $visionType->id }}"
+                                                            role="tabpanel"
+                                                            aria-labelledby="vision-type-tab-{{ $visionType->id }}"
+                                                            tabindex="0">
+                                                            <div class="glass-configurator-group vision-glasses-group"
+                                                                data-vision-type-id="{{ $visionType->id }}">
+                                                                <h3 class="glass-configurator-group__title">
+                                                                    {{ $visionType->name }}
+                                                                </h3>
 
-                                                                    <div class="configurator-option__card shadow">
-                                                                        <div class="configurator-option__check"></div>
+                                                                @foreach ($glasses->where('vision_type_id', $visionType->id) as $glass)
+                                                                    <details class="glass-type-configurator mb-4">
+                                                                        <summary>
+                                                                            <h6 class="mb-0 d-inline-block">
+                                                                                {{ $glass->name }}
+                                                                            </h6>
+                                                                        </summary>
 
-                                                                        <div class="configurator-option__content">
-                                                                            <strong class="configurator-option__title">
-                                                                                {{ $lanceColor->name }}
-                                                                            </strong>
-                                                                        </div>
+                                                                        @if ($glass->values->isEmpty())
+                                                                            <p class="text-muted mb-3">
+                                                                                Няма добавени стойности към това стъкло.
+                                                                            </p>
+                                                                        @else
+                                                                            <div class="faq-page__single">
+                                                                                <div class="accrodion-grp faq-one-accrodion d-flex flex-column gap-2"
+                                                                                    data-grp-name="glass-value-accordion-{{ $visionType->id }}-{{ $glass->id }}">
+                                                                                    @foreach ($glass->values as $value)
+                                                                                        <div class="accrodion {{ old('glass_value_id') == $value->id ? 'active' : '' }}"
+                                                                                            data-glass-value-id="{{ $value->id }}">
+                                                                                            {{-- Accordion title / glass value --}}
+                                                                                            <div
+                                                                                                class="accrodion-title">
+                                                                                                <label
+                                                                                                    class="configurator-option mb-0">
+                                                                                                    <input
+                                                                                                        type="radio"
+                                                                                                        name="glass_value_id"
+                                                                                                        value="{{ $value->id }}"
+                                                                                                        class="configurator-option__input glass-option frame-with-glasses-field"
+                                                                                                        data-price="{{ $value->price }}"
+                                                                                                        data-glass-value-id="{{ $value->id }}"
+                                                                                                        {{ old('glass_value_id') == $value->id ? 'checked' : '' }}>
 
-                                                                        <div class="configurator-option__price">
-                                                                            +
-                                                                            {{ number_format($lanceColor->price, 2) }}
-                                                                            €
-                                                                        </div>
-                                                                    </div>
-                                                                </label>
+                                                                                                    <span
+                                                                                                        class="configurator-option__card shadow">
+                                                                                                        <span
+                                                                                                            class="configurator-option__check"></span>
+
+                                                                                                        <span
+                                                                                                            class="configurator-option__content">
+                                                                                                            <strong
+                                                                                                                class="configurator-option__title">
+                                                                                                                {{ $value->value }}
+                                                                                                            </strong>
+                                                                                                        </span>
+
+                                                                                                        <span
+                                                                                                            class="configurator-option__price">
+                                                                                                            +
+                                                                                                            {{ number_format($value->price, 2) }}
+                                                                                                            €
+                                                                                                        </span>
+                                                                                                    </span>
+                                                                                                </label>
+                                                                                            </div>
+
+                                                                                            {{-- Accordion content / indexes --}}
+                                                                                            <div
+                                                                                                class="accrodion-content">
+                                                                                                <div class="inner">
+                                                                                                    <div
+                                                                                                        class="glass-value-lens-options">
+                                                                                                        <h6
+                                                                                                            class="mb-3 mt-3">
+                                                                                                            Изберете
+                                                                                                            индекс на
+                                                                                                            изтъняване
+                                                                                                        </h6>
+
+                                                                                                        @if ($value->lensIndexes->isEmpty())
+                                                                                                            <div
+                                                                                                                class="alert alert-light border mb-0">
+                                                                                                                Няма
+                                                                                                                добавени
+                                                                                                                индекси
+                                                                                                                към тази
+                                                                                                                стойност.
+                                                                                                            </div>
+                                                                                                        @else
+                                                                                                            <div
+                                                                                                                class="row g-3">
+                                                                                                                @foreach ($value->lensIndexes as $lensIndex)
+                                                                                                                    <div
+                                                                                                                        class="col-lg-6 col-xl-6">
+                                                                                                                        <label
+                                                                                                                            class="configurator-option mb-0">
+                                                                                                                            <input
+                                                                                                                                type="radio"
+                                                                                                                                name="glass_value_lens_index_id"
+                                                                                                                                value="{{ $lensIndex->id }}"
+                                                                                                                                class="configurator-option__input glass-value-lens-index-option frame-with-glasses-field"
+                                                                                                                                data-price="{{ $lensIndex->price }}"
+                                                                                                                                data-glass-value-id="{{ $value->id }}"
+                                                                                                                                {{ old('glass_value_lens_index_id') == $lensIndex->id ? 'checked' : '' }}>
+
+                                                                                                                            <span
+                                                                                                                                class="configurator-option__card shadow-sm">
+                                                                                                                                <span
+                                                                                                                                    class="configurator-option__check"></span>
+
+                                                                                                                                <span
+                                                                                                                                    class="configurator-option__content">
+                                                                                                                                    <strong
+                                                                                                                                        class="configurator-option__title">
+                                                                                                                                        {{ $lensIndex->name }}
+                                                                                                                                    </strong>
+                                                                                                                                </span>
+
+                                                                                                                                <span
+                                                                                                                                    class="configurator-option__price">
+                                                                                                                                    +
+                                                                                                                                    {{ number_format($lensIndex->price, 2) }}
+                                                                                                                                    €
+                                                                                                                                </span>
+                                                                                                                            </span>
+                                                                                                                        </label>
+                                                                                                                    </div>
+                                                                                                                @endforeach
+                                                                                                            </div>
+                                                                                                        @endif
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    @endforeach
+                                                                                </div>
+                                                                            </div>
+                                                                        @endif
+                                                                    </details>
+                                                                @endforeach
                                                             </div>
-                                                        @endforeach
-                                                    </div>
-                                                @endif
+                                                        </div>
+                                                    @endforeach
+                                                </div>
                                             </div>
+
+
+
 
                                         </div>
                                     @else
@@ -606,171 +633,11 @@
 
     <hr>
 
-    <div class="row container m-0-auto">
-
-        <h3 class="mb-4 mt-3 text-center">Подобни продукти</h3>
-
-        @foreach ($similarProducts as $product)
-            <div class="col-xl-3 col-lg-3 col-md-6 col-6">
-                <div class="product__all-single">
-
-                    <div class="product__all-img">
-                        <a href="{{ route('shop.show', $product->slug) }}">
-                            @if ($product->main_image)
-                                <img src="{{ asset('assets//assets/images/products/' . $product->main_image) }}"
-                                    alt="{{ $product->name }}" />
-                                <img src="{{ asset('assets//assets/images/products/' . $product->main_image) }}"
-                                    alt="{{ $product->name }}" />
-                            @else
-                                <img src="{{ asset('assets/images/shop/shop-product-1-1.jpg') }}"
-                                    alt="{{ $product->name }}" />
-                                <img src="{{ asset('assets/images/shop/shop-product-1-1.jpg') }}"
-                                    alt="{{ $product->name }}" />
-                            @endif
-                        </a>
-                    </div>
-
-                    <div class="product__all-content">
-
-                        @if ($product->categories->isNotEmpty())
-                            <p class="small text-muted mb-1">
-                                {{ $product->categories->pluck('name')->join(' · ') }}
-                            </p>
-                        @endif
-
-                        <h4 class="product__all-title">
-                            <a href="{{ route('shop.show', $product->slug) }}">
-                                {{ $product->name }}
-                            </a>
-                        </h4>
-
-                        <p class="product__all-price">
-                            @if ($product->discount)
-                                <del class="text-muted me-2">
-                                    {{ number_format($product->price, 2) }} €
-                                </del>
-
-                                <span class="text-danger">
-                                    {{ number_format($product->price - ($product->price * $product->discount) / 100, 2) }}
-                                    €
-                                </span>
-                                (-{{ $product->discount }}%)
-                            @else
-                                {{ number_format($product->price, 2) }} €
-                            @endif
-                        </p>
-
-                        <form method="POST" action="{{ route('wishlist.add', $product) }}"
-                            class="product__all-btn-box d-flex justify-content-center wishlist-form">
-
-                            @csrf
-
-                            <a class="thm-btn product__all-btn p-2" href="{{ route('shop.show', $product->slug) }}">
-                                Разгледай
-                            </a>
-                            @php
-                                $wishlist = Session::get('wishlist', []);
-                                $isInWishlist = isset($wishlist[$product->id]);
-                            @endphp
-                            <button type="submit" class="wishlist-btn">
-                                <i class="{{ $isInWishlist ? 'fa-solid' : 'fa-regular' }} fa-heart"></i>
-                            </button>
-                        </form>
-
-                    </div>
-                </div>
-            </div>
-        @endforeach
-
-    </div>
+    @include('Frontend.shop.partials.similar-products', $similarProducts)
 
     <hr>
 
-
-    <div class="row container m-0-auto">
-
-        <h3 class="mb-4 mt-3 text-center">Последно разгледани продукти</h3>
-
-        @foreach (Session::get('lastViewedProducts', []) as $product)
-            <div class="col-xl-3 col-lg-3 col-md-6 col-6">
-                <div class="product__all-single">
-
-                    <div class="product__all-img">
-                        <a href="{{ $product['url'] }}">
-
-                            @if (!empty($product['image']))
-                                <img src="{{ asset('assets//assets/images/products/' . $product['image']) }}"
-                                    alt="{{ $product['name'] }}">
-
-                                <img src="{{ asset('assets//assets/images/products/' . $product['image']) }}"
-                                    alt="{{ $product['name'] }}">
-                            @else
-                                <img src="{{ asset('assets/images/shop/shop-product-1-1.jpg') }}"
-                                    alt="{{ $product['name'] }}">
-
-                                <img src="{{ asset('assets/images/shop/shop-product-1-1.jpg') }}"
-                                    alt="{{ $product['name'] }}">
-                            @endif
-
-                        </a>
-                    </div>
-
-                    <div class="product__all-content">
-
-                        <h4 class="product__all-title">
-                            <a href="{{ $product['url'] }}">
-                                {{ $product['name'] }}
-                            </a>
-                        </h4>
-
-                        <p class="product__all-price">
-
-                            @if ($product['discount'])
-                                <del class="text-muted me-2">
-                                    {{ number_format($product['price'], 2) }} €
-                                </del>
-
-                                <span class="text-danger">
-                                    {{ number_format($product['final_price'], 2) }} €
-                                </span>
-
-                                (-{{ $product['discount'] }}%)
-                            @else
-                                {{ number_format($product['price'], 2) }} €
-                            @endif
-
-                        </p>
-
-                        <div class="product__all-btn-box d-flex justify-content-center">
-
-                            <a class="thm-btn product__all-btn p-2" href="{{ $product['url'] }}">
-                                Разгледай
-                            </a>
-
-                            @php
-                                $wishlist = Session::get('wishlist', []);
-                                $isInWishlist = isset($wishlist[$product['id']]);
-                            @endphp
-
-                            <form method="POST" action="{{ route('wishlist.add', $product['id']) }}"
-                                class="wishlist-form">
-                                @csrf
-
-                                <button type="submit" class="wishlist-btn">
-                                    <i class="{{ $isInWishlist ? 'fa-solid' : 'fa-regular' }} fa-heart"></i>
-                                </button>
-
-                            </form>
-
-                        </div>
-
-                    </div>
-
-                </div>
-            </div>
-        @endforeach
-    </div>
-
+    @include('Frontend.shop.partials.last-viewed-products')
 
     @if (session('success'))
         <div class="modal fade cart-feedback-modal" id="cartSuccessModal" tabindex="-1" aria-hidden="true">
@@ -805,45 +672,16 @@
         </div>
     @endif
 
+    <script src="/assets/js/products/show.js"></script>
+
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            resetRadioButtons();
-            changeInputType();
+        @if (session('success'))
+            new bootstrap.Modal(document.getElementById('cartSuccessModal')).show();
+        @endif
 
-            @if (session('success'))
-                new bootstrap.Modal(document.getElementById('cartSuccessModal')).show();
-            @endif
-
-            @if ($errors->any())
-                new bootstrap.Modal(document.getElementById('cartErrorModal')).show();
-            @endif
-        });
-
-        function resetRadioButtons() {
-            const resetButton = document.getElementById('frame-with-glasses-tab-button');
-
-            if (!resetButton) {
-                return;
-            }
-
-            resetButton.addEventListener('click', function() {
-                document.querySelectorAll('input[type="radio"]').forEach(function(radioButton) {
-                    radioButton.checked = false;
-                });
-            });
-        }
-
-        function changeInputType() {
-            document.querySelectorAll('.purchase-type-tab').forEach(function(tab) {
-
-                tab.addEventListener('shown.bs.tab', function() {
-
-                    document.getElementById('purchase_type').value =
-                        this.dataset.purchaseType;
-
-                });
-
-            });
-        }
+        @if ($errors->any())
+            new bootstrap.Modal(document.getElementById('cartErrorModal')).show();
+        @endif
     </script>
+
 </x-frontend>

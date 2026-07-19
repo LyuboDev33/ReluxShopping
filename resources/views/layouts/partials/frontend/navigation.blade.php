@@ -3,7 +3,7 @@
            <div class="main-menu-two__wrapper-inner container">
                <div class="main-menu-two__left">
                    <div class="main-header-two__logo">
-                       <x-logo width="120" />
+                       <x-logo width="250" mobileWidth="150" />
                    </div>
                </div>
                <div class="main-menu-two__main-menu-box">
@@ -92,7 +92,7 @@
 
 
                </div>
-               <div class="d-flex gap-3 align-items-center">
+               <div class="d-flex gap-2 align-items-center">
                    <a href="{{ route('wishlist') }}" class="cart numb">
                        <img class="heart" src="{{ asset('/assets/images/heart.png') }}" alt="Heart">
 
@@ -109,13 +109,13 @@
                        </span>
 
                    </a>
-                   @if(Auth::check())
-                   <a href="{{ route('dashboard') }}">Табло</a>
+                   @if (Auth::check())
+                       <a href="{{ route('dashboard') }}">Табло</a>
                    @endif
                    <a href="#" class="mobile-nav__toggler">
                        <i class="fa fa-bars"></i>
                    </a>
-                   <div class="main-menu-two__right">
+                   {{-- <div class="main-menu-two__right">
                        <div class="main-menu-two__call-icon">
                            <i class="icon-phone"></i>
                        </div>
@@ -124,7 +124,7 @@
                                <a href="tel:3598770000027">+359 877 000 027</a>
                            </h5>
                        </div>
-                   </div>
+                   </div> --}}
                </div>
            </div>
        </div>

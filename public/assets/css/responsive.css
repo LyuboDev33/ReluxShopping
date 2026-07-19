@@ -33,9 +33,9 @@
         padding: 52px 20px 39px;
     }
 
-    .testimonial-two__img {
+    /* .testimonial-two__img {
         top: 70px;
-    }
+    } */
 
     .pricing-two__carousel .owl-nav {
         left: -375px;
@@ -149,7 +149,12 @@
 
 
 
+@media (min-width: 767px) {
+    .about-five__right {
+            margin-right: 119px;
 
+    }
+}
 
 
 
@@ -1231,7 +1236,7 @@
     }
 
     .testimonial-two__img img {
-        width: 100%;
+        display: none;
     }
 
     .testimonial-two__title {
@@ -1580,11 +1585,13 @@
 
     .about-five__left {
         margin-top: 0;
+        padding-top: 110px;
     }
 
     .about-five__right {
         margin-left: 0;
         margin-top: 50px;
+
     }
 
     .about-five__shope-box {
@@ -2596,7 +2603,7 @@
     }
 
     .main-slider-two .item {
-        padding-top: 209px;
+        padding-top: 140px;
         /* padding-bottom: 175px; */
     }
 

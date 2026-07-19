@@ -380,7 +380,7 @@
                             <div class="checkout__payment">
                                 <div class="checkout__payment__item checkout__payment__item--active">
 
-                                    <h3 class="checkout__payment__title">
+                                    <h3 class="checkout__payment__title text-center">
                                         Плащане при получаване
                                     </h3>
 

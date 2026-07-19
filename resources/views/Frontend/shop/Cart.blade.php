@@ -1,5 +1,5 @@
 <x-frontend>
-    <!--Start Cart Page-->
+    <!-- Start Cart Page -->
     <section class="cart-page">
         <div class="container">
             @if (count($products))
@@ -21,8 +21,10 @@
                                     <td>
                                         <div class="product-box align-items-start">
                                             <div class="img-box">
-                                                <img src="{{ asset('/assets/images/products/' . $product['image']) }}"
-                                                    alt="{{ $product['name'] }}">
+                                                <img
+                                                    src="{{ asset('assets/images/products/' . $product['image']) }}"
+                                                    alt="{{ $product['name'] }}"
+                                                >
                                             </div>
 
                                             <div>
@@ -38,32 +40,20 @@
                                                     </span>
                                                 @else
                                                     <span class="badge thm-btn rounded-pill mb-2 mt-2 p-2">
-                                                      Купувате рамка със стъкла
+                                                        Купувате рамка със стъкла
                                                     </span>
 
                                                     <div class="cart-product-options mt-3">
-
-                                                        {{-- Lens Index --}}
-                                                        @if (!empty($product['lens_index']))
-                                                            <p class="mb-1">
-                                                                <strong>Индекс на изтъняване:</strong>
-                                                                {{ $product['lens_index']['name'] }}
-
-                                                                <span class="text-muted">
-                                                                    (+{{ number_format($product['lens_index']['price'], 2) }} €)
-                                                                </span>
-                                                            </p>
-                                                        @endif
-
-                                                        {{-- Glass --}}
-                                                        @if (!empty($product['glass_value']))
+                                                        @if (! empty($product['glass_value']))
                                                             <p class="mb-1">
                                                                 <strong>Тип стъкло:</strong>
+
                                                                 {{ $product['glass_value']['glass_name'] }}
                                                             </p>
 
                                                             <p class="mb-1">
                                                                 <strong>Избран вариант:</strong>
+
                                                                 {{ $product['glass_value']['value'] }}
 
                                                                 <span class="text-muted">
@@ -72,35 +62,34 @@
                                                             </p>
                                                         @endif
 
-                                                        {{-- Glass Color --}}
-                                                        @if (!empty($product['lance_color']))
+                                                        @if (! empty($product['lens_index']))
                                                             <p class="mb-1">
-                                                                <strong>Цвят на стъклото:</strong>
-                                                                {{ $product['lance_color']['name'] }}
+                                                                <strong>Индекс на изтъняване:</strong>
+
+                                                                {{ $product['lens_index']['name'] }}
 
                                                                 <span class="text-muted">
-                                                                    (+{{ number_format($product['lance_color']['price'], 2) }} €)
+                                                                    (+{{ number_format($product['lens_index']['price'], 2) }} €)
                                                                 </span>
                                                             </p>
                                                         @endif
 
-                                                        {{-- Prescription Image --}}
-                                                        @if (!empty($product['prescription_image']))
+                                                        @if (! empty($product['prescription_image']))
                                                             <p class="mb-1">
                                                                 <strong>Рецепта:</strong>
 
-                                                                <a href="{{ asset('assets/images/prescriptions/' . $product['prescription_image']) }}"
-                                                                    target="_blank">
+                                                                <a
+                                                                    href="{{ asset('assets/images/prescriptions/' . $product['prescription_image']) }}"
+                                                                    target="_blank"
+                                                                    rel="noopener noreferrer"
+                                                                >
                                                                     Виж прикачения файл
                                                                 </a>
                                                             </p>
                                                         @endif
 
-                                                        {{-- Manual Prescription --}}
-                                                        @if (!empty(array_filter($product['right_eye'] ?? [])) ||
-                                                             !empty(array_filter($product['left_eye'] ?? [])))
+                                                        @if (! empty($product['has_manual_prescription']))
                                                             <div class="mt-3">
-
                                                                 <strong>Диоптрични стойности</strong>
 
                                                                 <div class="table-responsive mt-2">
@@ -111,33 +100,54 @@
                                                                                 <th>SPH</th>
                                                                                 <th>CYL</th>
                                                                                 <th>AXIS</th>
-                                                                                <th>ADD</th>
                                                                             </tr>
                                                                         </thead>
 
                                                                         <tbody>
                                                                             <tr>
                                                                                 <td>Дясно</td>
-                                                                                <td>{{ $product['right_eye']['sph'] ?? '-' }}</td>
-                                                                                <td>{{ $product['right_eye']['cyl'] ?? '-' }}</td>
-                                                                                <td>{{ $product['right_eye']['axis'] ?? '-' }}</td>
-                                                                                <td>{{ $product['right_eye']['add'] ?? '-' }}</td>
+
+                                                                                <td>
+                                                                                    {{ $product['right_eye']['sph'] ?? '-' }}
+                                                                                </td>
+
+                                                                                <td>
+                                                                                    {{ $product['right_eye']['cyl'] ?? '-' }}
+                                                                                </td>
+
+                                                                                <td>
+                                                                                    {{ $product['right_eye']['axis'] ?? '-' }}
+                                                                                </td>
                                                                             </tr>
 
                                                                             <tr>
                                                                                 <td>Ляво</td>
-                                                                                <td>{{ $product['left_eye']['sph'] ?? '-' }}</td>
-                                                                                <td>{{ $product['left_eye']['cyl'] ?? '-' }}</td>
-                                                                                <td>{{ $product['left_eye']['axis'] ?? '-' }}</td>
-                                                                                <td>{{ $product['left_eye']['add'] ?? '-' }}</td>
+
+                                                                                <td>
+                                                                                    {{ $product['left_eye']['sph'] ?? '-' }}
+                                                                                </td>
+
+                                                                                <td>
+                                                                                    {{ $product['left_eye']['cyl'] ?? '-' }}
+                                                                                </td>
+
+                                                                                <td>
+                                                                                    {{ $product['left_eye']['axis'] ?? '-' }}
+                                                                                </td>
                                                                             </tr>
                                                                         </tbody>
                                                                     </table>
                                                                 </div>
 
+                                                                @if (! empty($product['pd']))
+                                                                    <p class="mb-0 mt-2">
+                                                                        <strong>PD:</strong>
+
+                                                                        {{ $product['pd'] }} mm
+                                                                    </p>
+                                                                @endif
                                                             </div>
                                                         @endif
-
                                                     </div>
                                                 @endif
                                             </div>
@@ -145,18 +155,22 @@
                                     </td>
 
                                     <td>
-                                        @if ((int) $product['discount'] > 0)
-                                            <del class="text-muted">
-                                                {{ number_format($product['price'], 2) }} €
-                                            </del>
+                                        @if ((int) ($product['discount'] ?? 0) > 0)
+                                            <div class="d-flex flex-column gap-1">
+                                                <div>
+                                                    <del class="text-muted">
+                                                        {{ number_format($product['price'], 2) }} €
+                                                    </del>
 
-                                            <span class="text-danger ms-2">
-                                                {{ number_format($product['final_price'], 2) }} €
-                                            </span>
+                                                    <span class="badge bg-danger ms-2 rounded-pill text-color">
+                                                        -{{ $product['discount'] }}%
+                                                    </span>
+                                                </div>
 
-                                            <span class="badge bg-danger ms-2 rounded-pill text-color">
-                                                -{{ $product['discount'] }}%
-                                            </span>
+                                                <span class="text-danger">
+                                                    {{ number_format($product['final_price'], 2) }} €
+                                                </span>
+                                            </div>
                                         @else
                                             {{ number_format($product['final_price'], 2) }} €
                                         @endif
@@ -164,24 +178,32 @@
 
                                     <td>
                                         <div class="quantity-box">
-                                            <p class="text-center">
+                                            <p class="text-center mb-0">
                                                 {{ $product['quantity'] }}
                                             </p>
                                         </div>
                                     </td>
 
                                     <td>
-                                        {{ number_format($product['final_price'] * $product['quantity'], 2) }} €
+                                        <strong>
+                                            {{ number_format($product['line_total'], 2) }} €
+                                        </strong>
                                     </td>
 
                                     <td>
-                                        <form class="d-flex justify-content-end"
+                                        <form
+                                            class="d-flex justify-content-end"
                                             action="{{ route('cart.remove', $key) }}"
-                                            method="POST">
+                                            method="POST"
+                                        >
                                             @csrf
                                             @method('DELETE')
 
-                                            <button type="submit" class="cross-icon border-0 bg-transparent">
+                                            <button
+                                                type="submit"
+                                                class="cross-icon border-0 bg-transparent"
+                                                aria-label="Премахни {{ $product['name'] }} от количката"
+                                            >
                                                 <i class="fa-regular fa-trash-can"></i>
                                             </button>
                                         </form>
@@ -196,18 +218,25 @@
                     <div class="col-xl-8 col-lg-7"></div>
 
                     <div class="col-xl-4 col-lg-5 d-flex flex-column">
-                        <a class="thm-btn mb-4" href="{{ route('checkout') }}">
+                        <a
+                            class="thm-btn mb-4"
+                            href="{{ route('checkout') }}"
+                        >
                             Премини към чекаут
                         </a>
 
                         <ul class="cart-total list-unstyled">
                             <li>
                                 <span>Междинна сума</span>
-                                <span>{{ number_format($subtotal, 2) }} €</span>
+
+                                <span>
+                                    {{ number_format($subtotal, 2) }} €
+                                </span>
                             </li>
 
                             <li>
                                 <span>Общо</span>
+
                                 <span class="cart-total-amount">
                                     {{ number_format($subtotal, 2) }} €
                                 </span>
@@ -222,5 +251,5 @@
             @endif
         </div>
     </section>
-    <!--End Cart Page-->
+    <!-- End Cart Page -->
 </x-frontend>
