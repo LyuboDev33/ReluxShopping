@@ -71,39 +71,22 @@
 
             @foreach ($attributeTypes as $type)
                 <div class="col-lg-4">
-                    <label>
+                    <label class="form-label">
                         {{ $type->name }}
-                        @if ($type->is_multiple)
-                            <small class="text-muted">(множествен избор)</small>
-                        @endif
                     </label>
 
-                    @if ($type->is_multiple)
-                        {{-- multi-select --}}
-                        <select name="attribute_values[]" class="form-control searchable-select" multiple size="4">
-                            @foreach ($type->values as $value)
-                                <option value="{{ $value->id }}"
-                                    {{ in_array($value->id, old('attribute_values', [])) ? 'selected' : '' }}>
-                                    {{ $value->value }}
-                                </option>
-                            @endforeach
-                        </select>
-                    @else
-                        {{-- single-select --}}
-                        <select name="attribute_values[]" class="form-control searchable-select">
-                            <option value="">— Избери —</option>
-                            @foreach ($type->values as $value)
-                                <option value="{{ $value->id }}"
-                                    {{ in_array($value->id, old('attribute_values', [])) ? 'selected' : '' }}>
-                                    {{ $value->value }}
-                                </option>
-                            @endforeach
-                        </select>
-                    @endif
+                    <input type="text" name="attribute_values[{{ $type->id }}]" class="form-control"
+                        list="attribute-{{ $type->id }}" placeholder="Започни да пишеш..."
+                        value="{{ old("attribute_values.$type->id") }}" autocomplete="off">
+
+                    <datalist id="attribute-{{ $type->id }}">
+                        @foreach ($type->values as $value)
+                            <option value="{{ $value->value }}">
+                        @endforeach
+                    </datalist>
                 </div>
             @endforeach
         @endif
-
 
         <div class="col-lg-12">
             <button type="submit" class="btn btn-primary rounded-5 px-4">

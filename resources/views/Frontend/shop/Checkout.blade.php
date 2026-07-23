@@ -3,9 +3,20 @@
     @section('SEO')
         <title>Valente Optic | Чекаут</title>
     @endsection
+
+
+
     <!--Start Checkout Page-->
     <section class="checkout-page">
         <div class="container">
+
+            @error('order')
+                <div class="alert alert-danger alert-dismissible fade show mb-4" role="alert">
+                    {{ $message }}
+
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            @enderror
 
             <form action="{{ route('order.create') }}" method="POST" class="checkout-form">
 
@@ -157,8 +168,10 @@
                                                     Град / офис на Speedy <span class="red-dot">*</span>
                                                 </label>
 
-                                                <input type="text" name="office_list"
-                                                    value="{{ old('office_list') }}" list="speedy-offices-list">
+                                                <input type="text"
+                                                    placeholder="Напишете името на вашия град или офис"
+                                                    name="office_list" value="{{ old('office_list') }}"
+                                                    list="speedy-offices-list">
 
                                                 <datalist id="speedy-offices-list">
                                                     @foreach ($speedyOffices ?? [] as $office)
@@ -174,6 +187,7 @@
                                         </div>
                                     </div>
                                 </div>
+
                                 <div class="checkout-invoice mt-4">
                                     <div class="checked-box">
                                         <input type="checkbox" name="request_invoice" id="request_invoice"
@@ -343,15 +357,27 @@
                                             </tr>
                                         @endforeach
 
-                                        <tr>
-                                            <td class="pro__title">
-                                                Междинна сума
-                                            </td>
+                                    
 
-                                            <td class="pro__price">
-                                                {{ number_format($subtotal ?? 0, 2) }} €
-                                            </td>
-                                        </tr>
+                                        @if (!empty($promoCode))
+                                            <tr>
+                                                <td class="pro__title">
+                                                    Промо код
+
+                                                    <div class="mt-1">
+                                                        <strong class="text-success">
+                                                            {{ $promoCode['promo_code_name'] }}
+                                                        </strong>
+                                                    </div>
+                                                </td>
+
+                                                <td class="pro__price">
+                                                    <span class="text-success">
+                                                        -{{ $promoCode['percentage_promo_code'] }}%
+                                                    </span>
+                                                </td>
+                                            </tr>
+                                        @endif
 
                                         <tr>
                                             <td class="pro__title">
@@ -369,12 +395,49 @@
                                             </td>
 
                                             <td class="pro__price">
-                                                <strong>{{ number_format($subtotal ?? 0, 2) }} €</strong>
+
+                                                @if (!empty($promoCode))
+                                                    <del class="text-muted d-block">
+                                                        {{ number_format($subtotal + $promoDiscount, 2) }} €
+                                                    </del>
+
+                                                    <strong class="text-success">
+                                                        {{ number_format($subtotal, 2) }} €
+                                                    </strong>
+                                                @else
+                                                    <strong>
+                                                        {{ number_format($subtotal ?? 0, 2) }} €
+                                                    </strong>
+                                                @endif
+
                                             </td>
                                         </tr>
 
                                     </tbody>
                                 </table>
+                            </div>
+
+                            <div class="checkout-promo-code mb-4">
+
+                                <h4 class="mb-3">
+                                    Промо код
+                                </h4>
+
+                                <div class="checkout-promo-code__controls">
+
+                                    <input type="text" id="promo-code-input" class="form-control"
+                                        placeholder="Въведете промо код"
+                                        value="{{ session('promo_code.promo_code_name', '') }}" autocomplete="off">
+
+                                    <button type="button" id="apply-promo-code"
+                                        class="{{ session()->has('promo_code') ? 'alert alert-info' : 'thm-btn' }} mt-3 rounded-pill p-2">
+                                        {{ session()->has('promo_code') ? 'Промокодът е приложен' : 'Приложи' }}
+                                    </button>
+
+                                </div>
+
+                                <div id="promo-code-message" class="mt-2" aria-live="polite"></div>
+
                             </div>
 
                             <div class="checkout__payment">
@@ -404,5 +467,96 @@
         </div>
     </section>
     <!--End Checkout Page-->
+
+    <script>
+        $(document).ready(function() {
+            applyPromoCode();
+        });
+
+        function applyPromoCode() {
+            $('#apply-promo-code').on('click', function() {
+                const button = $(this);
+                const promoCode = $('#promo-code-input').val().trim();
+                const messageBox = $('#promo-code-message');
+
+                messageBox
+                    .removeClass('text-danger text-success')
+                    .text('');
+
+                if (!promoCode) {
+                    messageBox
+                        .addClass('text-danger')
+                        .text('Моля, въведете промо код.');
+
+                    return;
+                }
+
+                button
+                    .prop('disabled', true)
+                    .text('Проверка...');
+
+                $.ajax({
+                    url: "{{ route('checkout.promo.apply') }}",
+                    type: "POST",
+
+                    data: {
+                        _token: "{{ csrf_token() }}",
+                        promo_code: promoCode
+                    },
+
+                    success: function(response) {
+                        messageBox
+                            .addClass('text-success')
+                            .text(response.message);
+
+                        sessionStorage.setItem(
+                            'scrollToCheckoutTotal',
+                            'true'
+                        );
+
+                        window.location.reload();
+                    },
+
+                    error: function(xhr) {
+                        let message =
+                            'Промо кодът не можа да бъде приложен.';
+
+                        if (
+                            xhr.responseJSON &&
+                            xhr.responseJSON.errors &&
+                            xhr.responseJSON.errors.promo_code
+                        ) {
+                            message =
+                                xhr.responseJSON.errors.promo_code[0];
+                        } else if (
+                            xhr.responseJSON &&
+                            xhr.responseJSON.message
+                        ) {
+                            message =
+                                xhr.responseJSON.message;
+                        }
+
+                        messageBox.addClass('text-danger').text(message);
+                    },
+
+                    complete: function() {
+                        button
+                            .prop('disabled', false)
+                            .text('Приложи');
+                    }
+                });
+            });
+
+            $('#promo-code-input').on('keydown', function(event) {
+                if (event.key === 'Enter') {
+                    event.preventDefault();
+
+                    $('#apply-promo-code').trigger('click');
+                }
+            });
+
+
+        }
+    </script>
 
 </x-frontend>

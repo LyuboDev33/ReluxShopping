@@ -4,28 +4,67 @@ namespace App\Http\Controllers;
 
 use App\Constants\PrescriptionOptions;
 use App\Models\Admin\Glass;
-use App\Models\Admin\LanceColor;
 use App\Models\Category;
 use App\Models\Product;
 use App\Services\ProductService;
+use App\Services\ShopService;
 use App\Services\SpeedyService;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
-use Illuminate\Support\Facades\View;
-
+use Illuminate\View\View;
 
 class ShopController extends Controller
 {
     /** Show all products */
-    public function index()
+    public function index(Request $request)
     {
+        if ($redirect = ShopService::filterLinks($request)) {
+            return $redirect;
+        }
+
+        $filters = $request->except('page');
+
+        $query = Product::with([
+            'categories',
+            'attributeValues.type',
+        ]);
+
+        // Apply filters if any exist
+        if (! empty($filters)) {
+
+            foreach ($filters as $attributeTypeSlug => $attributeValueSlug) {
+
+                $query->whereHas('attributeValues', function ($query) use (
+                    $attributeTypeSlug,
+                    $attributeValueSlug
+                ) {
+                    $query->where('slug', $attributeValueSlug)
+                        ->whereHas('type', function ($query) use ($attributeTypeSlug) {
+                            $query->where('slug', $attributeTypeSlug);
+                        });
+                });
+            }
+        }
+
+        $products = $query
+            ->orderByDesc('id')
+            ->paginate(15);
+
+        foreach ($products as $product) {
+            $brand = $product->attributeValues->first(
+                fn($attribute) => $attribute->type->name === 'Марка'
+            );
+
+            $product->brand = $brand?->value;
+        }
+
         return view('Frontend.shop.Shop', [
-            'products'       => Product::with(['categories', 'attributeValues'])
-                ->orderBy('id', 'desc')
-                ->paginate(15),
-            'category'       => null,
+            'products' => $products,
+            'category' => null,
             'categoriesTree' => ProductService::buildCategoriesTree(),
+            'filters' => ShopService::filters(),
         ]);
     }
 
@@ -35,62 +74,122 @@ class ShopController extends Controller
      * @param string $category_slug
      * @return View
      */
-    public function category(string $category_slug)
-    {
+    public function category(Request $request, string $category_slug
+    ) {
+        if ($redirect = ShopService::filterLinks($request)) {
+            return $redirect;
+        }
+
         $category = Category::where('slug', $category_slug)
             ->firstOrFail();
 
         $categoryIds = ProductService::getCategoryIds($category);
 
-        $products = Product::with([
+        // Do not treat the pagination parameter as a product filter.
+        $filters = $request->except('page');
+
+        $query = Product::with([
             'categories',
-            'attributeValues',
+            'attributeValues.type',
         ])
             ->whereHas('categories', function ($query) use ($categoryIds) {
                 $query->whereIn('category_id', $categoryIds);
-            })
-            ->paginate(15);
+            });
+
+        if (! empty($filters)) {
+            foreach ($filters as $attributeTypeSlug => $attributeValueSlug) {
+                $query->whereHas(
+                    'attributeValues',
+                    function ($query) use (
+                        $attributeTypeSlug,
+                        $attributeValueSlug
+                    ) {
+                        $query->where('slug', $attributeValueSlug)
+                            ->whereHas(
+                                'type',
+                                function ($query) use ($attributeTypeSlug) {
+                                    $query->where(
+                                        'slug',
+                                        $attributeTypeSlug
+                                    );
+                                }
+                            );
+                    }
+                );
+            }
+        }
+
+        $products = $query
+            ->orderByDesc('id')
+            ->paginate(15)
+            ->withQueryString();
+
+        foreach ($products as $product) {
+            $brand = $product->attributeValues->first(
+                fn($attribute) =>
+                $attribute->type?->name === 'Марка'
+            );
+
+            $product->brand = $brand?->value;
+        }
 
         $categoriesTree = ProductService::buildCategoriesTree();
 
-        $breadcrumbs = ProductService::getCategoryBreadcrumbs($categoriesTree, $category->slug);
+        $breadcrumbs = ProductService::getCategoryBreadcrumbs(
+            $categoriesTree,
+            $category->slug
+        );
 
         return view('Frontend.shop.Shop', [
             'products' => $products,
             'category' => $category,
             'categoriesTree' => $categoriesTree,
             'breadcrumbs' => $breadcrumbs,
+            'filters' => ShopService::filters(),
         ]);
     }
 
     /** Show the checkout */
-    public function checkout()
+    public function checkout(): View|RedirectResponse
     {
-        $products = Session::get('products');
+        $products = Session::get('products', []);
 
-        if (! $products || count($products) <= 0) {
-            return redirect(route('cart'));
+        /** If there are no products, redirect to the shop */
+        if (empty($products)) {
+            Session::forget('promo_code');
+
+            return redirect()->route('shop.index');
         }
 
-        $subtotal = 0;
+        $subtotal = ShopService::calculateSubtotal($products);
 
-        foreach ($products as $product) {
-            $subtotal += $product['final_price'] * $product['quantity'];
+        $promoCode = Session::get('promo_code');
 
-            if (! empty($product['lens_index'])) {
-                $subtotal += $product['lens_index']['price'] * $product['quantity'];
-            }
+        $promoPercentage = 0;
+        $promoDiscount = 0;
 
-            if (! empty($product['glass_value'])) {
-                $subtotal += $product['glass_value']['price'] * $product['quantity'];
+        if ($promoCode !== null) {
+            $promoPercentage = (int) (
+                $promoCode['percentage_promo_code'] ?? 0
+            );
+
+            if ($promoPercentage > 0 && $promoPercentage <= 100) {
+                $promoDiscount = round(
+                    ($subtotal * $promoPercentage) / 100,
+                    2
+                );
+
+                $subtotal = round($subtotal - $promoDiscount, 2);
             }
         }
-
 
         return view('Frontend.shop.Checkout', [
             'speedyOffices' => SpeedyService::offices(),
-            'products'      => $products,
-            'subtotal'      => $subtotal,
+            'products' => $products,
+            'subtotal' => $subtotal,
+            'promoCode' => $promoCode,
+            'promoPercentage' => $promoPercentage,
+            'promoDiscount' => $promoDiscount,
         ]);
     }
 
@@ -122,39 +221,18 @@ class ShopController extends Controller
             $quantity = (int) ($cartProduct['quantity'] ?? 1);
             $finalPrice = (float) ($cartProduct['final_price'] ?? 0);
 
-            /*
-         * Start with the frame price.
-         */
-            $lineTotal = $finalPrice * $quantity;
-
-            /*
-         * Add the lens index price.
-         */
-            if (! empty($cartProduct['lens_index'])) {
-                $lensIndexPrice = (float) ($cartProduct['lens_index']['price'] ?? 0);
-
-                $lineTotal += $lensIndexPrice * $quantity;
-            }
-
-            /*
-         * Add the glass option price.
-         */
-            if (! empty($cartProduct['glass_value'])) {
-                $glassValuePrice = (float) ($cartProduct['glass_value']['price'] ?? 0);
-
-                $lineTotal += $glassValuePrice * $quantity;
-            }
+            $lineTotal = ShopService::calculateProductTotal($cartProduct);
 
             $products[$key] = array_merge($cartProduct, [
-                'product_id'  => $product->id,
-                'name'        => $product->name,
-                'slug'        => $product->slug,
-                'price'       => (float) $product->price,
-                'discount'    => (int) $product->discount,
-                'image'       => $product->main_image,
-                'quantity'    => $quantity,
+                'product_id' => $product->id,
+                'name' => $product->name,
+                'slug' => $product->slug,
+                'price' => (float) $product->price,
+                'discount' => (int) $product->discount,
+                'image' => $product->main_image,
+                'quantity' => $quantity,
                 'final_price' => $finalPrice,
-                'line_total'  => round($lineTotal, 2),
+                'line_total' => $lineTotal,
             ]);
 
             $subtotal += $lineTotal;
@@ -189,28 +267,9 @@ class ShopController extends Controller
         }
 
         // Add each product to last viewed
-        $this->lastViewedProducts($product);
+        ShopService::lastViewedProducts($product);
+        $similarProducts = ShopService::similarProducts($product);
 
-        $similarProducts = Product::with([
-            'categories',
-            'attributeValues.type',
-        ])
-            ->where('category_id', $product->category_id)
-            ->where('id', '!=', $product->id)
-            ->latest('id')
-            ->take(4)
-            ->get()
-            ->map(function ($similarProduct) {
-                $brand = $similarProduct->attributeValues->first(
-                    fn($attributeValue) => $attributeValue->type?->name === 'Марка'
-                );
-
-                $similarProduct->brand = $brand?->value;
-
-                return $similarProduct;
-            });
-
-        $isProductDioptric = ProductService::isProductDioptric($product);
 
         $category = $product->categories->first();
 
@@ -235,21 +294,20 @@ class ShopController extends Controller
             ->values();
 
         return view('Frontend.shop.Show', [
-            'product'           => $product,
-            'isProductDioptric' => $isProductDioptric,
-            'sphValues'         => PrescriptionOptions::SPH,
-            'cylValues'         => PrescriptionOptions::CYL,
-            'pdValues'          => PrescriptionOptions::PD,
-            'axisValues'        => PrescriptionOptions::AXIS,
-            'glasses'           => $glasses,
-            'visionTypes'       => $visionTypes,
-            'similarProducts'   => $similarProducts,
+            'product' => $product,
+            'sphValues' => PrescriptionOptions::SPH,
+            'cylValues' => PrescriptionOptions::CYL,
+            'pdValues' => PrescriptionOptions::PD,
+            'axisValues' => PrescriptionOptions::AXIS,
+            'glasses' => $glasses,
+            'visionTypes' => $visionTypes,
+            'similarProducts' => $similarProducts,
             'productFinalPrice' => $product->discount
-                ? $product->price - ($product->price * $product->discount) / 100
+                ? $product->price
+                - ($product->price * $product->discount) / 100
                 : $product->price,
         ]);
     }
-
 
     /** Redirect after succesfull order */
     public function success()
@@ -257,99 +315,36 @@ class ShopController extends Controller
         return view('Frontend.shop.success');
     }
 
-    /** Show the wishlist */
-    public function wishlist()
+    /** Show the wishlist
+     *
+     * @return View
+     */
+    public function wishlist(): View
     {
         return view('Frontend.wishlist', [
-            'wishlist' => Session::get('wishlist', [])
+            'wishlist' => Session::get('wishlist', []),
         ]);
     }
 
-    /** Add a product to wishlist
+    /**
+     * Add a product to wishlist
      *
      * @param Product $product
      * @return JsonResponse
      */
-    public function addToWishlist(Request $request, Product $product): JsonResponse
+    public function addToWishlist(Product $product): JsonResponse
     {
-        $wishlist = Session::get('wishlist', []);
-
-        $productId = $product->id;
-
-        if (isset($wishlist[$productId])) {
-            unset($wishlist[$productId]);
-
-            Session::put('wishlist', $wishlist);
-
-            return response()->json([
-                'success' => true,
-                'action' => 'removed',
-                'count' => count($wishlist),
-            ]);
-        }
-
-        $finalPrice = $product->discount ? $product->price - (($product->price * $product->discount) / 100) : $product->price;
-
-        $wishlist[$productId] = [
-            'id' => $product->id,
-            'name' => $product->name,
-            'slug' => $product->slug,
-            'url' => route('shop.show', $product->slug),
-            'price' => $product->price,
-            'discount' => $product->discount,
-            'final_price' => round($finalPrice, 2),
-            'image' => $product->main_image,
-        ];
-
-        Session::put('wishlist', $wishlist);
-
-        return response()->json([
-            'success' => true,
-            'action' => 'added',
-            'message' => 'Продуктът беше добавен в любими.',
-            'count' => count($wishlist),
-        ]);
+        return ShopService::addToWishlist($product);
     }
 
-    /** This function creates the session for last 10 viewed products
+    /**
+     * Validate and apply a promo code to the current cart.
      *
-     * @param Product $product
-     * @return void
+     * @param Request $request
+     * @return JsonResponse
      */
-    private function lastViewedProducts(Product $product): void
+    public function applyPromoCode(Request $request)
     {
-        $lastViewedProducts = Session::get('lastViewedProducts', []);
-
-        // If the product has already been viewed,
-        // remove it so we can place it at the beginning.
-        if (isset($lastViewedProducts[$product->id])) {
-            unset($lastViewedProducts[$product->id]);
-        }
-
-        $finalPrice = $product->discount ? $product->price - (($product->price * $product->discount) / 100) : $product->price;
-
-        // Add the newest product to the beginning of the array.
-        $lastViewedProducts = [
-            $product->id => [
-                'id'          => $product->id,
-                'name'        => $product->name,
-                'slug'        => $product->slug,
-                'url'         => route('shop.show', $product->slug),
-                'image'       => $product->main_image,
-                'price'       => $product->price,
-                'discount'    => $product->discount,
-                'final_price' => round($finalPrice, 2),
-            ],
-        ] + $lastViewedProducts;
-
-        // Keep only the latest 4 viewed products.
-        $lastViewedProducts = array_slice(
-            $lastViewedProducts,
-            0,
-            4,
-            true
-        );
-
-        Session::put('lastViewedProducts', $lastViewedProducts);
+        return ShopService::applyPromoCode($request);
     }
 }

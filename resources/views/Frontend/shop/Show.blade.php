@@ -1,4 +1,48 @@
 <x-frontend>
+
+    @section('SEO')
+
+    <title>{{ $product->name }} | Valente Optic</title>
+
+    <meta name="description"
+        content="{{ strip_tags($product->description) }}">
+
+    <meta name="keywords"
+        content="{{ $product->name }}, {{ $product->sku }}, диоптрични рамки, очила, маркови очила, онлайн магазин за очила, Valente Optic">
+
+    <meta name="robots" content="index, follow">
+
+    <link rel="canonical" href="{{ url()->current() }}">
+
+    <meta property="og:type" content="product">
+    <meta property="og:site_name" content="Valente Optic">
+    <meta property="og:title" content="{{ $product->name }} | Valente Optic">
+    <meta property="og:description"
+        content="{{ strip_tags($product->description) }}">
+    <meta property="og:url" content="{{ url()->current() }}">
+    <meta property="og:image"
+        content="{{ url('assets/images/products/' . $product->main_image) }}">
+    <meta property="og:image:alt" content="{{ $product->name }}">
+
+    <meta property="product:retailer_item_id" content="{{ $product->sku }}">
+    <meta property="product:price:amount"
+        content="{{ number_format($productFinalPrice, 2, '.', '') }}">
+    <meta property="product:price:currency" content="EUR">
+    <meta property="product:availability"
+        content="{{ (int) $product->stock > 0 ? 'in stock' : 'out of stock' }}">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="{{ $product->name }} | Valente Optic">
+    <meta name="twitter:description"
+        content="{{ strip_tags($product->description) }}">
+    <meta name="twitter:image"
+        content="{{ url('assets/images/products/' . $product->main_image) }}">
+    <meta name="twitter:image:alt" content="{{ $product->name }}">
+
+
+@endsection
+
+
     <!--Start Product Details-->
     <form action="{{ route('product.cart.add', $product) }}" method="POST" enctype="multipart/form-data"
         class="product-details">

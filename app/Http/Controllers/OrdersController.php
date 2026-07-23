@@ -6,6 +6,7 @@ use App\Mail\OrderCreated;
 use App\Models\Admin\GlassValue;
 use App\Models\Admin\LanceColor;
 use App\Models\Admin\LensIndex;
+use App\Models\Admin\Promocode;
 use App\Models\Order;
 use App\Models\OrderProduct;
 use App\Models\Product;
@@ -421,6 +422,7 @@ class OrdersController extends Controller
             'company_address' => ['nullable', 'string', 'max:255'],
         ]);
 
+
         $personalDelivery =
             ! empty($validated['city']) &&
             ! empty($validated['billing_address']);
@@ -444,9 +446,14 @@ class OrdersController extends Controller
                 ]);
         }
 
+        $sessionPromoCode = Session::get('promo_code');
+
+
         try {
-            $order = DB::transaction(function () use ($validated, $cartProducts) {
+            $order = DB::transaction(function () use ($validated, $cartProducts, $sessionPromoCode) {
                 $subtotal = 0;
+                $promoCodeName = $sessionPromoCode['promo_code_name'] ?? null;
+
 
                 foreach ($cartProducts as $product) {
                     $subtotal +=
@@ -455,36 +462,39 @@ class OrdersController extends Controller
                 }
 
                 $order = Order::create([
-                    'order_number' => 'ORD-' . date('ymd') . '-' . random_int(1000, 9999),
+                    'order_number'     => 'ORD-' . date('dmy') . '-' . random_int(1000, 9999),
 
-                    'first_name' => $validated['fname'],
-                    'last_name' => $validated['lname'],
-                    'phone' => $validated['phone'],
-                    'email' => $validated['email'],
+                    'first_name'       => $validated['fname'],
+                    'last_name'        => $validated['lname'],
+                    'phone'            => $validated['phone'],
+                    'email'            => $validated['email'],
 
-                    'delivery_method' => $validated['delivery_method'],
+                    'delivery_method'  => $validated['delivery_method'],
 
-                    'city' => $validated['city'] ?? null,
+                    'city'             => $validated['city'] ?? null,
                     'personal_address' => $validated['billing_address'] ?? null,
 
-                    'courier' => ! empty($validated['office_list']) ? 'speedy' : null,
+                    'courier'          => ! empty($validated['office_list']) ? 'speedy' : null,
 
-                    'office_list' => $validated['office_list'] ?? null,
+                    'office_list'      => $validated['office_list'] ?? null,
 
-                    'request_invoice' => $validated['request_invoice'] ?? false,
+                    'request_invoice'  => $validated['request_invoice'] ?? false,
 
-                    'company_name' => $validated['company_name'] ?? null,
-                    'company_mol' => $validated['company_mol'] ?? null,
-                    'company_bulstat' => $validated['company_bulstat'] ?? null,
-                    'company_address' => $validated['company_address'] ?? null,
+                    'company_name'     => $validated['company_name'] ?? null,
+                    'company_mol'      => $validated['company_mol'] ?? null,
+                    'company_bulstat'  => $validated['company_bulstat'] ?? null,
+                    'company_address'  => $validated['company_address'] ?? null,
 
-                    'subtotal' => $subtotal,
-                    'delivery_price' => 0,
-                    'total' => $subtotal,
+                    'subtotal'         => $subtotal,
+                    'promo_code'       => $promoCodeName,
+                    'delivery_price'   => 0,
+                    'total'            => $subtotal,
 
-                    'payment_option' => 'cash_on_delivery',
-                    'status' => Order::STATUS_PENDING,
+                    'payment_option'   => 'cash_on_delivery',
+                    'status'           => Order::STATUS_PENDING,
                 ]);
+
+                $orderProducts = [];
 
                 foreach ($cartProducts as $product) {
                     $databaseProduct = Product::where('id', $product['product_id'])
@@ -511,40 +521,49 @@ class OrdersController extends Controller
                         'stock' => $currentStock - $orderedQuantity,
                     ]);
 
-                    OrderProduct::create([
-                        'order_id' => $order->id,
-                        'product_id' => $product['product_id'],
+                    $orderProduct = OrderProduct::create([
+                        'order_id'                      => $order->id,
+                        'product_id'                    => $product['product_id'],
 
-                        'product_name' => $product['name'],
-                        'product_slug' => $product['slug'],
-                        'product_image' => $product['image'] ?? null,
+                        'product_name'                  => $product['name'],
+                        'product_slug'                  => $product['slug'],
+                        'product_image'                 => $product['image'] ?? null,
 
-                        'price' => $product['price'],
-                        'discount' => $product['discount'] ?? null,
-                        'base_price' => $product['base_price'],
-                        'final_price' => $product['final_price'],
-                        'quantity' => $product['quantity'],
+                        'price'                         => $product['price'],
+                        'discount'                      => $product['discount'] ?? null,
+                        'base_price'                    => $product['base_price'],
+                        'final_price'                   => $product['final_price'],
+                        'quantity'                      => $product['quantity'],
 
-                        'purchase_type' => $product['purchase_type'] ?? 'frame_only',
+                        'purchase_type'                 => $product['purchase_type'] ?? 'frame_only',
 
-                        'glass_id' => $product['glass_value']['glass_id'] ?? null,
-                        'glass_value_id' => $product['glass_value']['id'] ?? null,
-                        'glass_name' => $product['glass_value']['glass_name'] ?? null,
-                        'glass_value_name' => $product['glass_value']['value'] ?? null,
-                        'glass_value_price' => $product['glass_value']['price'] ?? null,
+                        'glass_id'                      => $product['glass_value']['glass_id'] ?? null,
 
-                        'glass_value_lens_index_id' => $product['lens_index']['id'] ?? null,
-                        'glass_value_lens_index_name' => $product['lens_index']['name'] ?? null,
-                        'glass_value_lens_index_price' => $product['lens_index']['price'] ?? null,
+                        'glass_value_id'                => $product['glass_value']['id'] ?? null,
 
-                        'prescription_image' => $product['prescription_image'] ?? null,
-                        'right_eye' => $product['right_eye'] ?? null,
-                        'left_eye' => $product['left_eye'] ?? null,
-                        'pd' => $product['pd'] ?? null,
+                        'glass_name'                    => $product['glass_value']['glass_name'] ?? null,
+
+                        'glass_value_name'              => $product['glass_value']['value'] ?? null,
+
+                        'glass_value_price'             => $product['glass_value']['price'] ?? null,
+                        'glass_value_lens_index_id'     => $product['lens_index']['id'] ?? null,
+                        'glass_value_lens_index_name'   => $product['lens_index']['name'] ?? null,
+                        'glass_value_lens_index_price'  => $product['lens_index']['price'] ?? null,
+
+                        'prescription_image'            => $product['prescription_image'] ?? null,
+
+                        'right_eye'                     => $product['right_eye'] ?? null,
+                        'left_eye'                      => $product['left_eye'] ?? null,
+                        'pd'                            => $product['pd'] ?? null,
                     ]);
+
+                    $orderProducts[] = $orderProduct;
                 }
 
-                return $order;
+                return [
+                    'order' => $order,
+                    'orderProducts' => collect($orderProducts),
+                ];
             });
         } catch (\Exception $exception) {
             return back()
@@ -554,10 +573,30 @@ class OrdersController extends Controller
                 ->withInput();
         }
 
-        Session::forget('products');
+        $newOrder = $order['order'];
+        $orderProducts = $order['orderProducts'];
+        $email = $order['order']->email;
 
-        Mail::to($order->email)->send(
-            new OrderCreated($order)
+        Session::forget([
+            'products',
+            'promo_code',
+        ]);
+
+        $promoCode = null;
+
+        if ($sessionPromoCode) {
+            $promoCode = Promocode::where(
+                'promo_code_name',
+                $sessionPromoCode['promo_code_name']
+            )->first();
+        }
+
+        Mail::to($email)->send(
+            new OrderCreated(
+                $newOrder,
+                $orderProducts,
+                $promoCode
+            )
         );
 
         return redirect()->route('checkout.succes');

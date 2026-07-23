@@ -51,35 +51,17 @@
                            <a href="/shop">Магазин</a>
                            <ul>
                                <li>
-                                   <a href="/shop?category=frames">
+                                   <a href="/shop/category/dioptricni-ramki">
                                        Диоптрични рамки
                                    </a>
                                </li>
-                               <li>
-                                   <a href="/shop?category=sunglasses">
+
+                                     <li>
+                                   <a href="/shop/category/slunchevi-ochila">
                                        Слънчеви очила
                                    </a>
                                </li>
-                               <li>
-                                   <a href="/shop?category=men">
-                                       Мъжки модели
-                                   </a>
-                               </li>
-                               <li>
-                                   <a href="/shop?category=women">
-                                       Дамски модели
-                                   </a>
-                               </li>
-                               <li>
-                                   <a href="/shop?category=kids">
-                                       Детски модели
-                                   </a>
-                               </li>
-                               <li>
-                                   <a href="/shop">
-                                       Всички продукти
-                                   </a>
-                               </li>
+
                            </ul>
                        </li>
 

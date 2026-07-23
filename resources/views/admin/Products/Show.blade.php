@@ -3,9 +3,7 @@
     <div class="d-flex flex-column flex-md-row gap-3 justify-content-between">
         <h3>Редактиране на продукт: <br> {{ $product->name }}</h3>
         <div class="d-flex flex-column flex-md-row gap-3 align-items-start">
-            <form
-                action="{{ route('admin.products.toggle-lenses', $product) }}"
-                method="POST" class="toggle">
+            <form action="{{ route('admin.products.toggle-lenses', $product) }}" method="POST" class="toggle">
                 @csrf
 
                 @method('PATCH')
@@ -66,8 +64,7 @@
                         @foreach ($product->variantParent as $parent)
                             <a href="{{ route('admin.products.show', $parent->slug) }}" class="product-variant-card">
 
-                               <img src="/products/{{ $parent->main_image }}"
-    alt="{{ $parent->name }}">
+                                <img src="/products/{{ $parent->main_image }}" alt="{{ $parent->name }}">
 
                                 <span>Основен</span>
                             </a>
@@ -77,8 +74,7 @@
                         <a href="{{ route('admin.products.show', $product->slug) }}"
                             class="product-variant-card active">
 
-                           <img src="/products/{{ $parent->main_image }}"
-    alt="{{ $parent->name }}">
+                            <img src="/products/{{ $parent->main_image }}" alt="{{ $parent->name }}">
 
                             <span>
                                 @if ($product->variantParent->isEmpty())
@@ -179,11 +175,10 @@
                 <div class="col-lg-4">
                     <label>Галерия (множество снимки)</label>
 
-                   @if (!empty($product->gallery))
+                    @if (!empty($product->gallery))
                         <div class="mb-2 d-flex flex-wrap gap-2">
                             @foreach ($product->gallery as $galleryImage)
-                                <img src="/assets/images/product_gallery/{{ $galleryImage }}"
-                                    alt="Gallery image"
+                                <img src="/assets/images/product_gallery/{{ $galleryImage }}" alt="Gallery image"
                                     style="max-height: 80px; border-radius: 6px;">
                             @endforeach
                         </div>
@@ -202,36 +197,20 @@
 
                     @foreach ($attributeTypes as $type)
                         <div class="col-lg-4">
-                            <label>
+                            <label class="form-label">
                                 {{ $type->name }}
-                                @if ($type->is_multiple)
-                                    <small class="text-muted">(множествен избор)</small>
-                                @endif
                             </label>
 
+                            <input type="text" name="attribute_values[{{ $type->id }}]"
+                                class="form-control rounded-pill" list="attribute-{{ $type->id }}"
+                                placeholder="Започни да пишеш..." autocomplete="off"
+                                value="{{ old('attribute_values.' . $type->id, $selectedAttributes[$type->id] ?? '') }}">
 
-
-                            @if ($type->is_multiple)
-                                <select name="attribute_values[]" class="form-control searchable-select" multiple>
-                                    @foreach ($type->values as $value)
-                                        <option value="{{ $value->id }}"
-                                            {{ in_array($value->id, $selectedAttributeValueIds) ? 'selected' : '' }}>
-                                            {{ $value->value }}
-                                        </option>
-                                    @endforeach
-                                </select>
-                            @else
-                                <select name="attribute_values[]" class="form-control searchable-select">
-                                    <option value="">— Избери —</option>
-
-                                    @foreach ($type->values as $value)
-                                        <option value="{{ $value->id }}"
-                                            {{ in_array($value->id, $selectedAttributeValueIds) ? 'selected' : '' }}>
-                                            {{ $value->value }}
-                                        </option>
-                                    @endforeach
-                                </select>
-                            @endif
+                            <datalist id="attribute-{{ $type->id }}">
+                                @foreach ($type->values as $value)
+                                    <option value="{{ $value->value }}">
+                                @endforeach
+                            </datalist>
                         </div>
                     @endforeach
                 @endif
@@ -304,7 +283,7 @@
             overlay.addEventListener('click', closeSidebar);
 
 
-            
+
         });
     </script>
 

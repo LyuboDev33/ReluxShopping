@@ -14,7 +14,7 @@
     <section class="about-five pb-5">
         <div class="container">
             <div class="row">
-                <div class="col-xl-6">
+                <div class="col-lg-6">
                     <div class="about-five__left">
                         <div class="section-title text-left sec-title-animation animation-style2">
                             <div class="section-title__tagline-box">
@@ -39,7 +39,7 @@
                             <strong>онлайн магазин</strong>.
                         </p>
 
-                        <ul class="list-unstyled about-five__points">
+                        {{-- <ul class="list-unstyled about-five__points">
                             <li>
                                 <div class="icon">
                                     <span class="icon-double-arrow-right"></span>
@@ -75,15 +75,15 @@
                                     <p>Физически обекти в Бургас и Равда</p>
                                 </div>
                             </li>
-                        </ul>
+                        </ul> --}}
                     </div>
                 </div>
 
-                <div class="col-xl-6">
+                <div class="col-lg-6">
                     <div class="about-five__right">
                         <div class="about-five__img-box">
                             <div class="about-five__img">
-                                <img src="/assets/images/about/about-2.jpg" alt="Valente Optic" />
+                                <img src="/assets/images/about/about-all.jpg" alt="Valente Optic" />
                             </div>
 
                             <div class="">

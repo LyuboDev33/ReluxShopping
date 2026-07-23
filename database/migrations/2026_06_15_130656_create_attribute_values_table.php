@@ -16,7 +16,8 @@ return new class extends Migration
             $table->foreignId('attribute_type_id')
                 ->constrained('attribute_types')
                 ->cascadeOnDelete();
-            $table->string('value');
+            $table->string('value')->unique();
+            $table->string('slug')->unique();
             $table->timestamps();
 
             $table->unique(['attribute_type_id', 'value']);

@@ -78,17 +78,22 @@ class AdminProductsController extends Controller
         ]);
     }
 
-    /** Show the product
+    /**
+     * Show the product.
      *
      * @param string $slug
-     * @return View
+     * @return \Illuminate\View\View
      */
     public function show(string $slug)
     {
-        $product = Product::with(['categories', 'attributeValues', 'variants', 'variantParent'])
+        $product = Product::with([
+            'categories',
+            'attributeValues',
+            'variants',
+            'variantParent',
+        ])
             ->where('slug', $slug)
             ->firstOrFail();
-
 
         $categories = Category::with('children')
             ->whereNull('category_parent_id')
@@ -100,15 +105,26 @@ class AdminProductsController extends Controller
             ->orderBy('name')
             ->get();
 
-        $selectedAttributeValueIds = $product->attributeValues->pluck('id')->toArray();
+        $selectedAttributeValueIds = $product->attributeValues
+            ->pluck('id')
+            ->toArray();
 
-        $glasses = Glass::with('values')->orderBy('id', 'desc')->get();
+        $selectedAttributes = [];
+
+        foreach ($product->attributeValues as $attributeValue) {
+            $selectedAttributes[$attributeValue->attribute_type_id] = $attributeValue->value;
+        }
+
+        $glasses = Glass::with('values')
+            ->orderByDesc('id')
+            ->get();
 
         return view('admin.Products.Show', [
             'product'                   => $product,
             'categories'                => $categories,
             'attributeTypes'            => $attributeTypes,
             'selectedAttributeValueIds' => $selectedAttributeValueIds,
+            'selectedAttributes'        => $selectedAttributes,
             'glasses'                   => $glasses,
         ]);
     }

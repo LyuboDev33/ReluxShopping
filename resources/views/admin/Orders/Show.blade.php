@@ -194,12 +194,18 @@
                                             </td>
 
                                             <td>{{ $product->quantity }}</td>
-
                                             <td class="text-end">
-                                                <strong>
-                                                    {{ number_format($product->final_price * $product->quantity, 2) }}
-                                                    EUR
-                                                </strong>
+                                                @if ($product->discount)
+                                                    <strong>
+                                                        {{ number_format(($product->price - ($product->price * $product->discount) / 100) * $product->quantity, 2) }}
+                                                        EUR
+                                                    </strong>
+                                                @else
+                                                    <strong>
+                                                        {{ number_format($product->price * $product->quantity, 2) }}
+                                                        EUR
+                                                    </strong>
+                                                @endif
                                             </td>
                                         </tr>
 
@@ -282,11 +288,65 @@
                         <div class="box shadow-sm bg-light p-4 rounded">
                             <h6 class="mb-3">Информация за плащане</h6>
 
-                            <div class="d-flex justify-content-between">
-                                <span>Обща сума:</span>
-                                <strong class="h5 mb-0">{{ number_format($order->total, 2) }} EUR</strong>
+                            <div class="d-flex justify-content-between mb-2">
+                                <span>Сума на продуктите:</span>
+
+                                <strong>
+                                    {{ number_format(
+                                        $order->products->sum(
+                                            fn($product) => ($product->discount
+                                                ? $product->price - ($product->price * $product->discount) / 100
+                                                : $product->price) * $product->quantity,
+                                        ),
+                                        2,
+                                    ) }}
+                                    EUR
+                                </strong>
                             </div>
-                            
+
+                            @if ($promoCode)
+                                <div class="d-flex justify-content-between mb-2">
+                                    <span>Промо код ({{ $promoCode->promo_code_name }}):</span>
+
+                                    <strong class="text-danger">
+                                        -{{ $promoCode->percentage_promo_code }}%
+                                    </strong>
+                                </div>
+                            @endif
+
+                            <hr>
+
+                            <div class="d-flex justify-content-between">
+                                <span><strong>Обща сума:</strong></span>
+
+                                @if ($promoCode)
+                                    <strong class="h5 mb-0 text-success">
+                                        {{ number_format(
+                                            $order->products->sum(
+                                                fn($product) => ($product->discount
+                                                    ? $product->price - ($product->price * $product->discount) / 100
+                                                    : $product->price) * $product->quantity,
+                                            ) *
+                                                (1 - $promoCode->percentage_promo_code / 100),
+                                            2,
+                                        ) }}
+                                        EUR
+                                    </strong>
+                                @else
+                                    <strong class="h5 mb-0">
+                                        {{ number_format(
+                                            $order->products->sum(
+                                                fn($product) => ($product->discount
+                                                    ? $product->price - ($product->price * $product->discount) / 100
+                                                    : $product->price) * $product->quantity,
+                                            ),
+                                            2,
+                                        ) }}
+                                        EUR
+                                    </strong>
+                                @endif
+                            </div>
+
                             <hr>
 
                             <p class="mb-2"><strong>Фирмени данни:</strong></p>
@@ -300,7 +360,6 @@
                                 <p class="mb-0">Няма фирмени данни</p>
                             @endif
                         </div>
-
                     </div>
                 </div>
             </div>

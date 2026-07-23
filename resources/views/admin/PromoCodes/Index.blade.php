@@ -110,7 +110,7 @@
 
                                             <input type="hidden" name="id" value="{{ $promocode->id }}">
 
-                                            <button type="submit" class="thm-btn product__all-btn p-2">
+                                            <button type="submit" class="thm-btn product__all-btn p-2 w-100">
                                                 @if ($promocode->is_active)
                                                     Деактивирай
                                                 @else
@@ -129,7 +129,7 @@
                                             <input type="hidden" name="promocodeID" value="{{ $promocode->id }}">
 
                                             <button type="submit"
-                                                    class="btn btn-danger text-white btn-outline-danger btn-sm rounded-5 p-2 w-100">
+                                                    class="btn btn-danger text-white btn-outline-danger rounded-5 p-2 w-100">
                                                 Изтрий
                                             </button>
                                         </form>

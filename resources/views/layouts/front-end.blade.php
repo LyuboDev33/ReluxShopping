@@ -13,7 +13,6 @@
     <link rel="stylesheet" href="/assets/css/custom-animate.css?v=<?php echo time(); ?>" />
     <link rel="stylesheet" href="/assets/css/jarallax.css?v=<?php echo time(); ?>" />
 
-    {{-- <link rel="stylesheet" href="/assets/css/jquery.magnific-popup.css?v=<?php echo time(); ?>" /> --}}
 
     <link rel="stylesheet" href="/assets/css/flaticon.css?v=<?php echo time(); ?>" />
     <link rel="stylesheet" href="/assets/css/owl.carousel.min.css?v=<?php echo time(); ?>" />
@@ -22,8 +21,6 @@
     <link rel="stylesheet" href="/assets/css/owl.theme.default.min.css?v=<?php echo time(); ?>" />
     <link rel="stylesheet" href="/assets/css/nice-select.css?v=<?php echo time(); ?>" />
 
-    {{-- <link rel="stylesheet" href="/assets/css/jquery-ui.css?v=<?php echo time(); ?>" />
-    <link rel="stylesheet" href="/assets/css/aos.css?v=<?php echo time(); ?>" /> --}}
 
     <link rel="stylesheet" href="/assets/css/module-css/slider.css?v=<?php echo time(); ?>" />
     <link rel="stylesheet" href="/assets/css/module-css/footer.css?v=<?php echo time(); ?>" />
@@ -86,6 +83,8 @@
         requestAnimationFrame(raf);
     </script>
 
+    <script src="/assets/js/jquery-3.6.0.min.js?v=<?php echo time(); ?>"></script>
+
     <script src="/assets/js/bootstrap.bundle.min.js?v=<?php echo time(); ?>"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js"></script>
@@ -107,7 +106,6 @@
 
     </div>
 
-    <script src="/assets/js/jquery-3.6.0.min.js?v=<?php echo time(); ?>"></script>
     <script src="/assets/js/jarallax.min.js?v=<?php echo time(); ?>"></script>
 
     <script src="/assets/js/aos.js?v=<?php echo time(); ?>"></script>

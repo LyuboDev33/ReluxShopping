@@ -476,6 +476,7 @@
     display: block;
     padding: 170px 0 120px;
     z-index: 1;
+    background-color: #f7ded23d;
 }
 
 .service-details__left {

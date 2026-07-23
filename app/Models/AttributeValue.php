@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class AttributeValue extends Model
 {
-    protected $fillable = ['attribute_type_id', 'value'];
+    protected $fillable = ['attribute_type_id', 'value', 'slug'];
 
 
     public function type(): BelongsTo
@@ -23,5 +23,5 @@ class AttributeValue extends Model
         return $this->belongsToMany(Product::class,'product_attribute_value')->withTimestamps();
     }
 
-    
+
 }

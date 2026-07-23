@@ -36,6 +36,7 @@ class Order extends Model
         'notes',
 
         'subtotal',
+        'promo_code',
         'delivery_price',
         'total',
 

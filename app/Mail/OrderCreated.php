@@ -2,20 +2,27 @@
 
 namespace App\Mail;
 
+use App\Models\Admin\Promocode;
 use App\Models\Order;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
+use Illuminate\Mail\Mailables\Address;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Mail\Mailables\Address;
+use Illuminate\Support\Collection;
 
 class OrderCreated extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public function __construct(public Order $order) {}
+    public function __construct(
+        public Order $order,
+        public Collection $orderProducts,
+        public ?Promocode $promoCode
 
+    ) {
+    }
 
     public function envelope(): Envelope
     {
@@ -24,10 +31,11 @@ class OrderCreated extends Mailable
                 'office@valenteoptic.com',
                 'Valente Optic - Потвърждение за поръчка'
             ),
-            subject: 'Потвърждение на поръчка #' . $this->order->order_number,
+            subject:
+                'Потвърждение на поръчка #' .
+                $this->order->order_number,
         );
     }
-
 
     public function content(): Content
     {

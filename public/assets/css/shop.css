@@ -11,12 +11,13 @@ Product
 
 .product.fe-section {
     padding-top: 150px;
+    background-color: #e3c6ac30;
 }
 
 @media (max-width: 992px) {
     .product.fe-section {
-    padding-top: 90px;
-}
+        padding-top: 90px;
+    }
 }
 
 
@@ -251,8 +252,8 @@ Product
     transform: scaleY(1.0);
 }
 
-.shop-category ul li.active > .shop-category__row > a,
-.shop-category ul li > .shop-category__row > a:hover {
+.shop-category ul li.active>.shop-category__row>a,
+.shop-category ul li>.shop-category__row>a:hover {
     color: var(--crank-black);
     background: var(--crank-white);
 }
@@ -683,7 +684,7 @@ Product
     margin-bottom: 30px;
     border: 1px solid var(--crank-bdr-color);
     background-color: var(--crank-white);
-    padding: 0 0 10px;
+    padding: 0 10px 10px;
     transition: all 500ms ease;
     z-index: 1;
     border-radius: 30px;
@@ -772,6 +773,8 @@ Product
     font-weight: 500;
     color: var(--crank-gray);
     margin-top: 4px;
+    display: flex;
+    flex-direction: column;
 }
 
 .product__all-review {
@@ -2017,8 +2020,8 @@ Product Details
     }
 
     .fa-heart {
-    font-size: 23px;
-}
+        font-size: 23px;
+    }
 
 }
 
@@ -2062,8 +2065,8 @@ Product Details
 
 .wishlist-table tbody td:last-child {
     text-align: center;
-    padding-left: 7px;
-    padding-right: 14px;
+    /* padding-left: 7px;
+    padding-right: 14px; */
 }
 
 .wishlist-table .product-box {

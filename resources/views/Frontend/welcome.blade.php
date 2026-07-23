@@ -240,13 +240,13 @@
     </section>
     <!-- Brand Marquee End -->
 
-    <section class="container d-flex justify-content-center align-items-center mt-3">
-        <div class="product__all">
+    <section class="d-flex justify-content-center align-items-center mt-3">
+        <div class="product__all container">
             <div class="row justify-content-center align-items-center">
 
                 @forelse ($products as $product)
                     <!--Product Single Start-->
-                    <div class="col-xl-3 col-lg-3 col-md-6 col-6">
+                    <div class="col-xl-3 col-lg-3 col-md-6 col-6 align-self-start">
                         <div class="product__all-single">
 
                             <div class="product__all-img">

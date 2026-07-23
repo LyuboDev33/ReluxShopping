@@ -1,11 +1,34 @@
 <x-frontend>
 
     @section('SEO')
-        <title>
-            {{ $category ? $category->name . ' — Магазин' : 'Магазин' }} | Valente Optic
-        </title>
+        <title>Онлайн магазин за очила | Диоптрични рамки, слънчеви очила и аксесоари | Valente Optic</title>
+
         <meta name="description"
-            content="Разгледайте нашата колекция от диоптрични рамки, слънчеви очила и стъкла във Valente Optic.">
+            content="Открийте богато разнообразие от диоптрични рамки, слънчеви очила, очила за деца, стъкла и аксесоари във Valente Optic. Качествени марки, професионална консултация и бърза доставка в цяла България.">
+
+        <meta name="keywords"
+            content="Valente Optic, онлайн магазин за очила, диоптрични рамки, слънчеви очила, детски очила, очила, оптика, оптика Бургас, оптика Равда, стъкла за очила, прогресивни стъкла, аксесоари за очила">
+
+        <meta name="robots" content="index,follow">
+
+        <link rel="canonical" href="{{ url()->current() }}">
+
+        <meta property="og:type" content="website">
+        <meta property="og:site_name" content="Valente Optic">
+        <meta property="og:title" content="Онлайн магазин за очила | Valente Optic">
+        <meta property="og:description"
+            content="Разгледайте богат избор от диоптрични рамки, слънчеви очила, стъкла и аксесоари. Качество, професионално обслужване и бърза доставка от Valente Optic.">
+        <meta property="og:url" content="{{ url()->current() }}">
+        <meta property="og:image" content="{{ url('assets/images/logo/logo.png') }}">
+
+        <meta name="twitter:card" content="summary_large_image">
+        <meta name="twitter:title" content="Онлайн магазин за очила | Valente Optic">
+        <meta name="twitter:description"
+            content="Диоптрични рамки, слънчеви очила, стъкла и аксесоари от Valente Optic. Пазарувайте онлайн с бърза доставка и професионална консултация.">
+        <meta name="twitter:image" content="{{ url('assets/images/logo/logo.png') }}">
+
+        <link href="/assets/css/tom-select.css" rel="stylesheet">
+        <script src="https://cdn.jsdelivr.net/npm/tom-select@2.6.2/dist/js/tom-select.complete.min.js"></script>
     @endsection
 
 
@@ -18,19 +41,53 @@
 
                     <button class="shop-sidebar-toggle d-xl-none" id="shopSidebarToggle">
                         <i class="fa-solid fa-bars"></i>
-                        Категории
+                        Филтри
                     </button>
 
                     <div class="shop-sidebar-overlay"></div>
 
                     <div class="product__sidebar">
 
+
+                        <form method="GET" class="shop-category product__sidebar-single">
+                            <h3 class="product__sidebar-title text-center">Филтри</h3>
+
+
+                            @foreach ($filters as $filter)
+                                <div class="mb-3">
+                                    <label class="form-label" for="filter-{{ $filter['slug'] }}">
+                                        {{ $filter['name'] }}
+                                    </label>
+
+                                    <select id="filter-{{ $filter['slug'] }}" name="{{ $filter['slug'] }}"
+                                        class="form-select select-beast p-0">
+                                        <option value=""></option>
+
+                                        @foreach ($filter['values'] as $value)
+                                            <option value="{{ $value['slug'] }}" @selected(request()->filled($filter['slug']) && request($filter['slug']) === $value['slug'])>
+                                                {{ $value['name'] }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            @endforeach
+
+                            <button type="submit" class="btn btn-primary">
+                                Филтрирай
+                            </button>
+
+                            <a href="{{ route('shop.index') }}" class="btn btn-light">
+                                Изчисти
+                            </a>
+                        </form>
+
+
                         <div class="shop-category product__sidebar-single">
                             <h3 class="product__sidebar-title">Категории</h3>
 
                             <ul class="list-unstyled shop-category__tree">
 
-                                <li class="{{ !$category ? 'active' : '' }}">
+                                <li class="{{ $category ? 'active' : '' }}">
                                     <a href="{{ route('shop.index') }}">
                                         Всички продукти
                                     </a>
@@ -55,7 +112,8 @@
                         <div class="row">
                             <div class="col-xl-12">
 
-                                <nav class="shop-breadcrumb rounded-pill bg-dark w-fit p-3 mb-3 mt-3" aria-label="Навигация">
+                                <nav class="shop-breadcrumb rounded-pill bg-dark w-fit p-3 mb-3 mt-3"
+                                    aria-label="Навигация">
                                     <a href="{{ route('shop.index') }}">
                                         Магазин
                                     </a>
@@ -77,15 +135,13 @@
                                     @endforeach
                                 </nav>
 
-                                <div class="product__showing-result">
-                                    <div class="product__showing-text-box">
-                                        <p class="product__showing-text">
-                                            Показване на
-                                            {{ $products->firstItem() ?? 0 }}–{{ $products->lastItem() ?? 0 }}
-                                            от {{ $products->total() }} продукта
-                                        </p>
+                                @if ($products->hasPages())
+                                    <div class="row mt-4 mb-4">
+                                        <div class="col-12 d-flex justify-content-start gap-3">
+                                            {{ $products->links() }}
+                                        </div>
                                     </div>
-                                </div>
+                                @endif
 
                             </div>
                         </div>
@@ -128,6 +184,12 @@
                                                         {{ $product->name }}
                                                     </a>
                                                 </h4>
+
+                                                @if ($product->brand)
+                                                    <p class="product__all-brand mt-3 mb-3">
+                                                        <span>Марка:</span> <b>{{ $product->brand }}</b>
+                                                    </p>
+                                                @endif
 
                                                 <p class="product__all-price">
                                                     @if ($product->discount)
@@ -172,7 +234,7 @@
                                     <div class="col-12">
                                         <div class="alert alert-info text-center">
                                             @if ($category)
-                                                В категория „{{ $category->name }}" все още няма продукти.
+                                                Няма налични продукти с филтрите, които сте избрали
                                             @else
                                                 Все още няма налични продукти.
                                             @endif
@@ -185,8 +247,8 @@
 
                         {{-- Pagination --}}
                         @if ($products->hasPages())
-                            <div class="row mt-4">
-                                <div class="col-12 d-flex justify-content-center">
+                            <div class="row mt-4 mb-4">
+                                <div class="col-12 d-flex justify-content-start gap-3">
                                     {{ $products->links() }}
                                 </div>
                             </div>
@@ -204,7 +266,7 @@
         document.addEventListener('DOMContentLoaded', function() {
 
             toggleSidebar();
-
+            initializTomSelect();
         });
 
         function toggleSidebar() {
@@ -229,6 +291,25 @@
             });
 
             shopSidebarOverlay.addEventListener('click', closeSidebar);
+        }
+
+        function initializTomSelect() {
+
+            document.querySelectorAll('.select-beast').forEach((select) => {
+                new TomSelect(select, {
+                    create: false,
+                    sortField: {
+                        field: 'text',
+                        direction: 'asc'
+                    },
+                    render: {
+                        no_results: function(data, escape) {
+                            return '<div class="no-results">Няма резултати от търсенето</div>';
+                        }
+                    }
+                });
+            });
+
         }
     </script>
 

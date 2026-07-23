@@ -26,6 +26,7 @@ Route::get('/cart', [ShopController::class, 'cart'])->name('cart');
 Route::get('/checkout', [ShopController::class, 'checkout'])->name('checkout');
 Route::get('/checkout/sucess', [ShopController::class, 'success'])->name('checkout.succes');
 
+Route::post('/checkout/promocode/apply',[ShopController::class, 'applyPromoCode'])->name('checkout.promo.apply');
 
 Route::post('/cart/add/{product}', [OrdersController::class, 'addProduct'])->name('product.cart.add');
 Route::delete('/cart/remove/{productId}', [OrdersController::class, 'removeProduct'])->name('cart.remove');

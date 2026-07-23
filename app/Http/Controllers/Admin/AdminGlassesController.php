@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Models\Admin\Glass;
 use App\Models\Admin\GlassValue;
 use App\Models\Admin\GlassValueLensIndex;
-
 use App\Models\Admin\VisionType;
 use App\Models\Category;
 use Illuminate\Http\RedirectResponse;

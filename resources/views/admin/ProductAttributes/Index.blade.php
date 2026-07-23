@@ -36,14 +36,20 @@
                 <div class="card shadow-sm">
                     <div class="card-header bg-dark text-white">
                         <strong>Нов тип атрибут</strong>
-                        <small class="text-white-50 d-block">Напр. „Цвят на рамката“, „Размер“, „Материал“</small>
+                        <small class="text-white-50 d-block">
+                            Напр. „Цвят на рамката“, „Размер“, „Материал“
+                        </small>
                     </div>
+
                     <div class="card-body">
                         <form action="{{ route('admin.attributes.types.store') }}" method="POST">
                             @csrf
 
                             <div class="mb-3">
-                                <label for="type_name" class="form-label">Име на типа</label>
+                                <label for="type_name" class="form-label">
+                                    Име на типа
+                                </label>
+
                                 <input
                                     type="text"
                                     id="type_name"
@@ -53,8 +59,11 @@
                                     value="{{ old('name') }}"
                                     required
                                 >
+
                                 @error('name')
-                                    <div class="invalid-feedback">{{ $message }}</div>
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
                                 @enderror
                             </div>
 
@@ -71,8 +80,11 @@
                 <div class="card shadow-sm">
                     <div class="card-header bg-dark text-white">
                         <strong>Нова стойност</strong>
-                        <small class="text-white-50 d-block">Напр. „Черен“ под „Цвят на рамката“</small>
+                        <small class="text-white-50 d-block">
+                            Напр. „Черен“ под „Цвят на рамката“
+                        </small>
                     </div>
+
                     <div class="card-body">
                         @if ($types->isEmpty())
                             <p class="text-muted mb-0">
@@ -83,7 +95,10 @@
                                 @csrf
 
                                 <div class="mb-3">
-                                    <label for="attribute_type_id" class="form-label">Тип атрибут</label>
+                                    <label for="attribute_type_id" class="form-label">
+                                        Тип атрибут
+                                    </label>
+
                                     <select
                                         id="attribute_type_id"
                                         name="attribute_type_id"
@@ -91,6 +106,7 @@
                                         required
                                     >
                                         <option value="">— Избери тип —</option>
+
                                         @foreach ($types as $type)
                                             <option
                                                 value="{{ $type->id }}"
@@ -100,13 +116,19 @@
                                             </option>
                                         @endforeach
                                     </select>
+
                                     @error('attribute_type_id')
-                                        <div class="invalid-feedback">{{ $message }}</div>
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
                                     @enderror
                                 </div>
 
                                 <div class="mb-3">
-                                    <label for="value" class="form-label">Стойност</label>
+                                    <label for="value" class="form-label">
+                                        Стойност
+                                    </label>
+
                                     <input
                                         type="text"
                                         id="value"
@@ -116,8 +138,11 @@
                                         value="{{ old('value') }}"
                                         required
                                     >
+
                                     @error('value')
-                                        <div class="invalid-feedback">{{ $message }}</div>
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
                                     @enderror
                                 </div>
 
@@ -146,21 +171,32 @@
                 @foreach ($types as $type)
                     <div class="col-md-6 col-lg-4">
                         <div class="card h-100 shadow-sm">
-                            <div class="card-header d-flex justify-content-between align-items-center">
-                                <strong>{{ $type->name }}</strong>
 
-                                <form
-                                    action="{{ route('admin.attributes.types.destroy', $type) }}"
-                                    method="POST"
-                                    onsubmit="return confirm('Сигурен ли си? Това ще изтрие типа и всичките му стойности.');"
-                                    class="m-0"
-                                >
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-sm btn-outline-danger rounded-5">
-                                        Изтрий тип
-                                    </button>
-                                </form>
+                            <div class="card-header">
+                                <div class="d-flex justify-content-between align-items-start gap-3">
+                                    <div>
+                                        <strong class="d-block">
+                                            {{ $type->name }}
+                                        </strong>
+
+                                        <small class="text-muted">
+                                            slug: {{ $type->slug }}
+                                        </small>
+                                    </div>
+
+                                    {{-- <form
+                                        action="{{ route('admin.attributes.types.destroy', $type) }}"
+                                        method="POST"
+                                        onsubmit="return confirm('Сигурен ли си? Това ще изтрие типа и всичките му стойности.');"
+                                        class="m-0"
+                                    >
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-sm btn-outline-danger rounded-5">
+                                            Изтрий тип
+                                        </button>
+                                    </form> --}}
+                                </div>
                             </div>
 
                             <div class="card-body">
@@ -171,8 +207,18 @@
                                 @else
                                     <div class="d-flex flex-wrap gap-2">
                                         @foreach ($type->values as $value)
-                                            <span class="badge bg-light text-dark border d-inline-flex align-items-center gap-2 p-2">
-                                                {{ $value->value }}
+                                            <span
+                                                class="badge bg-light text-dark border d-inline-flex align-items-center gap-2 p-2"
+                                            >
+                                                <span class="text-start">
+                                                    <span class="d-block">
+                                                        {{ $value->value }}
+                                                    </span>
+
+                                                    <small class="text-muted fw-normal">
+                                                        {{ $value->slug }}
+                                                    </small>
+                                                </span>
 
                                                 <form
                                                     action="{{ route('admin.attributes.values.destroy', $value) }}"
@@ -182,6 +228,7 @@
                                                 >
                                                     @csrf
                                                     @method('DELETE')
+
                                                     <button
                                                         type="submit"
                                                         class="btn-close"
@@ -195,7 +242,6 @@
                                 @endif
                             </div>
 
-                      
                         </div>
                     </div>
                 @endforeach

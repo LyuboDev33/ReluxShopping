@@ -4085,8 +4085,9 @@ body.product-variant-sidebar-open {
 }
 
 .glasses-process {
-    padding: 70px 0 40px;
     background: #ffffff;
+    padding: 20px;
+    border-radius: 20px;
 }
 
 .glasses-process__header {
@@ -4097,7 +4098,7 @@ body.product-variant-sidebar-open {
 .glasses-process__title {
     margin: 0;
     color: #171b20;
-    font-size: 48px;
+    font-size: 24px;
     line-height: 1.15;
     font-weight: 700;
     letter-spacing: 7px;
@@ -4516,6 +4517,14 @@ body.product-variant-sidebar-open {
 
 .shop-breadcrumb a {
     color: var(--crank-base);
+}
+
+.fa-chevron-right {
+    color: beige;
+}
+
+.shop-body {
+    
 }
 
 /*--------------------------------------------------------------

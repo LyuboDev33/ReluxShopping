@@ -64,10 +64,6 @@
 
     <script src="/assets/js/jquery-3.6.0.min.js?v=<?php echo time(); ?>"></script>
 
-    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-
-    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-
 
 </head>
 
@@ -100,7 +96,6 @@
         $(document).ready(function() {
             initDashboardDropdown();
             initSidebarToggle();
-            initSearchableSelect();
             initTinyMce();
         });
 
@@ -147,15 +142,6 @@
             });
         }
 
-        function initSearchableSelect() {
-            if ($('.searchable-select').length > 0) {
-                $('.searchable-select').select2({
-                    width: '100%',
-                    placeholder: 'Търси...',
-                    allowClear: true
-                });
-            }
-        }
 
         function initTinyMce() {
             tinymce.init({

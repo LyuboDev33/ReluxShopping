@@ -45,6 +45,8 @@ return new class extends Migration
             $table->decimal('delivery_price', 10, 2)->nullable();
             $table->decimal('total', 10, 2)->default(0);
 
+            $table->string('promo_code')->nullable();
+
             // Status
             $table->string('status')->default('pending');
 
