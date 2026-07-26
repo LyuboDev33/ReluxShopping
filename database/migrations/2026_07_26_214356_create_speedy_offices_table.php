@@ -11,15 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('glass_values', function (Blueprint $table) {
+        Schema::create('speedy_offices', function (Blueprint $table) {
             $table->id();
-
-            $table->foreignId('glass_id')
-                ->constrained('glasses')
-                ->cascadeOnDelete();
-
-            $table->string('value');
-
+            $table->string('name');
             $table->timestamps();
         });
     }
@@ -29,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('glass_values');
+        Schema::dropIfExists('speedy_offices');
     }
 };

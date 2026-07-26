@@ -10,6 +10,24 @@ use Illuminate\Support\Collection;
 class ProductService
 {
 
+    /** This method checks whether the product is Dioptric
+     *
+     * @param Product $product
+     * @return boolean
+     */
+    public static function isProductSunglasses(Product $product): bool
+    {
+        $categoryIds = [];
+
+        foreach ($product->categories as $category) {
+            $categoryIds = array_merge($categoryIds, self::getCategoryIds($category));
+        }
+
+        return Category::whereIn('id', array_unique($categoryIds))
+            ->where('slug', 'slunchevi-ochila')
+            ->exists();
+    }
+
     /** Return all ids of a given category
      *
      * @param Collection $category
@@ -101,7 +119,8 @@ class ProductService
      * @param string $activeSlug
      * @return array
      */
-    public static function getCategoryBreadcrumbs(array $categoriesTree, string $activeSlug): array {
+    public static function getCategoryBreadcrumbs(array $categoriesTree, string $activeSlug): array
+    {
 
         foreach ($categoriesTree as $category) {
 

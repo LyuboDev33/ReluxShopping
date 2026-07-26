@@ -136,10 +136,8 @@
                                 </nav>
 
                                 @if ($products->hasPages())
-                                    <div class="row mt-4 mb-4">
-                                        <div class="col-12 d-flex justify-content-start gap-3">
-                                            {{ $products->links() }}
-                                        </div>
+                                    <div class="mt-4 mb-4 overflow-auto">
+                                        {{ $products->onEachSide(1)->links() }}
                                     </div>
                                 @endif
 
@@ -247,10 +245,8 @@
 
                         {{-- Pagination --}}
                         @if ($products->hasPages())
-                            <div class="row mt-4 mb-4">
-                                <div class="col-12 d-flex justify-content-start gap-3">
-                                    {{ $products->links() }}
-                                </div>
+                            <div class="mt-4 mb-4 overflow-auto">
+                                {{ $products->onEachSide(1)->links() }}
                             </div>
                         @endif
 

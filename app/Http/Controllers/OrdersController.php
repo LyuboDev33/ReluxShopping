@@ -283,7 +283,6 @@ class OrdersController extends Controller
         $finalPrice = (float) $baseFinalPrice;
 
         if ($purchaseType === 'frame_with_glasses') {
-            $finalPrice += (float) $glassValue->price;
             $finalPrice += (float) $lensIndex->price;
         }
 
@@ -341,7 +340,6 @@ class OrdersController extends Controller
                 'glass_id' => $glassValue->glass_id,
                 'glass_name' => $glassValue->glass?->name,
                 'value' => $glassValue->value,
-                'price' => (float) $glassValue->price,
             ] : null,
 
             'lens_index' => $lensIndex ? [

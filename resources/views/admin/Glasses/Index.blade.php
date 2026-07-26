@@ -157,7 +157,7 @@
 
 
             {{-- ================= CREATE GLASS VALUE BY CATEGORY ================= --}}
-            <div>
+            <div class="col-lg-4">
                 <div class="card shadow-sm">
                     <div class="card-header bg-dark text-white">
                         <strong>Нова стойност</strong>
@@ -166,7 +166,7 @@
                         </small>
                     </div>
 
-                    <div class="card-body d-flex gap-3">
+                    <div class="card-body d-flex flex-column gap-3">
                         @foreach ($categories as $category)
                             <div class="border rounded-3 p-3 mb-3">
                                 <h6 class="mb-3">{{ $category->name }}</h6>
@@ -204,26 +204,14 @@
 
                                             <input type="text" name="value"
                                                 class="form-control @error('value') is-invalid @enderror"
-                                                placeholder="до 80% потъмняване" value="{{ old('value') }}"
-                                                required>
+                                                placeholder="до 80% потъмняване" value="{{ old('value') }}" required>
 
                                             @error('value')
                                                 <div class="invalid-feedback">{{ $message }}</div>
                                             @enderror
                                         </div>
 
-                                        <div class="mb-3">
-                                            <label class="form-label">Цена</label>
 
-                                            <input type="number" step="0.01" name="price"
-                                                class="form-control @error('price') is-invalid @enderror"
-                                                placeholder="Напр. 25" value="{{ old('price') }}" min="0"
-                                                required>
-
-                                            @error('price')
-                                                <div class="invalid-feedback">{{ $message }}</div>
-                                            @enderror
-                                        </div>
 
                                         <button type="submit" class="btn btn-success rounded-5 px-4">
                                             + Добави стойност
@@ -289,166 +277,175 @@
                                         @else
                                             <div class="glass-values-list">
                                                 @foreach ($glass->values as $value)
-                                                    <div class="glass-value-box">
-                                                        {{-- ================= GLASS VALUE UPDATE ================= --}}
-                                                        <div class="glass-value-row">
-                                                            <form
-                                                                action="{{ route('admin.glass-values.update', $value) }}"
-                                                                method="POST" class="glass-value-row__form">
-                                                                @csrf
-                                                                @method('PUT')
+                                                    <div class="glass-value-box glass-admin-card">
 
-                                                                <div class="glass-value-row__field">
-                                                                    <label>Стойност</label>
+                                                        <div class="glass-admin-card__header" role="button"
+                                                            data-bs-toggle="collapse"
+                                                            data-bs-target="#glass-value-{{ $value->id }}"
+                                                            aria-expanded="false"
+                                                            aria-controls="glass-value-{{ $value->id }}">
+                                                            <span>{{ $value->value }}</span>
 
-                                                                    <input type="text" name="value"
-                                                                        class="form-control"
-                                                                        value="{{ old("glass_values.$value->id.value", $value->value) }}"
-                                                                        required>
-                                                                </div>
-
-                                                                <div
-                                                                    class="glass-value-row__field glass-value-row__price">
-                                                                    <label>Цена</label>
-
-                                                                    <input type="number" step="0.01"
-                                                                        name="price" class="form-control"
-                                                                        value="{{ old("glass_values.$value->id.price", $value->price) }}"
-                                                                        min="0" required>
-                                                                </div>
-
-                                                                <div class="glass-value-row__actions">
-                                                                    <button type="submit"
-                                                                        class="btn btn-outline-primary rounded-5">
-                                                                        Запази
-                                                                    </button>
-                                                                </div>
-                                                            </form>
-
-                                                            <form
-                                                                action="{{ route('admin.glass-values.destroy', $value) }}"
-                                                                method="POST" class="glass-value-row__delete"
-                                                                onsubmit="return confirm('Изтрий тази стойност и всички нейни индекси?');">
-                                                                @csrf
-                                                                @method('DELETE')
-
-                                                                <button type="submit"
-                                                                    class="btn btn-outline-danger rounded-5">
-                                                                    Изтрий
-                                                                </button>
-                                                            </form>
+                                                            <i class="fa-solid fa-chevron-down"></i>
                                                         </div>
 
-                                                        {{-- ================= EXISTING LENS INDEXES ================= --}}
-                                                        <div class="glass-value-lens-indexes mt-4">
-                                                            <div
-                                                                class="d-flex justify-content-between align-items-center mb-3">
-                                                                {{-- <h6 class="mb-0">
-                                                                    Индекси на изтъняване
-                                                                </h6> --}}
-
-                                                                   <div class="lens-index-create-box col-lg-3">
-                                                                <h6 class="mb-3">
-                                                                    Добави нов индекс
-                                                                </h6>
-
+                                                        <div id="glass-value-{{ $value->id }}"
+                                                            class="collapse glass-admin-card__body bg-white">
+                                                            {{-- ================= GLASS VALUE UPDATE ================= --}}
+                                                            <div class="glass-value-row">
                                                                 <form
-                                                                    action="{{ route('admin.glass-value-lens-indexes.store') }}"
-                                                                    method="POST" class="lens-index-create-form">
+                                                                    action="{{ route('admin.glass-values.update', $value) }}"
+                                                                    method="POST" class="glass-value-row__form">
                                                                     @csrf
-
-                                                                    <input type="hidden" name="glass_value_id"
-                                                                        value="{{ $value->id }}">
+                                                                    @method('PUT')
 
                                                                     <div class="glass-value-row__field">
-                                                                        <label>Индекс</label>
+                                                                        <label>Стойност</label>
 
-                                                                        <input type="text" name="name"
+                                                                        <input type="text" name="value"
                                                                             class="form-control"
-                                                                            placeholder="Напр. 1.60" required>
-                                                                    </div>
-
-                                                                    <div class="glass-value-row__field">
-                                                                        <label>Цена</label>
-
-                                                                        <input type="number" step="0.01"
-                                                                            name="price" class="form-control"
-                                                                            placeholder="Напр. 40.00" min="0"
+                                                                            value="{{ old("glass_values.$value->id.value", $value->value) }}"
                                                                             required>
                                                                     </div>
 
+                                                                    <div class="glass-value-row__actions">
+                                                                        <button type="submit"
+                                                                            class="btn btn-outline-primary rounded-5">
+                                                                            Запази
+                                                                        </button>
+                                                                    </div>
+                                                                </form>
+
+                                                                <form
+                                                                    action="{{ route('admin.glass-values.destroy', $value) }}"
+                                                                    method="POST" class="glass-value-row__delete"
+                                                                    onsubmit="return confirm('Изтрий тази стойност и всички нейни индекси?');">
+                                                                    @csrf
+                                                                    @method('DELETE')
+
                                                                     <button type="submit"
-                                                                        class="btn btn-success rounded-5 mt-3 mb-3">
-                                                                        + Добави индекс
+                                                                        class="btn btn-outline-danger rounded-5">
+                                                                        Изтрий
                                                                     </button>
                                                                 </form>
                                                             </div>
 
-                                                            @if ($value->lensIndexes->isEmpty())
-                                                                <div class="alert alert-light border mb-3">
-                                                                    Няма добавени индекси към тази стойност.
-                                                                </div>
-                                                            @else
-                                                                <div class="d-flex gap-3 mb-4">
-                                                                    @foreach ($value->lensIndexes as $lensIndex)
-                                                                        <div class="lens-index-admin-row">
-                                                                            <form
-                                                                                action="{{ route('admin.glass-value-lens-indexes.update', $lensIndex) }}"
-                                                                                method="POST"
-                                                                                class="lens-index-admin-row__form">
-                                                                                @csrf
-                                                                                @method('PUT')
+                                                            {{-- ================= EXISTING LENS INDEXES ================= --}}
+                                                            <div class="glass-value-lens-indexes mt-4">
+                                                                <div
+                                                                    class="d-flex justify-content-between align-items-center mb-3">
+                                                                    {{-- <h6 class="mb-0">
+                                                                    Индекси на изтъняване
+                                                                    </h6> --}}
 
-                                                                                <div class="glass-value-row__field">
-                                                                                    <label>Индекс</label>
+                                                                    <div class="lens-index-create-box col-lg-3">
+                                                                        <h6 class="mb-3">
+                                                                            Добави нов индекс
+                                                                        </h6>
 
-                                                                                    <input type="text"
-                                                                                        name="name"
-                                                                                        class="form-control"
-                                                                                        value="{{ old("glass_value_lens_indexes.$lensIndex->id.name", $lensIndex->name) }}"
-                                                                                        placeholder="Напр. 1.60"
-                                                                                        required>
-                                                                                </div>
+                                                                        <form
+                                                                            action="{{ route('admin.glass-value-lens-indexes.store') }}"
+                                                                            method="POST"
+                                                                            class="lens-index-create-form">
+                                                                            @csrf
 
-                                                                                <div class="glass-value-row__field">
-                                                                                    <label>Цена</label>
+                                                                            <input type="hidden"
+                                                                                name="glass_value_id"
+                                                                                value="{{ $value->id }}">
 
-                                                                                    <input type="number"
-                                                                                        step="0.01" name="price"
-                                                                                        class="form-control"
-                                                                                        value="{{ old("glass_value_lens_indexes.$lensIndex->id.price", $lensIndex->price) }}"
-                                                                                        min="0" required>
-                                                                                </div>
+                                                                            <div class="glass-value-row__field">
+                                                                                <label>Индекс</label>
 
-                                                                                <button type="submit"
-                                                                                    class="btn btn-primary text-white btn-outline-primary rounded-5 w-100 mt-2 mb-2">
-                                                                                    Запази
-                                                                                </button>
-                                                                            </form>
+                                                                                <input type="text"
+                                                                                    name="name"
+                                                                                    class="form-control rounded-pill"
+                                                                                    placeholder="Напр. 1.60" required>
+                                                                            </div>
 
-                                                                            <form
-                                                                                action="{{ route('admin.glass-value-lens-indexes.destroy', $lensIndex) }}"
-                                                                                method="POST"
-                                                                                onsubmit="return confirm('Сигурен ли си, че искаш да изтриеш този индекс?');">
-                                                                                @csrf
-                                                                                @method('DELETE')
+                                                                            <div class="glass-value-row__field">
+                                                                                <label>Цена</label>
 
-                                                                                <button type="submit"
-                                                                                    class="btn btn-outline-danger rounded-5">
-                                                                                    Изтрий
-                                                                                </button>
-                                                                            </form>
+                                                                                <input type="number" step="0.01"
+                                                                                    name="price"
+                                                                                    class="form-control rounded-pill"
+                                                                                    placeholder="Напр. 40.00"
+                                                                                    min="0" required>
+                                                                            </div>
+
+                                                                            <button type="submit"
+                                                                                class="btn btn-success rounded-5 mt-3 mb-3">
+                                                                                + Добави индекс
+                                                                            </button>
+                                                                        </form>
+                                                                    </div>
+
+                                                                    @if ($value->lensIndexes->isEmpty())
+                                                                        <div class="alert alert-light border mb-3 rounded-pill">
+                                                                            Няма добавени индекси към тази стойност.
                                                                         </div>
-                                                                    @endforeach
+                                                                    @else
+                                                                        <div class="d-flex gap-3 mb-4">
+                                                                            @foreach ($value->lensIndexes as $lensIndex)
+                                                                                <div class="lens-index-admin-row">
+                                                                                    <form
+                                                                                        action="{{ route('admin.glass-value-lens-indexes.update', $lensIndex) }}"
+                                                                                        method="POST"
+                                                                                        class="lens-index-admin-row__form">
+                                                                                        @csrf
+                                                                                        @method('PUT')
+
+                                                                                        <div
+                                                                                            class="glass-value-row__field">
+                                                                                            <label>Индекс</label>
+
+                                                                                            <input type="text"
+                                                                                                name="name"
+                                                                                                class="form-control"
+                                                                                                value="{{ old("glass_value_lens_indexes.$lensIndex->id.name", $lensIndex->name) }}"
+                                                                                                placeholder="Напр. 1.60"
+                                                                                                required>
+                                                                                        </div>
+
+                                                                                        <div
+                                                                                            class="glass-value-row__field">
+                                                                                            <label>Цена</label>
+
+                                                                                            <input type="number"
+                                                                                                step="0.01"
+                                                                                                name="price"
+                                                                                                class="form-control"
+                                                                                                value="{{ old("glass_value_lens_indexes.$lensIndex->id.price", $lensIndex->price) }}"
+                                                                                                min="0"
+                                                                                                required>
+                                                                                        </div>
+
+                                                                                        <button type="submit"
+                                                                                            class="btn btn-primary text-white btn-outline-primary rounded-5 w-100 mt-2 mb-2">
+                                                                                            Запази
+                                                                                        </button>
+                                                                                    </form>
+
+                                                                                    <form
+                                                                                        action="{{ route('admin.glass-value-lens-indexes.destroy', $lensIndex) }}"
+                                                                                        method="POST"
+                                                                                        onsubmit="return confirm('Сигурен ли си, че искаш да изтриеш този индекс?');">
+                                                                                        @csrf
+                                                                                        @method('DELETE')
+
+                                                                                        <button type="submit"
+                                                                                            class="btn btn-outline-danger rounded-5">
+                                                                                            Изтрий
+                                                                                        </button>
+                                                                                    </form>
+                                                                                </div>
+                                                                            @endforeach
+                                                                        </div>
+                                                                    @endif
                                                                 </div>
-                                                            @endif
-
                                                             </div>
-
-
-
                                                         </div>
                                                     </div>
+
                                                     <hr>
                                                 @endforeach
                                             </div>

@@ -288,27 +288,35 @@
                                                         <div class="col-lg-6">
 
                                                             @if (($product['purchase_type'] ?? 'frame_only') === 'frame_with_glasses')
+                                                                @if (!empty($product['glass_value']))
+                                                                    <p class="mb-1">
+                                                                        <strong>Тип стъкло:</strong>
+
+                                                                        {{ $product['glass_value']['glass_name'] }}
+                                                                    </p>
+
+                                                                    <p class="mb-1">
+                                                                        <strong>Избран вариант:</strong>
+
+                                                                        {{ $product['glass_value']['value'] }}
+
+                                                                        {{-- <span class="text-muted">
+                                                                    (+{{ number_format($product['glass_value']['price'], 2) }} €)
+                                                                </span> --}}
+                                                                    </p>
+                                                                @endif
+
                                                                 @if (!empty($product['lens_index']))
                                                                     <div class="d-flex justify-content-between mb-2">
-                                                                        <span>Индекс</span>
+                                                                        <p> <strong>Индекс на изтъняване: {{ $product['lens_index']['name'] }}</strong>
 
-                                                                        <strong>
                                                                             +{{ number_format($product['lens_index']['price'], 2) }}
                                                                             €
-                                                                        </strong>
+                                                                        </p>
                                                                     </div>
                                                                 @endif
 
-                                                                @if (!empty($product['glass_value']))
-                                                                    <div class="d-flex justify-content-between mb-2">
-                                                                        <span>Стъкло</span>
 
-                                                                        <strong>
-                                                                            +{{ number_format($product['glass_value']['price'], 2) }}
-                                                                            €
-                                                                        </strong>
-                                                                    </div>
-                                                                @endif
 
                                                                 @if (!empty($product['lance_color']))
                                                                     <div class="d-flex justify-content-between mb-2">
@@ -357,7 +365,7 @@
                                             </tr>
                                         @endforeach
 
-                                    
+
 
                                         @if (!empty($promoCode))
                                             <tr>

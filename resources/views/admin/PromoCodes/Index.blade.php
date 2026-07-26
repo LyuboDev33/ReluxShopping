@@ -28,11 +28,8 @@
 
         <div class="col-lg-4">
             <label class="form-label">Име на промо код</label>
-            <input class="form-control rounded-5"
-                   type="text"
-                   name="promocode_name"
-                   value="{{ old('promocode_name') }}"
-                   placeholder="Например: SUMMER20">
+            <input class="form-control rounded-5" type="text" name="promocode_name"
+                value="{{ old('promocode_name') }}" placeholder="Например: SUMMER20">
 
             @error('promocode_name')
                 <p class="text-danger mt-1 mb-0">{{ $message }}</p>
@@ -41,13 +38,8 @@
 
         <div class="col-lg-3">
             <label class="form-label">Отстъпка (%)</label>
-            <input class="form-control rounded-5"
-                   type="number"
-                   name="percentage_promo_code"
-                   value="{{ old('percentage_promo_code') }}"
-                   min="1"
-                   max="99"
-                   placeholder="Например: 20">
+            <input class="form-control rounded-5" type="number" name="percentage_promo_code"
+                value="{{ old('percentage_promo_code') }}" min="1" max="99" placeholder="Например: 20">
 
             @error('percentage_promo_code')
                 <p class="text-danger mt-1 mb-0">{{ $message }}</p>
@@ -102,15 +94,13 @@
 
                                 <td>
                                     <div class="product__all-btn-box d-flex gap-2 flex-column pe-3 ps-3">
-                                        <form action="{{ route('admin.promocodes.change-status') }}"
-                                              method="POST"
-                                              class="m-0">
+                                        <form class="m-0 change-promocode-status-form">
                                             @csrf
-                                            @method('PATCH')
 
                                             <input type="hidden" name="id" value="{{ $promocode->id }}">
 
-                                            <button type="submit" class="thm-btn product__all-btn p-2 w-100">
+                                            <button type="submit"
+                                                class="thm-btn product__all-btn p-2 w-100 change-status-btn">
                                                 @if ($promocode->is_active)
                                                     Деактивирай
                                                 @else
@@ -119,17 +109,16 @@
                                             </button>
                                         </form>
 
-                                        <form action="{{ route('admin.promocodes.delete') }}"
-                                              method="POST"
-                                              onsubmit="return confirm('Сигурен ли си, че искаш да изтриеш този промо код?');"
-                                              class="m-0">
+                                        <form action="{{ route('admin.promocodes.delete') }}" method="POST"
+                                            onsubmit="return confirm('Сигурен ли си, че искаш да изтриеш този промо код?');"
+                                            class="m-0">
                                             @csrf
                                             @method('DELETE')
 
                                             <input type="hidden" name="promocodeID" value="{{ $promocode->id }}">
 
                                             <button type="submit"
-                                                    class="btn btn-danger text-white btn-outline-danger rounded-5 p-2 w-100">
+                                                class="btn btn-danger text-white btn-outline-danger rounded-5 p-2 w-100">
                                                 Изтрий
                                             </button>
                                         </form>
@@ -148,5 +137,49 @@
             </div>
         </div>
     </section>
+
+    <script>
+        $(document).on('submit', '.change-promocode-status-form', function(e) {
+
+            e.preventDefault();
+
+            const form = $(this);
+
+            $.ajax({
+
+                url: "{{ route('admin.promocodes.change-status') }}",
+                type: "PATCH",
+
+                data: {
+                    _token: form.find('input[name="_token"]').val(),
+                    id: form.find('input[name="id"]').val()
+                },
+
+                success: function(response) {
+
+                    const row = form.closest('tr');
+                    const badge = row.find('.badge');
+                    const button = form.find('.change-status-btn');
+
+                    const isActive = Boolean(response.is_active);
+
+
+                    badge
+                        .removeClass('bg-success bg-danger')
+                        .addClass(isActive ? 'bg-success' : 'bg-danger')
+                        .text(isActive ? 'Активен' : 'Неактивен');
+
+                    button.text(isActive ? 'Деактивирай' : 'Активирай');
+
+                },
+
+                error: function(xhr) {
+                    alert(xhr.responseJSON.message);
+                }
+
+            });
+
+        });
+    </script>
 
 </x-backend>

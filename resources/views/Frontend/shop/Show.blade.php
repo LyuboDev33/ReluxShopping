@@ -1,46 +1,36 @@
 <x-frontend>
 
     @section('SEO')
+        <title>{{ $product->name }} | Valente Optic</title>
 
-    <title>{{ $product->name }} | Valente Optic</title>
+        <meta name="description" content="{{ strip_tags($product->description) }}">
 
-    <meta name="description"
-        content="{{ strip_tags($product->description) }}">
+        <meta name="keywords"
+            content="{{ $product->name }}, {{ $product->sku }}, диоптрични рамки, очила, маркови очила, онлайн магазин за очила, Valente Optic">
 
-    <meta name="keywords"
-        content="{{ $product->name }}, {{ $product->sku }}, диоптрични рамки, очила, маркови очила, онлайн магазин за очила, Valente Optic">
+        <meta name="robots" content="index, follow">
 
-    <meta name="robots" content="index, follow">
+        <link rel="canonical" href="{{ url()->current() }}">
 
-    <link rel="canonical" href="{{ url()->current() }}">
+        <meta property="og:type" content="product">
+        <meta property="og:site_name" content="Valente Optic">
+        <meta property="og:title" content="{{ $product->name }} | Valente Optic">
+        <meta property="og:description" content="{{ strip_tags($product->description) }}">
+        <meta property="og:url" content="{{ url()->current() }}">
+        <meta property="og:image" content="{{ url('assets/images/products/' . $product->main_image) }}">
+        <meta property="og:image:alt" content="{{ $product->name }}">
 
-    <meta property="og:type" content="product">
-    <meta property="og:site_name" content="Valente Optic">
-    <meta property="og:title" content="{{ $product->name }} | Valente Optic">
-    <meta property="og:description"
-        content="{{ strip_tags($product->description) }}">
-    <meta property="og:url" content="{{ url()->current() }}">
-    <meta property="og:image"
-        content="{{ url('assets/images/products/' . $product->main_image) }}">
-    <meta property="og:image:alt" content="{{ $product->name }}">
+        <meta property="product:retailer_item_id" content="{{ $product->sku }}">
+        <meta property="product:price:amount" content="{{ number_format($productFinalPrice, 2, '.', '') }}">
+        <meta property="product:price:currency" content="EUR">
+        <meta property="product:availability" content="{{ (int) $product->stock > 0 ? 'in stock' : 'out of stock' }}">
 
-    <meta property="product:retailer_item_id" content="{{ $product->sku }}">
-    <meta property="product:price:amount"
-        content="{{ number_format($productFinalPrice, 2, '.', '') }}">
-    <meta property="product:price:currency" content="EUR">
-    <meta property="product:availability"
-        content="{{ (int) $product->stock > 0 ? 'in stock' : 'out of stock' }}">
-
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="{{ $product->name }} | Valente Optic">
-    <meta name="twitter:description"
-        content="{{ strip_tags($product->description) }}">
-    <meta name="twitter:image"
-        content="{{ url('assets/images/products/' . $product->main_image) }}">
-    <meta name="twitter:image:alt" content="{{ $product->name }}">
-
-
-@endsection
+        <meta name="twitter:card" content="summary_large_image">
+        <meta name="twitter:title" content="{{ $product->name }} | Valente Optic">
+        <meta name="twitter:description" content="{{ strip_tags($product->description) }}">
+        <meta name="twitter:image" content="{{ url('assets/images/products/' . $product->main_image) }}">
+        <meta name="twitter:image:alt" content="{{ $product->name }}">
+    @endsection
 
 
     <!--Start Product Details-->
@@ -224,381 +214,408 @@
                                             id="frame-with-glasses-tab" role="tabpanel"
                                             aria-labelledby="frame-with-glasses-tab-button">
 
-                                            <div class="prescription-box mt-4 mb-4">
-                                                <p class="prescription-box__notice">
-                                                    За да добавите този продукт в количката е нужно да предоставите
-                                                    снимка с рецепта
-                                                    за диоптър или въведете ръчно данните ако ги знаете.
-                                                </p>
+                                            {{-- Check if a product is type "Sunglasses" or not --}}
+                                            {{-- If the product is not sunglasses, then show this section, else return an error message --}}
+                                            @if (!$isProductSunglasses)
 
-                                                @error('prescription')
-                                                    <p class="field-error">{{ $message }}</p>
-                                                @enderror
+                                                <div class="prescription-box mt-4 mb-4">
+                                                    <p class="prescription-box__notice">
+                                                        За да добавите този продукт в количката е нужно да предоставите
+                                                        снимка с рецепта
+                                                        за диоптър или въведете ръчно данните ако ги знаете.
+                                                    </p>
 
-                                                <ul class="nav nav-tabs prescription-tabs" id="prescriptionTabs"
-                                                    role="tablist">
-                                                    <li class="nav-item" role="presentation">
-                                                        <button class="nav-link active" id="upload-prescription-tab"
-                                                            data-bs-toggle="tab" data-bs-target="#upload-prescription"
-                                                            type="button" role="tab">
-                                                            Качи рецепта
-                                                        </button>
-                                                    </li>
+                                                    @error('prescription')
+                                                        <p class="field-error">{{ $message }}</p>
+                                                    @enderror
 
-                                                    <li class="nav-item" role="presentation">
-                                                        <button class="nav-link" id="manual-prescription-tab"
-                                                            data-bs-toggle="tab" data-bs-target="#manual-prescription"
-                                                            type="button" role="tab">
-                                                            Избери ръчно
-                                                        </button>
-                                                    </li>
-                                                </ul>
+                                                    <ul class="nav nav-tabs prescription-tabs" id="prescriptionTabs"
+                                                        role="tablist">
+                                                        <li class="nav-item" role="presentation">
+                                                            <button class="nav-link active"
+                                                                id="upload-prescription-tab" data-bs-toggle="tab"
+                                                                data-bs-target="#upload-prescription" type="button"
+                                                                role="tab">
+                                                                Качи рецепта
+                                                            </button>
+                                                        </li>
 
-                                                <div class="tab-content" id="prescriptionTabsContent">
-                                                    <div class="tab-pane fade show active" id="upload-prescription"
-                                                        role="tabpanel" aria-labelledby="upload-prescription-tab">
+                                                        <li class="nav-item" role="presentation">
+                                                            <button class="nav-link" id="manual-prescription-tab"
+                                                                data-bs-toggle="tab"
+                                                                data-bs-target="#manual-prescription" type="button"
+                                                                role="tab">
+                                                                Избери ръчно
+                                                            </button>
+                                                        </li>
+                                                    </ul>
 
-                                                        <div class="prescription-upload">
-                                                            <label for="prescription_image"
-                                                                class="form-label fw-bold">
-                                                                Прикачете рецепта
-                                                            </label>
+                                                    <div class="tab-content" id="prescriptionTabsContent">
+                                                        <div class="tab-pane fade show active"
+                                                            id="upload-prescription" role="tabpanel"
+                                                            aria-labelledby="upload-prescription-tab">
 
-                                                            <input type="file" id="prescription_image"
-                                                                name="prescription_image"
-                                                                class="form-control @error('prescription_image') is-invalid @enderror"
-                                                                accept="image/*,.pdf">
+                                                            <div class="prescription-upload">
+                                                                <label for="prescription_image"
+                                                                    class="form-label fw-bold">
+                                                                    Прикачете рецепта
+                                                                </label>
 
-                                                            @error('prescription_image')
-                                                                <p class="field-error">{{ $message }}</p>
-                                                            @enderror
+                                                                <input type="file" id="prescription_image"
+                                                                    name="prescription_image"
+                                                                    class="form-control @error('prescription_image') is-invalid @enderror"
+                                                                    accept="image/*,.pdf">
+
+                                                                @error('prescription_image')
+                                                                    <p class="field-error">{{ $message }}</p>
+                                                                @enderror
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="tab-pane fade" id="manual-prescription"
+                                                            role="tabpanel" aria-labelledby="manual-prescription-tab">
+
+                                                            <table class="prescription-table">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th>Око</th>
+                                                                        <th>Сфера (SPH)</th>
+                                                                        <th>Цилиндър (CYL)</th>
+                                                                        <th>Градус (AXIS)</th>
+                                                                        <th>PD</th>
+                                                                    </tr>
+                                                                </thead>
+
+                                                                <tbody>
+                                                                    <tr>
+                                                                        <td data-label="Око">
+                                                                            <strong>Дясно (OD)</strong>
+                                                                        </td>
+
+                                                                        <td data-label="Сфера (SPH)">
+                                                                            <select name="right_eye[sph]"
+                                                                                class="form-select">
+                                                                                <option value="">Изберете
+                                                                                </option>
+                                                                                @foreach ($sphValues as $value)
+                                                                                    <option
+                                                                                        value="{{ $value }}">
+                                                                                        {{ $value }}
+                                                                                    </option>
+                                                                                @endforeach
+                                                                            </select>
+
+                                                                        </td>
+
+                                                                        <td data-label="Цилиндър (CYL)">
+                                                                            <select name="right_eye[cyl]"
+                                                                                class="form-select">
+                                                                                <option value="">Изберете
+                                                                                </option>
+                                                                                @foreach ($cylValues as $value)
+                                                                                    <option
+                                                                                        value="{{ $value }}">
+                                                                                        {{ $value }}
+                                                                                    </option>
+                                                                                @endforeach
+                                                                            </select>
+                                                                        </td>
+
+                                                                        <td data-label="Градус (AXIS)">
+                                                                            <select name="right_eye[axis]"
+                                                                                class="form-select">
+                                                                                <option value="">Изберете
+                                                                                </option>
+                                                                                @foreach ($axisValues as $value)
+                                                                                    <option
+                                                                                        value="{{ $value }}">
+                                                                                        {{ $value }}
+                                                                                    </option>
+                                                                                @endforeach
+                                                                            </select>
+                                                                        </td>
+
+                                                                        <td rowspan="2" data-label="PD">
+                                                                            <select name="pd"
+                                                                                class="form-select">
+                                                                                <option value="">Изберете
+                                                                                </option>
+
+                                                                                @foreach ($pdValues as $value)
+                                                                                    <option
+                                                                                        value="{{ $value }}"
+                                                                                        {{ old('pd') == $value ? 'selected' : '' }}>
+                                                                                        {{ $value }} mm
+                                                                                    </option>
+                                                                                @endforeach
+                                                                            </select>
+                                                                        </td>
+
+
+
+                                                                    </tr>
+
+                                                                    <tr>
+                                                                        <td data-label="Око">
+                                                                            <strong>Ляво (OS)</strong>
+                                                                        </td>
+
+                                                                        <td data-label="Сфера (SPH)">
+                                                                            <select name="left_eye[sph]"
+                                                                                class="form-select">
+                                                                                <option value="">Изберете
+                                                                                </option>
+                                                                                @foreach ($sphValues as $value)
+                                                                                    <option
+                                                                                        value="{{ $value }}">
+                                                                                        {{ $value }}
+                                                                                    </option>
+                                                                                @endforeach
+                                                                            </select>
+                                                                        </td>
+
+                                                                        <td data-label="Цилиндър (CYL)">
+                                                                            <select name="left_eye[cyl]"
+                                                                                class="form-select">
+                                                                                <option value="">Изберете
+                                                                                </option>
+                                                                                @foreach ($cylValues as $value)
+                                                                                    <option
+                                                                                        value="{{ $value }}">
+                                                                                        {{ $value }}
+                                                                                    </option>
+                                                                                @endforeach
+                                                                            </select>
+                                                                        </td>
+
+                                                                        <td data-label="Градус (AXIS)">
+                                                                            <select name="left_eye[axis]"
+                                                                                class="form-select">
+                                                                                <option value="">Изберете
+                                                                                </option>
+                                                                                @foreach ($axisValues as $value)
+                                                                                    <option
+                                                                                        value="{{ $value }}">
+                                                                                        {{ $value }}
+                                                                                    </option>
+                                                                                @endforeach
+                                                                            </select>
+                                                                        </td>
+
+
+
+                                                                    </tr>
+
+
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="d-flex flex-column gap-2 pb-3 mt-0">
+                                                    <h6 class="text-center alert alert-info rounded-pill p-2 mb-2">
+                                                        Моля изберете дали очилата са за близо или за далечно виждане
+                                                    </h6>
+
+                                                    <div class="nav nav-pills d-flex gap-2" id="vision-type-tabs"
+                                                        role="tablist">
+                                                        @foreach ($visionTypes as $visionType)
+                                                            <button type="button"
+                                                                class="thm-btn p-2 w-45 showVisionBtns"
+                                                                id="vision-type-tab-{{ $visionType->id }}"
+                                                                data-bs-toggle="tab"
+                                                                data-bs-target="#vision-type-pane-{{ $visionType->id }}"
+                                                                role="tab"
+                                                                aria-controls="vision-type-pane-{{ $visionType->id }}"
+                                                                aria-selected="{{ $loop->first ? 'true' : 'false' }}">
+                                                                {{ $visionType->name }}
+                                                            </button>
+                                                        @endforeach
+                                                    </div>
+                                                </div>
+
+                                                <div class="configurator-section mb-4">
+                                                    <div class="configurator-section__header">
+                                                        {{-- <span class="configurator-step">2</span> --}}
+
+                                                        <div>
+                                                            <h3 class="mb-1">Изберете стъкла</h3>
+
+                                                            <p class="mb-0 text-muted">
+                                                                Изберете тип зрение, стъкло, покритие и индекс на
+                                                                изтъняване.
+                                                            </p>
                                                         </div>
                                                     </div>
 
-                                                    <div class="tab-pane fade" id="manual-prescription"
-                                                        role="tabpanel" aria-labelledby="manual-prescription-tab">
+                                                    @error('glass_value_id')
+                                                        <p class="field-error">{{ $message }}</p>
+                                                    @enderror
 
-                                                        <table class="prescription-table">
-                                                            <thead>
-                                                                <tr>
-                                                                    <th>Око</th>
-                                                                    <th>Сфера (SPH)</th>
-                                                                    <th>Цилиндър (CYL)</th>
-                                                                    <th>Градус (AXIS)</th>
-                                                                    <th>PD</th>
-                                                                </tr>
-                                                            </thead>
+                                                    @error('glass_value_lens_index_id')
+                                                        <p class="field-error">{{ $message }}</p>
+                                                    @enderror
 
-                                                            <tbody>
-                                                                <tr>
-                                                                    <td data-label="Око">
-                                                                        <strong>Дясно (OD)</strong>
-                                                                    </td>
+                                                    <div class="tab-content" id="vision-type-tabs-content">
+                                                        @foreach ($visionTypes as $visionType)
+                                                            <div class="tab-pane"
+                                                                id="vision-type-pane-{{ $visionType->id }}"
+                                                                role="tabpanel"
+                                                                aria-labelledby="vision-type-tab-{{ $visionType->id }}"
+                                                                tabindex="0">
+                                                                <div class="glass-configurator-group vision-glasses-group"
+                                                                    data-vision-type-id="{{ $visionType->id }}">
+                                                                    <h3 class="glass-configurator-group__title">
+                                                                        {{ $visionType->name }}
+                                                                    </h3>
 
-                                                                    <td data-label="Сфера (SPH)">
-                                                                        <select name="right_eye[sph]"
-                                                                            class="form-select">
-                                                                            <option value="">Изберете</option>
-                                                                            @foreach ($sphValues as $value)
-                                                                                <option value="{{ $value }}">
-                                                                                    {{ $value }}
-                                                                                </option>
-                                                                            @endforeach
-                                                                        </select>
+                                                                    @foreach ($glasses->where('vision_type_id', $visionType->id) as $glass)
+                                                                        <details class="glass-type-configurator mb-4">
+                                                                            <summary>
+                                                                                <h6 class="mb-0 d-inline-block">
+                                                                                    {{ $glass->name }}
+                                                                                </h6>
+                                                                            </summary>
 
-                                                                    </td>
-
-                                                                    <td data-label="Цилиндър (CYL)">
-                                                                        <select name="right_eye[cyl]"
-                                                                            class="form-select">
-                                                                            <option value="">Изберете</option>
-                                                                            @foreach ($cylValues as $value)
-                                                                                <option value="{{ $value }}">
-                                                                                    {{ $value }}
-                                                                                </option>
-                                                                            @endforeach
-                                                                        </select>
-                                                                    </td>
-
-                                                                    <td data-label="Градус (AXIS)">
-                                                                        <select name="right_eye[axis]"
-                                                                            class="form-select">
-                                                                            <option value="">Изберете</option>
-                                                                            @foreach ($axisValues as $value)
-                                                                                <option value="{{ $value }}">
-                                                                                    {{ $value }}
-                                                                                </option>
-                                                                            @endforeach
-                                                                        </select>
-                                                                    </td>
-
-                                                                    <td rowspan="2" data-label="PD">
-                                                                        <select name="pd" class="form-select">
-                                                                            <option value="">Изберете</option>
-
-                                                                            @foreach ($pdValues as $value)
-                                                                                <option value="{{ $value }}"
-                                                                                    {{ old('pd') == $value ? 'selected' : '' }}>
-                                                                                    {{ $value }} mm
-                                                                                </option>
-                                                                            @endforeach
-                                                                        </select>
-                                                                    </td>
-
-
-
-                                                                </tr>
-
-                                                                <tr>
-                                                                    <td data-label="Око">
-                                                                        <strong>Ляво (OS)</strong>
-                                                                    </td>
-
-                                                                    <td data-label="Сфера (SPH)">
-                                                                        <select name="left_eye[sph]"
-                                                                            class="form-select">
-                                                                            <option value="">Изберете</option>
-                                                                            @foreach ($sphValues as $value)
-                                                                                <option value="{{ $value }}">
-                                                                                    {{ $value }}
-                                                                                </option>
-                                                                            @endforeach
-                                                                        </select>
-                                                                    </td>
-
-                                                                    <td data-label="Цилиндър (CYL)">
-                                                                        <select name="left_eye[cyl]"
-                                                                            class="form-select">
-                                                                            <option value="">Изберете</option>
-                                                                            @foreach ($cylValues as $value)
-                                                                                <option value="{{ $value }}">
-                                                                                    {{ $value }}
-                                                                                </option>
-                                                                            @endforeach
-                                                                        </select>
-                                                                    </td>
-
-                                                                    <td data-label="Градус (AXIS)">
-                                                                        <select name="left_eye[axis]"
-                                                                            class="form-select">
-                                                                            <option value="">Изберете</option>
-                                                                            @foreach ($axisValues as $value)
-                                                                                <option value="{{ $value }}">
-                                                                                    {{ $value }}
-                                                                                </option>
-                                                                            @endforeach
-                                                                        </select>
-                                                                    </td>
-
-
-
-                                                                </tr>
-
-
-                                                            </tbody>
-                                                        </table>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-
-                                            <div class="d-flex flex-column gap-2 pb-3 mt-0">
-                                                <h6 class="text-center alert alert-info rounded-pill p-2 mb-2">
-                                                    Моля изберете дали очилата са за близо или за далечно виждане
-                                                </h6>
-
-                                                <div class="nav nav-pills d-flex gap-2" id="vision-type-tabs"
-                                                    role="tablist">
-                                                    @foreach ($visionTypes as $visionType)
-                                                        <button type="button" class="thm-btn p-2 w-45 showVisionBtns"
-                                                            id="vision-type-tab-{{ $visionType->id }}"
-                                                            data-bs-toggle="tab"
-                                                            data-bs-target="#vision-type-pane-{{ $visionType->id }}"
-                                                            role="tab"
-                                                            aria-controls="vision-type-pane-{{ $visionType->id }}"
-                                                            aria-selected="{{ $loop->first ? 'true' : 'false' }}">
-                                                            {{ $visionType->name }}
-                                                        </button>
-                                                    @endforeach
-                                                </div>
-                                            </div>
-
-
-
-
-
-                                            <div class="configurator-section mb-4">
-                                                <div class="configurator-section__header">
-                                                    {{-- <span class="configurator-step">2</span> --}}
-
-                                                    <div>
-                                                        <h3 class="mb-1">Изберете стъкла</h3>
-
-                                                        <p class="mb-0 text-muted">
-                                                            Изберете тип зрение, стъкло, покритие и индекс на
-                                                            изтъняване.
-                                                        </p>
-                                                    </div>
-                                                </div>
-
-                                                @error('glass_value_id')
-                                                    <p class="field-error">{{ $message }}</p>
-                                                @enderror
-
-                                                @error('glass_value_lens_index_id')
-                                                    <p class="field-error">{{ $message }}</p>
-                                                @enderror
-
-                                                <div class="tab-content" id="vision-type-tabs-content">
-                                                    @foreach ($visionTypes as $visionType)
-                                                        <div class="tab-pane"
-                                                            id="vision-type-pane-{{ $visionType->id }}"
-                                                            role="tabpanel"
-                                                            aria-labelledby="vision-type-tab-{{ $visionType->id }}"
-                                                            tabindex="0">
-                                                            <div class="glass-configurator-group vision-glasses-group"
-                                                                data-vision-type-id="{{ $visionType->id }}">
-                                                                <h3 class="glass-configurator-group__title">
-                                                                    {{ $visionType->name }}
-                                                                </h3>
-
-                                                                @foreach ($glasses->where('vision_type_id', $visionType->id) as $glass)
-                                                                    <details class="glass-type-configurator mb-4">
-                                                                        <summary>
-                                                                            <h6 class="mb-0 d-inline-block">
-                                                                                {{ $glass->name }}
-                                                                            </h6>
-                                                                        </summary>
-
-                                                                        @if ($glass->values->isEmpty())
-                                                                            <p class="text-muted mb-3">
-                                                                                Няма добавени стойности към това стъкло.
-                                                                            </p>
-                                                                        @else
-                                                                            <div class="faq-page__single">
-                                                                                <div class="accrodion-grp faq-one-accrodion d-flex flex-column gap-2"
-                                                                                    data-grp-name="glass-value-accordion-{{ $visionType->id }}-{{ $glass->id }}">
-                                                                                    @foreach ($glass->values as $value)
-                                                                                        <div class="accrodion {{ old('glass_value_id') == $value->id ? 'active' : '' }}"
-                                                                                            data-glass-value-id="{{ $value->id }}">
-                                                                                            {{-- Accordion title / glass value --}}
-                                                                                            <div
-                                                                                                class="accrodion-title">
-                                                                                                <label
-                                                                                                    class="configurator-option mb-0">
-                                                                                                    <input
-                                                                                                        type="radio"
-                                                                                                        name="glass_value_id"
-                                                                                                        value="{{ $value->id }}"
-                                                                                                        class="configurator-option__input glass-option frame-with-glasses-field"
-                                                                                                        data-price="{{ $value->price }}"
-                                                                                                        data-glass-value-id="{{ $value->id }}"
-                                                                                                        {{ old('glass_value_id') == $value->id ? 'checked' : '' }}>
-
-                                                                                                    <span
-                                                                                                        class="configurator-option__card shadow">
-                                                                                                        <span
-                                                                                                            class="configurator-option__check"></span>
+                                                                            @if ($glass->values->isEmpty())
+                                                                                <p class="text-muted mb-3">
+                                                                                    Няма добавени стойности към това
+                                                                                    стъкло.
+                                                                                </p>
+                                                                            @else
+                                                                                <div class="faq-page__single">
+                                                                                    <div class="accrodion-grp faq-one-accrodion d-flex flex-column gap-2"
+                                                                                        data-grp-name="glass-value-accordion-{{ $visionType->id }}-{{ $glass->id }}">
+                                                                                        @foreach ($glass->values as $value)
+                                                                                            <div class="accrodion {{ old('glass_value_id') == $value->id ? 'active' : '' }}"
+                                                                                                data-glass-value-id="{{ $value->id }}">
+                                                                                                {{-- Accordion title / glass value --}}
+                                                                                                <div
+                                                                                                    class="accrodion-title">
+                                                                                                    <label
+                                                                                                        class="configurator-option mb-0">
+                                                                                                        <input
+                                                                                                            type="radio"
+                                                                                                            name="glass_value_id"
+                                                                                                            value="{{ $value->id }}"
+                                                                                                            class="configurator-option__input glass-option frame-with-glasses-field"
+                                                                                                            data-price="{{ $value->price }}"
+                                                                                                            data-glass-value-id="{{ $value->id }}"
+                                                                                                            {{ old('glass_value_id') == $value->id ? 'checked' : '' }}>
 
                                                                                                         <span
-                                                                                                            class="configurator-option__content">
-                                                                                                            <strong
-                                                                                                                class="configurator-option__title">
-                                                                                                                {{ $value->value }}
-                                                                                                            </strong>
-                                                                                                        </span>
+                                                                                                            class="configurator-option__card shadow">
+                                                                                                            <span
+                                                                                                                class="configurator-option__check"></span>
 
-                                                                                                        <span
+                                                                                                            <span
+                                                                                                                class="configurator-option__content">
+                                                                                                                <strong
+                                                                                                                    class="configurator-option__title">
+                                                                                                                    {{ $value->value }}
+                                                                                                                </strong>
+                                                                                                            </span>
+
+                                                                                                            {{-- <span
                                                                                                             class="configurator-option__price">
                                                                                                             +
                                                                                                             {{ number_format($value->price, 2) }}
-                                                                                                            €
+                                                                                                            €дасдса
+                                                                                                        </span> --}}
                                                                                                         </span>
-                                                                                                    </span>
-                                                                                                </label>
-                                                                                            </div>
+                                                                                                    </label>
+                                                                                                </div>
 
-                                                                                            {{-- Accordion content / indexes --}}
-                                                                                            <div
-                                                                                                class="accrodion-content">
-                                                                                                <div class="inner">
+                                                                                                {{-- Accordion content / indexes --}}
+                                                                                                <div
+                                                                                                    class="accrodion-content">
                                                                                                     <div
-                                                                                                        class="glass-value-lens-options">
-                                                                                                        <h6
-                                                                                                            class="mb-3 mt-3">
-                                                                                                            Изберете
-                                                                                                            индекс на
-                                                                                                            изтъняване
-                                                                                                        </h6>
+                                                                                                        class="inner">
+                                                                                                        <div
+                                                                                                            class="glass-value-lens-options">
+                                                                                                            <h6
+                                                                                                                class="mb-3 mt-3">
+                                                                                                                Изберете
+                                                                                                                индекс
+                                                                                                                на
+                                                                                                                изтъняване
+                                                                                                            </h6>
 
-                                                                                                        @if ($value->lensIndexes->isEmpty())
-                                                                                                            <div
-                                                                                                                class="alert alert-light border mb-0">
-                                                                                                                Няма
-                                                                                                                добавени
-                                                                                                                индекси
-                                                                                                                към тази
-                                                                                                                стойност.
-                                                                                                            </div>
-                                                                                                        @else
-                                                                                                            <div
-                                                                                                                class="row g-3">
-                                                                                                                @foreach ($value->lensIndexes as $lensIndex)
-                                                                                                                    <div
-                                                                                                                        class="col-lg-6 col-xl-6">
-                                                                                                                        <label
-                                                                                                                            class="configurator-option mb-0">
-                                                                                                                            <input
-                                                                                                                                type="radio"
-                                                                                                                                name="glass_value_lens_index_id"
-                                                                                                                                value="{{ $lensIndex->id }}"
-                                                                                                                                class="configurator-option__input glass-value-lens-index-option frame-with-glasses-field"
-                                                                                                                                data-price="{{ $lensIndex->price }}"
-                                                                                                                                data-glass-value-id="{{ $value->id }}"
-                                                                                                                                {{ old('glass_value_lens_index_id') == $lensIndex->id ? 'checked' : '' }}>
+                                                                                                            @if ($value->lensIndexes->isEmpty())
+                                                                                                                <div
+                                                                                                                    class="alert alert-light border mb-0">
+                                                                                                                    Няма
+                                                                                                                    добавени
+                                                                                                                    индекси
+                                                                                                                    към
+                                                                                                                    тази
+                                                                                                                    стойност.
+                                                                                                                </div>
+                                                                                                            @else
+                                                                                                                <div
+                                                                                                                    class="row g-3">
+                                                                                                                    @foreach ($value->lensIndexes as $lensIndex)
+                                                                                                                        <div
+                                                                                                                            class="col-lg-6 col-xl-6">
+                                                                                                                            <label
+                                                                                                                                class="configurator-option mb-0">
+                                                                                                                                <input
+                                                                                                                                    type="radio"
+                                                                                                                                    name="glass_value_lens_index_id"
+                                                                                                                                    value="{{ $lensIndex->id }}"
+                                                                                                                                    class="configurator-option__input glass-value-lens-index-option frame-with-glasses-field"
+                                                                                                                                    data-price="{{ $lensIndex->price }}"
+                                                                                                                                    data-glass-value-id="{{ $value->id }}"
+                                                                                                                                    {{ old('glass_value_lens_index_id') == $lensIndex->id ? 'checked' : '' }}>
 
-                                                                                                                            <span
-                                                                                                                                class="configurator-option__card shadow-sm">
                                                                                                                                 <span
-                                                                                                                                    class="configurator-option__check"></span>
+                                                                                                                                    class="configurator-option__card shadow-sm">
+                                                                                                                                    <span
+                                                                                                                                        class="configurator-option__check"></span>
 
-                                                                                                                                <span
-                                                                                                                                    class="configurator-option__content">
-                                                                                                                                    <strong
-                                                                                                                                        class="configurator-option__title">
-                                                                                                                                        {{ $lensIndex->name }}
-                                                                                                                                    </strong>
+                                                                                                                                    <span
+                                                                                                                                        class="configurator-option__content">
+                                                                                                                                        <strong
+                                                                                                                                            class="configurator-option__title">
+                                                                                                                                            {{ $lensIndex->name }}
+                                                                                                                                        </strong>
+                                                                                                                                    </span>
+
+                                                                                                                                    <span
+                                                                                                                                        class="configurator-option__price">
+                                                                                                                                        +
+                                                                                                                                        {{ number_format($lensIndex->price, 2) }}
+                                                                                                                                        €
+                                                                                                                                    </span>
                                                                                                                                 </span>
-
-                                                                                                                                <span
-                                                                                                                                    class="configurator-option__price">
-                                                                                                                                    +
-                                                                                                                                    {{ number_format($lensIndex->price, 2) }}
-                                                                                                                                    €
-                                                                                                                                </span>
-                                                                                                                            </span>
-                                                                                                                        </label>
-                                                                                                                    </div>
-                                                                                                                @endforeach
-                                                                                                            </div>
-                                                                                                        @endif
+                                                                                                                            </label>
+                                                                                                                        </div>
+                                                                                                                    @endforeach
+                                                                                                                </div>
+                                                                                                            @endif
+                                                                                                        </div>
                                                                                                     </div>
                                                                                                 </div>
                                                                                             </div>
-                                                                                        </div>
-                                                                                    @endforeach
+                                                                                        @endforeach
+                                                                                    </div>
                                                                                 </div>
-                                                                            </div>
-                                                                        @endif
-                                                                    </details>
-                                                                @endforeach
+                                                                            @endif
+                                                                        </details>
+                                                                    @endforeach
+                                                                </div>
                                                             </div>
-                                                        </div>
-                                                    @endforeach
+                                                        @endforeach
+                                                    </div>
                                                 </div>
-                                            </div>
-
-
+                                            @else
+                                                <div class="alert alert-danger p-3 rounded-4">
+                                                   Диоптрични стъкла могат да бъдат поставени на този продукт само след консултация с оптик.
+                                                   Моля потърсете ни в секция <a class="thm-btn p-3 pe-2" href="{{ route('contact') }}">Контакти</a>
+                                                </div>
+                                            @endif
+                                            {{-- End of Check if a product is type "Sunglasses" or not --}}
 
 
                                         </div>
@@ -650,12 +667,7 @@
                                 </div>
                             </div>
                         </div>
-                    @else
-                        <div class="product-details__buttons">
-                            <button class="thm-btn" disabled>
-                                Няма наличност
-                            </button>
-                        </div>
+
                     @endif
                 </div>
             </div>

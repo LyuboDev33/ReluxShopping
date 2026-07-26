@@ -12,7 +12,6 @@ class GlassValue extends Model
     protected $fillable = [
         'glass_id',
         'value',
-        'price'
     ];
 
     public function glass(): BelongsTo

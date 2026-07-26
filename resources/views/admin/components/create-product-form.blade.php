@@ -75,7 +75,9 @@
                         {{ $type->name }}
                     </label>
 
-                    <input type="text" name="attribute_values[{{ $type->id }}]" class="form-control"
+                    <input type="text"
+                        name="attribute_values[{{ $type->id }}]"
+                        class="form-control rounded-pill"
                         list="attribute-{{ $type->id }}" placeholder="Започни да пишеш..."
                         value="{{ old("attribute_values.$type->id") }}" autocomplete="off">
 

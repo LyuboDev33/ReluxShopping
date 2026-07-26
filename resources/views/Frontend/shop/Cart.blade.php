@@ -56,9 +56,9 @@
 
                                                                 {{ $product['glass_value']['value'] }}
 
-                                                                <span class="text-muted">
+                                                                {{-- <span class="text-muted">
                                                                     (+{{ number_format($product['glass_value']['price'], 2) }} €)
-                                                                </span>
+                                                                </span> --}}
                                                             </p>
                                                         @endif
 

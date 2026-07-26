@@ -65,6 +65,7 @@ class AdminPromoCodesController extends Controller
 
     /**
      * Change promocode status
+     *
      * @param Request $request
      * @return JsonResponse
      */

@@ -75,7 +75,6 @@ class AdminGlassesController extends Controller
         $validated = $request->validate([
             'glass_id' => ['required', 'exists:glasses,id'],
             'value'    => ['required', 'string', 'max:255'],
-            'price'    => ['required', 'numeric', 'min:0'],
         ], [
             'glass_id.required' => 'Моля, изберете тип стъкло.',
             'glass_id.exists'   => 'Избраният тип стъкло не съществува.',
@@ -83,16 +82,11 @@ class AdminGlassesController extends Controller
             'value.required' => 'Моля, въведете стойност.',
             'value.string'   => 'Стойността трябва да бъде текст.',
             'value.max'      => 'Стойността не може да бъде по-дълга от 255 символа.',
-
-            'price.required' => 'Моля, въведете цена.',
-            // 'price.numeric'  => 'Цената трябва да бъде цяло число.',
-            'price.min'      => 'Цената не може да бъде отрицателна.',
         ]);
 
         GlassValue::create([
             'glass_id' => $validated['glass_id'],
             'value'    => $validated['value'],
-            'price'    => $validated['price'],
         ]);
 
         return back()->with('success', 'Стойността беше добавена успешно!');
@@ -109,20 +103,14 @@ class AdminGlassesController extends Controller
     {
         $validated = $request->validate([
             'value' => ['required', 'string', 'max:255'],
-            'price' => ['required', 'numeric', 'min:0'],
         ], [
             'value.required' => 'Моля, въведете стойност.',
             'value.string'   => 'Стойността трябва да бъде текст.',
             'value.max'      => 'Стойността не може да бъде по-дълга от 255 символа.',
-
-            'price.required' => 'Моля, въведете цена.',
-            // 'price.integer'  => 'Цената трябва да бъде цяло число.',
-            'price.min'      => 'Цената не може да бъде отрицателна.',
         ]);
 
         $glassValue->update([
             'value' => $validated['value'],
-            'price' => $validated['price'],
         ]);
 
         return back()->with('success', 'Стойността беше обновена успешно!');
@@ -264,5 +252,4 @@ class AdminGlassesController extends Controller
             'Индексът на изтъняване беше изтрит успешно!'
         );
     }
-
 }

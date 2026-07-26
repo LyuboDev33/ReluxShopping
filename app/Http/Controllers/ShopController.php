@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Constants\PrescriptionOptions;
 use App\Models\Admin\Glass;
+use App\Models\AttributeType;
 use App\Models\Category;
 use App\Models\Product;
 use App\Services\ProductService;
@@ -277,15 +278,8 @@ class ShopController extends Controller
             $category = $category->parent;
         }
 
-        $glasses = $category
-            ? Glass::with([
-                'values.lensIndexes',
-                'category',
-                'visionType',
-            ])
-            ->where('category_id', $category->id)
-            ->get()
-            : collect();
+          $glasses = Glass::with('values')
+            ->get();
 
         $visionTypes = $glasses
             ->pluck('visionType')
@@ -293,16 +287,18 @@ class ShopController extends Controller
             ->unique('id')
             ->values();
 
+
         return view('Frontend.shop.Show', [
-            'product' => $product,
-            'sphValues' => PrescriptionOptions::SPH,
-            'cylValues' => PrescriptionOptions::CYL,
-            'pdValues' => PrescriptionOptions::PD,
-            'axisValues' => PrescriptionOptions::AXIS,
-            'glasses' => $glasses,
-            'visionTypes' => $visionTypes,
-            'similarProducts' => $similarProducts,
-            'productFinalPrice' => $product->discount
+            'product'             => $product,
+            'sphValues'           => PrescriptionOptions::SPH(),
+            'cylValues'           => PrescriptionOptions::CYL(),
+            'pdValues'            => PrescriptionOptions::PD(),
+            'axisValues'          => PrescriptionOptions::axis(),
+            'isProductSunglasses' => ProductService::isProductSunglasses($product),
+            'glasses'             => $glasses,
+            'visionTypes'         => $visionTypes,
+            'similarProducts'     => $similarProducts,
+            'productFinalPrice'   => $product->discount
                 ? $product->price
                 - ($product->price * $product->discount) / 100
                 : $product->price,

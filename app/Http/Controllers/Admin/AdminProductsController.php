@@ -9,6 +9,7 @@ use App\Models\Admin\Glass;
 use App\Models\Admin\LensIndex;
 use App\Models\Admin\ProductVariants;
 use App\Models\AttributeType;
+use App\Models\AttributeValue;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\ProductCategory;
@@ -137,83 +138,120 @@ class AdminProductsController extends Controller
      */
     public function create(CreateProductRequest $request, ?Product $product = null): RedirectResponse
     {
-        /** Validate the request */
-        $validated = $request->validated();
+        try {
+            $validated = $request->validated();
 
-        $parentProduct = $product;
+            $parentProduct = $product;
 
-        $slug = Str::slug($validated['name']) . '-' . Str::slug($validated['sku']);
+            $slug = Str::slug($validated['name']) . '-' . Str::slug($validated['sku']);
 
-        if (Product::where('slug', $slug)->exists()) {
+            if (Product::where('slug', $slug)->exists()) {
+                return back()
+                    ->withInput()
+                    ->withErrors([
+                        'name' => 'Вече съществува продукт със същото име/SKU.',
+                    ]);
+            }
+
+            // Upload the main image
+            $file = $request->file('main_image');
+
+            $mainImageName = str_replace(
+                ' ',
+                '',
+                time() . '_' . $file->getClientOriginalName()
+            );
+
+            $file->move(
+                public_path('/assets/images/products'),
+                $mainImageName
+            );
+
+            // Upload the gallery
+            $galleryNames = [];
+
+            foreach ($request->file('gallery') as $galleryFile) {
+                $galleryName = str_replace(
+                    ' ',
+                    '',
+                    time() . '_' . $galleryFile->getClientOriginalName()
+                );
+
+                $galleryFile->move(
+                    public_path('/assets/images/product_gallery'),
+                    $galleryName
+                );
+
+                $galleryNames[] = $galleryName;
+            }
+
+            $createdProduct = Product::create([
+                'name'        => $validated['name'],
+                'sku'         => $validated['sku'],
+                'slug'        => $slug,
+                'discount'    => $validated['discount'],
+                'description' => $validated['description'],
+                'price'       => $validated['price'],
+                'stock'       => $validated['stock'],
+                'main_image'  => $mainImageName,
+                'category_id' => $validated['category_id'],
+                'gallery'     => $galleryNames,
+            ]);
+
+            $category = Category::with('parent')
+                ->findOrFail($validated['category_id']);
+
+            $categoriesToInsert = [];
+
+            while ($category) {
+                $categoriesToInsert[] = $category->id;
+                $category = $category->parent;
+            }
+
+            foreach ($categoriesToInsert as $categoryId) {
+                ProductCategory::create([
+                    'product_id'  => $createdProduct->id,
+                    'category_id' => $categoryId,
+                ]);
+            }
+
+
+            $attributeValueNames = array_values(array_filter($request->input('attribute_values', [])));
+            $attributeValueIds = AttributeValue::whereIn('value', $attributeValueNames)
+                ->pluck('id')
+                ->toArray();
+
+            $createdProduct->attributeValues()->attach($attributeValueIds);
+
+
+            if ($parentProduct) {
+                ProductVariants::create([
+                    'parent_product_id'  => $parentProduct->id,
+                    'variant_product_id' => $createdProduct->id,
+                ]);
+
+                return back()->with(
+                    'success',
+                    'Вариантът беше добавен успешно!'
+                );
+            }
+
+            return back()->with(
+                'success',
+                'Продуктът беше добавен успешно!'
+            );
+        } catch (\Throwable $e) {
             return back()
                 ->withInput()
                 ->withErrors([
-                    'name' => 'Вече съществува продукт със същото име/SKU.',
+                    'create_product' => $e->getMessage(),
                 ]);
         }
-
-        $file = $request->file('main_image');
-        $mainImageName = str_replace(' ', '', time() . '_' . $file->getClientOriginalName());
-        $file->move(public_path('/assets/images/products'), $mainImageName);
-
-        $galleryNames = [];
-
-        foreach ($request->file('gallery') as $galleryFile) {
-            $galleryName = str_replace(' ', '', time() . '_' . $galleryFile->getClientOriginalName());
-            $galleryFile->move(public_path('/assets/images/product_gallery'), $galleryName);
-            $galleryNames[] = $galleryName;
-        }
-
-        $createdProduct = Product::create([
-            'name'        => $validated['name'],
-            'sku'         => $validated['sku'],
-            'slug'        => $slug,
-            'discount'    => $validated['discount'],
-            'description' => $validated['description'],
-            'price'       => $validated['price'],
-            'stock'       => $validated['stock'],
-            'main_image'  => $mainImageName,
-            'category_id' => $validated['category_id'],
-            'gallery'     => $galleryNames,
-        ]);
-
-        $category = Category::with('parent')
-            ->findOrFail($validated['category_id']);
-
-        $categoriesToInsert = [];
-
-        while ($category) {
-            $categoriesToInsert[] = $category->id;
-            $category = $category->parent;
-        }
-
-        foreach ($categoriesToInsert as $categoryId) {
-            ProductCategory::create([
-                'product_id'  => $createdProduct->id,
-                'category_id' => $categoryId,
-            ]);
-        }
-
-        $valueIds = array_values(array_filter($request->input('attribute_values', [])));
-
-        if (! empty($valueIds)) {
-            $createdProduct->attributeValues()->attach($valueIds);
-        }
-
-        if ($parentProduct) {
-            ProductVariants::create([
-                'parent_product_id'  => $parentProduct->id,
-                'variant_product_id' => $createdProduct->id,
-            ]);
-
-            return back()->with('success', 'Вариантът беше добавен успешно!');
-        }
-
-        return back()->with('success', 'Продуктът беше добавен успешно!');
     }
 
 
-    /** Update the product
+    /**
+     * Update the product
      *
      * @param UpdateProductRequest $request
      * @param Product $product
@@ -221,75 +259,90 @@ class AdminProductsController extends Controller
      */
     public function update(UpdateProductRequest $request, Product $product): RedirectResponse
     {
-        /** Validate the request */
-        $validated = $request->validated();
+        try {
+            $validated = $request->validated();
 
+            $slug = Str::slug($validated['name']) . '-' . Str::slug($validated['sku']);
 
-        $slug = Str::slug($validated['name']) . '-' . Str::slug($validated['sku']);
+            $mainImageName = $product->main_image;
 
-        $mainImageName = $product->main_image;
+            if ($request->hasFile('main_image')) {
+                if ($product->main_image) {
+                    $oldPath = public_path('/assets/images/products/' . $product->main_image);
 
-        if ($request->hasFile('main_image')) {
-            if ($product->main_image) {
-                $oldPath = public_path('/assets/images/products/' . $product->main_image);
-                if (file_exists($oldPath)) {
-                    @unlink($oldPath);
+                    if (file_exists($oldPath)) {
+                        @unlink($oldPath);
+                    }
+                }
+
+                $file = $request->file('main_image');
+                $mainImageName = str_replace(' ', '', time() . '_' . $file->getClientOriginalName());
+                $file->move(public_path('/assets/images/products'), $mainImageName);
+            }
+
+            // === GALLERY ===
+            $galleryNames = $product->gallery ?? [];
+
+            if ($request->hasFile('gallery')) {
+                foreach ($galleryNames as $oldGallery) {
+                    $oldPath = public_path('/assets/images/product_gallery/' . $oldGallery);
+
+                    if (file_exists($oldPath)) {
+                        @unlink($oldPath);
+                    }
+                }
+
+                $galleryNames = [];
+
+                foreach ($request->file('gallery') as $galleryFile) {
+                    $galleryName = str_replace(' ','', time() . '_' . $galleryFile->getClientOriginalName());
+                    $galleryFile->move(public_path('/assets/images/product_gallery'), $galleryName);
+                    $galleryNames[] = $galleryName;
                 }
             }
 
-            $file = $request->file('main_image');
-            $mainImageName = str_replace(' ', '', time() . '_' . $file->getClientOriginalName());
-            $file->move(public_path('/assets/images/products'), $mainImageName);
-        }
+            $product->update([
+                'name'        => $validated['name'],
+                'sku'         => $validated['sku'],
+                'slug'        => $slug,
+                'discount'    => $validated['discount'],
+                'description' => $validated['description'],
+                'price'       => $validated['price'],
+                'stock'       => $validated['stock'],
+                'main_image'  => $mainImageName,
+                'category_id' => $validated['category_id'],
+                'gallery'     => $galleryNames,
+            ]);
 
-        // === GALLERY ===
-        $galleryNames = $product->gallery ?? [];
+            $categoryIds = [];
 
-        if ($request->hasFile('gallery')) {
-            foreach ($galleryNames as $oldGallery) {
-                $oldPath = public_path('/assets/images/product_gallery/' . $oldGallery);
-                if (file_exists($oldPath)) {
-                    @unlink($oldPath);
-                }
+            $category = Category::with('parent')
+                ->findOrFail($validated['category_id']);
+
+            while ($category) {
+                $categoryIds[] = $category->id;
+                $category = $category->parent;
             }
 
-            $galleryNames = [];
+            $product->categories()->sync($categoryIds);
 
-            foreach ($request->file('gallery') as $galleryFile) {
-                $galleryName = str_replace(' ', '', time() . '_' . $galleryFile->getClientOriginalName());
-                $galleryFile->move(public_path('/assets/images/product_gallery'), $galleryName);
-                $galleryNames[] = $galleryName;
-            }
+
+            $attributeValueNames = array_values(array_filter($request->input('attribute_values', [])));
+            $attributeValueIds = AttributeValue::whereIn('value', $attributeValueNames)
+                ->pluck('id')
+                ->toArray();
+
+            $product->attributeValues()->sync($attributeValueIds);
+
+            return redirect(route('admin.products.show', $product->slug))
+                ->with('success', 'Продуктът беше обновен успешно!');
+        } catch (\Throwable $e) {
+            return back()
+                ->withInput()
+                ->withErrors([
+                    'create_product' => $e->getMessage(),
+                ]);
         }
-
-        $product->update([
-            'name'        => $validated['name'],
-            'sku'         => $validated['sku'],
-            'slug'        => $slug,
-            'discount'    => $validated['discount'],
-            'description' => $validated['description'],
-            'price'       => $validated['price'],
-            'stock'       => $validated['stock'],
-            'main_image'  => $mainImageName,
-            'category_id' => $validated['category_id'],
-            'gallery'     => $galleryNames,
-        ]);
-
-        $categoryIds = [];
-        $category = Category::with('parent')->findOrFail($validated['category_id']);
-
-        while ($category) {
-            $categoryIds[] = $category->id;
-            $category = $category->parent;
-        }
-
-        $product->categories()->sync($categoryIds);
-
-        $valueIds = array_values(array_filter($request->input('attribute_values', [])));
-        $product->attributeValues()->sync($valueIds);
-
-        return  redirect(route('admin.products.show', $product->slug))
-            ->with('success', 'Продуктът беше обновен успешно!');
     }
 
     /**

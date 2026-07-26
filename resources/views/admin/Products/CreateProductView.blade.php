@@ -8,6 +8,12 @@
     </div>
     <hr>
 
+    @error('create_product')
+        <div class="alert alert-danger">
+            {{ $message }}
+        </div>
+    @enderror
+
     {{-- ================= FLASH MESSAGES ================= --}}
     @if (session('success'))
         <div class="alert alert-success alert-dismissible fade show">
