@@ -182,7 +182,7 @@ Product
 .shop-category {
     position: relative;
     display: block;
-    background-color: rgba(var(--crank-bdr-color-rgb), .50);
+    background-color: white;
     padding: 29px 15px 15px;
 }
 

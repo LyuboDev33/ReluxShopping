@@ -222,7 +222,7 @@
                             class="thm-btn mb-4"
                             href="{{ route('checkout') }}"
                         >
-                            Премини към чекаут
+                            Премини към плащане
                         </a>
 
                         <ul class="cart-total list-unstyled">

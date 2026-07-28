@@ -6,6 +6,7 @@
     display: block;
     padding: 120px 0 0;
     z-index: 1;
+    background: #f7ddba;
 }
 
 .feature-one__list {
@@ -19,12 +20,12 @@
     align-items: center;
     flex-wrap: wrap;
     justify-content: space-between;
-    border-bottom: 1px solid var(--crank-bdr-color);
+    border-bottom: 1px solid black;
     padding: 30px 0 29px;
 }
 
 .feature-one__list li:first-child {
-    border-top: 1px solid var(--crank-bdr-color);
+    border-top: 1px solid black;
 }
 
 .feature-one__list li:last-child {

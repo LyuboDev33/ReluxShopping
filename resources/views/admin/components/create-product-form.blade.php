@@ -71,21 +71,26 @@
 
             @foreach ($attributeTypes as $type)
                 <div class="col-lg-4">
-                    <label class="form-label">
+                    <label for="attribute-{{ $type->id }}" class="form-label">
                         {{ $type->name }}
                     </label>
 
-                    <input type="text"
-                        name="attribute_values[{{ $type->id }}]"
-                        class="form-control rounded-pill"
-                        list="attribute-{{ $type->id }}" placeholder="Започни да пишеш..."
-                        value="{{ old("attribute_values.$type->id") }}" autocomplete="off">
+                    <select id="attribute-{{ $type->id }}" name="attribute_values[{{ $type->id }}]"
+                        class="form-select attribute-choice" data-placeholder="Започни да пишеш...">
+                        <option value="">Избери стойност</option>
 
-                    <datalist id="attribute-{{ $type->id }}">
                         @foreach ($type->values as $value)
-                            <option value="{{ $value->value }}">
+                            <option value="{{ $value->value }}" @selected(old("attribute_values.$type->id") === $value->value)>
+                                {{ $value->value }}
+                            </option>
                         @endforeach
-                    </datalist>
+                    </select>
+
+                    @error("attribute_values.$type->id")
+                        <div class="text-danger">
+                            {{ $message }}
+                        </div>
+                    @enderror
                 </div>
             @endforeach
         @endif

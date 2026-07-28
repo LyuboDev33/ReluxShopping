@@ -160,9 +160,9 @@
             <div class="col-lg-4">
                 <div class="card shadow-sm">
                     <div class="card-header bg-dark text-white">
-                        <strong>Нова стойност</strong>
+                        <strong>Добавяне на стъкла</strong>
                         <small class="text-white-50 d-block">
-                            Добави стойност към стъкло според категорията
+                            Добави хелиоматични или бели стъкла
                         </small>
                     </div>
 

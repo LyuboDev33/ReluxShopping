@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Constants\PrescriptionOptions;
 use App\Models\Admin\Glass;
+use App\Models\Admin\SpeedyOffice;
+use App\Models\API\City;
 use App\Models\AttributeType;
 use App\Models\Category;
 use App\Models\Product;
@@ -19,43 +21,28 @@ use Illuminate\View\View;
 class ShopController extends Controller
 {
     /** Show all products */
+    /** Show all products */
     public function index(Request $request)
     {
         if ($redirect = ShopService::filterLinks($request)) {
             return $redirect;
         }
 
-        $filters = $request->except('page');
-
         $query = Product::with([
             'categories',
             'attributeValues.type',
         ]);
 
-        // Apply filters if any exist
-        if (! empty($filters)) {
+        $filteredProducts = ProductService::filteredProducts($query, $request);
 
-            foreach ($filters as $attributeTypeSlug => $attributeValueSlug) {
-
-                $query->whereHas('attributeValues', function ($query) use (
-                    $attributeTypeSlug,
-                    $attributeValueSlug
-                ) {
-                    $query->where('slug', $attributeValueSlug)
-                        ->whereHas('type', function ($query) use ($attributeTypeSlug) {
-                            $query->where('slug', $attributeTypeSlug);
-                        });
-                });
-            }
-        }
-
-        $products = $query
+        $products = $filteredProducts
             ->orderByDesc('id')
-            ->paginate(15);
+            ->paginate(15)
+            ->withQueryString();
 
         foreach ($products as $product) {
             $brand = $product->attributeValues->first(
-                fn($attribute) => $attribute->type->name === 'Марка'
+                fn($attribute) => $attribute->type?->name === 'Марка'
             );
 
             $product->brand = $brand?->value;
@@ -72,63 +59,37 @@ class ShopController extends Controller
     /**
      * Show products from a specific category, including descendants.
      *
+     * @param Request $request
      * @param string $category_slug
      * @return View
      */
-    public function category(Request $request, string $category_slug
-    ) {
+    public function category(Request $request, string $category_slug)
+    {
         if ($redirect = ShopService::filterLinks($request)) {
             return $redirect;
         }
 
-        $category = Category::where('slug', $category_slug)
-            ->firstOrFail();
+        $category = Category::where('slug', $category_slug)->firstOrFail();
 
         $categoryIds = ProductService::getCategoryIds($category);
-
-        // Do not treat the pagination parameter as a product filter.
-        $filters = $request->except('page');
 
         $query = Product::with([
             'categories',
             'attributeValues.type',
-        ])
-            ->whereHas('categories', function ($query) use ($categoryIds) {
-                $query->whereIn('category_id', $categoryIds);
-            });
+        ])->whereHas('categories', function ($query) use ($categoryIds) {
+            $query->whereIn('category_id', $categoryIds);
+        });
 
-        if (! empty($filters)) {
-            foreach ($filters as $attributeTypeSlug => $attributeValueSlug) {
-                $query->whereHas(
-                    'attributeValues',
-                    function ($query) use (
-                        $attributeTypeSlug,
-                        $attributeValueSlug
-                    ) {
-                        $query->where('slug', $attributeValueSlug)
-                            ->whereHas(
-                                'type',
-                                function ($query) use ($attributeTypeSlug) {
-                                    $query->where(
-                                        'slug',
-                                        $attributeTypeSlug
-                                    );
-                                }
-                            );
-                    }
-                );
-            }
-        }
+        $filteredProducts = ProductService::filteredProducts($query, $request);
 
-        $products = $query
+        $products = $filteredProducts
             ->orderByDesc('id')
             ->paginate(15)
             ->withQueryString();
 
         foreach ($products as $product) {
             $brand = $product->attributeValues->first(
-                fn($attribute) =>
-                $attribute->type?->name === 'Марка'
+                fn($attribute) => $attribute->type?->name === 'Марка'
             );
 
             $product->brand = $brand?->value;
@@ -185,12 +146,13 @@ class ShopController extends Controller
         }
 
         return view('Frontend.shop.Checkout', [
-            'speedyOffices' => SpeedyService::offices(),
-            'products' => $products,
-            'subtotal' => $subtotal,
-            'promoCode' => $promoCode,
-            'promoPercentage' => $promoPercentage,
-            'promoDiscount' => $promoDiscount,
+            'speedyOffices'     => SpeedyOffice::get(),
+            'cities'            => City::get(),
+            'products'          => $products,
+            'subtotal'          => $subtotal,
+            'promoCode'         => $promoCode,
+            'promoPercentage'   => $promoPercentage,
+            'promoDiscount'     => $promoDiscount,
         ]);
     }
 
@@ -278,7 +240,7 @@ class ShopController extends Controller
             $category = $category->parent;
         }
 
-          $glasses = Glass::with('values')
+        $glasses = Glass::with('values')
             ->get();
 
         $visionTypes = $glasses

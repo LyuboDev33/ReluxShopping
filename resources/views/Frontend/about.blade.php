@@ -83,10 +83,10 @@
                     <div class="about-five__right">
                         <div class="about-five__img-box">
                             <div class="about-five__img">
-                                <img src="/assets/images/about/about-all.jpg" alt="Valente Optic" />
+                                <img src="/assets/images/about/woman-3.jpg" alt="Valente Optic" />
                             </div>
 
-                            <div class="">
+                            <div>
                                 <div class="about-five__shope-box-bg-shape">
                                 </div>
                             </div>
@@ -148,7 +148,7 @@
 
 
 
-   <!-- Brand Marquee Start -->
+    <!-- Brand Marquee Start -->
     <section class="brand-marquee">
         <div class="brand-marquee__viewport">
             <div class="brand-marquee__track">
@@ -174,7 +174,7 @@
         </div>
     </section>
     <!-- Brand Marquee End -->
-       <!-- Brand Marquee Start -->
+    <!-- Brand Marquee Start -->
     <section class="brand-marquee">
         <div class="brand-marquee__viewport">
             <div class="brand-marquee__track-backwards">
@@ -192,7 +192,7 @@
                     @foreach ($brands2 as $brand)
                         <div class="brand-marquee__item">
                             <img src="{{ asset('assets/images/brands_2/' . $brand->getFilename()) }}"
-                             alt="{{ pathinfo($brand->getFilename(), PATHINFO_FILENAME) }}">
+                                alt="{{ pathinfo($brand->getFilename(), PATHINFO_FILENAME) }}">
                         </div>
                     @endforeach
                 </div>
@@ -318,7 +318,7 @@
                 <!--Services Two Single Start-->
                 <div class="col-xl-4 col-lg-4">
                     <div class="services-two__img">
-                        <img class="rounded-5" src="/assets/images/about/woman-portrait.jpg" alt="Valente Optic екип" />
+                        <img class="rounded-5" src="/assets/images/about/woman-2.jpg" alt="Valente Optic екип" />
                     </div>
                 </div>
                 <!--Services Two Single End-->
@@ -362,156 +362,168 @@
     <!--Services Two End -->
 
     <!--Testimonial Two Start -->
-    <section class="testimonial-two">
-        <div class="testimonial-two__inner">
-            {{-- <div class="testimonial-two__shape-1"></div> --}}
+    <section class="testimonial-showcase">
+        <div class="container">
+            <div class="testimonial-showcase__wrapper">
 
-            {{-- <div class="testimonial-two__shape-2">
-                <img src="/assets/images/shapes/testimonial-two-shape-2.png" alt="" />
-            </div>
+                <div class="testimonial-showcase__content">
+                    <div class="testimonial-showcase__heading">
+                        <span class="testimonial-showcase__eyebrow">
+                            Мнения за нас
+                        </span>
 
-            <div class="testimonial-two__shape-3">
-                <img src="/assets/images/shapes/testimonial-two-shape-3.png" alt="" />
-            </div>
-
-            <div class="testimonial-two__shape-4">
-                <img src="/assets/images/shapes/testimonial-two-shape-4.png" alt="" />
-            </div> --}}
-
-            <div class="container">
-                <div class="row">
-                    <div class="col-xl-6 col-lg-6">
-                        <div class="testimonial-two__left">
-                            <h3 class="testimonial-two__title">Отзиви от клиенти</h3>
-
-                            <section class="splide testimonial-two__splide" id="testimonialSplide"
-                                aria-label="Отзиви от клиенти">
-                                <div class="splide__track">
-                                    <ul class="splide__list">
-
-                                        <!--Testimonial Two Single Start -->
-                                        <li class="splide__slide">
-                                            <div class="testimonial-two__single">
-                                                <div class="testimonial-two__quote">
-                                                    <i class="fal fa-quote-right"></i>
-                                                </div>
-
-                                                <div class="testimonial-two__name-box">
-                                                    <h4 class="testimonial-two__name">
-                                                        <a href="#">Стоянка Михайлова</a>
-                                                    </h4>
-
-                                                    <p class="testimonial-two__sub-title">
-                                                        Клиент, Бургас
-                                                    </p>
-                                                </div>
-
-                                                <p class="testimonial-two__text">
-                                                    Изключително професионално отношение! Помогнаха ми с избора
-                                                    на прогресивни стъкла и сега виждам перфектно както отблизо,
-                                                    така и отдалече. Препоръчвам Valente Optic с пълна увереност.
-                                                </p>
-                                            </div>
-                                        </li>
-                                        <!--Testimonial Two Single End -->
-
-                                        <!--Testimonial Two Single Start -->
-                                        <li class="splide__slide">
-                                            <div class="testimonial-two__single">
-                                                <div class="testimonial-two__quote">
-                                                    <i class="fal fa-quote-right"></i>
-                                                </div>
-
-                                                <div class="testimonial-two__name-box">
-                                                    <h4 class="testimonial-two__name">
-                                                        <a href="#">Мария Тодорова</a>
-                                                    </h4>
-
-                                                    <p class="testimonial-two__sub-title">
-                                                        Клиент, Равда
-                                                    </p>
-                                                </div>
-
-                                                <p class="testimonial-two__text">
-                                                    Поръчах слънчеви очила с поляризация и съм изключително
-                                                    доволна от качеството. Бърза изработка, внимателно обслужване
-                                                    и винаги усмихнат екип, който помни своите клиенти.
-                                                </p>
-                                            </div>
-                                        </li>
-                                        <!--Testimonial Two Single End -->
-
-                                        <!--Testimonial Two Single Start -->
-                                        <li class="splide__slide">
-                                            <div class="testimonial-two__single">
-                                                <div class="testimonial-two__quote">
-                                                    <i class="fal fa-quote-right"></i>
-                                                </div>
-
-                                                <div class="testimonial-two__name-box">
-                                                    <h4 class="testimonial-two__name">
-                                                        <a href="#">Иван Георгиев</a>
-                                                    </h4>
-
-                                                    <p class="testimonial-two__sub-title">
-                                                        Доволен родител
-                                                    </p>
-                                                </div>
-
-                                                <p class="testimonial-two__text">
-                                                    Дъщеря ми получи първите си очила във Valente Optic.
-                                                    Екипът намери идеалната рамка за нея, прояви огромно търпение
-                                                    и сега тя обича да ги носи. Благодаря за професионализма!
-                                                </p>
-                                            </div>
-                                        </li>
-                                        <!--Testimonial Two Single End -->
-
-                                        <!--Testimonial Two Single Start -->
-                                        <li class="splide__slide">
-                                            <div class="testimonial-two__single">
-                                                <div class="testimonial-two__quote">
-                                                    <i class="fal fa-quote-right"></i>
-                                                </div>
-
-                                                <div class="testimonial-two__name-box">
-                                                    <h4 class="testimonial-two__name">
-                                                        <a href="#">Петър Колев</a>
-                                                    </h4>
-
-                                                    <p class="testimonial-two__sub-title">
-                                                        Редовен клиент
-                                                    </p>
-                                                </div>
-
-                                                <p class="testimonial-two__text">
-                                                    Стъклата с Blue Control защита промениха работата ми пред
-                                                    компютъра. Никаква умора в очите дори след дълги часове.
-                                                    Благодаря за съвета и за качествената изработка!
-                                                </p>
-                                            </div>
-                                        </li>
-                                        <!--Testimonial Two Single End -->
-
-                                    </ul>
-                                </div>
-                            </section>
-                        </div>
+                        <h3 class="testimonial-showcase__title">
+                            Отзиви от нашите клиенти
+                        </h3>
                     </div>
 
-                    <div class="col-xl-6 col-lg-6">
-                        <div class="testimonial-two__right">
-                            <div class="testimonial-two__img">
-                                <img src="/assets/images/testimonial/test-girl.jpg"
-                                    alt="Отзиви Valente Optic" />
-                            </div>
+                    <div class="splide testimonial-showcase__splide" id="testimonialSplide"
+                        aria-label="Отзиви от клиенти">
+                        <div class="splide__track">
+                            <ul class="splide__list">
+
+                                <li class="splide__slide">
+                                    <div class="testimonial-showcase__single">
+                                        <div class="testimonial-showcase__quote">
+                                            <i class="fa-solid fa-quote-right"></i>
+                                        </div>
+
+                                        <p class="testimonial-showcase__text">
+                                            Изключително професионално отношение! Помогнаха ми с избора
+                                            на прогресивни стъкла и сега виждам перфектно както отблизо,
+                                            така и отдалече. Препоръчвам Valente Optic с пълна увереност.
+                                        </p>
+
+                                        <div class="testimonial-showcase__author">
+                                            <div class="testimonial-showcase__author-icon">
+                                                <i class="fa-solid fa-user"></i>
+                                            </div>
+
+                                            <div class="testimonial-showcase__author-content">
+                                                <h4 class="testimonial-showcase__name">
+                                                    Стоянка Михайлова
+                                                </h4>
+
+                                                <p class="testimonial-showcase__location">
+                                                    Клиент, Бургас
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+
+                                <li class="splide__slide">
+                                    <div class="testimonial-showcase__single">
+                                        <div class="testimonial-showcase__quote">
+                                            <i class="fa-solid fa-quote-right"></i>
+                                        </div>
+
+                                        <p class="testimonial-showcase__text">
+                                            Поръчах слънчеви очила с поляризация и съм изключително
+                                            доволна от качеството. Бърза изработка, внимателно обслужване
+                                            и винаги усмихнат екип, който помни своите клиенти.
+                                        </p>
+
+                                        <div class="testimonial-showcase__author">
+                                            <div class="testimonial-showcase__author-icon">
+                                                <i class="fa-solid fa-user"></i>
+                                            </div>
+
+                                            <div class="testimonial-showcase__author-content">
+                                                <h4 class="testimonial-showcase__name">
+                                                    Мария Тодорова
+                                                </h4>
+
+                                                <p class="testimonial-showcase__location">
+                                                    Клиент, Равда
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+
+                                <li class="splide__slide">
+                                    <div class="testimonial-showcase__single">
+                                        <div class="testimonial-showcase__quote">
+                                            <i class="fa-solid fa-quote-right"></i>
+                                        </div>
+
+                                        <p class="testimonial-showcase__text">
+                                            Дъщеря ми получи първите си очила във Valente Optic.
+                                            Екипът намери идеалната рамка за нея, прояви огромно търпение
+                                            и сега тя обича да ги носи. Благодаря за професионализма!
+                                        </p>
+
+                                        <div class="testimonial-showcase__author">
+                                            <div class="testimonial-showcase__author-icon">
+                                                <i class="fa-solid fa-user"></i>
+                                            </div>
+
+                                            <div class="testimonial-showcase__author-content">
+                                                <h4 class="testimonial-showcase__name">
+                                                    Иван Георгиев
+                                                </h4>
+
+                                                <p class="testimonial-showcase__location">
+                                                    Доволен родител
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+
+                                <li class="splide__slide">
+                                    <div class="testimonial-showcase__single">
+                                        <div class="testimonial-showcase__quote">
+                                            <i class="fa-solid fa-quote-right"></i>
+                                        </div>
+
+                                        <p class="testimonial-showcase__text">
+                                            Стъклата с Blue Control защита промениха работата ми пред
+                                            компютъра. Никаква умора в очите дори след дълги часове.
+                                            Благодаря за съвета и за качествената изработка!
+                                        </p>
+
+                                        <div class="testimonial-showcase__author">
+                                            <div class="testimonial-showcase__author-icon">
+                                                <i class="fa-solid fa-user"></i>
+                                            </div>
+
+                                            <div class="testimonial-showcase__author-content">
+                                                <h4 class="testimonial-showcase__name">
+                                                    Петър Колев
+                                                </h4>
+
+                                                <p class="testimonial-showcase__location">
+                                                    Редовен клиент
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+
+                            </ul>
                         </div>
                     </div>
                 </div>
+
+                <div class="testimonial-showcase__image" role="img" aria-label="Доволен клиент на Valente Optic">
+                    <div class="testimonial-showcase__image-content">
+                        <div class="testimonial-showcase__image-badge">
+                            <i class="fa-solid fa-star"></i>
+
+                            <span>
+                                Доверие и професионализъм
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
     </section>
     <!--Testimonial Two End -->
+
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {

@@ -178,8 +178,19 @@
                     @if (!empty($product->gallery))
                         <div class="mb-2 d-flex flex-wrap gap-2">
                             @foreach ($product->gallery as $galleryImage)
-                                <img src="/assets/images/product_gallery/{{ $galleryImage }}" alt="Gallery image"
-                                    style="max-height: 80px; border-radius: 6px;">
+                                <div class="gallery-img-bin">
+                                    <img src="/assets/images/product_gallery/{{ $galleryImage }}"
+                                        alt="{{ $galleryImage }}">
+
+                                    <a href="/assets/images/product_gallery/{{ $galleryImage }}"
+                                        download="{{ $galleryImage }}" class="gallery-image-download">
+                                        <i class="fa-solid fa-download"></i>
+                                    </a>
+
+                                    <button type="button" class="gallery-img-bin__delete">
+                                        <i class="fa-solid fa-trash"></i>
+                                    </button>
+                                </div>
                             @endforeach
                         </div>
                     @endif
@@ -197,20 +208,26 @@
 
                     @foreach ($attributeTypes as $type)
                         <div class="col-lg-4">
-                            <label class="form-label">
+                            <label for="attribute-{{ $type->id }}" class="form-label">
                                 {{ $type->name }}
                             </label>
 
-                            <input type="text" name="attribute_values[{{ $type->id }}]"
-                                class="form-control rounded-pill" list="attribute-{{ $type->id }}"
-                                placeholder="Започни да пишеш..." autocomplete="off"
-                                value="{{ old('attribute_values.' . $type->id, $selectedAttributes[$type->id] ?? '') }}">
+                            <select id="attribute-{{ $type->id }}" name="attribute_values[{{ $type->id }}]"
+                                class="form-select attribute-choice" data-placeholder="Започни да пишеш...">
+                                <option value="">Избери стойност</option>
 
-                            <datalist id="attribute-{{ $type->id }}">
                                 @foreach ($type->values as $value)
-                                    <option value="{{ $value->value }}">
+                                    <option value="{{ $value->value }}" @selected(old('attribute_values.' . $type->id, $selectedAttributes[$type->id] ?? '') === $value->value)>
+                                        {{ $value->value }}
+                                    </option>
                                 @endforeach
-                            </datalist>
+                            </select>
+
+                            @error('attribute_values.' . $type->id)
+                                <div class="text-danger">
+                                    {{ $message }}
+                                </div>
+                            @enderror
                         </div>
                     @endforeach
                 @endif
@@ -257,6 +274,13 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            openVariantSidebar()
+            deleteImage()
+        });
+
+        /** Open the variant sidebar */
+        function openVariantSidebar() {
+
             const openButton = document.getElementById('openProductVariantSidebar');
             const closeButton = document.getElementById('closeProductVariantSidebar');
             const sidebar = document.querySelector('.product_variant');
@@ -281,10 +305,54 @@
             openButton.addEventListener('click', openSidebar);
             closeButton.addEventListener('click', closeSidebar);
             overlay.addEventListener('click', closeSidebar);
+        }
+
+        /** Open the variant sidebar */
+        function deleteImage() {
+
+            const deleteButtons = document.querySelectorAll('.gallery-img-bin__delete');
+
+            deleteButtons.forEach(button => {
+                button.addEventListener('click', function() {
+
+                    $.ajax({
+
+                        url: "{{ route('admin.promocodes.change-status') }}",
+                        type: "PATCH",
+
+                        data: {
+                            _token: form.find('input[name="_token"]').val(),
+                            id: form.find('input[name="id"]').val()
+                        },
+
+                        success: function(response) {
+
+                            const row = form.closest('tr');
+                            const badge = row.find('.badge');
+                            const button = form.find('.change-status-btn');
+
+                            const isActive = Boolean(response.is_active);
 
 
+                            badge
+                                .removeClass('bg-success bg-danger')
+                                .addClass(isActive ? 'bg-success' : 'bg-danger')
+                                .text(isActive ? 'Активен' : 'Неактивен');
 
-        });
+                            button.text(isActive ? 'Деактивирай' : 'Активирай');
+
+                        },
+
+                        error: function(xhr) {
+                            alert(xhr.responseJSON.message);
+                        }
+
+                    });
+
+                })
+            });
+
+        }
     </script>
 
 </x-backend>

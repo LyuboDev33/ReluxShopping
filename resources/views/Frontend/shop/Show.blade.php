@@ -110,8 +110,17 @@
                     @endif
 
                     <h6 class="alert alert-info w-fit p-2 rounded-pill mt-3">
-                        каталожен номер: {{ $product->sku }}
+                        Каталожен номер: {{ $product->sku }}
                     </h6>
+
+                          <p
+                        class="product-details__content-text2 mb-3 rounded-pill alert w-fit {{ (int) $product->stock > 0 ? 'alert-success' : 'alert-danger' }} p-2 d-inline-block">
+                        @if ((int) $product->stock > 0)
+                            Наличен продукт
+                        @else
+                            Няма наличност
+                        @endif
+                    </p>
 
                     <hr>
 
@@ -158,14 +167,7 @@
                         </div>
                     @endif
 
-                    <p
-                        class="product-details__content-text2 mb-3 rounded-pill alert {{ (int) $product->stock > 0 ? 'alert-success' : 'alert-danger' }} p-2 d-inline-block">
-                        @if ((int) $product->stock > 0)
-                            Наличен продукт
-                        @else
-                            Няма наличност
-                        @endif
-                    </p>
+
 
                     @error('stock')
                         <p class="field-error">{{ $message }}</p>
@@ -612,7 +614,9 @@
                                             @else
                                                 <div class="alert alert-danger p-3 rounded-4">
                                                    Диоптрични стъкла могат да бъдат поставени на този продукт само след консултация с оптик.
-                                                   Моля потърсете ни в секция <a class="thm-btn p-3 pe-2" href="{{ route('contact') }}">Контакти</a>
+                                                   Моля потърсете ни в секция <a class="thm-btn p-2 pe-2" href="{{ route('contact') }}">
+                                                    <i class="fa-solid fa-arrow-right-to-bracket"></i>
+                                                    Контакти</a>
                                                 </div>
                                             @endif
                                             {{-- End of Check if a product is type "Sunglasses" or not --}}
@@ -687,7 +691,7 @@
     </section>
     <!--End Product Description-->
 
-    <hr>
+    <hr class="mt-0">
 
     @include('Frontend.shop.partials.similar-products', $similarProducts)
 

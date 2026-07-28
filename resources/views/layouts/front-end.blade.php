@@ -43,6 +43,8 @@
 
     <!-- template styles -->
     <link rel="stylesheet" href="/assets/css/style.css?v=<?php echo time(); ?>" />
+        {{-- <link rel="stylesheet" href="/assets/css/style-new-colors.css?v=<?php echo time(); ?>" /> --}}
+
     <link rel="stylesheet" href="/assets/css/shop.css?v=<?php echo time(); ?>" />
     <link rel="stylesheet" href="/assets/css/responsive.css?v=<?php echo time(); ?>" />
 

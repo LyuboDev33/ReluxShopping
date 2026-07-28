@@ -128,14 +128,21 @@
                                             id="personal-delivery" role="tabpanel">
 
                                             <div class="row bs-gutter-x-20">
+
                                                 <div class="col-xl-6 col-lg-6">
                                                     <div class="billing_input_box">
                                                         <label>
                                                             Град <span class="red-dot">*</span>
                                                         </label>
 
-                                                        <input type="text" name="city"
-                                                            value="{{ old('city') }}">
+                                                        <input type="text" name="city" list="cities-list"
+                                                            value="{{ old('city') }}" autocomplete="off">
+
+                                                        <datalist id="cities-list">
+                                                            @foreach ($cities as $city)
+                                                                <option value="{{ $city->name }}"></option>
+                                                            @endforeach
+                                                        </datalist>
 
                                                         @error('city')
                                                             <div class="text-danger">{{ $message }}</div>
@@ -174,9 +181,9 @@
                                                     list="speedy-offices-list">
 
                                                 <datalist id="speedy-offices-list">
-                                                    @foreach ($speedyOffices ?? [] as $office)
+                                                    @foreach ($speedyOffices as $office)
                                                         <option
-                                                            value="{{ $office['name'] ?? $office->name }} [{{ $office['id'] ?? $office->id }}]">
+                                                            value="{{ $office->name }} [{{ $office->office_id }}]">
                                                     @endforeach
                                                 </datalist>
 
@@ -308,7 +315,8 @@
 
                                                                 @if (!empty($product['lens_index']))
                                                                     <div class="d-flex justify-content-between mb-2">
-                                                                        <p> <strong>Индекс на изтъняване: {{ $product['lens_index']['name'] }}</strong>
+                                                                        <p> <strong>Индекс на изтъняване:
+                                                                                {{ $product['lens_index']['name'] }}</strong>
 
                                                                             +{{ number_format($product['lens_index']['price'], 2) }}
                                                                             €

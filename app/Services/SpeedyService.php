@@ -2,6 +2,8 @@
 
 namespace App\Services;
 
+use App\Models\Admin\SpeedyOffice;
+
 
 class SpeedyService
 {
@@ -39,8 +41,8 @@ class SpeedyService
 
     /** Return all the speedy offices
      * @return array[]
-    */
-    public static function offices(): array
+     */
+    private static function offices(): array
     {
         $jsonData = [
             'userName' => env('SPEEDY_API_USERNAME'),
@@ -54,5 +56,24 @@ class SpeedyService
         $jsonResponse = json_decode($jsonResponse, true);
 
         return  $jsonResponse['offices'];
+    }
+
+    /**
+     * Call this method whenever you want to insert all latest offices
+     *
+     * @return void
+     */
+    public static function insertOffices(): void
+    {
+        $offices = static::offices();
+
+        SpeedyOffice::truncate();
+
+        foreach ($offices as $office) {
+            SpeedyOffice::create([
+                'office_id' => $office['id'],
+                'name'      => $office['name'],
+            ]);
+        }
     }
 }

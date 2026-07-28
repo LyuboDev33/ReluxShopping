@@ -22,32 +22,6 @@
 
     {{-- CORE CSS --}}
     <link rel="stylesheet" href="/assets/css/bootstrap.min.css?v=<?php echo time(); ?>" />
-    <link rel="stylesheet" href="/assets/css/animate.min.css?v=<?php echo time(); ?>" />
-    <link rel="stylesheet" href="/assets/css/custom-animate.css?v=<?php echo time(); ?>" />
-    <link rel="stylesheet" href="/assets/css/swiper.min.css?v=<?php echo time(); ?>" />
-    <link rel="stylesheet" href="/assets/css/font-awesome-all.css?v=<?php echo time(); ?>" />
-    <link rel="stylesheet" href="/assets/css/jarallax.css?v=<?php echo time(); ?>" />
-    <link rel="stylesheet" href="/assets/css/flaticon.css?v=<?php echo time(); ?>" />
-    <link rel="stylesheet" href="/assets/css/owl.carousel.min.css?v=<?php echo time(); ?>" />
-
-    {{-- MODULE CSS --}}
-    <link rel="stylesheet" href="/assets/css/module-css/slider.css?v=<?php echo time(); ?>" />
-    <link rel="stylesheet" href="/assets/css/module-css/footer.css?v=<?php echo time(); ?>" />
-    <link rel="stylesheet" href="/assets/css/module-css/counter.css?v=<?php echo time(); ?>" />
-    <link rel="stylesheet" href="/assets/css/module-css/services.css?v=<?php echo time(); ?>" />
-    <link rel="stylesheet" href="/assets/css/module-css/about.css?v=<?php echo time(); ?>" />
-    <link rel="stylesheet" href="/assets/css/module-css/brand.css?v=<?php echo time(); ?>" />
-    <link rel="stylesheet" href="/assets/css/module-css/gallery.css?v=<?php echo time(); ?>" />
-    <link rel="stylesheet" href="/assets/css/module-css/faq.css?v=<?php echo time(); ?>" />
-    <link rel="stylesheet" href="/assets/css/module-css/testimonial.css?v=<?php echo time(); ?>" />
-    <link rel="stylesheet" href="/assets/css/module-css/team.css?v=<?php echo time(); ?>" />
-    <link rel="stylesheet" href="/assets/css/module-css/contact.css?v=<?php echo time(); ?>" />
-    <link rel="stylesheet" href="/assets/css/module-css/pricing.css?v=<?php echo time(); ?>" />
-    <link rel="stylesheet" href="/assets/css/module-css/blog.css?v=<?php echo time(); ?>" />
-    <link rel="stylesheet" href="/assets/css/module-css/sliding-text.css?v=<?php echo time(); ?>" />
-    <link rel="stylesheet" href="/assets/css/module-css/cta.css?v=<?php echo time(); ?>" />
-    <link rel="stylesheet" href="/assets/css/module-css/feature.css?v=<?php echo time(); ?>" />
-    <link rel="stylesheet" href="/assets/css/module-css/banner.css?v=<?php echo time(); ?>" />
 
     <link rel="stylesheet" href="/assets/css/style.css?v=<?php echo time(); ?>" />
     <link rel="stylesheet" href="/assets/css/shop.css?v=<?php echo time(); ?>" />
@@ -59,10 +33,17 @@
         integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-    <script src="https://cdn.tiny.cloud/1/daj9dftxtp56iiymy0p7tr418kjkhmf54509unx3enwwzrca/tinymce/8/tinymce.min.js"
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/choices.js/public/assets/styles/choices.min.css">
+
+    <script src="https://cdn.tiny.cloud/1/v2rtxhtgnbmw7x4hswnvpvejzuaankjl6lfde5n3swkjawjo/tinymce/8/tinymce.min.js"
         referrerpolicy="origin" crossorigin="anonymous"></script>
 
     <script src="/assets/js/jquery-3.6.0.min.js?v=<?php echo time(); ?>"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script>
+
+    <link rel="stylesheet" href="https://unpkg.com/dropzone@5/dist/min/dropzone.min.css" type="text/css" />
+
 
 
 </head>
@@ -89,7 +70,7 @@
 
 
     <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.1/dist/fancybox/fancybox.umd.js"></script>
-
+    <script src="https://unpkg.com/dropzone@5/dist/min/dropzone.min.js"></script>
 
 
     <script>
@@ -97,6 +78,7 @@
             initDashboardDropdown();
             initSidebarToggle();
             initTinyMce();
+            initializeChoicesJS();
         });
 
         function initDashboardDropdown() {
@@ -162,6 +144,24 @@
                         title: 'Email'
                     },
                 ],
+            });
+        }
+
+        function initializeChoicesJS() {
+            const attributeSelects = document.querySelectorAll(
+                '.attribute-choice'
+            );
+
+            attributeSelects.forEach(function(select) {
+                new Choices(select, {
+                    searchEnabled: true,
+                    searchChoices: true,
+                    itemSelectText: '',
+                    searchPlaceholderValue: 'Търси стойност...',
+                    noResultsText: 'Няма намерени резултати',
+                    noChoicesText: 'Няма налични стойности',
+                    placeholder: true,
+                });
             });
         }
     </script>

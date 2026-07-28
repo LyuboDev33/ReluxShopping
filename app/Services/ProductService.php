@@ -5,10 +5,37 @@ namespace App\Services;
 use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Support\Collection;
-
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Http\Request;
 
 class ProductService
 {
+
+    /**
+     * Apply product attribute and price filters to the given query.
+     *
+     * @param Builder $query
+     * @param Request $request
+     * @return Builder
+     */
+    public static function filteredProducts(Builder $query, Request $request): Builder
+    {
+        $filters = $request->except(['page', 'price-range']);
+
+        foreach ($filters as $attributeTypeSlug => $attributeValueSlug) {
+            $query->whereHas('attributeValues', function ($query) use ($attributeTypeSlug, $attributeValueSlug) {
+                $query->where('slug', $attributeValueSlug)->whereHas('type', function ($query) use ($attributeTypeSlug) {
+                    $query->where('slug', $attributeTypeSlug);
+                });
+            });
+        }
+
+        if ($request->filled('price-range')) {
+            $query->whereBetween('price', [0, $request->integer('price-range')]);
+        }
+
+        return $query;
+    }
 
     /** This method checks whether the product is Dioptric
      *

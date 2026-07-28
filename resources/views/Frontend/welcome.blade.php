@@ -159,7 +159,7 @@
                 <div class="col-xl-6">
                     <div class="about-four__left">
                         <div class="about-four__img">
-                            <img src="/assets/images/resources/about-four-img-1.jpg" alt="За Valente Optic" />
+                            <img src="/assets/images/resources/girl-pic.png" alt="За Valente Optic" />
                         </div>
                     </div>
                 </div>
@@ -240,7 +240,7 @@
     </section>
     <!-- Brand Marquee End -->
 
-    <section class="d-flex justify-content-center align-items-center mt-3">
+    <section class="d-flex justify-content-center align-items-center pb-4 section-prods">
         <div class="product__all container">
             <div class="row justify-content-center align-items-center">
 
@@ -571,7 +571,7 @@
     </section>
     <!--Feature One End -->
 
-       <!-- Brand Marquee Start -->
+    <!-- Brand Marquee Start -->
     <section class="brand-marquee">
         <div class="brand-marquee__viewport">
             <div class="brand-marquee__track">
@@ -589,7 +589,7 @@
                     @foreach ($brands2 as $brand)
                         <div class="brand-marquee__item">
                             <img src="{{ asset('assets/images/brands_2/' . $brand->getFilename()) }}"
-                             alt="{{ pathinfo($brand->getFilename(), PATHINFO_FILENAME) }}">
+                                alt="{{ pathinfo($brand->getFilename(), PATHINFO_FILENAME) }}">
                         </div>
                     @endforeach
                 </div>
@@ -745,7 +745,7 @@
     <!-- Testimonial Four Start -->
     <section class="testimonial-four">
         <div class="container">
-              <h1 class="text-center mt-2 mb-4">Мнения на клиенти</h1>
+            <h1 class="text-center mt-2 mb-4">Мнения на клиенти</h1>
             <div class="testimonial-four__inner">
                 <div class="testimonial-four__big-img">
                     <img src="/assets/images/testimonial/testimonials.jpg" alt="Отзиви от клиенти">
@@ -896,6 +896,31 @@
         </div>
     </section>
     <!-- Testimonial Four End -->
+
+
+
+    <style>
+        .optics-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    width: min(100%, var(--grid-max-width));
+    overflow: hidden;
+    background: #ffffff;
+}
+
+.optics-card {
+    min-width: 0;
+    overflow: hidden;
+}
+
+.optics-card img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    aspect-ratio: 1 / 1.075;
+    object-fit: cover;
+}
+    </style>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {

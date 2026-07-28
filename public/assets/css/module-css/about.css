@@ -554,9 +554,12 @@
     position: relative;
     display: block;
     counter-reset: count;
-    padding: 90px 0 40px;
+    padding: 90px 0 70px;
     z-index: 1;
-    background: #f7ded23d;
+    background: #f7ddba;
+    /* background-image: url('/assets/images/about/about.png');
+    background-repeat: no-repeat;
+    background-size: cover; */
 }
 
 .about-four__left {
@@ -672,11 +675,13 @@
   # About Five
   --------------------------------------------------------------*/
 .about-five {
-      position: relative;
+    position: relative;
     display: block;
     padding: 150px 0 0px;
     z-index: 1;
-    background-color: #f7ded23d;
+    background-color: #f7ddba;
+    border-bottom: 4px solid black;
+    border-top: 4px solid #000000;
 }
 
 .about-five__left {

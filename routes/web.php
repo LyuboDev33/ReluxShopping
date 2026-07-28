@@ -4,6 +4,7 @@ use App\Http\Controllers\FrontEndController;
 use App\Http\Controllers\OrdersController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ShopController;
+use App\Services\SpeedyService;
 use Illuminate\Support\Facades\Route;
 
 Route::fallback(function () {
@@ -57,3 +58,4 @@ Route::middleware('auth')->group(function () {
 
 require __DIR__ . '/auth.php';
 require __DIR__ . '/admin.php';
+require __DIR__ . '/api.php';

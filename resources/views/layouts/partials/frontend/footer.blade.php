@@ -13,9 +13,9 @@
                         <div class="col-xl-4 col-lg-6 col-md-6 wow fadeInUp" data-wow-delay="100ms">
                             <div class="footer-widget__about">
 
-                                <div class="footer-widget__about-logo">
+                                {{-- <div class="footer-widget__about-logo">
                                     <x-logo width="250" mobileWidth="150" />
-                                </div>
+                                </div> --}}
 
                                 <div class="footer-widget__contact-info">
                                     <ul class="footer-widget__contact-list list-unstyled">
@@ -94,7 +94,7 @@
                                         </a>
                                     </li>
 
-                        
+
                                     <li>
                                         <a href="/contact">
                                             <span class="icon-double-arrow-right"></span>
@@ -125,8 +125,8 @@
                                         <i class="fa-brands fa-facebook"></i>
                                     </a>
 
-                                     <a target="_blank" href="https://www.tiktok.com/@valenteoptic.burgas">
-                                       <i class="fa-brands fa-tiktok"></i>
+                                    <a target="_blank" href="https://www.tiktok.com/@valenteoptic.burgas">
+                                        <i class="fa-brands fa-tiktok"></i>
                                     </a>
 
 
@@ -162,6 +162,60 @@
 
                     </div>
                 </div>
+                {{-- <div class="optics-grid container">
+
+                    <div class="try-models-card">
+
+                        <div class="try-models-card__content">
+                            <p class="try-models-card__script">Избери</p>
+
+                            <div class="try-models-card__middle">
+                                <div class="try-models-card__small-text">
+                                    <span>до</span>
+                                    <span>модела</span>
+                                </div>
+
+                                <span class="try-models-card__number">2</span>
+                            </div>
+                        </div>
+
+                        <div class="try-models-card__image">
+                            <img src="/assets/images/grid-welcome/grid-1.jpg" alt="Два модела очила">
+                        </div>
+                    </div>
+
+                    <article class="optics-card">
+                        <img src="/assets/images/grid-welcome/grid-2.jpg" alt="Избор на очила">
+                    </article>
+
+                    <article class="optics-card">
+                        <img src="/assets/images/grid-welcome/grid-3.jpg" alt="Преглед и проба при избор">
+                    </article>
+
+                    <article class="optics-card">
+                        <img src="/assets/images/grid-welcome/grid-4.jpg" alt="Пробвай с куриерска фирма">
+                    </article>
+
+                    <article class="optics-card">
+                        <img src="/assets/images/grid-welcome/grid-5.jpg" alt="Лесно, удобно, за теб">
+                    </article>
+
+                    <article class="optics-card">
+                        <img src="/assets/images/grid-welcome/grid-6.jpg" alt="Плащаш само избраното">
+                    </article>
+
+                    <article class="optics-card">
+                        <img src="/assets/images/grid-welcome/grid-7.jpg" alt="Останалите модели връщаш">
+                    </article>
+
+                    <article class="optics-card">
+                        <img src="/assets/images/grid-welcome/grid-8.jpg" alt="Твоят стил, твоят избор">
+                    </article>
+
+                    <article class="optics-card">
+                        <img src="/assets/images/grid-welcome/grid-9.jpg" alt="Спокойствие при всяка поръчка">
+                    </article>
+                </div> --}}
             </div>
         </div>
 

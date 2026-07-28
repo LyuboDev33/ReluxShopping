@@ -25,11 +25,13 @@
 }
 
 .counter-one__list li {
-    position: relative;
+   position: relative;
     display: block;
+    padding: 28px;
+    border-radius: 30px;
 }
 
-.counter-one__list li:before {
+/* .counter-one__list li:before {
     content: "";
     position: absolute;
     top: 18px;
@@ -37,7 +39,7 @@
     bottom: 7px;
     width: 1px;
     background-color: var(--crank-bdr-color);
-}
+} */
 
 .counter-one__list li:first-child:before {
     display: none;
@@ -145,7 +147,7 @@
   --------------------------------------------------------------*/
 .counter-three {
     margin-top: 0;
-    padding: 68px 0 0px;
+    padding: 45px 0 45px;
 }
 
 .counter-three .counter-one__inner {

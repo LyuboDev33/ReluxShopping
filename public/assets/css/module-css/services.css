@@ -216,7 +216,7 @@
     position: relative;
     display: block;
     background-color: var(--crank-white);
-    border: 1px solid var(--crank-bdr-color);
+    border: 1px solid #000000;
     border-radius: 20px;
     padding: 30px 25px 30px;
     margin-bottom: 30px;
@@ -261,7 +261,7 @@
 .services-two__img {
     position: relative;
     display: block;
-    /* margin-top: 50px; */
+    margin-top: 50px;
 }
 
 .services-two__img img {
@@ -366,7 +366,12 @@
     display: block;
     padding: 40px 0 0;
     z-index: 1;
-    background: #e3c6ac30;
+    background-color: #f7ddba;
+    border-top: 4px solid black;
+    /* background: url(/assets/images/about/about.png);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center; */
 }
 
 .services-four__top {
@@ -382,6 +387,7 @@
     border-radius: 20px;
     margin-bottom: 30px;
     z-index: 1;
+    border: 2px solid black;
 }
 
 @media (max-width: 767px) {
@@ -476,7 +482,7 @@
     display: block;
     padding: 170px 0 120px;
     z-index: 1;
-    background-color: #f7ded23d;
+    background-color: #f7ddba;
 }
 
 .service-details__left {
@@ -826,7 +832,7 @@
   # Services Five
   --------------------------------------------------------------*/
 .services-five .services-two__single {
-    background-color: #F4F4F4;
+    background-color: #ffc991;
 }
 
 

@@ -1,10 +1,34 @@
 <x-backend>
-    <div class="d-flex justify-content-between">
-        <h3>Всички продукти админ табло</h3>
-        <a class="btn btn-secondary p-2 rounded-5" href="{{ route('admin.products.create') }}">
-            Създай продукт
-        </a>
+<div class="d-flex justify-content-between align-items-center flex-wrap gap-3 mb-4">
+
+    <h3 class="mb-0">Всички продукти админ табло</h3>
+
+    <div class="product-search-bar d-flex gap-2">
+
+        <div class="position-relative">
+            <i class="fa-solid fa-magnifying-glass product-search-icon"></i>
+            <input
+                type="text"
+                class="form-control product-search-input"
+                placeholder="Търси по име">
+        </div>
+
+        <div class="position-relative">
+            <i class="fa-solid fa-barcode product-search-icon"></i>
+            <input
+                type="text"
+                class="form-control product-search-input"
+                placeholder="Търси по каталожен номер">
+        </div>
+
     </div>
+
+    <a class="btn btn-secondary rounded-pill px-4" href="{{ route('admin.products.create') }}">
+        <i class="fa-solid fa-plus me-2"></i>
+        Създай продукт
+    </a>
+
+</div>
     <hr>
 
     {{-- Flash messages --}}

@@ -72,6 +72,28 @@
                                 </div>
                             @endforeach
 
+                            <div class="price-filter">
+                                <div class="price-filter__header d-flex flex-column">
+                                    <label for="priceRange">Максимална цена</label>
+
+                                    <span>
+                                        До <strong id="priceRangeValue">1000</strong> €.
+                                    </span>
+                                </div>
+
+                                <input type="range"
+                                    id="priceRange"
+                                    name="price-range"
+                                    min="0" max="1000"
+                                    step="10"
+                                    value="{{ request('price-range', 1000) }}">
+
+                                <div class="price-filter__limits">
+                                    <span>0 €.</span>
+                                    <span>1000 €.</span>
+                                </div>
+                            </div>
+
                             <button type="submit" class="btn btn-primary">
                                 Филтрирай
                             </button>
@@ -263,6 +285,7 @@
 
             toggleSidebar();
             initializTomSelect();
+            updatePriceRange();
         });
 
         function toggleSidebar() {
@@ -305,6 +328,21 @@
                     }
                 });
             });
+
+        }
+
+
+        function updatePriceRange() {
+            const priceRange = document.getElementById('priceRange');
+            const priceRangeValue = document.getElementById('priceRangeValue');
+            const percentage = (priceRange.value / priceRange.max) * 100;
+
+            priceRangeValue.textContent = priceRange.value;
+
+            priceRange.style.background =
+                `linear-gradient(to right, #b87462 0%, #b87462 ${percentage}%, #e6ddd7 ${percentage}%, #e6ddd7 100%)`;
+
+            priceRange.addEventListener('input', updatePriceRange);
 
         }
     </script>

@@ -13,6 +13,7 @@ use App\Models\AttributeValue;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\ProductCategory;
+use App\Services\ImageService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
@@ -154,36 +155,8 @@ class AdminProductsController extends Controller
             }
 
             // Upload the main image
-            $file = $request->file('main_image');
-
-            $mainImageName = str_replace(
-                ' ',
-                '',
-                time() . '_' . $file->getClientOriginalName()
-            );
-
-            $file->move(
-                public_path('/assets/images/products'),
-                $mainImageName
-            );
-
-            // Upload the gallery
-            $galleryNames = [];
-
-            foreach ($request->file('gallery') as $galleryFile) {
-                $galleryName = str_replace(
-                    ' ',
-                    '',
-                    time() . '_' . $galleryFile->getClientOriginalName()
-                );
-
-                $galleryFile->move(
-                    public_path('/assets/images/product_gallery'),
-                    $galleryName
-                );
-
-                $galleryNames[] = $galleryName;
-            }
+            $mainImageName = ImageService::uploadSingleImage($request->file('main_image'), '/assets/images/products');
+            $galleryNames  = ImageService::uploadGalleryImages($request->file('gallery'), '/assets/images/product_gallery');
 
             $createdProduct = Product::create([
                 'name'        => $validated['name'],
@@ -274,10 +247,7 @@ class AdminProductsController extends Controller
                         @unlink($oldPath);
                     }
                 }
-
-                $file = $request->file('main_image');
-                $mainImageName = str_replace(' ', '', time() . '_' . $file->getClientOriginalName());
-                $file->move(public_path('/assets/images/products'), $mainImageName);
+                $mainImageName = ImageService::uploadSingleImage($request->file('main_image'), '/assets/images/products');
             }
 
             // === GALLERY ===
@@ -291,14 +261,7 @@ class AdminProductsController extends Controller
                         @unlink($oldPath);
                     }
                 }
-
-                $galleryNames = [];
-
-                foreach ($request->file('gallery') as $galleryFile) {
-                    $galleryName = str_replace(' ','', time() . '_' . $galleryFile->getClientOriginalName());
-                    $galleryFile->move(public_path('/assets/images/product_gallery'), $galleryName);
-                    $galleryNames[] = $galleryName;
-                }
+                $galleryNames = ImageService::uploadGalleryImages($request->file('gallery'), '/assets/images/product_gallery');
             }
 
             $product->update([
