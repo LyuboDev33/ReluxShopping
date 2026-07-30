@@ -1,20 +1,20 @@
 <x-frontend>
 
     @section('SEO')
-        <title>{{ $product->name }} | Valente Optic</title>
+        <title>{{ $product->name }} | Valente Optics</title>
 
         <meta name="description" content="{{ strip_tags($product->description) }}">
 
         <meta name="keywords"
-            content="{{ $product->name }}, {{ $product->sku }}, диоптрични рамки, очила, маркови очила, онлайн магазин за очила, Valente Optic">
+            content="{{ $product->name }}, {{ $product->sku }}, диоптрични рамки, очила, маркови очила, онлайн магазин за очила, Valente Optics">
 
         <meta name="robots" content="index, follow">
 
         <link rel="canonical" href="{{ url()->current() }}">
 
         <meta property="og:type" content="product">
-        <meta property="og:site_name" content="Valente Optic">
-        <meta property="og:title" content="{{ $product->name }} | Valente Optic">
+        <meta property="og:site_name" content="Valente Optics">
+        <meta property="og:title" content="{{ $product->name }} | Valente Optics">
         <meta property="og:description" content="{{ strip_tags($product->description) }}">
         <meta property="og:url" content="{{ url()->current() }}">
         <meta property="og:image" content="{{ url('assets/images/products/' . $product->main_image) }}">
@@ -26,7 +26,7 @@
         <meta property="product:availability" content="{{ (int) $product->stock > 0 ? 'in stock' : 'out of stock' }}">
 
         <meta name="twitter:card" content="summary_large_image">
-        <meta name="twitter:title" content="{{ $product->name }} | Valente Optic">
+        <meta name="twitter:title" content="{{ $product->name }} | Valente Optics">
         <meta name="twitter:description" content="{{ strip_tags($product->description) }}">
         <meta name="twitter:image" content="{{ url('assets/images/products/' . $product->main_image) }}">
         <meta name="twitter:image:alt" content="{{ $product->name }}">
@@ -66,67 +66,69 @@
                 </div>
 
                 <div class="col-lg-6 col-xl-6">
-                    <div class="product-details__top">
-                        <h3 class="product-details__title">
-                            {{ $product->name }}
+                    <div class="card rounded-5 p-3 shadow">
+                        <div class="product-details__top">
+                            <h3 class="product-details__title">
+                                {{ $product->name }}
 
-                            @if ($product->discount)
-                                <span>
-                                    <del class="text-muted">
-                                        {{ number_format($product->price, 2) }} €
-                                    </del>
+                                @if ($product->discount)
+                                    <span>
+                                        <del class="text-muted">
+                                            {{ number_format($product->price, 2) }} €
+                                        </del>
 
-                                    <span class="text-danger ms-2">
+                                        <span class="text-danger ms-2">
+                                            {{ number_format($productFinalPrice, 2) }} €
+                                        </span>
+
+                                        <span class="badge bg-danger ms-2 rounded-pill text-color">
+                                            -{{ $product->discount }}%
+                                        </span>
+                                    </span>
+                                @else
+                                    <span>
                                         {{ number_format($productFinalPrice, 2) }} €
                                     </span>
-
-                                    <span class="badge bg-danger ms-2 rounded-pill text-color">
-                                        -{{ $product->discount }}%
-                                    </span>
-                                </span>
-                            @else
-                                <span>
-                                    {{ number_format($productFinalPrice, 2) }} €
-                                </span>
-                            @endif
-                        </h3>
-                    </div>
-
-                    @if ($product->attributeValues->count())
-                        <div class="product-details__attributes mt-4">
-                            <h3 class="product-details__quantity-title">Характеристики</h3>
-
-                            <ul class="list-unstyled">
-                                @foreach ($product->attributeValues as $attributeValue)
-                                    <li>
-                                        <p>
-                                            <strong>{{ $attributeValue->type?->name }}:</strong>
-                                            {{ $attributeValue->value }}
-                                        </p>
-                                    </li>
-                                @endforeach
-                            </ul>
+                                @endif
+                            </h3>
                         </div>
-                    @endif
 
-                    <h6 class="alert alert-info w-fit p-2 rounded-pill mt-3">
-                        Каталожен номер: {{ $product->sku }}
-                    </h6>
+                        @if ($product->attributeValues->count())
+                            <div class="product-details__attributes mt-4">
+                                <h3 class="product-details__quantity-title">Характеристики</h3>
 
-                          <p
-                        class="product-details__content-text2 mb-3 rounded-pill alert w-fit {{ (int) $product->stock > 0 ? 'alert-success' : 'alert-danger' }} p-2 d-inline-block">
-                        @if ((int) $product->stock > 0)
-                            Наличен продукт
-                        @else
-                            Няма наличност
+                                <ul class="list-unstyled">
+                                    @foreach ($product->attributeValues as $attributeValue)
+                                        <li>
+                                            <p>
+                                                <strong>{{ $attributeValue->type?->name }}:</strong>
+                                                {{ $attributeValue->value }}
+                                            </p>
+                                        </li>
+                                    @endforeach
+                                </ul>
+                            </div>
                         @endif
-                    </p>
+
+                        <h6 class="alert alert-info w-fit p-2 rounded-pill mt-3">
+                            Каталожен номер: {{ $product->sku }}
+                        </h6>
+
+                        <p
+                            class="product-details__content-text2 mb-3 rounded-pill alert w-fit {{ (int) $product->stock > 0 ? 'alert-success' : 'alert-danger' }} p-2 d-inline-block">
+                            @if ((int) $product->stock > 0)
+                                Наличен продукт
+                            @else
+                                Няма наличност
+                            @endif
+                        </p>
+                    </div>
 
                     <hr>
 
                     @if ($product->variants->isNotEmpty() || $product->variantParent->isNotEmpty())
-                        <div class="card shadow-sm border-0 mb-4">
-                            <div class="card-body">
+                        <div class="card border-0 rounded-5 mb-4">
+                            <div class="card-body rounded-5 shadow">
                                 <h5 class="mb-3">Цветове на продукта</h5>
 
                                 <div class="d-flex flex-wrap gap-3">
@@ -175,8 +177,8 @@
 
                     @if ((int) $product->stock > 0)
 
-                        <div class="card border-0 shadow-sm mt-4 mb-4">
-                            <div class="card-body">
+                        <div class="card border-0 mt-4 mb-4 rounded-5">
+                            <div class="card-body shadow rounded-5">
                                 <h5 class="mb-3">Изберете начин на покупка</h5>
 
                                 <input type="hidden" name="purchase_type" id="purchase_type"
@@ -613,10 +615,12 @@
                                                 </div>
                                             @else
                                                 <div class="alert alert-danger p-3 rounded-4">
-                                                   Диоптрични стъкла могат да бъдат поставени на този продукт само след консултация с оптик.
-                                                   Моля потърсете ни в секция <a class="thm-btn p-2 pe-2" href="{{ route('contact') }}">
-                                                    <i class="fa-solid fa-arrow-right-to-bracket"></i>
-                                                    Контакти</a>
+                                                    Диоптрични стъкла могат да бъдат поставени на този продукт само след
+                                                    консултация с оптик.
+                                                    Моля потърсете ни в секция <a class="thm-btn p-2 pe-2"
+                                                        href="{{ route('contact') }}">
+                                                        <i class="fa-solid fa-arrow-right-to-bracket"></i>
+                                                        Контакти</a>
                                                 </div>
                                             @endif
                                             {{-- End of Check if a product is type "Sunglasses" or not --}}

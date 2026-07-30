@@ -1,11 +1,11 @@
 <x-frontend>
 
   @section('SEO')
-    <title>Компютърна диагностика на зрението | Valente Optic</title>
+    <title>Компютърна диагностика на зрението | Valente Optics</title>
 
     <meta name="description" content="Компютърна диагностика на зрението с професионален авторефрактометър. Бързо ориентировъчно измерване на диоптър, астигматизъм, късогледство и далекогледство.">
     <meta name="keywords" content="компютърна диагностика на зрението, измерване на диоптър, авторефрактометър, проверка на зрението, диоптър, астигматизъм, късогледство, далекогледство, оптика">
-    <meta name="author" content="Valente Optic">
+    <meta name="author" content="Valente Optics">
     <meta name="robots" content="index, follow">
 
     <link rel="canonical" href="{{ url()->current() }}">
@@ -13,18 +13,18 @@
     <meta property="og:type" content="website">
     <meta property="og:locale" content="bg_BG">
     <meta property="og:url" content="{{ url()->current() }}">
-    <meta property="og:title" content="Компютърна диагностика на зрението | Valente Optic">
+    <meta property="og:title" content="Компютърна диагностика на зрението | Valente Optics">
     <meta property="og:description" content="Бързо и прецизно ориентировъчно измерване на диоптър чрез професионален авторефрактометър. Подходящо преди изработка или корекция на очила.">
     <meta property="og:image" content="{{ asset('/assets/images/seo.png') }}">
     <meta property="og:image:secure_url" content="{{ asset('/assets/images/seo.png') }}">
     <meta property="og:image:type" content="image/png">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
-    <meta property="og:site_name" content="Valente Optic">
+    <meta property="og:site_name" content="Valente Optics">
 
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Компютърна диагностика на зрението | Valente Optic">
-    <meta name="twitter:description" content="Ориентировъчна проверка на зрението и измерване на диоптър с авторефрактометър във Valente Optic.">
+    <meta name="twitter:title" content="Компютърна диагностика на зрението | Valente Optics">
+    <meta name="twitter:description" content="Ориентировъчна проверка на зрението и измерване на диоптър с авторефрактометър във Valente Optics.">
     <meta name="twitter:image" content="{{ asset('/assets/images/seo.png') }}">
 @endsection
 

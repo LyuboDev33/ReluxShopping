@@ -6,7 +6,7 @@
 
     @foreach ($similarProducts as $product)
         <div class="col-xl-3 col-lg-3 col-md-6 col-6">
-            <div class="product__all-single">
+            <div class="product__all-single shadow">
 
                 <div class="product__all-img">
                     <a href="{{ route('shop.show', $product->slug) }}">

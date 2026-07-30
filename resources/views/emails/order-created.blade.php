@@ -668,12 +668,12 @@
                                 color: #777777;
                             ">
                             <p style="margin: 0 0 8px;">
-                                Благодарим Ви, че избрахте Valente Optic.
+                                Благодарим Ви, че избрахте Valente Optics.
                             </p>
 
                             <p style="margin: 0;">
                                 При въпроси можете да се свържете с нас на
-                                <strong>+359 877 000 027</strong>.
+                                <strong>+359 89 3023731</strong>.
                             </p>
                         </td>
                     </tr>

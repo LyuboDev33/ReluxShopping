@@ -5,17 +5,6 @@
     /*--------------------------------------------------------------
       RegisterPlugin, ScrollTrigger, SplitText
     --------------------------------------------------------------*/
-    // gsap.registerPlugin(ScrollTrigger, SplitText);
-    // gsap.config({
-    //     nullTargetWarn: false,
-    //     trialWarn: false
-    // });
-
-
-
-
-
-
 
     //Pricing Two Tab Tabs
     if ($('.pricing-two-tab').length) {
@@ -136,65 +125,6 @@
     }
 
 
-    //Progress Count Bar
-    // if ($(".count-bar").length) {
-    //     $(".count-bar").appear(
-    //         function () {
-    //             var el = $(this);
-    //             var percent = el.data("percent");
-    //             $(el).css("width", percent).addClass("counted");
-    //         }, {
-    //         accY: -50
-    //     }
-    //     );
-    // }
-
-    // //Progress Bar / Levels
-    // if ($(".progress-levels .progress-box .bar-fill").length) {
-    //     $(".progress-box .bar-fill").each(
-    //         function () {
-    //             $(".progress-box .bar-fill").appear(function () {
-    //                 var progressWidth = $(this).attr("data-percent");
-    //                 $(this).css("width", progressWidth + "%");
-    //             });
-    //         }, {
-    //         accY: 0
-    //     }
-    //     );
-    // }
-
-    // //Fact Counter + Text Count
-    // if ($(".count-box").length) {
-    //     $(".count-box").appear(
-    //         function () {
-    //             var $t = $(this),
-    //                 n = $t.find(".count-text").attr("data-stop"),
-    //                 r = parseInt($t.find(".count-text").attr("data-speed"), 10);
-
-    //             if (!$t.hasClass("counted")) {
-    //                 $t.addClass("counted");
-    //                 $({
-    //                     countNum: $t.find(".count-text").text()
-    //                 }).animate({
-    //                     countNum: n
-    //                 }, {
-    //                     duration: r,
-    //                     easing: "linear",
-    //                     step: function () {
-    //                         $t.find(".count-text").text(Math.floor(this.countNum));
-    //                     },
-    //                     complete: function () {
-    //                         $t.find(".count-text").text(this.countNum);
-    //                     }
-    //                 });
-    //             }
-    //         }, {
-    //         accY: 0
-    //     }
-    //     );
-    // }
-
-
 
     // Accrodion
     if ($(".accrodion-grp").length) {
@@ -228,113 +158,6 @@
 
 
 
-    //   if ($(".contact-form-validated").length) {
-    //     $(".contact-form-validated").each(function () {
-    //       let self = $(this);
-    //       self.validate({
-    //         // initialize the plugin
-    //         rules: {
-    //           name: {
-    //             required: true
-    //           },
-    //           email: {
-    //             required: true,
-    //             email: true
-    //           },
-    //           message: {
-    //             required: true
-    //           },
-    //           subject: {
-    //             required: true
-    //           }
-    //         },
-    //         submitHandler: function (form) {
-    //           // sending value with ajax request
-    //           $.post(
-    //             $(form).attr("action"),
-    //             $(form).serialize(),
-    //             function (response) {
-    //               $(form).parent().find(".result").append(response);
-    //               $(form).find('input[type="text"]').val("");
-    //               $(form).find('input[type="email"]').val("");
-    //               $(form).find("textarea").val("");
-    //             }
-    //           );
-    //           return false;
-    //         }
-    //       });
-    //     });
-    //   }
-
-    // mailchimp form
-    if ($(".mc-form").length) {
-        $(".mc-form").each(function () {
-            var Self = $(this);
-            var mcURL = Self.data("url");
-            var mcResp = Self.parent().find(".mc-form__response");
-
-            Self.ajaxChimp({
-                url: mcURL,
-                callback: function (resp) {
-                    // appending response
-                    mcResp.append(function () {
-                        return '<p class="mc-message">' + resp.msg + "</p>";
-                    });
-                    // making things based on response
-                    if (resp.result === "success") {
-                        // Do stuff
-                        Self.removeClass("errored").addClass("successed");
-                        mcResp.removeClass("errored").addClass("successed");
-                        Self.find("input").val("");
-
-                        mcResp.find("p").fadeOut(10000);
-                    }
-                    if (resp.result === "error") {
-                        Self.removeClass("successed").addClass("errored");
-                        mcResp.removeClass("successed").addClass("errored");
-                        Self.find("input").val("");
-
-                        mcResp.find("p").fadeOut(10000);
-                    }
-                }
-            });
-        });
-    }
-
-    //   if ($(".video-popup").length) {
-    //     $(".video-popup").magnificPopup({
-    //       type: "iframe",
-    //       mainClass: "mfp-fade",
-    //       removalDelay: 160,
-    //       preloader: true,
-
-    //       fixedContentPos: false
-    //     });
-    //   }
-
-    //   if ($(".img-popup").length) {
-    //     var groups = {};
-    //     $(".img-popup").each(function () {
-    //       var id = parseInt($(this).attr("data-group"), 10);
-
-    //       if (!groups[id]) {
-    //         groups[id] = [];
-    //       }
-
-    //       groups[id].push(this);
-    //     });
-
-    //     $.each(groups, function () {
-    //       $(this).magnificPopup({
-    //         type: "image",
-    //         closeOnContentClick: true,
-    //         closeBtnInside: false,
-    //         gallery: {
-    //           enabled: true
-    //         }
-    //       });
-    //     });
-    //   }
 
 
 
@@ -379,27 +202,27 @@
     //     mobileNavContainer.innerHTML = navContent;
     // }
 
-    // if ($(".mobile-nav__container .main-menu__list").length) {
-    //     let dropdownAnchor = $(
-    //         ".mobile-nav__container .main-menu__list .dropdown > a"
-    //     );
-    //     dropdownAnchor.each(function () {
-    //         let self = $(this);
-    //         let toggleBtn = document.createElement("BUTTON");
-    //         toggleBtn.setAttribute("aria-label", "dropdown toggler");
-    //         toggleBtn.innerHTML = "<i class='fa fa-angle-down'></i>";
-    //         self.append(function () {
-    //             return toggleBtn;
-    //         });
-    //         self.find("button").on("click", function (e) {
-    //             e.preventDefault();
-    //             let self = $(this);
-    //             self.toggleClass("expanded");
-    //             self.parent().toggleClass("expanded");
-    //             self.parent().parent().children("ul").slideToggle();
-    //         });
-    //     });
-    // }
+    if ($(".mobile-nav__container .main-menu__list").length) {
+        let dropdownAnchor = $(
+            ".mobile-nav__container .main-menu__list .dropdown > a"
+        );
+        dropdownAnchor.each(function () {
+            let self = $(this);
+            let toggleBtn = document.createElement("BUTTON");
+            toggleBtn.setAttribute("aria-label", "dropdown toggler");
+            toggleBtn.innerHTML = "<i class='fa fa-angle-down'></i>";
+            self.append(function () {
+                return toggleBtn;
+            });
+            self.find("button").on("click", function (e) {
+                e.preventDefault();
+                let self = $(this);
+                self.toggleClass("expanded");
+                self.parent().toggleClass("expanded");
+                self.parent().parent().children("ul").slideToggle();
+            });
+        });
+    }
 
     if ($(".mobile-nav__toggler").length) {
         $(".mobile-nav__toggler").on("click", function (e) {
@@ -592,73 +415,6 @@
 
 
 
-    // Animation gsap
-    // function title_animation() {
-    //     var tg_var = jQuery('.sec-title-animation');
-    //     if (!tg_var.length) {
-    //         return;
-    //     }
-    //     const quotes = document.querySelectorAll(".sec-title-animation .title-animation");
-
-    //     quotes.forEach(quote => {
-
-    //         //Reset if needed
-    //         if (quote.animation) {
-    //             quote.animation.progress(1).kill();
-    //             quote.split.revert();
-    //         }
-
-    //         var getclass = quote.closest('.sec-title-animation').className;
-    //         var animation = getclass.split('animation-');
-    //         if (animation[1] == "style4") return
-
-    //         quote.split = new SplitText(quote, {
-    //             type: "lines,words,chars",
-    //             linesClass: "split-line"
-    //         });
-    //         gsap.set(quote, {
-    //             perspective: 400
-    //         });
-
-    //         if (animation[1] == "style1") {
-    //             gsap.set(quote.split.chars, {
-    //                 opacity: 0,
-    //                 y: "90%",
-    //                 rotateX: "-40deg"
-    //             });
-    //         }
-    //         if (animation[1] == "style2") {
-    //             gsap.set(quote.split.chars, {
-    //                 opacity: 0,
-    //                 x: "50"
-    //             });
-    //         }
-    //         if (animation[1] == "style3") {
-    //             gsap.set(quote.split.chars, {
-    //                 opacity: 0,
-    //             });
-    //         }
-    //         quote.animation = gsap.to(quote.split.chars, {
-    //             scrollTrigger: {
-    //                 trigger: quote,
-    //                 start: "top 90%",
-    //             },
-    //             x: "0",
-    //             y: "0",
-    //             rotateX: "0",
-    //             opacity: 1,
-    //             duration: 1,
-    //             ease: Back.easeOut,
-    //             stagger: .02
-    //         });
-    //     });
-    // }
-    // ScrollTrigger.addEventListener("refresh", title_animation);
-
-
-
-
-
 
     function hoverTab2() {
         $('.cs-hover_tab-2 .team-details__awards-single').hover(function () {
@@ -687,31 +443,6 @@
 
 
 
-    // Price Filter
-    //   function priceFilter() {
-    //     if ($(".price-ranger").length) {
-    //       $(".price-ranger #slider-range").slider({
-    //         range: true,
-    //         min: 7900,
-    //         max: 2599100,
-    //         values: [11, 2599100],
-    //         slide: function (event, ui) {
-    //           $(".price-ranger .ranger-min-max-block .min").val(
-    //             "$" + ui.values[0]
-    //           );
-    //           $(".price-ranger .ranger-min-max-block .max").val(
-    //             "$" + ui.values[1]
-    //           );
-    //         },
-    //       });
-    //       $(".price-ranger .ranger-min-max-block .min").val(
-    //         "$" + $(".price-ranger #slider-range").slider("values", 0)
-    //       );
-    //       $(".price-ranger .ranger-min-max-block .max").val(
-    //         "$" + $(".price-ranger #slider-range").slider("values", 1)
-    //       );
-    //     }
-    //   }
 
 
 
@@ -755,7 +486,30 @@
 
 
 
+    function cookies() {
+        const cookieBox = document.querySelector(".cookies__modal");
+        const acceptButton = document.querySelector("#acceptBtn");
+        // const declineButton = document.querySelector("#declineBtn");
 
+        if (document.cookie.includes("cookieBy=Weebix") ||
+            document.cookie.includes("cookieDeclined=true")) {
+            return;
+        }
+
+        cookieBox.classList.add("show");
+
+        acceptButton.addEventListener("click", () => {
+            cookieBox.classList.remove("show");
+            document.cookie = "cookieBy=Weebix; max-age=" + 60 * 60 * 24 * 30 + "; path=/";
+            window.location.reload();
+        });
+
+        // declineButton.addEventListener("click", () => {
+        //     cookieBox.classList.remove("show");
+        //     document.cookie = "cookieDeclined=true; max-age=" + 60 * 60 * 24 * 30 + "; path=/";
+        //     window.location.reload();
+        // });
+    }
 
 
 
@@ -766,11 +520,9 @@
         }
 
         projectMasonaryLayout();
-        // title_animation();
         hoverTab2();
         dynamicBackground();
-        // priceFilter();
-
+        cookies(); 
 
 
 
@@ -819,17 +571,6 @@
         }
 
 
-
-
-
-
-
-
-
-
-
-
-
         if ($(".marquee_mode-1").length) {
             $('.marquee_mode-1').marquee({
                 speed: 40,
@@ -869,23 +610,6 @@
                 startVisible: true,
             });
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     });
 

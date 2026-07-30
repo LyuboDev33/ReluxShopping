@@ -64,7 +64,8 @@
                         @foreach ($product->variantParent as $parent)
                             <a href="{{ route('admin.products.show', $parent->slug) }}" class="product-variant-card">
 
-                                <img src="/products/{{ $parent->main_image }}" alt="{{ $parent->name }}">
+                                <img src="{{ asset('assets/images/products/' . optional($parent)->main_image) }}"
+                                    alt="{{ optional($parent)->name }}">
 
                                 <span>Основен</span>
                             </a>
@@ -74,7 +75,8 @@
                         <a href="{{ route('admin.products.show', $product->slug) }}"
                             class="product-variant-card active">
 
-                            <img src="/products/{{ $parent->main_image }}" alt="{{ $parent->name }}">
+                            <img src="{{ asset('assets/images/products/' . optional($product)->main_image) }}"
+                                alt="{{ optional($product)->name }}">
 
                             <span>
                                 @if ($product->variantParent->isEmpty())
@@ -88,10 +90,10 @@
                         @foreach ($product->variants as $variant)
                             <a href="{{ route('admin.products.show', $variant->slug) }}" class="product-variant-card">
 
-                                <img src="{{ asset('assets/images/products/' . $variant->main_image) }}"
-                                    alt="{{ $variant->name }}">
+                                <img src="{{ asset('assets/images/products/' . optional($variant)->main_image) }}"
+                                    alt="{{ optional($variant)->name }}">
 
-                                <span>{{ $variant->name }}</span>
+                                <span>{{ optional($variant)->name }}</span>
                             </a>
                         @endforeach
 
@@ -307,51 +309,65 @@
             overlay.addEventListener('click', closeSidebar);
         }
 
-        /** Open the variant sidebar */
+        /** Delete an image */
         function deleteImage() {
-
             const deleteButtons = document.querySelectorAll('.gallery-img-bin__delete');
 
             deleteButtons.forEach(button => {
-                button.addEventListener('click', function() {
+                button.addEventListener('click', function(event) {
+                    event.preventDefault();
+
+                    const confirmed = confirm(
+                        'Сигурен ли си, че искаш да изтриеш тази снимка?'
+                    );
+
+                    if (!confirmed) {
+                        return;
+                    }
+
+                    const deleteButton = this;
+                    const buttonParent = deleteButton.parentElement;
+                    const imageElement = buttonParent.querySelector('img');
+
+                    if (!imageElement) {
+                        alert('Снимката не беше намерена.');
+
+                        return;
+                    }
+
+                    const deletionImage = imageElement.alt;
+
+                    deleteButton.disabled = true;
 
                     $.ajax({
-
-                        url: "{{ route('admin.promocodes.change-status') }}",
-                        type: "PATCH",
+                        url: "{{ route('product.gallery-image.delete', $product) }}",
+                        type: "DELETE",
 
                         data: {
-                            _token: form.find('input[name="_token"]').val(),
-                            id: form.find('input[name="id"]').val()
+                            _token: document
+                                .querySelector('meta[name="csrf-token"]')
+                                .getAttribute('content'),
+
+                            image: deletionImage
                         },
 
                         success: function(response) {
-
-                            const row = form.closest('tr');
-                            const badge = row.find('.badge');
-                            const button = form.find('.change-status-btn');
-
-                            const isActive = Boolean(response.is_active);
-
-
-                            badge
-                                .removeClass('bg-success bg-danger')
-                                .addClass(isActive ? 'bg-success' : 'bg-danger')
-                                .text(isActive ? 'Активен' : 'Неактивен');
-
-                            button.text(isActive ? 'Деактивирай' : 'Активирай');
-
+                            buttonParent.remove();
                         },
 
                         error: function(xhr) {
-                            alert(xhr.responseJSON.message);
+                            alert(
+                                xhr.responseJSON?.message ??
+                                'Възникна грешка при изтриването на снимката.'
+                            );
+                        },
+
+                        complete: function() {
+                            deleteButton.disabled = false;
                         }
-
                     });
-
-                })
+                });
             });
-
         }
     </script>
 

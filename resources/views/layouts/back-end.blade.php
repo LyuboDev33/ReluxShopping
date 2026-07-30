@@ -42,7 +42,6 @@
 
     <script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script>
 
-    <link rel="stylesheet" href="https://unpkg.com/dropzone@5/dist/min/dropzone.min.css" type="text/css" />
 
 
 
@@ -161,6 +160,7 @@
                     noResultsText: 'Няма намерени резултати',
                     noChoicesText: 'Няма налични стойности',
                     placeholder: true,
+                    removeItemButton: true,
                 });
             });
         }

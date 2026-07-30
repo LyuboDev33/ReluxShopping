@@ -26,7 +26,7 @@
                         </div>
 
                         <p class="contact-four__text mb-3">
-                            Благодарим Ви, че избрахте <strong>Valente Optic</strong>.
+                            Благодарим Ви, че избрахте <strong>Valente Optics</strong>.
                             Получихме Вашата поръчка и вече започваме нейната обработка.
                         </p>
 

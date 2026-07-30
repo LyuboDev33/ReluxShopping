@@ -8,6 +8,10 @@
 
     @yield('SEO')
 
+    {{-- Google Search Console --}}
+    <meta name="google-site-verification" content="GG3KFO1fxuArNlnRhzstDNXHzya2PeAShiR_3qb3CNQ">
+
+
     <link rel="stylesheet" href="/assets/css/bootstrap.min.css?v=<?php echo time(); ?>" />
     <link rel="stylesheet" href="/assets/css/animate.min.css?v=<?php echo time(); ?>" />
     <link rel="stylesheet" href="/assets/css/custom-animate.css?v=<?php echo time(); ?>" />
@@ -43,7 +47,7 @@
 
     <!-- template styles -->
     <link rel="stylesheet" href="/assets/css/style.css?v=<?php echo time(); ?>" />
-        {{-- <link rel="stylesheet" href="/assets/css/style-new-colors.css?v=<?php echo time(); ?>" /> --}}
+    {{-- <link rel="stylesheet" href="/assets/css/style-new-colors.css?v=<?php echo time(); ?>" /> --}}
 
     <link rel="stylesheet" href="/assets/css/shop.css?v=<?php echo time(); ?>" />
     <link rel="stylesheet" href="/assets/css/responsive.css?v=<?php echo time(); ?>" />
@@ -92,6 +96,9 @@
     <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css" rel="stylesheet">
 
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/choices.js/public/assets/styles/choices.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script>
+
 
 </head>
 
@@ -119,8 +126,50 @@
     <script src="/assets/js/custom.js?v=<?php echo time(); ?>"></script>
 
     <script>
-        Fancybox.bind("[data-fancybox]", {});
+        $(document).ready(function() {
+            Fancybox.bind("[data-fancybox]", {});
+
+            initializeChoicesJS();
+        });
+
+        function initializeChoicesJS() {
+            const attributeSelects = document.querySelectorAll(
+                '.attribute-choice'
+            );
+
+            if (attributeSelects.length < 0) {
+                return;
+            }
+
+            attributeSelects.forEach(function(select) {
+                new Choices(select, {
+                    searchEnabled: true,
+                    searchChoices: true,
+                    itemSelectText: '',
+                    searchPlaceholderValue: 'Търси стойност...',
+                    noResultsText: 'Няма намерени резултати',
+                    noChoicesText: 'Няма налични стойности',
+                    placeholder: true,
+                    placeholder: true,
+                    removeItemButton: true,
+                });
+            });
+        }
     </script>
+
+    <div class="cookies__modal shadow wrapper">
+        <img class="cookies" src="/assets/images/cookie.webp" alt="Бисквитки">
+        <div>
+            <p><strong>Valente Optics</strong> използва бисквитки за по-добро и персонализирано
+                потребителско изживяване.</p>
+
+            <div class="d-flex gap-4 justify-content-center mt-30">
+                <button id="acceptBtn">Добре, разбрах</button>
+            </div>
+        </div>
+    </div>
+
+
 
 </body>
 

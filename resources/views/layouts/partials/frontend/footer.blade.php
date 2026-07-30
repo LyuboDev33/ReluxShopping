@@ -38,8 +38,8 @@
                                             </div>
 
                                             <p class="footer-widget__contact-text">
-                                                <a href="tel:+359877000027">
-                                                    +359 877 000 027
+                                                <a href="tel:+359893023731">
+                                                    +359 89 3023731
                                                 </a>
                                             </p>
                                         </li>
@@ -232,7 +232,7 @@
                                 <p class="site-footer__copyright-text">
                                     © {{ date('Y') }}
                                     <a href="/">
-                                        Valente Optic
+                                        Valente Optics
                                     </a>
                                     . Всички права запазени.
                                 </p>

@@ -52,8 +52,8 @@
             Имате въпроси? Обадете ни се
         </p>
 
-        <a href="tel:+359877000027" class="service-details__contact-number">
-            +359 877 000 027
+        <a href="tel:+359893023731" class="service-details__contact-number">
+            +359 89 3023731
         </a>
     </div>
 </div>

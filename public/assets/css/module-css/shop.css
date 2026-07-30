@@ -674,7 +674,7 @@ Product
     position: relative;
     display: block;
     margin-bottom: 30px;
-    border: 1px solid var(--crank-bdr-color);
+    /* border: 1px solid var(--crank-bdr-color); */
     background-color: var(--crank-white);
     padding: 0 0 30px;
     transition: all 500ms ease;

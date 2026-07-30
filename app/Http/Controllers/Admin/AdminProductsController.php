@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Product\CreateProductRequest;
 use App\Http\Requests\Admin\Product\UpdateProductRequest;
 use App\Models\Admin\Glass;
-use App\Models\Admin\LensIndex;
 use App\Models\Admin\ProductVariants;
 use App\Models\AttributeType;
 use App\Models\AttributeValue;
@@ -14,12 +13,12 @@ use App\Models\Category;
 use App\Models\Product;
 use App\Models\ProductCategory;
 use App\Services\ImageService;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\View;
 use Illuminate\Support\Str;
-use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\File;
 
 class AdminProductsController extends Controller
 {
@@ -341,4 +340,58 @@ class AdminProductsController extends Controller
             ->route('admin.products.index')
             ->with('success', 'Продуктът беше изтрит.');
     }
+
+    /**
+     * Delete an image from the gallery
+     *
+     * @param Request $request
+     * @param Product $product
+     * @return JsonResponse
+     */
+   public function deleteGalleryImage(Request $request, Product $product): JsonResponse {
+    $validated = $request->validate([
+        'image' => [
+            'required',
+            'string',
+        ],
+    ]);
+
+    $imageName = $validated['image'];
+    $gallery = $product->gallery ?? [];
+
+
+    if (!in_array($imageName, $gallery, true)) {
+        return response()->json([
+            'message' => 'Снимката не беше намерена в галерията на продукта.',
+        ], 404);
+    }
+
+
+    $updatedGallery = array_values(
+        array_filter($gallery,
+            fn (string $galleryImage): bool => $galleryImage !== $imageName
+        )
+    );
+    
+    $imagePath = public_path(
+        'assets/images/product_gallery/' . $imageName
+    );
+
+    if (File::exists($imagePath) && !File::delete($imagePath)) {
+        return response()->json([
+            'message' => 'Файлът на снимката не можа да бъде изтрит.',
+        ], 500);
+    }
+
+    $product->update([
+        'gallery' => $updatedGallery,
+    ]);
+
+    return response()->json([
+        'message' => 'Снимката беше изтрита успешно.',
+        'gallery' => $updatedGallery,
+    ]);
+}
+
+
 }

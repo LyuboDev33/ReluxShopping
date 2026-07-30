@@ -70,7 +70,7 @@
                                 @forelse ($products as $product)
                                     <!--Product All Single Start-->
                                     <div class="col-xl-3 col-lg-4 col-md-6">
-                                        <div class="product__all-single">
+                                        <div class="product__all-single shadow">
                                             <div class="product__all-img">
                                                 @if ($product->main_image)
                                                     <img src="{{ asset('assets/images/products/' . $product->main_image) }}"

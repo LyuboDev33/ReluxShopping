@@ -511,7 +511,7 @@
     z-index: 1;
 }
 
-.footer-widget__social a:hover {
+.footer-widget__social a {
     color: var(--crank-base);
     background-color: var(--crank-white);
 }

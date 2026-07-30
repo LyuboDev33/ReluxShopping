@@ -1,35 +1,71 @@
 <x-frontend>
 
     @section('SEO')
-        <title>Онлайн магазин за очила | Диоптрични рамки, слънчеви очила и аксесоари | Valente Optic</title>
+    <title>Онлайн магазин за очила | Диоптрични рамки, слънчеви очила и аксесоари | Valente Optics</title>
 
-        <meta name="description"
-            content="Открийте богато разнообразие от диоптрични рамки, слънчеви очила, очила за деца, стъкла и аксесоари във Valente Optic. Качествени марки, професионална консултация и бърза доставка в цяла България.">
+    <meta name="description"
+        content="Разгледайте онлайн магазина на Valente Optics с богат избор от диоптрични рамки, слънчеви очила, детски очила, стъкла и аксесоари. Открийте качествени марки, професионална консултация и бърза доставка в цяла България.">
 
-        <meta name="keywords"
-            content="Valente Optic, онлайн магазин за очила, диоптрични рамки, слънчеви очила, детски очила, очила, оптика, оптика Бургас, оптика Равда, стъкла за очила, прогресивни стъкла, аксесоари за очила">
+    <meta name="keywords"
+        content="Valente Optics, онлайн магазин за очила, диоптрични рамки, слънчеви очила, детски очила, компютърни очила, рамки за очила, стъкла за очила, прогресивни стъкла, фотосоларни стъкла, аксесоари за очила, оптика Бургас, оптика Равда">
 
-        <meta name="robots" content="index,follow">
+    <meta name="robots"
+        content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">
 
-        <link rel="canonical" href="{{ url()->current() }}">
+    <meta name="googlebot"
+        content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">
 
-        <meta property="og:type" content="website">
-        <meta property="og:site_name" content="Valente Optic">
-        <meta property="og:title" content="Онлайн магазин за очила | Valente Optic">
-        <meta property="og:description"
-            content="Разгледайте богат избор от диоптрични рамки, слънчеви очила, стъкла и аксесоари. Качество, професионално обслужване и бърза доставка от Valente Optic.">
-        <meta property="og:url" content="{{ url()->current() }}">
-        <meta property="og:image" content="{{ url('assets/images/logo/logo.png') }}">
+    <link rel="canonical" href="{{ route('shop.index') }}">
 
-        <meta name="twitter:card" content="summary_large_image">
-        <meta name="twitter:title" content="Онлайн магазин за очила | Valente Optic">
-        <meta name="twitter:description"
-            content="Диоптрични рамки, слънчеви очила, стъкла и аксесоари от Valente Optic. Пазарувайте онлайн с бърза доставка и професионална консултация.">
-        <meta name="twitter:image" content="{{ url('assets/images/logo/logo.png') }}">
+    {{-- Open Graph --}}
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="bg_BG">
+    <meta property="og:site_name" content="Valente Optics">
 
-        <link href="/assets/css/tom-select.css" rel="stylesheet">
-        <script src="https://cdn.jsdelivr.net/npm/tom-select@2.6.2/dist/js/tom-select.complete.min.js"></script>
-    @endsection
+    <meta property="og:title"
+        content="Онлайн магазин за очила | Valente Optics">
+
+    <meta property="og:description"
+        content="Открийте диоптрични рамки, слънчеви и детски очила, качествени стъкла и аксесоари от Valente Optics. Пазарувайте онлайн с професионална консултация и доставка в цяла България.">
+
+    <meta property="og:url" content="{{ route('shop.index') }}">
+
+    <meta property="og:image"
+        content="{{ asset('assets/images/seo/valente-optics-shop.jpg') }}">
+
+    <meta property="og:image:secure_url"
+        content="{{ asset('assets/images/seo/valente-optics-shop.jpg') }}">
+
+    <meta property="og:image:type" content="image/jpeg">
+
+    <meta property="og:image:alt"
+        content="Онлайн магазин Valente Optics – диоптрични рамки, слънчеви очила и аксесоари">
+
+    {{-- Twitter / X --}}
+    <meta name="twitter:card" content="summary_large_image">
+
+    <meta name="twitter:title"
+        content="Онлайн магазин за очила | Valente Optics">
+
+    <meta name="twitter:description"
+        content="Разгледайте диоптрични рамки, слънчеви и детски очила, стъкла и аксесоари от Valente Optics с доставка в цяла България.">
+
+    <meta name="twitter:image"
+        content="{{ asset('assets/images/seo/valente-optics-shop.jpg') }}">
+
+    <meta name="twitter:image:alt"
+        content="Онлайн магазин Valente Optics – очила, рамки, стъкла и аксесоари">
+
+    {{-- Допълнителни мета данни --}}
+    <meta name="author" content="Valente Optics">
+    <meta name="application-name" content="Valente Optics">
+    <meta name="theme-color" content="#ffffff">
+
+    {{-- Required shop assets --}}
+    <link href="/assets/css/tom-select.css" rel="stylesheet">
+
+    <script src="https://cdn.jsdelivr.net/npm/tom-select@2.6.2/dist/js/tom-select.complete.min.js"></script>
+@endsection
 
 
     <!--Product Start-->
@@ -60,11 +96,12 @@
                                     </label>
 
                                     <select id="filter-{{ $filter['slug'] }}" name="{{ $filter['slug'] }}"
-                                        class="form-select select-beast p-0">
+                                        class="form-select attribute-choice p-0">
                                         <option value=""></option>
-
+                                    
                                         @foreach ($filter['values'] as $value)
-                                            <option value="{{ $value['slug'] }}" @selected(request()->filled($filter['slug']) && request($filter['slug']) === $value['slug'])>
+                                            <option value="{{ $value['slug'] }}"
+                                            @selected(request()->filled($filter['slug']) && request($filter['slug']) === $value['slug'])>
                                                 {{ $value['name'] }}
                                             </option>
                                         @endforeach
@@ -173,7 +210,7 @@
                                 @forelse ($products as $product)
                                     <!--Product Single Start-->
                                     <div class="col-xl-4 col-lg-4 col-md-6 col-6">
-                                        <div class="product__all-single">
+                                        <div class="product__all-single shadow">
 
                                             <div class="product__all-img">
                                                 <a href="{{ route('shop.show', $product->slug) }}">
@@ -284,7 +321,6 @@
         document.addEventListener('DOMContentLoaded', function() {
 
             toggleSidebar();
-            initializTomSelect();
             updatePriceRange();
         });
 
@@ -310,25 +346,6 @@
             });
 
             shopSidebarOverlay.addEventListener('click', closeSidebar);
-        }
-
-        function initializTomSelect() {
-
-            document.querySelectorAll('.select-beast').forEach((select) => {
-                new TomSelect(select, {
-                    create: false,
-                    sortField: {
-                        field: 'text',
-                        direction: 'asc'
-                    },
-                    render: {
-                        no_results: function(data, escape) {
-                            return '<div class="no-results">Няма резултати от търсенето</div>';
-                        }
-                    }
-                });
-            });
-
         }
 
 

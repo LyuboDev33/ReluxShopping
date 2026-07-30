@@ -1,7 +1,7 @@
 <x-frontend>
 
     @section('SEO')
-        <title>Valente Optic | Чекаут</title>
+        <title>Valente Optics | Чекаут</title>
     @endsection
 
 
@@ -39,7 +39,8 @@
                                                 Име <span class="red-dot">*</span>
                                             </label>
 
-                                            <input type="text" name="fname" value="{{ old('fname') }}">
+                                            <input type="text" placeholder="Въведете първото си име" name="fname"
+                                                value="{{ old('fname') }}">
 
                                             @error('fname')
                                                 <div class="text-danger">{{ $message }}</div>
@@ -53,7 +54,8 @@
                                                 Фамилия <span class="red-dot">*</span>
                                             </label>
 
-                                            <input type="text" name="lname" value="{{ old('lname') }}">
+                                            <input type="text" placeholder="Въведете фамилията си" name="lname"
+                                                value="{{ old('lname') }}">
 
                                             @error('lname')
                                                 <div class="text-danger">{{ $message }}</div>
@@ -67,7 +69,8 @@
                                                 Телефон <span class="red-dot">*</span>
                                             </label>
 
-                                            <input type="text" name="phone" value="{{ old('phone') }}">
+                                            <input type="text" placeholder="Въведете телефонен номер" name="phone"
+                                                value="{{ old('phone') }}">
 
                                             @error('phone')
                                                 <div class="text-danger">{{ $message }}</div>
@@ -81,7 +84,8 @@
                                                 Имейл <span class="red-dot">*</span>
                                             </label>
 
-                                            <input type="email" name="email" value="{{ old('email') }}">
+                                            <input type="email" placeholder="Въведете имейл адрес" name="email"
+                                                value="{{ old('email') }}">
 
                                             @error('email')
                                                 <div class="text-danger">{{ $message }}</div>
@@ -116,36 +120,43 @@
                                     </ul>
 
                                     @error('delivery_method')
-                                        <div class="text-danger text-center mt-2">{{ $message }}</div>
+                                        <div class="text-danger text-center mt-2">
+                                            {{ $message }}
+                                        </div>
                                     @enderror
 
                                     @error('delivery')
-                                        <div class="text-danger text-center  mt-2">{{ $message }}</div>
+                                        <div class="text-danger text-center mt-2">
+                                            {{ $message }}
+                                        </div>
                                     @enderror
 
                                     <div class="content mt-4">
-                                        <div class="tab-pane fade {{ old('delivery_method', 'personal') === 'personal' ? 'show active' : '' }}"
-                                            id="personal-delivery" role="tabpanel">
+                                        <div id="personal-delivery"
+                                            class="{{ old('delivery_method', 'personal') === 'personal' ? '' : 'd-none' }}">
 
                                             <div class="row bs-gutter-x-20">
-
                                                 <div class="col-xl-6 col-lg-6">
                                                     <div class="billing_input_box">
                                                         <label>
                                                             Град <span class="red-dot">*</span>
                                                         </label>
 
-                                                        <input type="text" name="city" list="cities-list"
-                                                            value="{{ old('city') }}" autocomplete="off">
+                                                        <select name="city" class="attribute-choice">
+                                                            <option value="">Напишете град и го изберете</option>
 
-                                                        <datalist id="cities-list">
                                                             @foreach ($cities as $city)
-                                                                <option value="{{ $city->name }}"></option>
+                                                                <option value="{{ $city->name }}"
+                                                                    {{ old('city') === $city->name ? 'selected' : '' }}>
+                                                                    {{ $city->name }}
+                                                                </option>
                                                             @endforeach
-                                                        </datalist>
+                                                        </select>
 
                                                         @error('city')
-                                                            <div class="text-danger">{{ $message }}</div>
+                                                            <div class="text-danger">
+                                                                {{ $message }}
+                                                            </div>
                                                         @enderror
                                                     </div>
                                                 </div>
@@ -160,35 +171,38 @@
                                                             value="{{ old('billing_address') }}">
 
                                                         @error('billing_address')
-                                                            <div class="text-danger">{{ $message }}</div>
+                                                            <div class="text-danger">
+                                                                {{ $message }}
+                                                            </div>
                                                         @enderror
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
 
-                                        <div class="{{ old('delivery_method') === 'office' ? 'show active' : '' }}"
-                                            id="office-delivery" role="tabpanel">
+                                        <div id="office-delivery"
+                                            class="{{ old('delivery_method') === 'office' ? '' : 'd-none' }}">
 
                                             <div class="billing_input_box">
                                                 <label>
                                                     Град / офис на Speedy <span class="red-dot">*</span>
                                                 </label>
 
-                                                <input type="text"
-                                                    placeholder="Напишете името на вашия град или офис"
-                                                    name="office_list" value="{{ old('office_list') }}"
-                                                    list="speedy-offices-list">
+                                                <select name="office_list" class="attribute-choice">
+                                                    <option value="">Изберете офис на Speedy</option>
 
-                                                <datalist id="speedy-offices-list">
                                                     @foreach ($speedyOffices as $office)
-                                                        <option
-                                                            value="{{ $office->name }} [{{ $office->office_id }}]">
+                                                        <option value="{{ $office->name }} [{{ $office->office_id }}]"
+                                                            {{ old('office_list') === $office->name . ' [' . $office->office_id . ']' ? 'selected' : '' }}>
+                                                            {{ $office->name }} [{{ $office->office_id }}]
+                                                        </option>
                                                     @endforeach
-                                                </datalist>
+                                                </select>
 
                                                 @error('office_list')
-                                                    <div class="text-danger">{{ $message }}</div>
+                                                    <div class="text-danger">
+                                                        {{ $message }}
+                                                    </div>
                                                 @enderror
                                             </div>
                                         </div>
@@ -441,7 +455,7 @@
 
                                 <div class="checkout-promo-code__controls">
 
-                                    <input type="text" id="promo-code-input" class="form-control"
+                                    <input type="text" id="promo-code-input" class="form-control rounded-pill"
                                         placeholder="Въведете промо код"
                                         value="{{ session('promo_code.promo_code_name', '') }}" autocomplete="off">
 

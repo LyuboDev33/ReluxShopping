@@ -1,11 +1,11 @@
 <x-frontend>
 
     @section('SEO')
-        <title>За нас | Valente Optic</title>
+        <title>За нас | Valente Optics</title>
         <meta name="description"
-            content="Valente Optic — семеен бизнес с над 10 години история и над 19 години опит в оптиката. Качествени очила, индивидуално отношение и професионална консултация в Бургас и Равда.">
+            content="Valente Optics — семеен бизнес с над 10 години история и над 19 години опит в оптиката. Качествени очила, индивидуално отношение и професионална консултация в Бургас и Равда.">
         <meta name="keywords"
-            content="за нас, Valente Optic, семейна оптика, дипломиран оптик, Бургас, Равда, опит в оптиката">
+            content="за нас, Valente Optics, семейна оптика, дипломиран оптик, Бургас, Равда, опит в оптиката">
     @endsection
 
 
@@ -26,7 +26,7 @@
                         </div>
 
                         <p class="about-five__text-1">
-                            <strong>Valente Optic</strong> е семеен бизнес с над 20 години опит в сферата на
+                            <strong>Valente Optics</strong> е семеен бизнес с над 20 години опит в сферата на
                             оптиката. Предлагаме <strong>професионални очни прегледи, консултации,
                                 компютърна диагностика, изработка и сервиз на очила</strong>, съобразени
                             с индивидуалните нужди на всеки клиент.
@@ -83,7 +83,7 @@
                     <div class="about-five__right">
                         <div class="about-five__img-box">
                             <div class="about-five__img">
-                                <img src="/assets/images/about/woman-3.jpg" alt="Valente Optic" />
+                                <img src="/assets/images/about/woman-3.jpg" alt="Valente Optics" />
                             </div>
 
                             <div>
@@ -235,7 +235,7 @@
 
                         <p class="about-five__text-1">
                             Днес продължавам да развивам семейния бизнес
-                            <strong>Valente Optic</strong>, като съчетавам дългогодишния си
+                            <strong>Valente Optics</strong>, като съчетавам дългогодишния си
                             опит с модерни решения и индивидуален подход към всеки клиент.
                         </p>
 
@@ -252,7 +252,7 @@
                         <div class="about-five__img-box">
                             <div class="about-five__img">
                                 <img src="/assets/images/about/about-mariya.jpg"
-                                    alt="Мария Рашева – дипломиран оптик и собственик на Valente Optic" />
+                                    alt="Мария Рашева – дипломиран оптик и собственик на Valente Optics" />
                             </div>
 
                             <div>
@@ -318,7 +318,9 @@
                 <!--Services Two Single Start-->
                 <div class="col-xl-4 col-lg-4">
                     <div class="services-two__img">
-                        <img class="rounded-5" src="/assets/images/about/woman-2.jpg" alt="Valente Optic екип" />
+                        <img class="rounded-5" src="/assets/images/about/woman-2.jpg" alt="Valente Optics дама" />
+                        <img class="rounded-5" src="/assets/images/about/man-1.jpg" alt="Valente Optics мъж" />
+
                     </div>
                 </div>
                 <!--Services Two Single End-->
@@ -391,7 +393,7 @@
                                         <p class="testimonial-showcase__text">
                                             Изключително професионално отношение! Помогнаха ми с избора
                                             на прогресивни стъкла и сега виждам перфектно както отблизо,
-                                            така и отдалече. Препоръчвам Valente Optic с пълна увереност.
+                                            така и отдалече. Препоръчвам Valente Optics с пълна увереност.
                                         </p>
 
                                         <div class="testimonial-showcase__author">
@@ -449,7 +451,7 @@
                                         </div>
 
                                         <p class="testimonial-showcase__text">
-                                            Дъщеря ми получи първите си очила във Valente Optic.
+                                            Дъщеря ми получи първите си очила във Valente Optics.
                                             Екипът намери идеалната рамка за нея, прояви огромно търпение
                                             и сега тя обича да ги носи. Благодаря за професионализма!
                                         </p>
@@ -507,7 +509,8 @@
                     </div>
                 </div>
 
-                <div class="testimonial-showcase__image" role="img" aria-label="Доволен клиент на Valente Optic">
+                <div class="testimonial-showcase__image" role="img"
+                    aria-label="Доволен клиент на Valente Optics">
                     <div class="testimonial-showcase__image-content">
                         <div class="testimonial-showcase__image-badge">
                             <i class="fa-solid fa-star"></i>

@@ -103,7 +103,7 @@
                        </div>
                        <div class="main-menu-two__call-content">
                            <h5 class="main-menu-two__call-number">
-                               <a href="tel:3598770000027">+359 877 000 027</a>
+                               <a href="tel:3598770000027">+359 89 3023731</a>
                            </h5>
                        </div>
                    </div> --}}

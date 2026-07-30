@@ -1,12 +1,57 @@
 <x-frontend>
 
     @section('SEO')
-        <title>Начална страница | Valente Optic</title>
-        <meta name="description"
-            content="Valente Optic — семеен бизнес с над 10 години опит. Диоптрични очила, слънчеви очила, висококачествени стъкла и професионална консултация в Бургас и Равда.">
-        <meta name="keywords"
-            content="оптика, диоптрични очила, слънчеви очила, прогресивни стъкла, Бургас, Равда, Valente Optic">
-    @endsection
+    {{-- Основно SEO --}}
+    <title>Valente Optics | Диоптрични и слънчеви очила в Бургас и Равда</title>
+
+    <meta name="description"
+        content="Valente Optics предлага диоптрични, слънчеви, компютърни и детски очила, качествени стъкла, професионална консултация, компютърна диагностика, изработка и сервиз на очила в Бургас и Равда. Пазарувайте и онлайн с доставка в цяла България.">
+
+    <meta name="keywords"
+        content="Valente Optics, оптика Бургас, оптика Равда, онлайн магазин за очила, диоптрични очила, диоптрични рамки, слънчеви очила, детски очила, компютърни очила, прогресивни стъкла, фотосоларни стъкла, Blue Control, изработка на очила, сервиз на очила, компютърна диагностика">
+
+    <meta name="robots"
+        content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">
+
+    <meta name="googlebot"
+        content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">
+
+    <link rel="canonical" href="{{ url('/') }}">
+
+    {{-- Език и регион --}}
+    <meta property="og:locale" content="bg_BG">
+
+    {{-- Open Graph: Facebook, Messenger, LinkedIn и други --}}
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Valente Optics">
+
+    <meta property="og:title" content="Valente Optics | Всичко за вашето зрение">
+
+    <meta property="og:description" content="Диоптрични, слънчеви, компютърни и детски очила, качествени стъкла и професионална грижа за зрението. Посетете Valente Optics в Бургас и Равда или пазарувайте онлайн.">
+
+    <meta property="og:url" content="{{ url('/') }}">
+    <meta property="og:image" content="{{ asset('assets/images/seo/valente-optics-home.jpg') }}">
+
+    <meta property="og:image:secure_url" content="{{ asset('assets/images/seo/valente-optics-home.jpg') }}">
+    <meta property="og:image:type" content="image/jpeg">
+    <meta property="og:image:alt" content="Valente Optics – диоптрични и слънчеви очила в Бургас и Равда">
+
+    {{-- Twitter / X Card --}}
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Valente Optics | Всичко за вашето зрение">
+    <meta name="twitter:description" content="Открийте диоптрични и слънчеви очила, качествени стъкла, професионална консултация, диагностика, изработка и сервиз на очила.">
+
+    <meta name="twitter:image" content="{{ asset('assets/images/seo/valente-optics-home.jpg') }}">
+    <meta name="twitter:image:alt" content="Valente Optics – очила, стъкла и професионална грижа за зрението">
+
+    {{-- Допълнителна информация --}}
+    <meta name="author" content="Valente Optics">
+    <meta name="application-name" content="Valente Optics">
+    <meta name="theme-color" content="#ffffff">
+
+
+
+@endsection
 
 
     {{-- <div class="preloader">
@@ -24,7 +69,7 @@
                         <div class="main-slider-two__content">
 
                             <p class="main-slider-two__subtitle-custom">
-                                Valente Optic
+                                Valente Optics
                             </p>
 
                             <h2 class="main-slider-two__title main-slider-two__title-custom">
@@ -50,7 +95,7 @@
 
                             <div class="main-slider-two__img-box">
                                 <div>
-                                    <img src="/assets/images/couple.png" alt="Valente Optic — главна снимка">
+                                    <img src="/assets/images/couple.png" alt="Valente Optics — главна снимка">
                                 </div>
                             </div>
 
@@ -159,7 +204,7 @@
                 <div class="col-xl-6">
                     <div class="about-four__left">
                         <div class="about-four__img">
-                            <img src="/assets/images/resources/girl-pic.png" alt="За Valente Optic" />
+                            <img src="/assets/images/resources/girl-pic.png" alt="За Valente Optics" />
                         </div>
                     </div>
                 </div>
@@ -170,7 +215,7 @@
                         <div class="section-title-two text-left sec-title-animation animation-style1">
                             <div class="section-title-two__tagline-box">
                                 <span class="section-title-two__tagline">
-                                    За Valente Optic
+                                    За Valente Optics
                                 </span>
 
                                 <div class="section-title-two__tagline-shape-1"></div>
@@ -182,7 +227,7 @@
                         </div>
 
                         <p class="about-four__text">
-                            <strong>Valente Optic</strong> е семеен бизнес с над 20 години опит в сферата на
+                            <strong>Valente Optics</strong> е семеен бизнес с над 20 години опит в сферата на
                             оптиката. Нашата мисия е да предложим качествени решения за добро зрение,
                             съчетавайки професионална консултация, модерни технологии и богато разнообразие
                             от диоптрични и слънчеви очила за цялото семейство.
@@ -247,7 +292,7 @@
                 @forelse ($products as $product)
                     <!--Product Single Start-->
                     <div class="col-xl-3 col-lg-3 col-md-6 col-6 align-self-start">
-                        <div class="product__all-single">
+                        <div class="product__all-single shadow">
 
                             <div class="product__all-img">
                                 <a href="{{ route('shop.show', $product->slug) }}">
@@ -463,7 +508,7 @@
 
                 <h3 class="cta-one__title">
                     Нуждаете се от професионален съвет? <br>
-                    Разгледайте всички услуги на <a href="/service/konsultaciy-za-ochila">Valente Optic</a>
+                    Разгледайте всички услуги на <a href="/service/konsultaciy-za-ochila">Valente Optics</a>
                 </h3>
 
                 <div class="cta-one__btn-and-video-link">
@@ -781,7 +826,7 @@
                                                 <p class="testimonial-four__text">
                                                     Изключително професионално отношение! Получих помощ при избора на
                                                     прогресивни стъкла, които ми решиха проблема със зрението напълно.
-                                                    Препоръчвам Valente Optic на всеки, който търси качество и истинска
+                                                    Препоръчвам Valente Optics на всеки, който търси качество и истинска
                                                     грижа.
                                                 </p>
 
@@ -862,7 +907,7 @@
                                                 </div>
 
                                                 <p class="testimonial-four__text">
-                                                    Дъщеря ми получи първите си очила във Valente Optic и беше истинско
+                                                    Дъщеря ми получи първите си очила във Valente Optics и беше истинско
                                                     приключение. Екипът намери идеалната рамка за нея и сега тя обича
                                                     да ги носи. Благодаря за търпението и професионализма!
                                                 </p>
@@ -901,25 +946,25 @@
 
     <style>
         .optics-grid {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    width: min(100%, var(--grid-max-width));
-    overflow: hidden;
-    background: #ffffff;
-}
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            width: min(100%, var(--grid-max-width));
+            overflow: hidden;
+            background: #ffffff;
+        }
 
-.optics-card {
-    min-width: 0;
-    overflow: hidden;
-}
+        .optics-card {
+            min-width: 0;
+            overflow: hidden;
+        }
 
-.optics-card img {
-    display: block;
-    width: 100%;
-    height: 100%;
-    aspect-ratio: 1 / 1.075;
-    object-fit: cover;
-}
+        .optics-card img {
+            display: block;
+            width: 100%;
+            height: 100%;
+            aspect-ratio: 1 / 1.075;
+            object-fit: cover;
+        }
     </style>
 
     <script>

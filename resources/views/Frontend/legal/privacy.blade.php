@@ -3,7 +3,66 @@
 
     @section('SEO')
 
-    @endsection
+    {{-- Основно SEO --}}
+    <title>Политика за защита на личните данни | Valente Optics</title>
+
+    <meta name="description"
+        content="Запознайте се с Политиката за защита на личните данни на Valente Optics. Научете как събираме, обработваме и защитаваме Вашите лични данни съгласно Регламент (ЕС) 2016/679 (GDPR).">
+
+    <meta name="keywords"
+        content="GDPR, защита на личните данни, политика за поверителност, Valente Optics, лични данни, бисквитки, обработване на лични данни, права на потребителите, политика за лични данни">
+
+    <meta name="robots"
+        content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">
+
+    <meta name="googlebot"
+        content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">
+
+    <link rel="canonical" href="{{ route('privacy') }}">
+
+    {{-- Език и регион --}}
+    <meta property="og:locale" content="bg_BG">
+
+    {{-- Open Graph --}}
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="Valente Optics">
+
+    <meta property="og:title"
+        content="Условия за защита на личните данни | Valente Optics">
+
+    <meta property="og:description"
+        content="Научете как Valente Optics събира, обработва и защитава Вашите лични данни, както и какви права имате съгласно GDPR.">
+
+    <meta property="og:url"              content="{{ route('privacy') }}">
+    <meta property="og:image"            content="{{ asset('assets/images/seo/valente-optics-home.jpg') }}">
+    <meta property="og:image:secure_url" content="{{ asset('assets/images/seo/valente-optics-home.jpg') }}">
+
+    <meta property="og:image:type" content="image/jpeg">
+
+    <meta property="og:image:alt"
+        content="Условия за защита на личните данни на Valente Optics">
+
+    {{-- Twitter / X Card --}}
+    <meta name="twitter:card" content="summary_large_image">
+
+    <meta name="twitter:title"
+        content="Политика за защита на личните данни | Valente Optics">
+
+    <meta name="twitter:description"
+        content="Информация относно обработването на личните данни, използването на бисквитки и правата на потребителите съгласно GDPR.">
+
+    <meta name="twitter:image"
+        content="{{ asset('assets/images/seo/valente-optics-home.jpg') }}">
+
+    <meta name="twitter:image:alt"
+        content="Политика за защита на личните данни на Valente Optics">
+
+    {{-- Допълнителна информация --}}
+    <meta name="author" content="Valente Optics">
+    <meta name="application-name" content="Valente Optics">
+    <meta name="theme-color" content="#ffffff">
+
+@endsection
 
     <section class="legal-page py-5 terms-page">
         <div class="container">

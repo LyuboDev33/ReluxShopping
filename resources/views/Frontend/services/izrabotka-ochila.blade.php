@@ -1,11 +1,11 @@
 <x-frontend>
 
     @section('SEO')
-        <title>Изработка на диоптрични очила | Valente Optic</title>
+        <title>Изработка на диоптрични очила | Valente Optics</title>
 
         <meta name="description" content="Професионална изработка на диоптрични очила на място. Подбор на рамки и лещи, прецизен монтаж и изработка до 30 минути при налични стъкла.">
-        <meta name="keywords" content="изработка на диоптрични очила, диоптрични очила, монтаж на лещи, изрязване на лещи, диоптрични рамки, фотохромни лещи, антирефлексни лещи, оптика, Valente Optic">
-        <meta name="author" content="Valente Optic">
+        <meta name="keywords" content="изработка на диоптрични очила, диоптрични очила, монтаж на лещи, изрязване на лещи, диоптрични рамки, фотохромни лещи, антирефлексни лещи, оптика, Valente Optics">
+        <meta name="author" content="Valente Optics">
         <meta name="robots" content="index, follow">
 
         <link rel="canonical" href="{{ url()->current() }}">
@@ -13,17 +13,17 @@
         <meta property="og:type" content="website">
         <meta property="og:locale" content="bg_BG">
         <meta property="og:url" content="{{ url()->current() }}">
-        <meta property="og:title" content="Изработка на диоптрични очила | Valente Optic">
+        <meta property="og:title" content="Изработка на диоптрични очила | Valente Optics">
         <meta property="og:description" content="Изработваме диоптрични очила с модерна техника, висок професионализъм и възможност за изработка до 30 минути при налични лещи.">
         <meta property="og:image" content="{{ asset('/assets/images/seo.png') }}">
         <meta property="og:image:secure_url" content="{{ asset('/assets/images/seo.png') }}">
         <meta property="og:image:type" content="image/png">
         <meta property="og:image:width" content="1200">
         <meta property="og:image:height" content="630">
-        <meta property="og:site_name" content="Valente Optic">
+        <meta property="og:site_name" content="Valente Optics">
 
         <meta name="twitter:card" content="summary_large_image">
-        <meta name="twitter:title" content="Изработка на диоптрични очила | Valente Optic">
+        <meta name="twitter:title" content="Изработка на диоптрични очила | Valente Optics">
         <meta name="twitter:description" content="Професионална изработка на диоптрични очила с качествени лещи, прецизен монтаж и обслужване.">
         <meta name="twitter:image" content="{{ asset('/assets/images/seo.png') }}">
     @endsection

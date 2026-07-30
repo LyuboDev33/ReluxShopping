@@ -29,7 +29,7 @@ class OrderCreated extends Mailable
         return new Envelope(
             from: new Address(
                 'office@valenteoptic.com',
-                'Valente Optic - Потвърждение за поръчка'
+                'Valente Optics - Потвърждение за поръчка'
             ),
             subject:
                 'Потвърждение на поръчка #' .

@@ -1,11 +1,11 @@
 <x-frontend>
 
     @section('SEO')
-        <title>Регулиране и обслужване на очила | Valente Optic</title>
+        <title>Регулиране и обслужване на очила | Valente Optics</title>
 
-        <meta name="description" content="Професионално регулиране и обслужване на очила във Valente Optic. Стягане на винтчета, изправяне на рамки, почистване, полиране и настройка за удобно носене.">
-        <meta name="keywords" content="регулиране на очила, обслужване на очила, ремонт на очила, изправяне на рамки, стягане на винтчета, почистване на очила, полиране на рамки, смяна на накрайници, смяна на наносници, оптика, Valente Optic">
-        <meta name="author" content="Valente Optic">
+        <meta name="description" content="Професионално регулиране и обслужване на очила във Valente Optics. Стягане на винтчета, изправяне на рамки, почистване, полиране и настройка за удобно носене.">
+        <meta name="keywords" content="регулиране на очила, обслужване на очила, ремонт на очила, изправяне на рамки, стягане на винтчета, почистване на очила, полиране на рамки, смяна на накрайници, смяна на наносници, оптика, Valente Optics">
+        <meta name="author" content="Valente Optics">
         <meta name="robots" content="index, follow">
 
         <link rel="canonical" href="{{ url()->current() }}">
@@ -13,17 +13,17 @@
         <meta property="og:type" content="website">
         <meta property="og:locale" content="bg_BG">
         <meta property="og:url" content="{{ url()->current() }}">
-        <meta property="og:title" content="Регулиране и обслужване на очила | Valente Optic">
+        <meta property="og:title" content="Регулиране и обслужване на очила | Valente Optics">
         <meta property="og:description" content="Вашите очила се хлъзгат, притискат или са изкривени? Предлагаме професионално регулиране, стягане, почистване и обслужване на рамки.">
         <meta property="og:image" content="{{ asset('/assets/images/seo.png') }}">
         <meta property="og:image:secure_url" content="{{ asset('/assets/images/seo.png') }}">
         <meta property="og:image:type" content="image/png">
         <meta property="og:image:width" content="1200">
         <meta property="og:image:height" content="630">
-        <meta property="og:site_name" content="Valente Optic">
+        <meta property="og:site_name" content="Valente Optics">
 
         <meta name="twitter:card" content="summary_large_image">
-        <meta name="twitter:title" content="Регулиране и обслужване на очила | Valente Optic">
+        <meta name="twitter:title" content="Регулиране и обслужване на очила | Valente Optics">
         <meta name="twitter:description" content="Професионално регулиране, изправяне, почистване и обслужване на очила за повече комфорт и стабилност.">
         <meta name="twitter:image" content="{{ asset('/assets/images/seo.png') }}">
     @endsection

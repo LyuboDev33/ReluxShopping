@@ -681,7 +681,7 @@ Product
     position: relative;
     display: block;
     margin-bottom: 30px;
-    border: 1px solid #000000;
+    /* border: 1px solid #000000; */
     background-color: var(--crank-white);
     padding: 0 10px 10px;
     transition: all 500ms ease;
@@ -809,7 +809,7 @@ Product Details
   position: relative;
     display: block;
     padding: 160px 0px 0px;
-    background: #b99b8342;
+    background: #f7ddba6e;
 }
 
 .product-details__img {
@@ -1622,8 +1622,9 @@ Product Details
 .checkout-page {
     position: relative;
     display: block;
-    padding: 112px 0 120px;
+    padding: 150px 0 120px;
     z-index: 1;
+    background-color: #f7ddba4d;
 }
 
 .checkout-page .billing_details {
@@ -1683,7 +1684,7 @@ Product Details
     height: 45px;
     width: 100%;
     border: none;
-    background-color: rgba(var(--crank-bdr-color-rgb), .50);
+    background-color: white;
     padding-left: 15px;
     padding-right: 15px;
     border-radius: 0px;
@@ -1693,6 +1694,13 @@ Product Details
     display: block;
     font-weight: 400;
     border-radius: 6px;
+    box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .15) !important;
+}
+
+.billing_input_box input[type="text"]::placeholder,
+.billing_input_box input[type="email"]::placeholder,
+.billing_input_box input[type="tel"]::placeholder {
+    color: rgba(0, 0, 0, 0.5);
 }
 
 .billing_details .checked-box {
@@ -1831,6 +1839,7 @@ Product Details
     border: 2px dashed #80808036;
     position: sticky;
     top: 105px;
+    background-color: white;
 }
 
 .your_order h2 {
@@ -1998,7 +2007,7 @@ Product Details
     position: relative;
     display: block;
     background: var(--crank-white);
-    padding: 120px 0px 120px;
+    padding: 120px 0px 170px;
 }
 
 .wishlist-page .table-responsive-box {

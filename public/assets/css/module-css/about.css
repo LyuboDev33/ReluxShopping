@@ -556,7 +556,7 @@
     counter-reset: count;
     padding: 90px 0 70px;
     z-index: 1;
-    background: #f7ddba;
+    background: #f7ddbacc;
     /* background-image: url('/assets/images/about/about.png');
     background-repeat: no-repeat;
     background-size: cover; */
@@ -679,9 +679,7 @@
     display: block;
     padding: 150px 0 0px;
     z-index: 1;
-    background-color: #f7ddba;
-    border-bottom: 4px solid black;
-    border-top: 4px solid #000000;
+    background-color: #f7ddba6e;
 }
 
 .about-five__left {
