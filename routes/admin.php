@@ -1,11 +1,9 @@
 <?php
 
 use App\Http\Controllers\Admin\AdminCategoriesController;
-use App\Http\Controllers\Admin\AdminGlassesController;
 use App\Http\Controllers\Admin\AdminOrdersController;
 use App\Http\Controllers\Admin\AdminProductsController;
 use App\Http\Controllers\Admin\AdminPromoCodesController;
-use App\Http\Controllers\Admin\AdminVisionTypeController;
 use App\Http\Controllers\Admin\ProductAttributesController;
 use Illuminate\Support\Facades\Route;
 
@@ -14,34 +12,6 @@ use Illuminate\Support\Facades\Route;
 Route::prefix('admin')
     ->middleware(['auth'])
     ->group(function () {
-
-        Route::prefix('glasses')->group(function () {
-            Route::get('/', [AdminGlassesController::class, 'index'])->name('admin.glasses.index');
-
-            Route::post('/store', [AdminGlassesController::class, 'storeGlass'])->name('admin.glasses.store');
-            Route::delete('/destroy/{glass}', [AdminGlassesController::class, 'destroyGlass'])->name('admin.glasses.destroy');
-
-            Route::post('/values/store', [AdminGlassesController::class, 'storeGlassValue'])->name('admin.glass-values.store');
-            Route::put('/values/update/{glassValue}', [AdminGlassesController::class, 'updateGlassValue'])->name('admin.glass-values.update');
-            Route::delete('/values/destroy/{glassValue}', [AdminGlassesController::class, 'destroyGlassValue'])->name('admin.glass-values.destroy');
-
-
-            Route::post('/value-lens-indexes/store', [AdminGlassesController::class, 'storeGlassValueLensIndex'])
-            ->name('admin.glass-value-lens-indexes.store');
-
-            Route::put('/value-lens-indexes/update/{glassValueLensIndex}',[AdminGlassesController::class, 'updateGlassValueLensIndex'])
-            ->name('admin.glass-value-lens-indexes.update');
-
-            Route::delete('/value-lens-indexes/destroy/{glassValueLensIndex}',[AdminGlassesController::class, 'destroyGlassValueLensIndex'])
-            ->name('admin.glass-value-lens-indexes.destroy');
-        });
-
-        Route::prefix('/vision-type')->group(function () {
-            Route::post('/store', [AdminVisionTypeController::class, 'store'])->name('admin.vision-types.store');
-            Route::put('/update/{visionType}', [AdminVisionTypeController::class, 'update'])->name('admin.vision-types.update');
-            Route::delete('/destroy/{visionType}', [AdminVisionTypeController::class, 'destroy'])->name('admin.vision-types.destroy');
-        });
-
 
         Route::prefix('promo-codes')->group(function () {
             Route::get('/', [AdminPromoCodesController::class, 'index'])->name('admin.promocodes.index');

@@ -28,8 +28,6 @@ class FrontEndController extends Controller
         }
 
         return view('Frontend.welcome', [
-            'brands'  => $this->brand1(),
-            'brands2' => $this->brand2(),
             'products' => $products,
         ]);
     }

@@ -31,16 +31,10 @@
     <link rel="apple-touch-icon" sizes="180x180"
         href="/assets/images/favicons/apple-touch-icon.png?v=<?php echo time(); ?>" />
 
-    <link rel="manifest"
-        href="/assets/images/favicons/site.webmanifest?v=<?php echo time(); ?>" />
-
     {{-- CSS --}}
     <link rel="stylesheet" href="/assets/css/bootstrap.min.css?v=<?php echo time(); ?>" />
-    <link rel="stylesheet" href="/assets/css/font-awesome-all.css?v=<?php echo time(); ?>" />
-    <link rel="stylesheet" href="/assets/css/style.css?v=<?php echo time(); ?>" />
-    <link rel="stylesheet" href="/assets/css/responsive.css?v=<?php echo time(); ?>" />
     <link rel="stylesheet" href="/assets/css/custom.css?v=<?php echo time(); ?>" />
-        <link rel="stylesheet" href="/assets/css/shop.css?v=<?php echo time(); ?>" />
+
 
 </head>
 
@@ -55,7 +49,7 @@
 
                     <div class="text-center">
                         <div class="auth__logo">
-                            <x-logo width="200" />
+                            <x-logo width="120" />
                         </div>
 
                         <div class="auth__title">
@@ -156,9 +150,9 @@
             <div
                 class="auth__side auth__side--right"
                 style="
-                    background-image:url('{{ asset('/assets/images/login-illustration.jpg') }}');
+                    background-image:url('{{ asset('/assets/img/slider1-mirora1-1920x634.jpg') }}');
                     background-size:cover;
-                    background-position:top;
+                    background-position:left;
                 ">
             </div>
 

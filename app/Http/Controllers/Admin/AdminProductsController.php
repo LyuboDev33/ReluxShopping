@@ -116,9 +116,7 @@ class AdminProductsController extends Controller
             $selectedAttributes[$attributeValue->attribute_type_id] = $attributeValue->value;
         }
 
-        $glasses = Glass::with('values')
-            ->orderByDesc('id')
-            ->get();
+
 
         return view('admin.Products.Show', [
             'product'                   => $product,
@@ -126,7 +124,6 @@ class AdminProductsController extends Controller
             'attributeTypes'            => $attributeTypes,
             'selectedAttributeValueIds' => $selectedAttributeValueIds,
             'selectedAttributes'        => $selectedAttributes,
-            'glasses'                   => $glasses,
         ]);
     }
 
@@ -372,7 +369,7 @@ class AdminProductsController extends Controller
             fn (string $galleryImage): bool => $galleryImage !== $imageName
         )
     );
-    
+
     $imagePath = public_path(
         'assets/images/product_gallery/' . $imageName
     );

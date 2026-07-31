@@ -1,113 +1,49 @@
-   <nav class="main-menu main-menu-two">
-       <div class="main-menu-two__wrapper">
-           <div class="main-menu-two__wrapper-inner container">
-               <div class="main-menu-two__left">
-                   <div class="main-header-two__logo">
-                       <x-logo width="250" mobileWidth="150" />
-                   </div>
-               </div>
-               <div class="main-menu-two__main-menu-box">
+<ul class="mainmenu">
+    <li class="mainmenu__item active menu-item-has-children has-children">
+        <a href="/" class="mainmenu__link">
+            Home
+        </a>
 
-                   <ul class="main-menu__list">
+        <ul class="sub-menu">
+            <li>
+                <a href="/">Home 1</a>
+            </li>
 
-                       <li>
-                           <a href="/">Начало</a>
-                       </li>
+            <li>
+                <a href="index-2.html">Home 2</a>
+            </li>
 
-                       <li>
-                           <a href="/about">За нас</a>
-                       </li>
+            <li>
+                <a href="index-3.html">Home 3</a>
+            </li>
 
-                       <li class="dropdown">
-                           <a>Услуги</a>
-                           <ul>
-                               <li>
-                                   <a href="/service/konsultaciy-za-ochila">
-                                       Консултация за очила
-                                   </a>
-                               </li>
+            <li>
+                <a href="index-4.html">Home 4</a>
+            </li>
+        </ul>
+    </li>
 
-                               <li>
-                                   <a href="/service/kompiutarna-diagnostika">
-                                       Компютърна диагностика
-                                   </a>
-                               </li>
+    <li class="mainmenu__item menu-item-has-children has-children">
+        <a href="{{ route('shop.index') }}" class="mainmenu__link">
+            Магазин
+        </a>
 
-                               <li>
-                                   <a href="/service/izrabotka-ochila">
-                                       Изработка на очила
-                                   </a>
-                               </li>
+        <ul class="sub-menu">
+            <li>
+                <a href="{{ route('cart') }}">Количка</a>
+            </li>
+        </ul>
+    </li>
 
-                               <li>
-                                   <a href="/service/regulirane-serviz-ochila">
-                                       Регулиране и сервиз на очила
-                                   </a>
-                               </li>
-                           </ul>
-                       </li>
+    <li class="mainmenu__item">
+        <a href="{{ route('about') }}" class="mainmenu__link">
+            За нас
+        </a>
+    </li>
 
-                       <li class="dropdown">
-                           <a href="/shop">Магазин</a>
-                           <ul>
-                               <li>
-                                   <a href="/shop/category/dioptricni-ramki">
-                                       Диоптрични рамки
-                                   </a>
-                               </li>
-
-                                     <li>
-                                   <a href="/shop/category/slunchevi-ochila">
-                                       Слънчеви очила
-                                   </a>
-                               </li>
-
-                           </ul>
-                       </li>
-
-
-                       <li>
-                           <a href="/contact">Контакти</a>
-                       </li>
-
-                   </ul>
-
-
-               </div>
-               <div class="d-flex gap-2 align-items-center">
-                   <a href="{{ route('wishlist') }}" class="cart numb">
-                       <img class="heart" src="{{ asset('/assets/images/heart.png') }}" alt="Heart">
-
-                       <span class="wishlist-count">
-                           {{ count(session('wishlist', [])) }}
-                       </span>
-
-                   </a>
-                   <a href="/cart" class="cart numb">
-                       <img class="shopping-cart" src="{{ asset('/assets/images/shopping.png') }}" alt="Shopping cart">
-
-                       <span>
-                           {{ count(session('products', [])) }}
-                       </span>
-
-                   </a>
-                   @if (Auth::check())
-                       <a href="{{ route('dashboard') }}">Табло</a>
-                   @endif
-                   <a href="#" class="mobile-nav__toggler">
-                       <i class="fa fa-bars"></i>
-                   </a>
-                   {{-- <div class="main-menu-two__right">
-                       <div class="main-menu-two__call-icon">
-                           <i class="icon-phone"></i>
-                       </div>
-                       <div class="main-menu-two__call-content">
-                           <h5 class="main-menu-two__call-number">
-                               <a href="tel:3598770000027">+359 89 3023731</a>
-                           </h5>
-                       </div>
-                   </div> --}}
-               </div>
-           </div>
-       </div>
-   </nav>
+    <li class="mainmenu__item">
+        <a href="{{ route('contact') }}" class="mainmenu__link">
+            Контакти
+        </a>
+    </li>
+</ul>

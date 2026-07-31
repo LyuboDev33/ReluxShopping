@@ -3,7 +3,7 @@
 
         <div class="dashboard-header__left">
             <button type="button" class="dashboard-header__sidebar-toggle" data-sidebar-toggle aria-label="Меню">
-                <i class="fa fa-bars text-white"></i>
+             <i class="fa-solid fa-bars"></i>
             </button>
 
         </div>
@@ -13,7 +13,7 @@
             <div class="dashboard-dropdown">
                 <a href="#" class="dashboard-dropdown__toggle" data-dropdown-toggle>
                     <span class="dashboard-dropdown__avatar">
-                        <img src="{{ Auth::user()->profile_pic ?? '/assets/images/avatar-default.png' }}"
+                        <img src="{{ Auth::user()->profile_pic ?? '/assets/img/avatar-default.webp' }}"
                              alt="{{ Auth::user()->name }}" />
                     </span>
                     <span class="dashboard-dropdown__name">

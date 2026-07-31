@@ -7,14 +7,14 @@
     <img
         class="d-none d-md-block rounded-pill"
         width="{{ $width }}"
-        src="{{ asset('/assets/images/logo-valente.png') }}?v={{ time() }}"
-        alt="Valente Logo"
+        src="{{ asset('/assets/img/logo-relux.png') }}?v={{ time() }}"
+        alt="Relux Logo"
     >
 
     <img
         class="d-block d-md-none rounded-pill"
         width="{{ $mobileWidth }}"
-        src="{{ asset('/assets/images/logo-valente.png') }}?v={{ time() }}"
-        alt="Valente Logo"
+        src="{{ asset('/assets/img/logo-relux.png') }}?v={{ time() }}"
+        alt="Relux Logo"
     >
 </a>

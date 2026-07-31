@@ -34,7 +34,7 @@
                     </label>
 
                     <input type="text" name="name" id="categoryName"
-                        class="form-control @error('name') is-invalid @enderror" placeholder="Напр. Слънчеви очила"
+                        class="form-control w-100 @error('name') is-invalid @enderror" placeholder="Напр. Слънчеви очила"
                         value="{{ old('name') }}" required />
 
                     @error('name')

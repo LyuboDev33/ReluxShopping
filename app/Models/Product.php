@@ -15,7 +15,6 @@ class Product extends Model
         'slug',
         'stock',
         'discount',
-        'can_buy_with_lenses',
         'category_id',
         'description',
         'price',
@@ -57,19 +56,6 @@ class Product extends Model
             'parent_product_id'
         );
     }
-
-
-    public function glassValues()
-    {
-        return $this->belongsToMany(
-            GlassValue::class,
-            'glass_value_product',
-            'product_id',
-            'glass_value_id'
-        )->withPivot('price')->withTimestamps();
-    }
-
-
 
 
 

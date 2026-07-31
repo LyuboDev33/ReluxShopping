@@ -11,22 +11,12 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     {{-- FAVICONS --}}
-    <link rel="icon" type="image/png" href="/assets/images/favicons/favicon-96x96.png?v=<?php echo time(); ?>"
-        sizes="96x96" />
-    <link rel="icon" type="image/svg+xml"
-        href="/assets/images/favicons/transparent-image.png?v=<?php echo time(); ?>" />
-    <link rel="shortcut icon" href="/assets/images/favicons/favicon-96x96.png?v=<?php echo time(); ?>" />
-    <link rel="apple-touch-icon" sizes="180x180"
-        href="/assets/images/favicons/apple-touch-icon.png?v=<?php echo time(); ?>" />
-    <link rel="manifest" href="/assets/images/favicons/site.webmanifest?v=<?php echo time(); ?>" />
+
+    <link rel="icon" sizes="180x180"
+        href="/assets/img/logo-relux.png?v=<?php echo time(); ?>" />
 
     {{-- CORE CSS --}}
     <link rel="stylesheet" href="/assets/css/bootstrap.min.css?v=<?php echo time(); ?>" />
-
-    <link rel="stylesheet" href="/assets/css/style.css?v=<?php echo time(); ?>" />
-    <link rel="stylesheet" href="/assets/css/shop.css?v=<?php echo time(); ?>" />
-    <link rel="stylesheet" href="/assets/css/responsive.css?v=<?php echo time(); ?>" />
-    <link rel="stylesheet" href="/assets/css/custom.css?v=<?php echo time(); ?>" />
 
     <link rel="stylesheet" href="/assets/css/dashboard.css?v=<?php echo time(); ?>" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
@@ -38,7 +28,7 @@
     <script src="https://cdn.tiny.cloud/1/v2rtxhtgnbmw7x4hswnvpvejzuaankjl6lfde5n3swkjawjo/tinymce/8/tinymce.min.js"
         referrerpolicy="origin" crossorigin="anonymous"></script>
 
-    <script src="/assets/js/jquery-3.6.0.min.js?v=<?php echo time(); ?>"></script>
+    <script src="/assets/js/vendor/jquery.min.js?v=<?php echo time(); ?>"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script>
 
@@ -65,8 +55,6 @@
 
     </div>
     <script src="/assets/js/bootstrap.bundle.min.js?v=<?php echo time(); ?>"></script>
-    <script src="/assets/js/jarallax.min.js?v=<?php echo time(); ?>"></script>
-
 
     <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.1/dist/fancybox/fancybox.umd.js"></script>
     <script src="https://unpkg.com/dropzone@5/dist/min/dropzone.min.js"></script>

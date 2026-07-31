@@ -1,274 +1,149 @@
-<!--Site Footer Start-->
-<footer class="site-footer site-footer-two site-footer-four">
-    <div class="site-footer__wrap">
-        <div class="site-footer-two__shape-1"></div>
-        <div class="site-footer-two__shape-2"></div>
-
-        <div class="site-footer__top">
+      <!-- Footer Start -->
+        <footer class="footer border-top ptb--40 ptb-md--30">
             <div class="container">
-                <div class="site-footer__top-inner">
-                    <div class="row">
-
-                        <!-- Logo + Contacts -->
-                        <div class="col-xl-4 col-lg-6 col-md-6 wow fadeInUp" data-wow-delay="100ms">
-                            <div class="footer-widget__about">
-
-                                {{-- <div class="footer-widget__about-logo">
-                                    <x-logo width="250" mobileWidth="150" />
-                                </div> --}}
-
-                                <div class="footer-widget__contact-info">
-                                    <ul class="footer-widget__contact-list list-unstyled">
-
-                                        <li>
-                                            <div class="footer-widget__contact-icon-box">
-                                                <span class="icon-pin"></span>
-                                                <p>Равда</p>
-                                            </div>
-
-                                            <p class="footer-widget__contact-text">
-                                                ул. „Македония“ 20, 8238 Равда
-                                            </p>
-                                        </li>
-
-                                        <li>
-                                            <div class="footer-widget__contact-icon-box">
-                                                <span class="icon-phone"></span>
-                                                <p>Телефон</p>
-                                            </div>
-
-                                            <p class="footer-widget__contact-text">
-                                                <a href="tel:+359893023731">
-                                                    +359 89 3023731
-                                                </a>
-                                            </p>
-                                        </li>
-
-                                        <li>
-                                            <div class="footer-widget__contact-icon-box">
-                                                <span class="icon-mail"></span>
-                                                <p>Имейл</p>
-                                            </div>
-
-                                            <p class="footer-widget__contact-text">
-                                                <a href="mailto:info@valenteoptic.bg">
-                                                    info@valenteoptic.bg
-                                                </a>
-                                            </p>
-                                        </li>
-
-                                    </ul>
+                <div class="row mb--40 mb-md--30">
+                    <div class="col-lg-4 col-md-6 mb-md--30">
+                        <div class="footer-widget">
+                            <h3 class="widget-title">About Mirora</h3>
+                            <div class="widget-content mb--20">
+                                <p>Address: 123 Main Street, Anytown, <br> CA 12345 - USA.</p>
+                                <p>Phone: (012) 800 456 789</p>
+                                <p>Fax: (012) 800 456 789</p>
+                                <p>Email: Contact@plazathemes.com</p>
+                            </div>
+                            <ul class="social social-round">
+                                <li class="social__item">
+                                    <a class="social__link"  href="https://facebook.com" target="_blank" rel="noopener noreferrer">
+                                        <i class="fa fa-facebook"></i>
+                                    </a>
+                                </li>
+                                <li class="social__item">
+                                    <a class="social__link"  href="https://twitter.com" target="_blank" rel="noopener noreferrer">
+                                        <i class="fa fa-twitter"></i>
+                                    </a>
+                                </li>
+                                <li class="social__item">
+                                    <a class="social__link"  href="https://youtube.com" target="_blank" rel="noopener noreferrer">
+                                        <i class="fa fa-youtube"></i>
+                                    </a>
+                                </li>
+                                <li class="social__item">
+                                    <a class="social__link"  href="https://instagram.com" target="_blank" rel="noopener noreferrer">
+                                        <i class="fa fa-instagram"></i>
+                                    </a>
+                                </li>
+                                <li class="social__item">
+                                    <a class="social__link"  href="https://plus.google.com" target="_blank" rel="noopener noreferrer">
+                                        <i class="fa fa-google-plus"></i>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-lg-2 col-md-6 mb-md--30">
+                        <div class="footer-widget">
+                            <h3 class="widget-title">Information</h3>
+                            <ul class="widget-menu">
+                                <li><a href="">About Us</a></li>
+                                <li><a href="">Delivery Information</a></li>
+                                <li><a href="">Privacy Policy</a></li>
+                                <li><a href="">Terms &amp; Conditions</a></li>
+                                <li><a href="">Gift Certificates</a></li>
+                                <li><a href="">Contact Us</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-lg-2 col-md-6 mb-sm--30">
+                        <div class="footer-widget">
+                            <h3 class="widget-title">Extras</h3>
+                            <ul class="widget-menu">
+                                <li><a href="">Brands</a></li>
+                                <li><a href="">Gift Certificates</a></li>
+                                <li><a href="">Affiliate</a></li>
+                                <li><a href="">Specials</a></li>
+                                <li><a href="">My Account</a></li>
+                                <li><a href="">Returns</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6">
+                        <div class="footer-widget">
+                            <h3 class="widget-title">Custom Products</h3>
+                            <div class="widget-product">
+                                <div class="product">
+                                    <div class="product-img">
+                                        <img src="assets/img/products/11-450x450.jpg" alt="products">
+                                    </div>
+                                    <div class="product-content">
+                                        <div class="product-rating">
+                                            <span>
+                                                <i class="fa fa-star theme-star"></i>
+                                                <i class="fa fa-star theme-star"></i>
+                                                <i class="fa fa-star theme-star"></i>
+                                                <i class="fa fa-star theme-star"></i>
+                                                <i class="fa fa-star"></i>
+                                            </span>
+                                        </div>
+                                        <h4 class="product-title">
+                                            <a href="product-details.html" tabindex="0">Acer Aspire E 15</a>
+                                        </h4>
+                                        <div class="product-price-wrapper">
+                                            <span class="money">$550.00</span>
+                                            <span class="product-price-old">
+                                                <span class="money">$700.00</span>
+                                            </span>
+                                        </div>
+                                    </div>
                                 </div>
-
+                                <div class="product">
+                                    <div class="product-img">
+                                        <img src="assets/img/products/11-450x450.jpg" alt="products">
+                                    </div>
+                                    <div class="product-content">
+                                        <div class="product-rating">
+                                            <span>
+                                                <i class="fa fa-star theme-star"></i>
+                                                <i class="fa fa-star theme-star"></i>
+                                                <i class="fa fa-star theme-star"></i>
+                                                <i class="fa fa-star theme-star"></i>
+                                                <i class="fa fa-star"></i>
+                                            </span>
+                                        </div>
+                                        <h4 class="product-title">
+                                            <a href="product-details.html" tabindex="0">Acer Aspire E 15</a>
+                                        </h4>
+                                        <div class="product-price-wrapper">
+                                            <span class="money">$550.00</span>
+                                            <span class="product-price-old">
+                                                <span class="money">$700.00</span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-
-                        <!-- Pages -->
-                        <div class="col-xl-4 col-lg-6 col-md-6 wow fadeInUp" data-wow-delay="200ms">
-                            <div class="footer-widget__page-link">
-
-                                <h4 class="footer-widget__title">
-                                    Бързи връзки
-                                </h4>
-
-                                <ul class="footer-widget__page-link-list list-unstyled">
-
-                                    <li>
-                                        <a href="/">
-                                            <span class="icon-double-arrow-right"></span>
-                                            <p>Начало</p>
-                                        </a>
-                                    </li>
-
-                                    <li>
-                                        <a href="/about">
-                                            <span class="icon-double-arrow-right"></span>
-                                            <p>За нас</p>
-                                        </a>
-                                    </li>
-
-                                    <li>
-                                        <a href="/shop">
-                                            <span class="icon-double-arrow-right"></span>
-                                            <p>Магазин</p>
-                                        </a>
-                                    </li>
-
-
-                                    <li>
-                                        <a href="/contact">
-                                            <span class="icon-double-arrow-right"></span>
-                                            <p>Контакти</p>
-                                        </a>
-                                    </li>
-
-                                </ul>
-
-                            </div>
-                        </div>
-
-                        <!-- Services -->
-                        <div class="col-xl-4 col-lg-6 col-md-6 wow fadeInUp" data-wow-delay="300ms">
-                            <div class="footer-widget__social-box">
-
-                                <h4 class="footer-widget__title">
-                                    Социални мрежи
-                                </h4>
-
-                                <p class="footer-widget__social-text mt-0">
-                                    Последвайте ни в социалните мрежи
-                                </p>
-
-                                <div class="footer-widget__social">
-
-                                    <a target="_blank" href="https://www.facebook.com/valente.optic">
-                                        <i class="fa-brands fa-facebook"></i>
-                                    </a>
-
-                                    <a target="_blank" href="https://www.tiktok.com/@valenteoptic.burgas">
-                                        <i class="fa-brands fa-tiktok"></i>
-                                    </a>
-
-
-
-                                </div>
-
-                            </div>
-                        </div>
-
-                        <!-- Working Hours -->
-                        {{-- <div class="col-xl-3 col-lg-6 col-md-6 wow fadeInUp" data-wow-delay="400ms">
-                            <div class="site-footer-four__contact-box">
-
-                                <h4 class="site-footer-four__contact-title">
-                                    Работно време
-                                </h4>
-
-                                <ul class="list-unstyled site-footer-four__contact-time">
-                                    <li>Понеделник – Петък: 09:00 – 18:30</li>
-                                    <li>Събота: 09:00 – 14:00</li>
-                                    <li>Неделя: Почивен ден</li>
-                                </ul>
-
-                                <div class="site-footer-four__btn-box">
-                                    <a href="/contact" class="thm-btn">
-                                        Контакти
-                                        <span class="icon-arrow-up-right"></span>
-                                    </a>
-                                </div>
-
-                            </div>
-                        </div> --}}
-
                     </div>
                 </div>
-                {{-- <div class="optics-grid container">
-
-                    <div class="try-models-card">
-
-                        <div class="try-models-card__content">
-                            <p class="try-models-card__script">Избери</p>
-
-                            <div class="try-models-card__middle">
-                                <div class="try-models-card__small-text">
-                                    <span>до</span>
-                                    <span>модела</span>
-                                </div>
-
-                                <span class="try-models-card__number">2</span>
-                            </div>
-                        </div>
-
-                        <div class="try-models-card__image">
-                            <img src="/assets/images/grid-welcome/grid-1.jpg" alt="Два модела очила">
-                        </div>
+                <div class="row mb--40 mb-md--30">
+                    <div class="col-12">
+                        <ul class="footer-menu">
+                            <li><a href="">Home</a></li>
+                            <li><a href="">Online Store</a></li>
+                            <li><a href="">Promotion</a></li>
+                            <li><a href="">Privacy Policy</a></li>
+                            <li><a href="">Terms Of Use</a></li>
+                            <li><a href="">Sitemap</a></li>
+                            <li><a href="">Support</a></li>
+                            <li><a href="">Contacts</a></li>
+                        </ul>
                     </div>
-
-                    <article class="optics-card">
-                        <img src="/assets/images/grid-welcome/grid-2.jpg" alt="Избор на очила">
-                    </article>
-
-                    <article class="optics-card">
-                        <img src="/assets/images/grid-welcome/grid-3.jpg" alt="Преглед и проба при избор">
-                    </article>
-
-                    <article class="optics-card">
-                        <img src="/assets/images/grid-welcome/grid-4.jpg" alt="Пробвай с куриерска фирма">
-                    </article>
-
-                    <article class="optics-card">
-                        <img src="/assets/images/grid-welcome/grid-5.jpg" alt="Лесно, удобно, за теб">
-                    </article>
-
-                    <article class="optics-card">
-                        <img src="/assets/images/grid-welcome/grid-6.jpg" alt="Плащаш само избраното">
-                    </article>
-
-                    <article class="optics-card">
-                        <img src="/assets/images/grid-welcome/grid-7.jpg" alt="Останалите модели връщаш">
-                    </article>
-
-                    <article class="optics-card">
-                        <img src="/assets/images/grid-welcome/grid-8.jpg" alt="Твоят стил, твоят избор">
-                    </article>
-
-                    <article class="optics-card">
-                        <img src="/assets/images/grid-welcome/grid-9.jpg" alt="Спокойствие при всяка поръчка">
-                    </article>
-                </div> --}}
-            </div>
-        </div>
-
-        <!-- Bottom -->
-        <div class="site-footer__bottom">
-            <div class="container">
-
+                </div>
                 <div class="row">
-                    <div class="col-xl-12">
-
-                        <div class="site-footer__bottom-inner">
-
-                            <div class="site-footer__copyright">
-                                <p class="site-footer__copyright-text">
-                                    © {{ date('Y') }}
-                                    <a href="/">
-                                        Valente Optics
-                                    </a>
-                                    . Всички права запазени.
-                                </p>
-                            </div>
-
-                            <div class="site-footer__bottom-menu-box">
-                                <ul class="list-unstyled site-footer__bottom-menu">
-
-                                    <li>
-                                        <a href="{{ route('conditions') }}">
-                                            Общи условия
-                                        </a>
-                                    </li>
-
-                                    <li>
-                                        <a href="{{ route('privacy') }}">
-                                            Политика за поверителност
-                                        </a>
-                                    </li>
-
-                                    <li>
-                                        <a href="/contact">
-                                            Контакти
-                                        </a>
-                                    </li>
-
-                                </ul>
-                            </div>
-
-                        </div>
-
+                    <div class="col-12 text-center">
+                        <p class="copyright-text">&copy; Mirora 2021 Made With <i class="fa fa-heart"></i> BY <a href="https://hasthemes.com">HasThemes</a> </p>
+                        <img src="assets/img/others/payment.png" alt="payment">
                     </div>
                 </div>
-
             </div>
-        </div>
-    </div>
-</footer>
-<!--Site Footer End-->
+        </footer>
+        <!-- Footer End -->

@@ -2,7 +2,7 @@
 
     <div class="dashboard-sidebar__header">
         <a href="{{ route('dashboard') }}" class="dashboard-sidebar__logo">
-            <x-logo width="150" />
+            <x-logo width="100" />
         </a>
 
         <button type="button" class="dashboard-sidebar__close" data-sidebar-close aria-label="Затвори">
@@ -57,15 +57,6 @@
                     <span>Продукти</span>
                 </a>
             </li>
-
-            <li>
-                <a href="{{ route('admin.glasses.index') }}"
-                    class="{{ request()->routeIs('admin.glasses.index') ? 'is-active' : '' }}">
-                  <i class="fa-solid fa-glasses"></i>
-                    <span>Стъкла</span>
-                </a>
-            </li>
-
 
             <li>
                 <a href="{{ route('admin.promocodes.index') }}"

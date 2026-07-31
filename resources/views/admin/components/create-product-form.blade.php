@@ -11,8 +11,8 @@
             <input type="text" name="name" class="form-control" value="{{ old('name') }}" required>
         </div>
 
-        <div class="col-lg-3">
-            <label>SKU</label>
+        <div class="col-lg-2">
+            <label>Каталожен номер</label>
             <input type="text" name="sku" class="form-control" required>
         </div>
 
@@ -29,7 +29,7 @@
             </select>
         </div>
 
-        <div class="col-lg-1">
+        <div class="col-lg-2">
             <label>Наличност</label>
             <input type="number" name="stock" class="form-control" value="{{ old('stock') }}">
         </div>
