@@ -85,7 +85,7 @@
                     <div class="product__sidebar">
 
 
-                        <form method="GET" class="shop-category product__sidebar-single">
+                        <form method="GET" class="shop-category product__sidebar-single relux-about-section__content">
                             <h3 class="product__sidebar-title text-center">Филтри</h3>
 
 
@@ -98,7 +98,7 @@
                                     <select id="filter-{{ $filter['slug'] }}" name="{{ $filter['slug'] }}"
                                         class="form-select attribute-choice p-0">
                                         <option value=""></option>
-                                    
+
                                         @foreach ($filter['values'] as $value)
                                             <option value="{{ $value['slug'] }}"
                                             @selected(request()->filled($filter['slug']) && request($filter['slug']) === $value['slug'])>
@@ -141,7 +141,7 @@
                         </form>
 
 
-                        <div class="shop-category product__sidebar-single">
+                        <div class="shop-category product__sidebar-single relux-about-section__content">
                             <h3 class="product__sidebar-title">Категории</h3>
 
                             <ul class="list-unstyled shop-category__tree">
@@ -171,7 +171,7 @@
                         <div class="row">
                             <div class="col-xl-12">
 
-                                <nav class="shop-breadcrumb rounded-pill bg-dark w-fit p-3 mb-3 mt-3"
+                                <nav class="shop-breadcrumb rounded-pill bg-white w-fit p-3 mb-5 mt-5"
                                     aria-label="Навигация">
                                     <a href="{{ route('shop.index') }}">
                                         Магазин
@@ -207,10 +207,11 @@
                         <div class="product__all">
                             <div class="row">
 
+                                {{-- Foreach all Products --}}
                                 @forelse ($products as $product)
                                     <!--Product Single Start-->
                                     <div class="col-xl-4 col-lg-4 col-md-6 col-6">
-                                        <div class="product__all-single shadow">
+                                        <div class="product__all-single shadow relux-about-section__content">
 
                                             <div class="product__all-img">
                                                 <a href="{{ route('shop.show', $product->slug) }}">
@@ -269,7 +270,7 @@
 
                                                     @csrf
 
-                                                    <a class="thm-btn product__all-btn p-2"
+                                                    <a class="thm-btn product__all-btn p-2 bg-white"
                                                         href="{{ route('shop.show', $product->slug) }}">
                                                         Разгледай
                                                     </a>

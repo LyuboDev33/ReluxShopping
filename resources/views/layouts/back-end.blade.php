@@ -12,13 +12,17 @@
 
     {{-- FAVICONS --}}
 
-    <link rel="icon" sizes="180x180"
-        href="/assets/img/logo-relux.png?v=<?php echo time(); ?>" />
+    <link rel="icon" sizes="180x180" href="/assets/img/logo-relux.png?v=<?php echo time(); ?>" />
 
     {{-- CORE CSS --}}
     <link rel="stylesheet" href="/assets/css/bootstrap.min.css?v=<?php echo time(); ?>" />
 
     <link rel="stylesheet" href="/assets/css/dashboard.css?v=<?php echo time(); ?>" />
+
+    <link rel="stylesheet" href="/assets/css/shop.css?v=<?php echo time(); ?>" />
+
+
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
         integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />

@@ -3,18 +3,7 @@
     <div class="d-flex flex-column flex-md-row gap-3 justify-content-between">
         <h3>Редактиране на продукт: <br> {{ $product->name }}</h3>
         <div class="d-flex flex-column flex-md-row gap-3 align-items-start">
-            <form action="{{ route('admin.products.toggle-lenses', $product) }}" method="POST" class="toggle">
-                @csrf
 
-                @method('PATCH')
-
-                <p class="mb-0">Закупуване на стъкла</p>
-
-                <input type="checkbox" id="can_buy_with_lenses" name="can_buy_with_lenses" value="1"
-                    onchange="this.form.submit()" {{ $product->can_buy_with_lenses ? 'checked' : '' }}>
-
-                <label for="can_buy_with_lenses"></label>
-            </form>
 
             <a target="_blank" class="btn btn-info p-2 rounded-5 text-white"
                 href="{{ route('shop.show', $product->slug) }}">

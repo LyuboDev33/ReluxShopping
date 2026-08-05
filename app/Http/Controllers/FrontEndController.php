@@ -28,6 +28,7 @@ class FrontEndController extends Controller
         }
 
         return view('Frontend.welcome', [
+            'brands'   => $this->brand1(),
             'products' => $products,
         ]);
     }
@@ -83,7 +84,7 @@ class FrontEndController extends Controller
      */
     private function brand1(): array
     {
-        return File::files(public_path('assets/images/brands'));
+        return File::files(public_path('assets/img/brands'));
     }
 
     /**
@@ -93,6 +94,6 @@ class FrontEndController extends Controller
      */
     private function brand2(): array
     {
-        return File::files(public_path('assets/images/brands_2'));
+        return File::files(public_path('assets/img/brands_2'));
     }
 }

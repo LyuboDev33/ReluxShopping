@@ -53,9 +53,9 @@
 
     <!-- Main Content Wrapper Start -->
     <div class="main-content-wrapper">
-        <!-- Slider area Start -->
 
-        <div class="slider-area">
+        <!-- Slider area Start -->
+        <section class="slider-area">
             <div class="homepage-slider">
                 <!-- Single Slide Start -->
                 <div class="single-slider content-v-center"
@@ -111,13 +111,162 @@
                 </div>
                 <!-- Single Slide End -->
             </div>
-        </div>
-
+        </section>
         <!-- Slider area End -->
 
-        <!-- Promo Box area Start -->
 
-        <div class="promo-box-area border-bottom ptb--80 ptb-md--60">
+        <!-- Main Wrapper Start -->
+        <section class="main-content-wrapper container">
+            <div class="about-area bg--dark-3 mt--40 mt-sm--30">
+                <div class="container-fluid p-0">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col-xl-6">
+                            <div class="img-box text-center">
+                                <img src="assets/img/about/about-us-img1.jpg" alt="about">
+                            </div>
+                        </div>
+                        <div class="col-xl-6">
+                            <div class="row">
+                                <div class="col-10 offset-1">
+                                    <div class="about-text text-center">
+                                        <h2 class="heading-secondary mb--40 mb-sm--30">
+                                            About Us
+                                        </h2>
+                                        <p class="mb--40 mb-sm--30">Duis autem vel eum iriure dolor in hendrerit in
+                                            vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla
+                                            facilisis at vero eros et accumsan et iusto odio dignissim qui blandit
+                                            praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi.
+                                            Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet
+                                            doming id quod mazim placerat facer possim assum. Typi non habent claritatem
+                                            insitam, est usus legentis in iis qui facit eorum claritatem.</p>
+                                        <div class="about-btn-group text-center">
+                                            <a href="portfolio.html" class="btn btn-style-3">view work</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="fact-area" id="fun-fact">
+                <div class="container-fluid p-0">
+                    <div class="row no-gutters">
+                        <div class="col-lg-3 col-sm-6">
+                            <div class="fact">
+                                <div class="fact__icon">
+                                    <img src="assets/img/icons/about-us-icon1.png" alt="about icon">
+                                </div>
+                                <div class="fact__content">
+                                    <h3><span class="counter" data-count="2169">0</span></h3>
+                                    <p>HAPPY CUSTOMERS</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-sm-6">
+                            <div class="fact">
+                                <div class="fact__icon">
+                                    <img src="assets/img/icons/about-us-icon2.png" alt="about icon">
+                                </div>
+                                <div class="fact__content">
+                                    <h3><span class="counter" data-count="869">0</span></h3>
+                                    <p>AWARDS WON</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-sm-6">
+                            <div class="fact">
+                                <div class="fact__icon">
+                                    <img src="assets/img/icons/about-us-icon3.png" alt="about icon">
+                                </div>
+                                <div class="fact__content">
+                                    <h3><span class="counter" data-count="689">0</span></h3>
+                                    <p>HOURS WORKED</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-sm-6">
+                            <div class="fact">
+                                <div class="fact__icon">
+                                    <img src="assets/img/icons/about-us-icon4.png" alt="about icon">
+                                </div>
+                                <div class="fact__content">
+                                    <h3><span class="counter" data-count="2500">0</span></h3>
+                                    <p>COMPLETE PROJECTS</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="skill-area bg--dark-3">
+                <div class="container-fluid p-0">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col-xl-6">
+                            <div class="row">
+                                <div class="col-sm-9 offset-sm-2 col-10 offset-1">
+                                    <div class="skill-progress">
+                                        <h2 class="heading-secondary heading-secondary--2 mb--40">
+                                            WE HAVE SKILLS TO SHOW
+                                        </h2>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-6">
+                            <div class="img-box text-center">
+                                <img src="assets/img/about/about-us-img2.jpg" alt="about image">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Main Wrapper End -->
+
+        <!-- Brand Marquee Start -->
+        <section class="brand-marquee">
+            <div class="brand-marquee__viewport">
+                <div class="brand-marquee__track">
+
+                    <div class="brand-marquee__group">
+                        @foreach ($brands as $brand)
+                            <div class="brand-marquee__item">
+                                <img src="{{ asset('assets/img/brands/' . $brand->getFilename()) }}"
+                                    alt="{{ pathinfo($brand->getFilename(), PATHINFO_FILENAME) }}">
+                            </div>
+                        @endforeach
+                    </div>
+
+                    <div class="brand-marquee__group" aria-hidden="true">
+                        @foreach ($brands as $brand)
+                            <div class="brand-marquee__item">
+                                <img src="{{ asset('assets/img/brands/' . $brand->getFilename()) }}"
+                                    alt="{{ $brand->getFilename() }}">
+                            </div>
+                        @endforeach
+                    </div>
+
+                </div>
+            </div>
+        </section>
+        <!-- Brand Marquee End -->
+
+
+        <section class="banner-area banner-bg-1 mb-5 ptb--80 ptb-md--60">
+            <div class="banner-box text-center">
+                <h5 class="banner__label">Sale Off 20% All Products</h5>
+                <h2 class="banner__name">New Trending Collection</h2>
+                <p class="banner__text mb--50 mb-md--20">We Believe That Good Design is Always in Season</p>
+                <a href="shop.html" class="btn btn-bordered btn-style-1">Shop Now</a>
+            </div>
+        </section>
+
+        <!-- Banner area End -->
+
+        <!-- Promo Box area Start -->
+        <section class="promo-box-area border-bottom pt-md--60 ptb--80 ptb-md--60">
             <div class="container">
                 <div class="row">
                     <div class="col-md-6 mb-sm--20">
@@ -146,13 +295,10 @@
                     </div>
                 </div>
             </div>
-        </div>
-
+        </section>
         <!-- Promo Box area End -->
 
-
         <!-- Most Viewed Product area Start -->
-
         <section class="mostviewed-product-area pt--80 pb--20 pt-md--60">
             <div class="container">
                 <div class="row">
@@ -226,11 +372,45 @@
                 </div>
             </div>
         </section>
-
         <!-- Most Viewed Product area End -->
 
-        <!-- Corporate area Start -->
 
+        <section class="corporate-area border-top border-bottom ptb--80 ptb-md--60">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-3 col-sm-6 mb-sm--30">
+                        <div class="corporate-2 text-center">
+                            <i class="fa fa-globe"></i>
+                            <h3>Free Shipping</h3>
+                            <p>Free shipping on all order</p>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6 mb-sm--30">
+                        <div class="corporate-2 text-center">
+                            <i class="fa fa-check-square-o"></i>
+                            <h3>Money Return</h3>
+                            <p>Back guarantee under 7 days</p>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6 mb-xsm--30">
+                        <div class="corporate-2 text-center">
+                            <i class="fa fa-bell"></i>
+                            <h3>Member Discount</h3>
+                            <p>Onevery order over $120.00</p>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6">
+                        <div class="corporate-2 text-center">
+                            <i class="fa fa-clock-o"></i>
+                            <h3>Online Support</h3>
+                            <p>Support online 24 hours a day</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Corporate area Start -->
         <div class="corporate-area pt--40 pb--80 pt-md--30 pb-md--60">
             <div class="container">
                 <div class="row">
@@ -249,7 +429,6 @@
                 </div>
             </div>
         </div>
-
         <!-- Corporate area End -->
 
 

@@ -1,41 +1,6 @@
 <!-- Header Area Start -->
 <header class="header headery-style-1">
 
-    <!-- Header Top -->
-    <div class="header-top header-top-1">
-        <div class="container">
-            <div class="row no-gutters align-items-center">
-                <div class="col-lg-12 d-flex align-items-center flex-column flex-lg-row justify-content-center">
-
-                    <ul class="social social-round mr--20">
-                        <li class="social__item">
-                            <a href="https://facebook.com"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                class="social__link">
-                                <i class="fa fa-facebook"></i>
-                            </a>
-                        </li>
-
-                        <li class="social__item">
-                            <a href="https://instagram.com"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                class="social__link">
-                                <i class="fa fa-instagram"></i>
-                            </a>
-                        </li>
-                    </ul>
-
-                    <p class="header-text">
-                        Free shipping on all domestic orders with coupon code
-                        <span>"Watches2018"</span>
-                    </p>
-
-                </div>
-            </div>
-        </div>
-    </div>
 
     <!-- Header Middle -->
     <div class="header-middle header-top-1">
@@ -44,7 +9,7 @@
 
                 <!-- Logo -->
                 <div class="col-lg-3 col-md-5 col-sm-6 col-6">
-                    <x-logo />
+                    <x-logo width="100" mobileWidth="90" />
                 </div>
 
                 <!-- Desktop Navigation -->

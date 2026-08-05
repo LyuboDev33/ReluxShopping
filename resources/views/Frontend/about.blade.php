@@ -1,152 +1,80 @@
 <x-frontend>
 
     @section('SEO')
-        <title>За нас | Valente Optics</title>
+        <title>За нас | ReLux TopShopping</title>
+
         <meta name="description"
-            content="Valente Optics — семеен бизнес с над 10 години история и над 19 години опит в оптиката. Качествени очила, индивидуално отношение и професионална консултация в Бургас и Равда.">
+            content="ReLux TopShopping предлага внимателно подбрана селекция от 100% автентични премиум часовници и луксозни аксесоари от световноутвърдени марки. Доказан стил, качество и персонализирано отношение.">
+
         <meta name="keywords"
-            content="за нас, Valente Optics, семейна оптика, дипломиран оптик, Бургас, Равда, опит в оптиката">
+            content="за нас, ReLux TopShopping, луксозни часовници, премиум часовници, автентични часовници, луксозни аксесоари, маркови часовници, часовници за колекционери">
     @endsection
 
 
-
-    <!--About Five Start -->
-    <section class="about-five pb-5">
+    <!-- About ReLux Start -->
+    <section class="about-five relux-about-section">
         <div class="container">
-            <div class="row">
+            <div class="row relux-about-section__row">
+
                 <div class="col-lg-6">
-                    <div class="about-five__left">
+                    <div class="about-five__left relux-about-section__content">
+
                         <div class="section-title text-left sec-title-animation animation-style2">
                             <div class="section-title__tagline-box">
-                                <span class="section-title__tagline">За нас</span>
+                                <span class="section-title__tagline">
+                                    За нас
+                                </span>
                             </div>
+
                             <h2 class="section-title__title title-animation">
-                                Над 20 години професионална грижа за вашето зрение
+                                Добре дошли в ReLux TopShopping
                             </h2>
                         </div>
 
                         <p class="about-five__text-1">
-                            <strong>Valente Optics</strong> е семеен бизнес с над 20 години опит в сферата на
-                            оптиката. Предлагаме <strong>професионални очни прегледи, консултации,
-                                компютърна диагностика, изработка и сервиз на очила</strong>, съобразени
-                            с индивидуалните нужди на всеки клиент.
+                            <strong>ReLux TopShopping</strong> е вашето доверено пространство за висша
+                            часовникарска подборка, доказан стил и безкомпромисно качество.
                         </p>
 
                         <p class="about-five__text-1">
-                            Можете да ни посетите в нашите оптики в <strong>Бургас</strong> и
-                            <strong>Равда</strong>, както и да разгледате и закупите диоптрични рамки,
-                            слънчеви очила и други продукти директно от нашия
-                            <strong>онлайн магазин</strong>.
+                            Ние сме динамично и бързо развиваща се компания в сферата на луксозните
+                            аксесоари и модата. Вярваме, че един премиум часовник или аксесоар е много
+                            повече от допълнение към тоалета — той е история, статус, инвестиция и
+                            израз на индивидуалност.
                         </p>
 
-                        {{-- <ul class="list-unstyled about-five__points">
-                            <li>
-                                <div class="icon">
-                                    <span class="icon-double-arrow-right"></span>
-                                </div>
-                                <div class="text">
-                                    <p>Над 20 години професионален опит и лично отношение</p>
-                                </div>
-                            </li>
+                        <h3>
+                            Нашата мисия
+                        </h3>
 
-                            <li>
-                                <div class="icon">
-                                    <span class="icon-double-arrow-right"></span>
-                                </div>
-                                <div class="text">
-                                    <p>Оптични услуги и индивидуални решения за добро зрение</p>
-                                </div>
-                            </li>
+                        <p class="about-five__text-1">
+                            Основният ни фокус е да предоставяме внимателно подбрана премиум селекция
+                            от <strong>100% автентични часовници и аксесоари</strong> от
+                            световноутвърдени марки.
+                        </p>
 
-                            <li>
-                                <div class="icon">
-                                    <span class="icon-double-arrow-right"></span>
-                                </div>
-                                <div class="text">
-                                    <p>Онлайн магазин за рамки, очила и оптични продукти</p>
-                                </div>
-                            </li>
+                        <p class="about-five__text-1">
+                            В свят, преситен от масово производство и имитации, нашата цел е да
+                            осигурим на клиентите си пълна сигурност, спокойствие и удовлетворение
+                            при всяка покупка.
+                        </p>
 
-                            <li>
-                                <div class="icon">
-                                    <span class="icon-double-arrow-right"></span>
-                                </div>
-                                <div class="text">
-                                    <p>Физически обекти в Бургас и Равда</p>
-                                </div>
-                            </li>
-                        </ul> --}}
                     </div>
                 </div>
 
                 <div class="col-lg-6">
-                    <div class="about-five__right">
-                        <div class="about-five__img-box">
-                            <div class="about-five__img">
-                                <img src="/assets/images/about/woman-3.jpg" alt="Valente Optics" />
-                            </div>
-
-                            <div>
-                                <div class="about-five__shope-box-bg-shape">
-                                </div>
-                            </div>
+                    <div class="about-five__right relux-about-section__image-column">
+                        <div class="relux-about-section__image-box">
+                            <img src="/assets/img/about/picture-elegant-young-fashion-man.jpg"
+                                alt="ReLux TopShopping – премиум часовници и аксесоари">
                         </div>
                     </div>
                 </div>
+
             </div>
         </div>
     </section>
-    <!--About Five End -->
-
-
-    <!--Counter One Start -->
-    <section class="counter-one counter-three">
-        <div class="container">
-            <div class="counter-one__inner">
-                <ul class="list-unstyled counter-one__list">
-                    <li>
-                        <div class="counter-one__single">
-                            <div class="counter-one__count-box">
-                                <h3 class="odometer" data-count="19">20</h3>
-                                <span>+</span>
-                            </div>
-                            <p class="counter-one__text">Години опит</p>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="counter-one__single">
-                            <div class="counter-one__count-box">
-                                <h3 class="odometer" data-count="5">5000</h3>
-                                <span>+</span>
-                            </div>
-                            <p class="counter-one__text">Доволни клиенти</p>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="counter-one__single">
-                            <div class="counter-one__count-box">
-                                <h3 class="odometer" data-count="2">2</h3>
-                                <span></span>
-                            </div>
-                            <p class="counter-one__text">Локации в България</p>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="counter-one__single">
-                            <div class="counter-one__count-box">
-                                <h3 class="odometer" data-count="500">4000</h3>
-                                <span>+</span>
-                            </div>
-                            <p class="counter-one__text">Налични модели</p>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </section>
-    <!--Counter One End -->
-
-
+    <!-- About ReLux End -->
 
     <!-- Brand Marquee Start -->
     <section class="brand-marquee">
@@ -156,7 +84,7 @@
                 <div class="brand-marquee__group">
                     @foreach ($brands as $brand)
                         <div class="brand-marquee__item">
-                            <img src="{{ asset('assets/images/brands/' . $brand->getFilename()) }}"
+                            <img src="{{ asset('assets/img/brands/' . $brand->getFilename()) }}"
                                 alt="{{ pathinfo($brand->getFilename(), PATHINFO_FILENAME) }}">
                         </div>
                     @endforeach
@@ -165,7 +93,8 @@
                 <div class="brand-marquee__group" aria-hidden="true">
                     @foreach ($brands as $brand)
                         <div class="brand-marquee__item">
-                            <img src="{{ asset('assets/images/brands/' . $brand->getFilename()) }}" alt="">
+                            <img src="{{ asset('assets/img/brands/' . $brand->getFilename()) }}"
+                                alt="">
                         </div>
                     @endforeach
                 </div>
@@ -174,6 +103,7 @@
         </div>
     </section>
     <!-- Brand Marquee End -->
+
     <!-- Brand Marquee Start -->
     <section class="brand-marquee">
         <div class="brand-marquee__viewport">
@@ -182,7 +112,7 @@
                 <div class="brand-marquee__group">
                     @foreach ($brands2 as $brand)
                         <div class="brand-marquee__item">
-                            <img src="{{ asset('assets/images/brands_2/' . $brand->getFilename()) }}"
+                            <img src="{{ asset('assets/img/brands_2/' . $brand->getFilename()) }}"
                                 alt="{{ pathinfo($brand->getFilename(), PATHINFO_FILENAME) }}">
                         </div>
                     @endforeach
@@ -191,7 +121,7 @@
                 <div class="brand-marquee__group" aria-hidden="true">
                     @foreach ($brands2 as $brand)
                         <div class="brand-marquee__item">
-                            <img src="{{ asset('assets/images/brands_2/' . $brand->getFilename()) }}"
+                            <img src="{{ asset('assets/img/brands_2/' . $brand->getFilename()) }}"
                                 alt="{{ pathinfo($brand->getFilename(), PATHINFO_FILENAME) }}">
                         </div>
                     @endforeach
@@ -202,174 +132,123 @@
     </section>
     <!-- Brand Marquee End -->
 
-    <!--About Maria Start -->
-    <section class="about-five pb-5">
+    <!-- About ReLux Vision Start -->
+    <section class="about-five relux-about-section">
         <div class="container">
-            <div class="row flex-row-reverse">
+            <div class="row flex-row-reverse relux-about-section__row">
+
                 <div class="col-xl-6">
-                    <div class="about-five__left">
+                    <div class="about-five__left relux-about-section__content">
+
                         <div class="section-title text-left sec-title-animation animation-style2">
                             <div class="section-title__tagline-box">
-                                <span class="section-title__tagline">За собственика</span>
+                                <span class="section-title__tagline">
+                                    ReLux TopShopping
+                                </span>
                             </div>
 
                             <h2 class="section-title__title title-animation">
-                                Мария Рашева
+                                Защо да изберете ReLux TopShopping?
                             </h2>
                         </div>
 
+                        <ul class="list-unstyled relux-about-points">
+
+                            <li>
+                                <div class="text">
+                                    <p>
+                                        <b>Гарантирана автентичност</b>
+
+                                        Всеки артикул в нашия каталог преминава през прецизна
+                                        проверка на произхода и състоянието, преди да стигне до вас.
+                                    </p>
+                                </div>
+                            </li>
+
+                            <li>
+
+                                <div class="text">
+                                    <p>
+                                        <b>Селектиран асортимент</b>
+
+                                        Предлагаме както класически и вечни модели, така и модерни
+                                        премиум находки за ценители и колекционери.
+                                    </p>
+                                </div>
+                            </li>
+
+                            <li>
+                                <div class="text">
+                                    <p>
+                                        <b>Персонализирано отношение</b>
+
+                                        За нас всеки клиент е специален. Помагаме ви да откриете
+                                        точния модел, който подхожда най-добре на вашия стил или
+                                        инвестиционни намерения.
+                                    </p>
+                                </div>
+                            </li>
+
+                            <li>
+
+                            <div class="text">
+                                    <p>
+                                        <b>Бързина и коректност</b>
+
+                                        Като бързо развиваща се фирма, залагаме на високи стандарти
+                                        в обслужването, прозрачна комуникация и сигурна доставка.
+                                    </p>
+                                </div>
+                            </li>
+
+                        </ul>
+
+                        <h3>
+                            Нашата визия
+                        </h3>
+
                         <p class="about-five__text-1">
-                            <strong>Дипломиран оптик с над 19 години професионален опит.</strong>
-                            През годините съм помогнала на хиляди клиенти да открият
-                            най-подходящите очила и диоптрични стъкла според своите
-                            индивидуални нужди, начин на живот и стил.
+                            Продължаваме да разширяваме нашето портфолио и да надграждаме услугите си,
+                            за да поддържаме мястото си сред предпочитаните дестинации за премиум
+                            пазаруване.
                         </p>
 
                         <p class="about-five__text-1">
-                            В работата си вярвам, че доброто зрение започва с
-                            <strong>правилната консултация и внимателното отношение</strong>
-                            към всеки човек. Затова отделям необходимото време, за да
-                            изслушам клиента и да му помогна да избере най-доброто решение
-                            за своя комфорт и ежедневие.
+                            В <strong>ReLux TopShopping</strong> не просто продаваме часовници —
+                            ние изграждаме дългосрочни взаимоотношения, базирани на доверие.
                         </p>
 
-                        <p class="about-five__text-1">
-                            Днес продължавам да развивам семейния бизнес
-                            <strong>Valente Optics</strong>, като съчетавам дългогодишния си
-                            опит с модерни решения и индивидуален подход към всеки клиент.
+                        <p class="relux-about-section__quote">
+                            <b>
+                                „Времето е най-ценният лукс — инвестирайте го със стил.“
+                            </b>
                         </p>
 
-                        <p class="about-five__text-1">
-                            За мен най-голямото удовлетворение е доверието на хората,
-                            които се връщат отново и отново и ме препоръчват на своите
-                            близки и приятели.
-                        </p>
                     </div>
                 </div>
 
                 <div class="col-xl-6">
-                    <div>
-                        <div class="about-five__img-box">
-                            <div class="about-five__img">
-                                <img src="/assets/images/about/about-mariya.jpg"
-                                    alt="Мария Рашева – дипломиран оптик и собственик на Valente Optics" />
-                            </div>
-
-                            <div>
-                                <div class="about-five__shope-box-bg-shape"></div>
-                            </div>
+                    <div class="relux-about-section__image-column">
+                        <div class="relux-about-section__image-box">
+                            <img src="/assets/img/about/man-fashion.jpg"
+                                alt="ReLux TopShopping – луксозни часовници и стил">
                         </div>
                     </div>
                 </div>
+
             </div>
         </div>
     </section>
-    <!--About Maria End -->
+    <!-- About ReLux Vision End -->
 
-    <!--Services Two Start -->
-    <section class="services-two services-five">
-        <div class="container">
-            <div class="section-title text-center sec-title-animation animation-style1">
-                <div class="section-title__tagline-box">
-                    <span class="section-title__tagline">Нашите услуги</span>
-                </div>
-                <h2 class="section-title__title title-animation">
-                    Професионална грижа <br />
-                    за вашето зрение
-                </h2>
-            </div>
-
-            <div class="row">
-                <!--Services Two Single Start-->
-                <div class="col-xl-4 col-lg-4">
-
-                    <div class="services-two__single">
-                        <div class="services-two__icon">
-                            <i class="fa-solid fa-glasses"></i>
-                        </div>
-
-                        <h3 class="services-two__title">
-                            <a href="/service/konsultaciy-za-ochila">Консултация за очила</a>
-                        </h3>
-
-                        <p class="services-two__text">
-                            Индивидуална консултация за избор на рамки и стъкла според вашето зрение, стил и ежедневие.
-                        </p>
-                    </div>
-
-                    <div class="services-two__single">
-                        <div class="services-two__icon">
-                            <i class="fa-solid fa-eye"></i>
-                        </div>
-
-                        <h3 class="services-two__title">
-                            <a href="/service/kompiutarna-diagnostika">Компютърна диагностика</a>
-                        </h3>
-
-                        <p class="services-two__text">
-                            Прецизно измерване на зрението с модерна апаратура за точно определяне на необходимата
-                            корекция.
-                        </p>
-                    </div>
-
-                </div>
-                <!--Services Two Single End-->
-
-                <!--Services Two Single Start-->
-                <div class="col-xl-4 col-lg-4">
-                    <div class="services-two__img">
-                        <img class="rounded-5" src="/assets/images/about/woman-2.jpg" alt="Valente Optics дама" />
-                        <img class="rounded-5" src="/assets/images/about/man-1.jpg" alt="Valente Optics мъж" />
-
-                    </div>
-                </div>
-                <!--Services Two Single End-->
-
-                <!--Services Two Single Start-->
-                <div class="col-xl-4 col-lg-4">
-
-                    <div class="services-two__single">
-                        <div class="services-two__icon">
-                            <i class="fa-solid fa-screwdriver-wrench"></i>
-                        </div>
-
-                        <h3 class="services-two__title">
-                            <a href="/service/izrabotka-ochila">Изработка на очила</a>
-                        </h3>
-
-                        <p class="services-two__text">
-                            Изработка на очила по индивидуална поръчка с качествени материали и прецизен монтаж.
-                        </p>
-                    </div>
-
-                    <div class="services-two__single">
-                        <div class="services-two__icon">
-                            <i class="fa-solid fa-toolbox"></i>
-                        </div>
-
-                        <h3 class="services-two__title">
-                            <a href="/service/regulirane-serviz-ochila">Регулиране и сервиз</a>
-                        </h3>
-
-                        <p class="services-two__text">
-                            Настройка, ремонт и профилактика на очила за по-добър комфорт и по-дълъг живот на рамките.
-                        </p>
-                    </div>
-
-                </div>
-                <!--Services Two Single End-->
-            </div>
-        </div>
-    </section>
-    <!--Services Two End -->
-
-    <!--Testimonial Two Start -->
+    <!-- Testimonial Two Start -->
     <section class="testimonial-showcase">
         <div class="container">
             <div class="testimonial-showcase__wrapper">
 
                 <div class="testimonial-showcase__content">
                     <div class="testimonial-showcase__heading">
+
                         <span class="testimonial-showcase__eyebrow">
                             Мнения за нас
                         </span>
@@ -377,15 +256,19 @@
                         <h3 class="testimonial-showcase__title">
                             Отзиви от нашите клиенти
                         </h3>
+
                     </div>
 
-                    <div class="splide testimonial-showcase__splide" id="testimonialSplide"
+                    <div class="splide testimonial-showcase__splide"
+                        id="testimonialSplide"
                         aria-label="Отзиви от клиенти">
+
                         <div class="splide__track">
                             <ul class="splide__list">
 
                                 <li class="splide__slide">
                                     <div class="testimonial-showcase__single">
+
                                         <div class="testimonial-showcase__quote">
                                             <i class="fa-solid fa-quote-right"></i>
                                         </div>
@@ -397,6 +280,7 @@
                                         </p>
 
                                         <div class="testimonial-showcase__author">
+
                                             <div class="testimonial-showcase__author-icon">
                                                 <i class="fa-solid fa-user"></i>
                                             </div>
@@ -410,12 +294,15 @@
                                                     Клиент, Бургас
                                                 </p>
                                             </div>
+
                                         </div>
+
                                     </div>
                                 </li>
 
                                 <li class="splide__slide">
                                     <div class="testimonial-showcase__single">
+
                                         <div class="testimonial-showcase__quote">
                                             <i class="fa-solid fa-quote-right"></i>
                                         </div>
@@ -427,6 +314,7 @@
                                         </p>
 
                                         <div class="testimonial-showcase__author">
+
                                             <div class="testimonial-showcase__author-icon">
                                                 <i class="fa-solid fa-user"></i>
                                             </div>
@@ -440,12 +328,15 @@
                                                     Клиент, Равда
                                                 </p>
                                             </div>
+
                                         </div>
+
                                     </div>
                                 </li>
 
                                 <li class="splide__slide">
                                     <div class="testimonial-showcase__single">
+
                                         <div class="testimonial-showcase__quote">
                                             <i class="fa-solid fa-quote-right"></i>
                                         </div>
@@ -457,6 +348,7 @@
                                         </p>
 
                                         <div class="testimonial-showcase__author">
+
                                             <div class="testimonial-showcase__author-icon">
                                                 <i class="fa-solid fa-user"></i>
                                             </div>
@@ -470,12 +362,15 @@
                                                     Доволен родител
                                                 </p>
                                             </div>
+
                                         </div>
+
                                     </div>
                                 </li>
 
                                 <li class="splide__slide">
                                     <div class="testimonial-showcase__single">
+
                                         <div class="testimonial-showcase__quote">
                                             <i class="fa-solid fa-quote-right"></i>
                                         </div>
@@ -487,6 +382,7 @@
                                         </p>
 
                                         <div class="testimonial-showcase__author">
+
                                             <div class="testimonial-showcase__author-icon">
                                                 <i class="fa-solid fa-user"></i>
                                             </div>
@@ -500,7 +396,9 @@
                                                     Редовен клиент
                                                 </p>
                                             </div>
+
                                         </div>
+
                                     </div>
                                 </li>
 
@@ -509,15 +407,19 @@
                     </div>
                 </div>
 
-                <div class="testimonial-showcase__image" role="img"
-                    aria-label="Доволен клиент на Valente Optics">
+                <div class="testimonial-showcase__image"
+                    role="img"
+                    aria-label="Доволен клиент на ReLux TopShopping">
+
                     <div class="testimonial-showcase__image-content">
                         <div class="testimonial-showcase__image-badge">
+
                             <i class="fa-solid fa-star"></i>
 
                             <span>
                                 Доверие и професионализъм
                             </span>
+
                         </div>
                     </div>
                 </div>
@@ -525,12 +427,13 @@
             </div>
         </div>
     </section>
-    <!--Testimonial Two End -->
-
+    <!-- Testimonial Two End -->
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const testimonialSplide = document.getElementById('testimonialSplide');
+            const testimonialSplide = document.getElementById(
+                'testimonialSplide'
+            );
 
             if (!testimonialSplide) {
                 return;

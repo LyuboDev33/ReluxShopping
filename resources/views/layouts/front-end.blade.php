@@ -10,36 +10,22 @@
     @yield('SEO')
 
     <!-- Favicons -->
-    <link rel="icon" sizes="180x180"
-        href="/assets/img/logo-relux.png?v=<?php echo time(); ?>" />
+    <link rel="icon" sizes="180x180" href="/assets/img/logo-relux.png?v=<?php echo time(); ?>" />
 
 
     <!-- Fancybox CSS -->
-    <link
-        rel="stylesheet"
-        href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.1/dist/fancybox/fancybox.css"
-    >
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.1/dist/fancybox/fancybox.css">
 
     <!-- Font Awesome CSS -->
-    <link
-        rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
         integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
-        crossorigin="anonymous"
-        referrerpolicy="no-referrer"
-    >
+        crossorigin="anonymous" referrerpolicy="no-referrer">
 
     <!-- Lenis CSS -->
-    <link
-        rel="stylesheet"
-        href="https://unpkg.com/lenis@1.3.23/dist/lenis.css"
-    >
+    <link rel="stylesheet" href="https://unpkg.com/lenis@1.3.23/dist/lenis.css">
 
     <!-- Choices.js CSS -->
-    <link
-        rel="stylesheet"
-        href="https://cdn.jsdelivr.net/npm/choices.js/public/assets/styles/choices.min.css"
-    >
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/choices.js/public/assets/styles/choices.min.css">
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="/assets/css/bootstrap.css">
@@ -51,10 +37,11 @@
     <link rel="stylesheet" href="/assets/css/plugins.css">
 
     <!-- Main Template CSS -->
-    <link
-        rel="stylesheet"
-        href="{{ asset('assets/css/main.css') }}?v={{ filemtime(public_path('assets/css/main.css')) }}"
-    >
+    <link rel="stylesheet" href="{{ asset('assets/css/main.css') }}?v={{ time() }}">
+
+    <link rel="stylesheet" href="/assets/css/shop.css?v=<?php echo time(); ?>" />
+
+    <link rel="stylesheet" href="/assets/css/testimonials.css?v=<?php echo time(); ?>" />
 
 
     <!-- Modernizr JS -->
@@ -70,28 +57,19 @@
     <script src="/assets/js/plugins.js" defer></script>
 
     <!-- Lenis JS -->
-    <script
-        src="https://unpkg.com/lenis@1.3.23/dist/lenis.min.js"
-        defer
-    ></script>
+    <script src="https://unpkg.com/lenis@1.3.23/dist/lenis.min.js" defer></script>
 
     <!-- Choices.js JS -->
-    <script
-        src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"
-        defer
-    ></script>
+    <script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js" defer></script>
 
     <!-- Fancybox JS -->
-    <script
-        src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.1/dist/fancybox/fancybox.umd.js"
-        defer
-    ></script>
+    <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.1/dist/fancybox/fancybox.umd.js" defer></script>
 
     <!-- Main Template JS -->
-    <script
-        src="{{ asset('assets/js/main.js') }}?v={{ filemtime(public_path('assets/js/main.js')) }}"
-        defer
-    ></script>
+    <script src="{{ asset('assets/js/main.js') }}?v={{ filemtime(public_path('assets/js/main.js')) }}" defer></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js" defer></script>
+    <link href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css" rel="stylesheet">
 </head>
 
 <body class="font-sans antialiased">
@@ -114,11 +92,7 @@
     </div>
 
     <div class="cookies__modal shadow">
-        <img
-            class="cookies"
-            src="/assets/images/cookie.webp"
-            alt="Бисквитки"
-        >
+        <img class="cookies" src="/assets/images/cookie.webp" alt="Бисквитки">
 
         <div>
             <p>
@@ -134,8 +108,10 @@
         </div>
     </div>
 
+    <script src="/assets/js/custom.js"></script>
+
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
+        document.addEventListener('DOMContentLoaded', function() {
             initializeLenis();
             initializeFancybox();
             initializeChoicesJS();
@@ -183,7 +159,7 @@
                 return;
             }
 
-            attributeSelects.forEach(function (select) {
+            attributeSelects.forEach(function(select) {
                 if (select.dataset.choicesInitialized === 'true') {
                     return;
                 }

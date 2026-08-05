@@ -1,26 +1,8 @@
 <ul class="mainmenu">
-    <li class="mainmenu__item active menu-item-has-children has-children">
-        <a href="/" class="mainmenu__link">
-            Home
+    <li class="mainmenu__item">
+        <a href="/">
+            Начало
         </a>
-
-        <ul class="sub-menu">
-            <li>
-                <a href="/">Home 1</a>
-            </li>
-
-            <li>
-                <a href="index-2.html">Home 2</a>
-            </li>
-
-            <li>
-                <a href="index-3.html">Home 3</a>
-            </li>
-
-            <li>
-                <a href="index-4.html">Home 4</a>
-            </li>
-        </ul>
     </li>
 
     <li class="mainmenu__item menu-item-has-children has-children">
@@ -30,6 +12,10 @@
 
         <ul class="sub-menu">
             <li>
+                <a href="{{ route('shop.index') }}">Продукти</a>
+                 <a href="/shop/">Часовници</a>
+                 <a href="/shop/drugi">Други</a>
+
                 <a href="{{ route('cart') }}">Количка</a>
             </li>
         </ul>

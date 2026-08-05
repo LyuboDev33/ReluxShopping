@@ -104,6 +104,7 @@ function checkoutDelivery() {
 
 function addToWishlist() {
 
+
     document.querySelectorAll('.wishlist-form').forEach(function (form) {
 
         form.addEventListener('submit', function (e) {
@@ -112,8 +113,6 @@ function addToWishlist() {
 
             const button = form.querySelector('.wishlist-btn');
             const icon = button.querySelector('i');
-
-
 
             fetch(form.action, {
                 method: 'POST',
