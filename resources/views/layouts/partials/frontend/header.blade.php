@@ -25,16 +25,10 @@
 
                         <div class="search-form-wrapper search-hide">
                             <form action="#" class="search-form">
-                                <input
-                                    type="text"
-                                    name="search"
-                                    id="search"
-                                    class="search-form__input"
+                                <input type="text" name="search" id="search" class="search-form__input"
                                     placeholder="Search entire store here..">
 
-                                <button
-                                    type="submit"
-                                    class="search-form__submit">
+                                <button type="submit" class="search-form__submit">
                                     <i class="icon_search"></i>
                                 </button>
                             </form>
@@ -43,20 +37,17 @@
                         <ul class="header-toolbar-icons">
 
                             <li class="wishlist-icon">
-                                <a href="{{ route('wishlist') }}"
-                                    class="bordered-icon">
+                                <a href="{{ route('wishlist') }}" class="bordered-icon">
                                     <i class="fa fa-heart"></i>
                                 </a>
                             </li>
 
                             <li class="mini-cart-icon">
                                 <div class="mini-cart mini-cart--1">
-                                    <a
-                                        href="{{ route('cart') }}"
-                                        class="mini-cart__dropdown-toggle bordered-icon">
+                                    <a href="{{ route('cart') }}" class="mini-cart__dropdown-toggle bordered-icon">
 
                                         <span class="mini-cart__count">
-                                            0
+                                            {{ count(Session::get('products', [])) }}
                                         </span>
 
                                         <i class="icon_cart_alt mini-cart__icon"></i>

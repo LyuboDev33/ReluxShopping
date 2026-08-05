@@ -71,7 +71,7 @@
 
                 <div class="col-lg-6 col-xl-6 product-add">
 
-                    <div class="card rounded-5 p-4 shadow product-page-image">
+                    <div class="card rounded-5 p-4 shadow product-page-image ">
 
                         <div class="product-details__top">
                             <h3 class="product-details__title">

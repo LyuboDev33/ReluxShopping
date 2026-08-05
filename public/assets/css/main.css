@@ -459,7 +459,7 @@ button {
     font-size: 16px;
     line-height: 30px;
     color: white;
-    background-color: #222222;
+    background-color: #4a4a4a;
     padding: 13px 30px 13px;
     border-radius: 30px;
     transition: 0.5s ease-in-out;
@@ -760,7 +760,7 @@ button {
 
 .breadcrumb-area .page-title {
     font-size: 4.8rem;
-    text-transform: capitalize;
+
 }
 
 @media (max-width: 47.94em) {
@@ -1091,6 +1091,7 @@ Nice Select
 
 .w-fit {
     width: fit-content !important;
+    overflow-wrap: anywhere;
 }
 
 .m-0-auto {
@@ -1198,7 +1199,7 @@ Corporate
 }
 
 .corporate h3 {
-    text-transform: capitalize;
+
     font-size: 1.4rem;
     margin: 0;
 }
@@ -4041,7 +4042,7 @@ Corporate
 *****************************/
 .footer-widget .widget-title {
     font-size: 2rem;
-    text-transform: capitalize;
+
     margin-bottom: 2rem;
 }
 
@@ -4272,7 +4273,7 @@ Corporate
 .sidebar-widget .widget-title {
     font-size: 2.2rem;
     margin-bottom: 2rem;
-    text-transform: capitalize;
+
     line-height: 1.1;
 }
 
@@ -4447,7 +4448,7 @@ Corporate
     color: #fff;
     font-size: 1.8rem;
     line-height: 2.5rem;
-    text-transform: capitalize;
+
     font-weight: 400;
     display: block;
     font-family: "Prata", sans-serif;
@@ -4550,7 +4551,7 @@ Corporate
 }
 
 .mainmenu__item.menu-item-has-children>ul.sub-menu li a {
-    text-transform: capitalize;
+
     font-size: 16px;
 }
 
@@ -4586,14 +4587,14 @@ Corporate
     font-size: 1.4rem;
     font-weight: 400;
     line-height: 2.6rem;
-    text-transform: capitalize;
+
     color: #afafaf;
 }
 
 .mainmenu__item.menu-item-has-children>ul.megamenu li a.megamenu-title {
     font-size: 1.8rem;
     line-height: 2.6rem;
-    text-transform: capitalize;
+
     color: #fff;
     font-family: "Prata", sans-serif;
     font-weight: 500;
@@ -4875,7 +4876,7 @@ Vertical Menu
 .vertical-menu__link {
     padding: 10px 0px 10px 0px;
     font-size: 18px;
-    text-transform: capitalize;
+
 }
 
 .vertical-menu .sub-menu {
@@ -5096,7 +5097,7 @@ Vertical Menu
     font-size: 1.4rem;
     line-height: 1.6;
     font-weight: 400;
-    text-transform: capitalize;
+
     margin: 0;
 }
 
@@ -5142,7 +5143,7 @@ Vertical Menu
 .mini-cart__calculation--item {
     text-align: left;
     color: #fff;
-    text-transform: capitalize;
+
     font-size: 1.5rem;
     font-family: "Prata", sans-serif;
 }
@@ -5188,7 +5189,7 @@ Vertical Menu
     padding: 0 2rem;
     min-height: 5rem;
     line-height: 5rem;
-    text-transform: capitalize;
+
     font-family: "Prata", sans-serif;
     cursor: pointer;
 }
@@ -5331,14 +5332,14 @@ Vertical Menu
 .homepage-slider .single-slider .slider-content h5 {
     font-weight: 300;
     font-size: 1.6rem;
-    font-family: "Rubik", sans-serif;
+        color: #d8bd7f;
 }
 
 .homepage-slider .single-slider .slider-content h1 {
     font-size: 6rem;
     color: #fff;
     font-weight: 400;
-    text-transform: capitalize;
+
     margin-bottom: 3px;
     margin-top: 0;
 }
@@ -5364,7 +5365,7 @@ Vertical Menu
 .homepage-slider .single-slider .slider-content p {
     font-size: 1.6rem;
     color: #e8e8e7;
-    text-transform: capitalize;
+
     font-weight: 300;
     line-height: 2.4rem;
     max-width: 60rem;
@@ -5374,6 +5375,7 @@ Vertical Menu
     font-weight: 500;
     font-size: 3rem;
     padding-left: 1rem;
+    color: #d8bd7f;
 }
 
 @media (max-width: 35.94em) {
@@ -5556,7 +5558,7 @@ Vertical Menu
 
 .static-slider .single-static-slide .static-slide-text h1 {
     font-size: 3rem;
-    text-transform: capitalize;
+
     margin-bottom: 3.5rem;
 }
 
@@ -6141,7 +6143,7 @@ Nice Select
 
 .product-content h4 a {
     display: block;
-    text-transform: capitalize;
+
     font-size: 1.6rem;
     font-weight: 400;
     font-family: "Prata", sans-serif;
@@ -6419,7 +6421,7 @@ Nice Select
 
 .widget-product .product-title a {
     display: block;
-    text-transform: capitalize;
+
     font-size: 1.6rem;
     font-weight: 400;
     font-family: "Prata", sans-serif;
@@ -6887,7 +6889,7 @@ Product tab
 .product-tab__link.nav-link {
     font-size: 1.8rem;
     line-height: 4.6rem;
-    text-transform: capitalize;
+
     font-weight: 400;
     cursor: pointer;
     display: inline-block;
@@ -6958,7 +6960,7 @@ User Dashboard tab
     font-size: 2.4rem;
     margin-bottom: 2rem;
     padding-bottom: 1.5rem;
-    text-transform: capitalize;
+
 }
 
 .user-dashboard-tab__content table {
@@ -7052,7 +7054,7 @@ User Dashboard tab
     display: block;
     -webkit-transition: all 0.5s ease-in-out;
     transition: all 0.5s ease-in-out;
-    text-transform: capitalize;
+
 }
 
 .promo__content-2 {
@@ -7295,7 +7297,7 @@ User Dashboard tab
 
 .accordion-button {
     font-size: 1.5rem;
-    text-transform: capitalize;
+
     line-height: 2;
     overflow-wrap: break-word;
     white-space: -moz-normal;
@@ -7403,7 +7405,7 @@ User Dashboard tab
 
 .blog__meta p {
     font-size: 1.4rem;
-    text-transform: capitalize;
+
     margin-bottom: 6px;
 }
 
@@ -7455,7 +7457,7 @@ User Dashboard tab
 .post-title {
     font-size: 1.8rem;
     margin: 2rem 0;
-    text-transform: capitalize;
+
 }
 
 .post-content {
@@ -7665,7 +7667,7 @@ User Dashboard tab
 }
 
 .table thead th {
-    text-transform: capitalize;
+
     white-space: -moz-nowrap;
     white-space: nowrap;
     border-bottom: 0;
@@ -7815,7 +7817,7 @@ User Dashboard tab
 }
 
 .compare-table .table th {
-    text-transform: capitalize;
+
     border-bottom: none;
     border-right: 1px solid #2d2d2d;
     color: #ffffff;
@@ -8617,7 +8619,7 @@ User Dashboard tab
 }
 
 .fact {
-    padding: 9rem 1.5rem;
+    /* padding: 9rem 1.5rem; */
     text-align: center;
     display: -webkit-box;
     display: -moz-flex;
@@ -8630,11 +8632,11 @@ User Dashboard tab
     -webkit-box-pack: center;
     -ms-flex-pack: center;
     -moz-justify-content: center;
-    justify-content: center;
+    justify-content: start;
 }
 
 .fact__icon {
-    margin-right: 2rem;
+    margin-right: 0.5rem;
 }
 
 .fact__content {
@@ -8648,7 +8650,7 @@ User Dashboard tab
 }
 
 .fact__content p {
-    font-size: 1.2rem;
+    font-size: 16px;
     font-weight: 700;
     margin-bottom: 0;
 }
@@ -8919,7 +8921,7 @@ User Dashboard tab
 
 .product-details-content .ratings-wrap a {
     font-size: 1.3rem;
-    text-transform: capitalize;
+
 }
 
 .product-details-content .ratings-wrap a:first-child {
@@ -8962,7 +8964,7 @@ User Dashboard tab
 .product-details-name {
     font-size: 2.4rem;
     margin-bottom: 2rem;
-    text-transform: capitalize;
+
 }
 
 @media (max-width: 35.94em) {
@@ -9131,7 +9133,7 @@ User Dashboard tab
     font-size: 2.4rem;
     font-weight: 400;
     padding: 0;
-    text-transform: capitalize;
+
     font-family: "Prata", sans-serif;
 }
 
@@ -9221,7 +9223,7 @@ User Dashboard tab
 }
 
 .product-details-review-wrap .review__author {
-    text-transform: capitalize;
+
     border-right: 1px solid #2d2d2d;
 }
 
@@ -9333,7 +9335,7 @@ User Dashboard tab
 
 .group-product-table tbody tr td.product-name a {
     color: #afafaf;
-    text-transform: capitalize;
+
     font-size: 1.8rem;
     line-height: 1.4;
 }
@@ -9759,7 +9761,7 @@ User Dashboard tab
     width: 100%;
     overflow: hidden;
     padding: 40px 0;
-    background-color: #666666;
+    background-color: #fff;
     /* border-top: 4px solid #000000; */
 }
 
@@ -9925,7 +9927,7 @@ User Dashboard tab
 
         .relux-about-section__image-box {
             height: 100%;
-            min-height: 620px;
+            /* min-height: 620px; */
             /* overflow: hidden; */
             border-radius: 24px;
             box-shadow: 0 20px 55px rgba(0, 0, 0, 0.24);
@@ -9935,16 +9937,13 @@ User Dashboard tab
             display: block;
             width: 100%;
             height: 100%;
-            min-height: 620px;
+            /* min-height: 620px; */
             object-fit: cover;
             object-position: center;
             border-radius: 24px;
             transition: transform 500ms ease;
         }
 
-        .relux-about-section__image-box:hover img {
-            transform: scale(1.035);
-        }
 
         .relux-about-points {
             margin: 0;
@@ -9975,6 +9974,8 @@ User Dashboard tab
             color: rgba(255, 255, 255, 0.84);
             font-size: 18px;
             line-height: 1.75;
+            position: relative;
+            bottom: 7px;
         }
 
         .relux-about-points .text b {
@@ -10043,6 +10044,7 @@ User Dashboard tab
             .relux-about-section__content {
                 padding: 32px 22px;
                 border-radius: 18px;
+                margin-top: 20px;
             }
 
             .relux-about-section__content .section-title__title {

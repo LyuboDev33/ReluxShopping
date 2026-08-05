@@ -27,7 +27,7 @@
     justify-content: flex-start;
     min-width: 0;
     padding: 25px;
-    background: #a2a2a2;
+    background: #121212;
 }
 
 .testimonial-showcase__heading {
@@ -57,7 +57,7 @@
 
 .testimonial-showcase__title {
     margin: 0 0 18px;
-    color: #2a2a2a;
+    color: white;
     font-size: 38px;
     font-weight: 700;
     line-height: 1.1;

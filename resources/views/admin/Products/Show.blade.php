@@ -12,9 +12,9 @@
             <a class="btn btn-secondary p-2 rounded-5" href="{{ route('admin.products.index') }}">
                 Назад към всички
             </a>
-            <button type="button" class="btn btn-primary rounded-5 px-4 mb-3" id="openProductVariantSidebar">
+            {{-- <button type="button" class="btn btn-primary rounded-5 px-4 mb-3" id="openProductVariantSidebar">
                 Добави вариант
-            </button>
+            </button> --}}
         </div>
     </div>
     <hr>
@@ -245,7 +245,7 @@
         <div class="product-variant-overlay"></div>
 
 
-        <div class="product_variant">
+        {{-- <div class="product_variant">
 
             <div class="product-variant-sidebar__header">
                 <h4>Добави вариант</h4>
@@ -259,7 +259,7 @@
                 'action' => route('admin.product.create', $product),
             ])
 
-        </div>
+        </div> --}}
 
     </div>
 

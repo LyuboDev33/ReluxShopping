@@ -28,28 +28,11 @@ return new class extends Migration
 
             $table->decimal('price', 10, 2);
             $table->integer('discount')->nullable();
+
             $table->decimal('base_price', 10, 2);
             $table->decimal('final_price', 10, 2);
+
             $table->integer('quantity');
-
-            $table->string('purchase_type')->default('frame_only');
-
-            $table->unsignedBigInteger('glass_id')->nullable();
-            $table->unsignedBigInteger('glass_value_id')->nullable();
-            $table->string('glass_name')->nullable();
-            $table->string('glass_value_name')->nullable();
-            $table->decimal('glass_value_price', 10, 2)->nullable();
-
-            $table->unsignedBigInteger('glass_value_lens_index_id')->nullable();
-            $table->string('glass_value_lens_index_name')->nullable();
-            $table->decimal('glass_value_lens_index_price', 10, 2)->nullable();
-
-            $table->string('prescription_image')->nullable();
-
-            $table->json('right_eye')->nullable();
-            $table->json('left_eye')->nullable();
-
-            $table->string('pd')->nullable();
 
             $table->timestamps();
         });

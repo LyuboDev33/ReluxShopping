@@ -48,7 +48,7 @@
     <script src="/assets/js/vendor/modernizr-2.8.3.min.js" defer></script>
 
     <!-- jQuery JS -->
-    <script src="/assets/js/vendor/jquery.min.js" defer></script>
+    <script src="/assets/js/vendor/jquery.min.js"></script>
 
     <!-- Bootstrap and Popper Bundle JS -->
     <script src="/assets/js/bootstrap.bundle.min.js" defer></script>

@@ -131,11 +131,11 @@
                                 </div>
                             </div>
 
-                            <button type="submit" class="btn btn-primary">
+                            <button type="submit" class="btn btn-light rounded-pill">
                                 Филтрирай
                             </button>
 
-                            <a href="{{ route('shop.index') }}" class="btn btn-light">
+                            <a href="{{ route('shop.index') }}" class="btn btn-light rounded-pill">
                                 Изчисти
                             </a>
                         </form>
@@ -171,7 +171,7 @@
                         <div class="row">
                             <div class="col-xl-12">
 
-                                <nav class="shop-breadcrumb rounded-pill bg-white w-fit p-3 mb-5 mt-5"
+                                <nav class="shop-breadcrumb rounded-pill bg-white w-fit p-3 mb-5"
                                     aria-label="Навигация">
                                     <a href="{{ route('shop.index') }}">
                                         Магазин
@@ -210,7 +210,7 @@
                                 {{-- Foreach all Products --}}
                                 @forelse ($products as $product)
                                     <!--Product Single Start-->
-                                    <div class="col-xl-4 col-lg-4 col-md-6 col-6">
+                                    <div class="col-xl-4 col-lg-4 col-md-6 col-6 mb-5">
                                         <div class="product__all-single shadow relux-about-section__content">
 
                                             <div class="product__all-img">
@@ -270,7 +270,7 @@
 
                                                     @csrf
 
-                                                    <a class="thm-btn product__all-btn p-2 bg-white"
+                                                    <a class="thm-btn product__all-btn p-2 "
                                                         href="{{ route('shop.show', $product->slug) }}">
                                                         Разгледай
                                                     </a>
@@ -358,7 +358,7 @@
             priceRangeValue.textContent = priceRange.value;
 
             priceRange.style.background =
-                `linear-gradient(to right, #b87462 0%, #b87462 ${percentage}%, #e6ddd7 ${percentage}%, #e6ddd7 100%)`;
+                `linear-gradient(to right, #d8bd7f 0%, #d8bd7f ${percentage}%, #e6ddd7 ${percentage}%, #e6ddd7 100%)`;
 
             priceRange.addEventListener('input', updatePriceRange);
 

@@ -304,24 +304,6 @@ class AdminProductsController extends Controller
         }
     }
 
-    /**
-     * Toggle whether the product can be purchased with lenses.
-     *
-     * @param Product $product
-     * @return RedirectResponse
-     */
-    public function toggleProductLenses(Product $product): RedirectResponse
-    {
-
-        $product->update([
-            'can_buy_with_lenses' => ! $product->can_buy_with_lenses,
-        ]);
-
-        return back()->with(
-            'success',
-            'Настройката за закупуване със стъкла беше обновена успешно.'
-        );
-    }
 
 
     /** Delete a product
