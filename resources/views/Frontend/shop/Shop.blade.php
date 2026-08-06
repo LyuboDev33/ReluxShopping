@@ -1,71 +1,63 @@
 <x-frontend>
 
     @section('SEO')
-    <title>Онлайн магазин за очила | Диоптрични рамки, слънчеви очила и аксесоари | Valente Optics</title>
+        <title>Онлайн магазин за очила | Диоптрични рамки, слънчеви очила и аксесоари | Valente Optics</title>
 
-    <meta name="description"
-        content="Разгледайте онлайн магазина на Valente Optics с богат избор от диоптрични рамки, слънчеви очила, детски очила, стъкла и аксесоари. Открийте качествени марки, професионална консултация и бърза доставка в цяла България.">
+        <meta name="description"
+            content="Разгледайте онлайн магазина на Valente Optics с богат избор от диоптрични рамки, слънчеви очила, детски очила, стъкла и аксесоари. Открийте качествени марки, професионална консултация и бърза доставка в цяла България.">
 
-    <meta name="keywords"
-        content="Valente Optics, онлайн магазин за очила, диоптрични рамки, слънчеви очила, детски очила, компютърни очила, рамки за очила, стъкла за очила, прогресивни стъкла, фотосоларни стъкла, аксесоари за очила, оптика Бургас, оптика Равда">
+        <meta name="keywords"
+            content="Valente Optics, онлайн магазин за очила, диоптрични рамки, слънчеви очила, детски очила, компютърни очила, рамки за очила, стъкла за очила, прогресивни стъкла, фотосоларни стъкла, аксесоари за очила, оптика Бургас, оптика Равда">
 
-    <meta name="robots"
-        content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">
+        <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">
 
-    <meta name="googlebot"
-        content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">
+        <meta name="googlebot" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">
 
-    <link rel="canonical" href="{{ route('shop.index') }}">
+        <link rel="canonical" href="{{ route('shop.index') }}">
 
-    {{-- Open Graph --}}
-    <meta property="og:type" content="website">
-    <meta property="og:locale" content="bg_BG">
-    <meta property="og:site_name" content="Valente Optics">
+        {{-- Open Graph --}}
+        <meta property="og:type" content="website">
+        <meta property="og:locale" content="bg_BG">
+        <meta property="og:site_name" content="Valente Optics">
 
-    <meta property="og:title"
-        content="Онлайн магазин за очила | Valente Optics">
+        <meta property="og:title" content="Онлайн магазин за очила | Valente Optics">
 
-    <meta property="og:description"
-        content="Открийте диоптрични рамки, слънчеви и детски очила, качествени стъкла и аксесоари от Valente Optics. Пазарувайте онлайн с професионална консултация и доставка в цяла България.">
+        <meta property="og:description"
+            content="Открийте диоптрични рамки, слънчеви и детски очила, качествени стъкла и аксесоари от Valente Optics. Пазарувайте онлайн с професионална консултация и доставка в цяла България.">
 
-    <meta property="og:url" content="{{ route('shop.index') }}">
+        <meta property="og:url" content="{{ route('shop.index') }}">
 
-    <meta property="og:image"
-        content="{{ asset('assets/images/seo/valente-optics-shop.jpg') }}">
+        <meta property="og:image" content="{{ asset('assets/images/seo/valente-optics-shop.jpg') }}">
 
-    <meta property="og:image:secure_url"
-        content="{{ asset('assets/images/seo/valente-optics-shop.jpg') }}">
+        <meta property="og:image:secure_url" content="{{ asset('assets/images/seo/valente-optics-shop.jpg') }}">
 
-    <meta property="og:image:type" content="image/jpeg">
+        <meta property="og:image:type" content="image/jpeg">
 
-    <meta property="og:image:alt"
-        content="Онлайн магазин Valente Optics – диоптрични рамки, слънчеви очила и аксесоари">
+        <meta property="og:image:alt"
+            content="Онлайн магазин Valente Optics – диоптрични рамки, слънчеви очила и аксесоари">
 
-    {{-- Twitter / X --}}
-    <meta name="twitter:card" content="summary_large_image">
+        {{-- Twitter / X --}}
+        <meta name="twitter:card" content="summary_large_image">
 
-    <meta name="twitter:title"
-        content="Онлайн магазин за очила | Valente Optics">
+        <meta name="twitter:title" content="Онлайн магазин за очила | Valente Optics">
 
-    <meta name="twitter:description"
-        content="Разгледайте диоптрични рамки, слънчеви и детски очила, стъкла и аксесоари от Valente Optics с доставка в цяла България.">
+        <meta name="twitter:description"
+            content="Разгледайте диоптрични рамки, слънчеви и детски очила, стъкла и аксесоари от Valente Optics с доставка в цяла България.">
 
-    <meta name="twitter:image"
-        content="{{ asset('assets/images/seo/valente-optics-shop.jpg') }}">
+        <meta name="twitter:image" content="{{ asset('assets/images/seo/valente-optics-shop.jpg') }}">
 
-    <meta name="twitter:image:alt"
-        content="Онлайн магазин Valente Optics – очила, рамки, стъкла и аксесоари">
+        <meta name="twitter:image:alt" content="Онлайн магазин Valente Optics – очила, рамки, стъкла и аксесоари">
 
-    {{-- Допълнителни мета данни --}}
-    <meta name="author" content="Valente Optics">
-    <meta name="application-name" content="Valente Optics">
-    <meta name="theme-color" content="#ffffff">
+        {{-- Допълнителни мета данни --}}
+        <meta name="author" content="Valente Optics">
+        <meta name="application-name" content="Valente Optics">
+        <meta name="theme-color" content="#ffffff">
 
-    {{-- Required shop assets --}}
-    <link href="/assets/css/tom-select.css" rel="stylesheet">
+        {{-- Required shop assets --}}
+        <link href="/assets/css/tom-select.css" rel="stylesheet">
 
-    <script src="https://cdn.jsdelivr.net/npm/tom-select@2.6.2/dist/js/tom-select.complete.min.js"></script>
-@endsection
+        <script src="https://cdn.jsdelivr.net/npm/tom-select@2.6.2/dist/js/tom-select.complete.min.js"></script>
+    @endsection
 
 
     <!--Product Start-->
@@ -100,8 +92,7 @@
                                         <option value=""></option>
 
                                         @foreach ($filter['values'] as $value)
-                                            <option value="{{ $value['slug'] }}"
-                                            @selected(request()->filled($filter['slug']) && request($filter['slug']) === $value['slug'])>
+                                            <option value="{{ $value['slug'] }}" @selected(request()->filled($filter['slug']) && request($filter['slug']) === $value['slug'])>
                                                 {{ $value['name'] }}
                                             </option>
                                         @endforeach
@@ -118,12 +109,8 @@
                                     </span>
                                 </div>
 
-                                <input type="range"
-                                    id="priceRange"
-                                    name="price-range"
-                                    min="0" max="1000"
-                                    step="10"
-                                    value="{{ request('price-range', 1000) }}">
+                                <input type="range" id="priceRange" name="price-range" min="0" max="1000"
+                                    step="10" value="{{ request('price-range', 1000) }}">
 
                                 <div class="price-filter__limits">
                                     <span>0 €.</span>
@@ -131,13 +118,15 @@
                                 </div>
                             </div>
 
-                            <button type="submit" class="btn btn-light rounded-pill">
-                                Филтрирай
-                            </button>
+                            <div class="d-flex gap-2">
+                                <button type="submit" class="btn btn-light rounded-pill">
+                                    Филтрирай
+                                </button>
 
-                            <a href="{{ route('shop.index') }}" class="btn btn-light rounded-pill">
-                                Изчисти
-                            </a>
+                                <a href="{{ route('shop.index') }}" class="btn btn-light rounded-pill">
+                                    Изчисти
+                                </a>
+                            </div>
                         </form>
 
 

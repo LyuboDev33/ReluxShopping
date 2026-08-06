@@ -1,32 +1,42 @@
 <x-frontend>
 
-      <!--Error Page Start-->
-    <section class="error-page">
-      <div class="container">
-        <div class="row">
-          <div class="col-xl-12">
-            <div class="error-page__inner">
-              <div class="error-page__title-box">
-                <h2 class="error-page__title">404</h2>
-              </div>
-              <h3 class="error-page__tagline">
-                Упсс... !
-              </h3>
-              <p class="error-page__text">
-                Страницата, която търсите я няма!
-              </p>
+    @section('SEO')
+        <title>Страница 404</title>
+    @endsection
 
-              <div class="error-page__btn-box mt-3">
-                <a href="/" class="thm-btn">
-                    Към началната страница
-                    <span class="icon-arrow-up-right"></span>
-                </a>
-              </div>
+    <!-- Error Area Start -->
+    <div class="error-area pt--90 pb--100">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-xl-7 col-lg-8 text-center">
+
+                    <div class="error">
+
+                        <h1>404</h1>
+
+                        <h2>
+                            УПС! СТРАНИЦАТА НЕ Е НАМЕРЕНА
+                        </h2>
+
+                        <p>
+                            Съжаляваме, но страницата, която търсите,
+                            не съществува, била е премахната,
+                            преименувана или временно не е достъпна.
+                        </p>
+
+                        <div class="mt-5">
+                            <a href="/" class="thm-btn">
+                                Към началната страница
+                                <span class="icon-arrow-up-right"></span>
+                            </a>
+                        </div>
+
+                    </div>
+
+                </div>
             </div>
-          </div>
         </div>
-      </div>
-    </section>
-    <!--Error Page End-->
+    </div>
+    <!-- Error Area End -->
 
 </x-frontend>

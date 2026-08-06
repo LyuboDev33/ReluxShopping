@@ -3537,14 +3537,14 @@ Corporate
     justify-content: flex-end;
 }
 
-@media (max-width: 35.94em) {
+/* @media (max-width: 35.94em) {
     .header-toolbar {
         -webkit-box-pack: center;
         -ms-flex-pack: center;
         -moz-justify-content: center;
         justify-content: center;
     }
-}
+} */
 
 .header-toolbar-icons {
     display: -webkit-box;
@@ -5192,6 +5192,7 @@ Vertical Menu
 
     font-family: "Prata", sans-serif;
     cursor: pointer;
+    border: 1px solid white !important;
 }
 
 .btn[type=submit],
