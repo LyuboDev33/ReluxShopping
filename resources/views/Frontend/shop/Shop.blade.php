@@ -109,8 +109,8 @@
                                     </span>
                                 </div>
 
-                                <input type="range" id="priceRange" name="price-range" min="0" max="1000"
-                                    step="10" value="{{ request('price-range', 1000) }}">
+                                <input type="range" id="priceRange" name="price-range" min="0" max="10000"
+                                    step="10" value="{{ request('price-range', 10000) }}">
 
                                 <div class="price-filter__limits">
                                     <span>0 €.</span>

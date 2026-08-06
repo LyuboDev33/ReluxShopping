@@ -158,6 +158,7 @@ class AdminProductsController extends Controller
                 'name'        => $validated['name'],
                 'sku'         => $validated['sku'],
                 'slug'        => $slug,
+                'video_link'  => $validated['video_link'],
                 'discount'    => $validated['discount'],
                 'description' => $validated['description'],
                 'price'       => $validated['price'],
@@ -267,6 +268,7 @@ class AdminProductsController extends Controller
                 'discount'    => $validated['discount'],
                 'description' => $validated['description'],
                 'price'       => $validated['price'],
+                'video_link'  => $validated['video_link'],
                 'stock'       => $validated['stock'],
                 'main_image'  => $mainImageName,
                 'category_id' => $validated['category_id'],
@@ -327,50 +329,50 @@ class AdminProductsController extends Controller
      * @param Product $product
      * @return JsonResponse
      */
-   public function deleteGalleryImage(Request $request, Product $product): JsonResponse {
-    $validated = $request->validate([
-        'image' => [
-            'required',
-            'string',
-        ],
-    ]);
+    public function deleteGalleryImage(Request $request, Product $product): JsonResponse
+    {
+        $validated = $request->validate([
+            'image' => [
+                'required',
+                'string',
+            ],
+        ]);
 
-    $imageName = $validated['image'];
-    $gallery = $product->gallery ?? [];
+        $imageName = $validated['image'];
+        $gallery = $product->gallery ?? [];
 
 
-    if (!in_array($imageName, $gallery, true)) {
+        if (!in_array($imageName, $gallery, true)) {
+            return response()->json([
+                'message' => 'Снимката не беше намерена в галерията на продукта.',
+            ], 404);
+        }
+
+
+        $updatedGallery = array_values(
+            array_filter(
+                $gallery,
+                fn(string $galleryImage): bool => $galleryImage !== $imageName
+            )
+        );
+
+        $imagePath = public_path(
+            'assets/images/product_gallery/' . $imageName
+        );
+
+        if (File::exists($imagePath) && !File::delete($imagePath)) {
+            return response()->json([
+                'message' => 'Файлът на снимката не можа да бъде изтрит.',
+            ], 500);
+        }
+
+        $product->update([
+            'gallery' => $updatedGallery,
+        ]);
+
         return response()->json([
-            'message' => 'Снимката не беше намерена в галерията на продукта.',
-        ], 404);
+            'message' => 'Снимката беше изтрита успешно.',
+            'gallery' => $updatedGallery,
+        ]);
     }
-
-
-    $updatedGallery = array_values(
-        array_filter($gallery,
-            fn (string $galleryImage): bool => $galleryImage !== $imageName
-        )
-    );
-
-    $imagePath = public_path(
-        'assets/images/product_gallery/' . $imageName
-    );
-
-    if (File::exists($imagePath) && !File::delete($imagePath)) {
-        return response()->json([
-            'message' => 'Файлът на снимката не можа да бъде изтрит.',
-        ], 500);
-    }
-
-    $product->update([
-        'gallery' => $updatedGallery,
-    ]);
-
-    return response()->json([
-        'message' => 'Снимката беше изтрита успешно.',
-        'gallery' => $updatedGallery,
-    ]);
-}
-
-
 }

@@ -31,6 +31,7 @@ class UpdateProductRequest extends FormRequest
             'sku'         => ['required', 'string', 'max:255', Rule::unique('products', 'sku')->ignore($product->id)],
             'category_id' => ['required', 'exists:categories,id'],
             'description' => ['required', 'string'],
+            'video_link'  => ['string'],
             'discount'    => ['nullable', 'numeric', 'min:0', 'max:99'],
             'stock'       => ['required', 'integer', 'min:0'],
             'price'       => ['required', 'numeric', 'min:0'],

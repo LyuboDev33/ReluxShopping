@@ -135,6 +135,12 @@
                         value="{{ old('discount', $product->discount) }}">
                 </div>
 
+                <div class="col-lg-6">
+                    <label>Видео линк</label>
+                    <input type="text" name="video_link" class="form-control"
+                        value="{{ old('discount', $product->video_link) }}">
+                </div>
+
                 <div class="col-lg-12">
                     <label>Описание на продукта</label>
                     <textarea name="description" rows="4" class="form-control">{{ old('description', $product->description) }}</textarea>

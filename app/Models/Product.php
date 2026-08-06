@@ -14,6 +14,7 @@ class Product extends Model
         'sku',
         'slug',
         'stock',
+        'video_link',
         'discount',
         'category_id',
         'description',
