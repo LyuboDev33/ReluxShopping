@@ -28,8 +28,8 @@ class OrderCreated extends Mailable
     {
         return new Envelope(
             from: new Address(
-                'office@valenteoptic.com',
-                'Valente Optics - Потвърждение за поръчка'
+                'contact@reluxtop.com',
+                'Relux Top Shopping - Потвърждение за поръчка'
             ),
             subject:
                 'Потвърждение на поръчка #' .

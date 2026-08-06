@@ -19,11 +19,22 @@
         font-family: Arial, Helvetica, sans-serif;
         color: #333333;
     ">
-    <table width="100%" cellpadding="0" cellspacing="0" border="0" role="presentation"
+
+    <table width="100%"
+        cellpadding="0"
+        cellspacing="0"
+        border="0"
+        role="presentation"
         style="background-color: #f4f4f4;">
+
         <tr>
             <td align="center" style="padding: 30px 15px;">
-                <table width="100%" cellpadding="0" cellspacing="0" border="0" role="presentation"
+
+                <table width="100%"
+                    cellpadding="0"
+                    cellspacing="0"
+                    border="0"
+                    role="presentation"
                     style="
                         width: 100%;
                         max-width: 760px;
@@ -31,6 +42,7 @@
                         border-radius: 12px;
                         overflow: hidden;
                     ">
+
                     {{-- Header --}}
                     <tr>
                         <td align="center"
@@ -38,7 +50,9 @@
                                 padding: 35px 25px 20px;
                                 background-color: #ffffff;
                             ">
-                            <img src="{{ url('/assets/images/resources/order-success.png') }}" alt="Успешна поръчка"
+
+                            <img src="{{ url('/assets/images/resources/order-success.png') }}"
+                                alt="Успешна поръчка"
                                 width="100"
                                 style="
                                     display: block;
@@ -56,6 +70,7 @@
                                     line-height: 34px;
                                     color: #222222;
                                 ">
+
                                 Благодарим Ви за поръчката!
                             </h1>
 
@@ -66,6 +81,7 @@
                                     line-height: 25px;
                                     color: #666666;
                                 ">
+
                                 Получихме Вашата поръчка и ще се свържем с Вас при необходимост.
                             </p>
 
@@ -76,15 +92,18 @@
                                     line-height: 25px;
                                     color: #333333;
                                 ">
+
                                 Номер на поръчка:
                                 <strong>{{ $order->order_number }}</strong>
                             </p>
+
                         </td>
                     </tr>
 
                     {{-- Customer information --}}
                     <tr>
                         <td style="padding: 15px 30px 5px;">
+
                             <h2
                                 style="
                                     margin: 0 0 15px;
@@ -92,14 +111,20 @@
                                     line-height: 28px;
                                     color: #222222;
                                 ">
+
                                 Данни за клиента
                             </h2>
 
-                            <table width="100%" cellpadding="0" cellspacing="0" border="0" role="presentation"
+                            <table width="100%"
+                                cellpadding="0"
+                                cellspacing="0"
+                                border="0"
+                                role="presentation"
                                 style="
                                     border: 1px solid #e8e8e8;
                                     border-radius: 8px;
                                 ">
+
                                 <tr>
                                     <td
                                         style="
@@ -108,6 +133,7 @@
                                             line-height: 23px;
                                             color: #555555;
                                         ">
+
                                         <strong>Име:</strong>
                                         {{ $order->first_name }}
                                         {{ $order->last_name }}
@@ -121,15 +147,19 @@
 
                                         <strong>Телефон:</strong>
                                         {{ $order->phone }}
+
                                     </td>
                                 </tr>
+
                             </table>
+
                         </td>
                     </tr>
 
                     {{-- Products --}}
                     <tr>
                         <td style="padding: 25px 30px 5px;">
+
                             <h2
                                 style="
                                     margin: 0 0 15px;
@@ -137,22 +167,34 @@
                                     line-height: 28px;
                                     color: #222222;
                                 ">
+
                                 Продукти
                             </h2>
 
                             @foreach ($orderProducts as $product)
-                                <table width="100%" cellpadding="0" cellspacing="0" border="0" role="presentation"
+                                <table width="100%"
+                                    cellpadding="0"
+                                    cellspacing="0"
+                                    border="0"
+                                    role="presentation"
                                     style="
                                         margin-bottom: 16px;
                                         border: 1px solid #e8e8e8;
                                         border-radius: 8px;
                                     ">
+
                                     <tr>
-                                        <td width="110" valign="top" style="padding: 16px;">
+                                        <td width="110"
+                                            valign="top"
+                                            style="padding: 16px;">
+
                                             <a href="{{ url('/shop/product/' . $product->product_slug) }}"
-                                                target="_blank" style="text-decoration: none;">
+                                                target="_blank"
+                                                style="text-decoration: none;">
+
                                                 <img src="{{ url('/assets/images/products/' . $product->product_image) }}"
-                                                    alt="{{ $product->product_name }}" width="90"
+                                                    alt="{{ $product->product_name }}"
+                                                    width="90"
                                                     style="
                                                         display: block;
                                                         width: 90px;
@@ -162,6 +204,7 @@
                                                         border-radius: 8px;
                                                     ">
                                             </a>
+
                                         </td>
 
                                         <td valign="top"
@@ -171,6 +214,7 @@
                                                 line-height: 22px;
                                                 color: #555555;
                                             ">
+
                                             <a href="{{ url('/shop/product/' . $product->product_slug) }}"
                                                 target="_blank"
                                                 style="
@@ -182,6 +226,7 @@
                                                     font-weight: 700;
                                                     text-decoration: none;
                                                 ">
+
                                                 {{ $product->product_name }}
                                             </a>
 
@@ -189,34 +234,6 @@
 
                                             <strong>Количество:</strong>
                                             {{ $product->quantity }}
-
-                                            @if (!empty($product->lens_index))
-                                                <br>
-
-                                                <strong>Индекс на стъклото:</strong>
-
-                                                {{ data_get($product->lens_index, 'name', data_get($product->lens_index, 'value', '—')) }}
-
-                                                @if (data_get($product->lens_index, 'price'))
-                                                    —
-                                                    {{ number_format((float) data_get($product->lens_index, 'price'), 2) }}
-                                                    EUR
-                                                @endif
-                                            @endif
-
-                                            @if (!empty($product->glass_value))
-                                                <br>
-
-                                                <strong>Избрано стъкло:</strong>
-
-                                                {{ data_get($product->glass_value, 'name', data_get($product->glass_value, 'value', '—')) }}
-
-                                                @if (data_get($product->glass_value, 'price'))
-                                                    —
-                                                    {{ number_format((float) data_get($product->glass_value, 'price'), 2) }}
-                                                    EUR
-                                                @endif
-                                            @endif
 
                                             <br>
 
@@ -233,13 +250,17 @@
                                                     -{{ $product->discount }}%
                                                 </span>
                                             @endif
+
                                         </td>
 
-                                        <td width="145" valign="middle" align="right"
+                                        <td width="145"
+                                            valign="middle"
+                                            align="right"
                                             style="
                                                 padding: 16px;
                                                 border-left: 1px solid #eeeeee;
                                             ">
+
                                             <span
                                                 style="
                                                     display: block;
@@ -247,6 +268,7 @@
                                                     font-size: 13px;
                                                     color: #777777;
                                                 ">
+
                                                 Общо
                                             </span>
 
@@ -257,7 +279,12 @@
                                                         line-height: 24px;
                                                         color: #222222;
                                                     ">
-                                                    {{ number_format(($product->price - ($product->price * $product->discount) / 100) * $product->quantity, 2) }}
+
+                                                    {{ number_format(
+                                                        ($product->price - ($product->price * $product->discount) / 100) *
+                                                            $product->quantity,
+                                                        2,
+                                                    ) }}
                                                     EUR
                                                 </strong>
                                             @else
@@ -267,107 +294,28 @@
                                                         line-height: 24px;
                                                         color: #222222;
                                                     ">
-                                                    {{ number_format($product->price * $product->quantity, 2) }}
+
+                                                    {{ number_format(
+                                                        $product->price * $product->quantity,
+                                                        2,
+                                                    ) }}
                                                     EUR
                                                 </strong>
                                             @endif
+
                                         </td>
                                     </tr>
 
-                                    @if ($product->prescription_image || !empty($product->right_eye) || !empty($product->left_eye) || $product->pd)
-                                        <tr>
-                                            <td colspan="3"
-                                                style="
-                                                    padding: 0 16px 16px;
-                                                ">
-                                                <table width="100%" cellpadding="0" cellspacing="0" border="0"
-                                                    role="presentation"
-                                                    style="
-                                                        background-color: #f8f8f8;
-                                                        border-radius: 8px;
-                                                    ">
-                                                    <tr>
-                                                        <td
-                                                            style="
-                                                                padding: 15px;
-                                                                font-size: 14px;
-                                                                line-height: 22px;
-                                                                color: #555555;
-                                                            ">
-                                                            <strong
-                                                                style="
-                                                                    display: block;
-                                                                    margin-bottom: 10px;
-                                                                    color: #222222;
-                                                                ">
-                                                                Данни за диоптър
-                                                            </strong>
-
-                                                            @if ($product->prescription_image)
-                                                                <strong>Рецепта:</strong>
-
-                                                                <a href="{{ url('/assets/images/prescriptions/' . $product->prescription_image) }}"
-                                                                    target="_blank" style="color: #333333;">
-                                                                    Преглед на рецептата
-                                                                </a>
-
-                                                                <br>
-                                                            @endif
-
-                                                            @if (!empty($product->right_eye))
-                                                                <strong>Дясно око (OD):</strong>
-
-                                                                SPH:
-                                                                {{ data_get($product->right_eye, 'sph', '—') }},
-
-                                                                CYL:
-                                                                {{ data_get($product->right_eye, 'cyl', '—') }},
-
-                                                                AXIS:
-                                                                {{ data_get($product->right_eye, 'axis', '—') }},
-
-                                                                ADD:
-                                                                {{ data_get($product->right_eye, 'add', '—') }}
-
-                                                                <br>
-                                                            @endif
-
-                                                            @if (!empty($product->left_eye))
-                                                                <strong>Ляво око (OS):</strong>
-
-                                                                SPH:
-                                                                {{ data_get($product->left_eye, 'sph', '—') }},
-
-                                                                CYL:
-                                                                {{ data_get($product->left_eye, 'cyl', '—') }},
-
-                                                                AXIS:
-                                                                {{ data_get($product->left_eye, 'axis', '—') }},
-
-                                                                ADD:
-                                                                {{ data_get($product->left_eye, 'add', '—') }}
-
-                                                                <br>
-                                                            @endif
-
-                                                            @if ($product->pd)
-                                                                <strong>PD:</strong>
-                                                                {{ $product->pd }}
-                                                            @endif
-                                                        </td>
-                                                    </tr>
-                                                </table>
-                                            </td>
-                                        </tr>
-                                    @endif
                                 </table>
                             @endforeach
+
                         </td>
                     </tr>
 
                     {{-- Payment summary --}}
                     <tr>
                         <td style="padding: 25px 30px 5px;">
+
                             <h2
                                 style="
                                     margin: 0 0 15px;
@@ -375,14 +323,20 @@
                                     line-height: 28px;
                                     color: #222222;
                                 ">
+
                                 Информация за плащане
                             </h2>
 
-                            <table width="100%" cellpadding="0" cellspacing="0" border="0" role="presentation"
+                            <table width="100%"
+                                cellpadding="0"
+                                cellspacing="0"
+                                border="0"
+                                role="presentation"
                                 style="
                                     border: 1px solid #e8e8e8;
                                     border-radius: 8px;
                                 ">
+
                                 <tr>
                                     <td
                                         style="
@@ -391,6 +345,7 @@
                                             color: #555555;
                                             border-bottom: 1px solid #eeeeee;
                                         ">
+
                                         Сума на продуктите:
                                     </td>
 
@@ -401,6 +356,7 @@
                                             color: #222222;
                                             border-bottom: 1px solid #eeeeee;
                                         ">
+
                                         <strong>
                                             {{ number_format(
                                                 $orderProducts->sum(
@@ -412,6 +368,7 @@
                                             ) }}
                                             EUR
                                         </strong>
+
                                     </td>
                                 </tr>
 
@@ -424,6 +381,7 @@
                                                 color: #555555;
                                                 border-bottom: 1px solid #eeeeee;
                                             ">
+
                                             Промо код:
 
                                             <strong>
@@ -438,9 +396,11 @@
                                                 color: #c0392b;
                                                 border-bottom: 1px solid #eeeeee;
                                             ">
+
                                             <strong>
                                                 -{{ $promoCode->percentage_promo_code }}%
                                             </strong>
+
                                         </td>
                                     </tr>
 
@@ -452,6 +412,7 @@
                                                 color: #555555;
                                                 border-bottom: 1px solid #eeeeee;
                                             ">
+
                                             Стойност на промо отстъпката:
                                         </td>
 
@@ -462,6 +423,7 @@
                                                 color: #c0392b;
                                                 border-bottom: 1px solid #eeeeee;
                                             ">
+
                                             <strong>
                                                 -
                                                 {{ number_format(
@@ -475,6 +437,7 @@
                                                 ) }}
                                                 EUR
                                             </strong>
+
                                         </td>
                                     </tr>
                                 @endif
@@ -486,6 +449,7 @@
                                             font-size: 17px;
                                             color: #222222;
                                         ">
+
                                         <strong>Обща сума:</strong>
                                     </td>
 
@@ -495,6 +459,7 @@
                                             font-size: 20px;
                                             color: #222222;
                                         ">
+
                                         @if ($promoCode)
                                             <strong>
                                                 {{ number_format(
@@ -521,15 +486,19 @@
                                                 EUR
                                             </strong>
                                         @endif
+
                                     </td>
                                 </tr>
+
                             </table>
+
                         </td>
                     </tr>
 
                     {{-- Delivery information --}}
                     <tr>
                         <td style="padding: 25px 30px 5px;">
+
                             <h2
                                 style="
                                     margin: 0 0 15px;
@@ -537,15 +506,20 @@
                                     line-height: 28px;
                                     color: #222222;
                                 ">
+
                                 Информация за доставка
                             </h2>
 
-                            <table width="100%" cellpadding="0" cellspacing="0" border="0"
+                            <table width="100%"
+                                cellpadding="0"
+                                cellspacing="0"
+                                border="0"
                                 role="presentation"
                                 style="
                                     border: 1px solid #e8e8e8;
                                     border-radius: 8px;
                                 ">
+
                                 <tr>
                                     <td
                                         style="
@@ -554,6 +528,7 @@
                                             line-height: 23px;
                                             color: #555555;
                                         ">
+
                                         <strong>Начин на доставка:</strong>
 
                                         @if ($order->delivery_method === 'office')
@@ -592,9 +567,12 @@
                                         @else
                                             {{ $order->payment_option }}
                                         @endif
+
                                     </td>
                                 </tr>
+
                             </table>
+
                         </td>
                     </tr>
 
@@ -602,6 +580,7 @@
                     @if ($order->request_invoice)
                         <tr>
                             <td style="padding: 25px 30px 5px;">
+
                                 <h2
                                     style="
                                         margin: 0 0 15px;
@@ -609,15 +588,20 @@
                                         line-height: 28px;
                                         color: #222222;
                                     ">
+
                                     Фирмени данни
                                 </h2>
 
-                                <table width="100%" cellpadding="0" cellspacing="0" border="0"
+                                <table width="100%"
+                                    cellpadding="0"
+                                    cellspacing="0"
+                                    border="0"
                                     role="presentation"
                                     style="
                                         border: 1px solid #e8e8e8;
                                         border-radius: 8px;
                                     ">
+
                                     <tr>
                                         <td
                                             style="
@@ -626,6 +610,7 @@
                                                 line-height: 23px;
                                                 color: #555555;
                                             ">
+
                                             @if ($order->company_name)
                                                 <strong>Фирма:</strong>
                                                 {{ $order->company_name }}
@@ -651,9 +636,12 @@
                                                 <strong>Адрес:</strong>
                                                 {{ $order->company_address }}
                                             @endif
+
                                         </td>
                                     </tr>
+
                                 </table>
+
                             </td>
                         </tr>
                     @endif
@@ -667,20 +655,26 @@
                                 line-height: 21px;
                                 color: #777777;
                             ">
+
                             <p style="margin: 0 0 8px;">
-                                Благодарим Ви, че избрахте Valente Optics.
+                                Благодарим Ви, че избрахте Relux TopShopping.
                             </p>
 
                             <p style="margin: 0;">
                                 При въпроси можете да се свържете с нас на
                                 <strong>+359 89 3023731</strong>.
                             </p>
+
                         </td>
                     </tr>
+
                 </table>
+
             </td>
         </tr>
+
     </table>
+
 </body>
 
 </html>

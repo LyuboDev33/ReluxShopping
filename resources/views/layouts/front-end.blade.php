@@ -84,10 +84,6 @@
 
         @include('layouts.partials.frontend.footer')
 
-        <!-- Scroll To Top -->
-        <a class="scroll-to-top" href="#">
-            <i class="fa-solid fa-angles-up"></i>
-        </a>
 
     </div>
 

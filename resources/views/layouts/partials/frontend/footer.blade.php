@@ -27,8 +27,8 @@
 
                         <p>
                             <strong>Имейл:</strong>
-                            <a href="mailto:info@reluxtopshopping.com">
-                                info@reluxtopshopping.com
+                            <a href="mailto:contact@reluxtop.com">
+                                contact@reluxtop.com
                             </a>
                         </p>
                     </div>
