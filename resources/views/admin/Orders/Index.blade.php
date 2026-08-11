@@ -25,7 +25,6 @@
                             <th>ID</th>
                             <th>Номер на поръчка</th>
                             <th>Клиент</th>
-                            <th>Телефон</th>
                             <th>Статус</th>
                             <th>Обща сума</th>
                             <th>Дата</th>
@@ -46,11 +45,6 @@
                                 <td>
                                     {{ $order->first_name }} {{ $order->last_name }}
                                 </td>
-
-                                <td>
-                                    {{ $order->phone }}
-                                </td>
-
 
                                 <td>
                                     @switch($order->status)

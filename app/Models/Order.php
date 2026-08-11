@@ -12,6 +12,13 @@ class Order extends Model
     const STATUS_DELIVERED = 'delivered';
     const STATUS_CANCELLED = 'cancelled';
 
+    const ORDER_STATUSES = [
+        self::STATUS_PENDING    => 'Изчакваща',
+        self::STATUS_PROCESSING => 'В процес на обработка',
+        self::STATUS_DELIVERED  => 'Доставена',
+        self::STATUS_CANCELLED  => 'Отменена',
+    ];
+
     protected $fillable = [
         'order_number',
         'first_name',

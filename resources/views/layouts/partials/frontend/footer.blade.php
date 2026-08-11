@@ -144,12 +144,7 @@
                             </a>
                         </li>
 
-                        <li>
-                            <a href="{{ route('checkout') }}">
-                                Финализиране на поръчка
-                            </a>
-                        </li>
-
+                       
                         <li>
                             <a href="{{ route('contact') }}">
                                 Свържете се с нас

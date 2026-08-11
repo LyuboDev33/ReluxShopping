@@ -22,7 +22,7 @@ Route::prefix('admin')
         Route::prefix('orders')->group(function () {
             Route::get('/', [AdminOrdersController::class, 'index'])->name('admin.orders.index');
             Route::get('/show/{order_id}',  [AdminOrdersController::class, 'show'])->name('admin.orders.show');
-            Route::put('/update-order-status', [AdminOrdersController::class, 'updateOrderStatus'])->name('admin.update.order.status');
+            Route::put('/{order}/status', [AdminOrdersController::class, 'updateOrderStatus'])->name('admin.update.order.status');
         });
 
         Route::prefix('products')->group(function () {

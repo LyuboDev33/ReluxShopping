@@ -70,7 +70,7 @@
                                 @forelse ($products as $product)
                                     <!--Product All Single Start-->
                                     <div class="col-xl-3 col-lg-4 col-md-6">
-                                        <div class="product__all-single shadow">
+                                        <div class="product__all-single shadow bg-white">
                                             <div class="product__all-img">
                                                 @if ($product->main_image)
                                                     <img src="{{ asset('assets/images/products/' . $product->main_image) }}"
@@ -118,7 +118,7 @@
 
 
                                                 <div class="product__all-btn-box d-flex gap-2 flex-column pe-3 ps-3">
-                                                    <a class="thm-btn product__all-btn p-2"
+                                                    <a class="btn btn-info  p-2 text-white rounded-pill"
                                                         href="{{ route('admin.products.show', $product->slug) }}">
                                                         Редактирай
                                                     </a>

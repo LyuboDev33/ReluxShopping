@@ -33,15 +33,15 @@
 
             {{-- ================= CREATE ATTRIBUTE TYPE ================= --}}
             <div class="col-md-6">
-                <div class="card shadow-sm">
-                    <div class="card-header bg-dark text-white">
+                <div class="shadow">
+                    <div class="card-header bg-dark text-white p-2 mb-1">
                         <strong>Нов тип атрибут</strong>
                         <small class="text-white-50 d-block">
                             Напр. „Цвят на рамката“, „Размер“, „Материал“
                         </small>
                     </div>
 
-                    <div class="card-body">
+                    <div class="card-body p-2">
                         <form action="{{ route('admin.attributes.types.store') }}" method="POST">
                             @csrf
 
@@ -77,15 +77,15 @@
 
             {{-- ================= CREATE ATTRIBUTE VALUE ================= --}}
             <div class="col-md-6">
-                <div class="card shadow-sm">
-                    <div class="card-header bg-dark text-white">
+                <div class="shadow">
+                    <div class="card-header bg-dark text-white p-2 mb-1">
                         <strong>Нова стойност</strong>
                         <small class="text-white-50 d-block">
                             Напр. „Черен“ под „Цвят на рамката“
                         </small>
                     </div>
 
-                    <div class="card-body">
+                    <div class="card-body p-2">
                         @if ($types->isEmpty())
                             <p class="text-muted mb-0">
                                 Първо създай поне един тип атрибут отляво.
@@ -170,7 +170,7 @@
             <div class="row g-3">
                 @foreach ($types as $type)
                     <div class="col-md-6 col-lg-4">
-                        <div class="card h-100 shadow-sm">
+                        <div class="h-100 shadow p-3">
 
                             <div class="card-header">
                                 <div class="d-flex justify-content-between align-items-start gap-3">
@@ -184,7 +184,7 @@
                                         </small>
                                     </div>
 
-                                    {{-- <form
+                                    <form
                                         action="{{ route('admin.attributes.types.destroy', $type) }}"
                                         method="POST"
                                         onsubmit="return confirm('Сигурен ли си? Това ще изтрие типа и всичките му стойности.');"
@@ -195,7 +195,7 @@
                                         <button type="submit" class="btn btn-sm btn-outline-danger rounded-5">
                                             Изтрий тип
                                         </button>
-                                    </form> --}}
+                                    </form>
                                 </div>
                             </div>
 

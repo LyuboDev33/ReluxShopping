@@ -13,6 +13,97 @@
             </div>
         </div>
 
+
+        <div class=" mb-4">
+            <div class="card-body">
+
+                <h5 class="mb-3">
+                    Статус на поръчката
+                </h5>
+
+                <form method="POST" action="{{ route('admin.update.order.status', $order) }}">
+                    @csrf
+                    @method('PUT')
+
+                    <div class="row align-items-end">
+
+                        <div class="col-lg-6">
+
+                            <label for="status" class="form-label">
+                                Изберете статус
+                            </label>
+
+                            <select id="status" name="status" class="form-select" required>
+
+                                @foreach ($orderStatuses as $value => $label)
+                                    <option value="{{ $value }}" @selected(old('status', $order->status) === $value)>
+                                        {{ $label }}
+                                    </option>
+                                @endforeach
+
+                            </select>
+
+                            @error('status')
+                                <div class="text-danger mt-2">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+
+                        </div>
+
+
+                        <div class="col-lg-3">
+
+                            <button type="submit" class="btn btn-primary">
+                                Запази статус
+                            </button>
+
+                        </div>
+
+                        <div class="col-lg-3 text-end">
+                            @switch($order->status)
+                                @case(\App\Models\Order::STATUS_PENDING)
+                                    <span class="badge bg-warning text-dark p-2">
+                                        Чакаща
+                                    </span>
+                                @break
+
+                                @case(\App\Models\Order::STATUS_PROCESSING)
+                                    <span class="badge bg-info text-dark p-2">
+                                        В обработка
+                                    </span>
+                                @break
+
+                                @case(\App\Models\Order::STATUS_DELIVERED)
+                                    <span class="badge bg-success p-2">
+                                        Доставена
+                                    </span>
+                                @break
+
+                                @case(\App\Models\Order::STATUS_CANCELLED)
+                                    <span class="badge bg-danger p-2">
+                                        Отказана
+                                    </span>
+                                @break
+
+                                @default
+                                    <span class="badge bg-secondary p-2">
+                                        {{ $order->status }}
+                                    </span>
+                            @endswitch
+                        </div>
+
+                    </div>
+
+                </form>
+
+
+
+            </div>
+        </div>
+
+        <hr>
+
         <div class="bg-white">
             <header class="card-header">
                 <div class="row align-items-center">
@@ -33,38 +124,7 @@
                         </small>
                     </div>
 
-                    <div class="col-lg-6 col-md-6 text-md-end">
-                        @switch($order->status)
-                            @case(\App\Models\Order::STATUS_PENDING)
-                                <span class="badge bg-warning text-dark p-2">
-                                    Чакаща
-                                </span>
-                            @break
 
-                            @case(\App\Models\Order::STATUS_PROCESSING)
-                                <span class="badge bg-info text-dark p-2">
-                                    В обработка
-                                </span>
-                            @break
-
-                            @case(\App\Models\Order::STATUS_DELIVERED)
-                                <span class="badge bg-success p-2">
-                                    Доставена
-                                </span>
-                            @break
-
-                            @case(\App\Models\Order::STATUS_CANCELLED)
-                                <span class="badge bg-danger p-2">
-                                    Отказана
-                                </span>
-                            @break
-
-                            @default
-                                <span class="badge bg-secondary p-2">
-                                    {{ $order->status }}
-                                </span>
-                        @endswitch
-                    </div>
 
                 </div>
             </header>
@@ -76,8 +136,7 @@
                     <div class="col-md-4">
                         <article class="d-flex align-items-start gap-3">
 
-                            <span
-                                class="rounded-circle bg-primary d-flex align-items-center justify-content-center"
+                            <span class="rounded-circle bg-primary d-flex align-items-center justify-content-center"
                                 style="width: 42px; height: 42px;">
 
                                 <i class="fa fa-user text-white"></i>
@@ -105,8 +164,7 @@
                     <div class="col-md-4">
                         <article class="d-flex align-items-start gap-3">
 
-                            <span
-                                class="rounded-circle bg-primary d-flex align-items-center justify-content-center"
+                            <span class="rounded-circle bg-primary d-flex align-items-center justify-content-center"
                                 style="width: 42px; height: 42px;">
 
                                 <i class="fa fa-truck text-white"></i>
@@ -169,8 +227,7 @@
                     <div class="col-md-4">
                         <article class="d-flex align-items-start gap-3">
 
-                            <span
-                                class="rounded-circle bg-primary d-flex align-items-center justify-content-center"
+                            <span class="rounded-circle bg-primary d-flex align-items-center justify-content-center"
                                 style="width: 42px; height: 42px;">
 
                                 <i class="fa fa-location-dot text-white"></i>
@@ -232,15 +289,13 @@
                                                 <div class="d-flex align-items-center gap-3">
 
                                                     <div class="img-box">
-                                                        <img
-                                                            src="{{ asset('/assets/images/products/' . $product->product_image) }}"
+                                                        <img src="{{ asset('/assets/images/products/' . $product->product_image) }}"
                                                             alt="{{ $product->product_name }}"
                                                             style="width: 55px; height: 55px; object-fit: cover; border-radius: 8px;">
                                                     </div>
 
                                                     <div>
-                                                        <a
-                                                            target="_blank"
+                                                        <a target="_blank"
                                                             href="{{ route('shop.show', $product->product_slug) }}">
 
                                                             <strong>
@@ -296,9 +351,7 @@
 
                         </div>
 
-                        <a
-                            href="{{ route('admin.orders.index') }}"
-                            class="btn btn-primary mt-3">
+                        <a href="{{ route('admin.orders.index') }}" class="btn btn-primary mt-3">
 
                             Назад към поръчките
                         </a>
