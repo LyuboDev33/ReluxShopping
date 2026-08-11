@@ -5251,7 +5251,12 @@ fieldset:disabled .btn {
 }
 
 .page-item:not(:first-child) .page-link {
-    margin-left: -1px
+       margin-left: -1px;
+    font-size: 14px;
+    /* border-radius: 30px; */
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .page-item:first-child .page-link {
