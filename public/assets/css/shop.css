@@ -986,6 +986,7 @@ Product Details
     align-items: flex-end;
     /* margin-bottom: 30px; */
     /* margin-top: 30px; */
+    justify-content: center;
 }
 
 .product-details__buttons-1 {

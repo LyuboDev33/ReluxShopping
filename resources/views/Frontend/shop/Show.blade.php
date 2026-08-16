@@ -141,17 +141,9 @@
 
                         </p>
 
-                        <div class="product-details__buttons">
-                            <div class="product-details__buttons-2">
 
-                                <button type="submit" class="thm-btn">
-                                    Добави в количката
-                                </button>
 
-                            </div>
-                        </div>
-
-                        <div class="alert alert-info mt-4 mb-2">
+                        <div class="alert alert-info rounded-3 mt-4 mb-2">
                             <div class="d-flex align-items-start gap-3">
 
                                 <div>
@@ -168,6 +160,16 @@
                                         за извършване на плащането.
                                     </p>
                                 </div>
+
+                            </div>
+                        </div>
+
+                         <div class="product-details__buttons mt-3 text-center">
+                            <div class="product-details__buttons-2">
+
+                                <button type="submit" class="thm-btn">
+                                    Добави в количката
+                                </button>
 
                             </div>
                         </div>
