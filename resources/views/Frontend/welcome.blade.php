@@ -68,8 +68,7 @@
                                     <p class="mb--30 mb-sm--20" data-animation="fadeInDown" data-duration=".8s"
                                         data-delay=".2s">
 
-                                        Открийте внимателно подбрани луксозни часовници,
-                                        които превръщат всеки момент в изявление.
+                                        Премиум селекция на автентични нови и употребявани часовници и аксесоари
                                     </p>
 
                                     <p class="mb--50 mb-sm--20" data-animation="fadeInDown" data-duration=".8s"
@@ -107,7 +106,7 @@
 
                                 <div class="slider-content">
 
-                                    <h5 >
+                                    <h5>
 
                                         Премиум селекция за ценители
                                     </h5>
@@ -189,14 +188,20 @@
 
                             <p class="about-five__text-1">
                                 <strong>ReLux TopShopping</strong> е вашето доверено
-                                пространство за висша часовникарска подборка, доказан
-                                стил и безкомпромисно качество.
+                                пространство за внимателно подбрани луксозни часовници и аксесоари,
+                                доказан стил и безкомпромисно качество.
                             </p>
 
                             <p class="about-five__text-1">
-                                Вярваме, че един премиум часовник или аксесоар е много
-                                повече от допълнение към тоалета — той е история, статус,
-                                инвестиция и израз на индивидуалност.
+                                В нашата селекция ще откриете както <strong>нови, така и употребявани
+                                    часовници и аксесоари</strong>, подбрани с внимание към качеството,
+                                състоянието и автентичността.
+                            </p>
+
+                            <p class="about-five__text-1">
+                                Вярваме, че един премиум часовник или аксесоар е много повече
+                                от допълнение към тоалета — той е история, статус, инвестиция
+                                и израз на индивидуалност.
                             </p>
 
                             <div class="about-btn-group mt-4">
@@ -573,134 +578,129 @@
                 <div class="row no-gutters">
                     <div class="col-12">
 
-                      <div class="splide nav-top" id="testimonialSplide">
-    <div class="splide__track">
+                        <div class="splide nav-top" id="testimonialSplide">
+                            <div class="splide__track">
 
-        <div class="splide__list">
+                                <div class="splide__list">
 
-            @forelse ($products as $product)
+                                    @forelse ($products as $product)
+                                        <div class="splide__slide">
 
-                <div class="splide__slide">
+                                            <div class="product__all-single shadow relux-about-section__content">
 
-                    <div class="product__all-single shadow relux-about-section__content">
+                                                <div class="product__all-img">
+                                                    <a href="{{ route('shop.show', $product->slug) }}">
 
-                        <div class="product__all-img">
-                            <a href="{{ route('shop.show', $product->slug) }}">
+                                                        @if ($product->main_image)
+                                                            <img src="{{ asset('assets/images/products/' . $product->main_image) }}"
+                                                                alt="{{ $product->name }}">
 
-                                @if ($product->main_image)
-                                    <img src="{{ asset('assets/images/products/' . $product->main_image) }}"
-                                        alt="{{ $product->name }}">
+                                                            <img src="{{ asset('assets/images/products/' . $product->main_image) }}"
+                                                                alt="{{ $product->name }}">
+                                                        @else
+                                                            <img src="{{ asset('assets/images/shop/shop-product-1-1.jpg') }}"
+                                                                alt="{{ $product->name }}">
 
-                                    <img src="{{ asset('assets/images/products/' . $product->main_image) }}"
-                                        alt="{{ $product->name }}">
-                                @else
-                                    <img src="{{ asset('assets/images/shop/shop-product-1-1.jpg') }}"
-                                        alt="{{ $product->name }}">
+                                                            <img src="{{ asset('assets/images/shop/shop-product-1-1.jpg') }}"
+                                                                alt="{{ $product->name }}">
+                                                        @endif
 
-                                    <img src="{{ asset('assets/images/shop/shop-product-1-1.jpg') }}"
-                                        alt="{{ $product->name }}">
-                                @endif
+                                                    </a>
+                                                </div>
 
-                            </a>
+                                                <div class="product__all-content">
+
+                                                    @if ($product->categories->isNotEmpty())
+                                                        <p class="small text-muted mb-1">
+                                                            {{ $product->categories->pluck('name')->join(' · ') }}
+                                                        </p>
+                                                    @endif
+
+                                                    <h4 class="product__all-title">
+                                                        <a href="{{ route('shop.show', $product->slug) }}">
+                                                            {{ $product->name }}
+                                                        </a>
+                                                    </h4>
+
+                                                    @if ($product->brand)
+                                                        <p class="product__all-brand mt-3 mb-3">
+                                                            <span>Марка:</span>
+
+                                                            <b>
+                                                                {{ $product->brand }}
+                                                            </b>
+                                                        </p>
+                                                    @endif
+
+                                                    <p class="product__all-price">
+
+                                                        @if ($product->discount)
+                                                            <del class="text-muted me-2">
+                                                                {{ number_format($product->price, 2) }} €
+                                                            </del>
+
+                                                            <span class="text-danger">
+                                                                {{ number_format($product->price - ($product->price * $product->discount) / 100, 2) }}
+                                                                €
+                                                            </span>
+
+                                                            (-{{ $product->discount }}%)
+                                                        @else
+                                                            {{ number_format($product->price, 2) }} €
+                                                        @endif
+
+                                                    </p>
+
+                                                    <form method="POST"
+                                                        action="{{ route('wishlist.add', $product) }}"
+                                                        class="product__all-btn-box d-flex justify-content-center wishlist-form">
+
+                                                        @csrf
+
+                                                        <a class="thm-btn product__all-btn p-2"
+                                                            href="{{ route('shop.show', $product->slug) }}">
+
+                                                            Разгледай
+                                                        </a>
+
+                                                        @php
+                                                            $wishlist = Session::get('wishlist', []);
+                                                            $isInWishlist = isset($wishlist[$product->id]);
+                                                        @endphp
+
+                                                        <button type="submit" class="wishlist-btn"
+                                                            aria-label="Добави в любими">
+
+                                                            <i
+                                                                class="{{ $isInWishlist ? 'fa-solid' : 'fa-regular' }} fa-heart"></i>
+                                                        </button>
+
+                                                    </form>
+
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                    @empty
+
+                                        <div class="splide__slide">
+                                            <div class="alert alert-info text-center">
+
+                                                @if ($category)
+                                                    Няма налични продукти с филтрите, които сте избрали.
+                                                @else
+                                                    Все още няма налични продукти.
+                                                @endif
+
+                                            </div>
+                                        </div>
+                                    @endforelse
+
+                                </div>
+
+                            </div>
                         </div>
-
-                        <div class="product__all-content">
-
-                            @if ($product->categories->isNotEmpty())
-                                <p class="small text-muted mb-1">
-                                    {{ $product->categories->pluck('name')->join(' · ') }}
-                                </p>
-                            @endif
-
-                            <h4 class="product__all-title">
-                                <a href="{{ route('shop.show', $product->slug) }}">
-                                    {{ $product->name }}
-                                </a>
-                            </h4>
-
-                            @if ($product->brand)
-                                <p class="product__all-brand mt-3 mb-3">
-                                    <span>Марка:</span>
-
-                                    <b>
-                                        {{ $product->brand }}
-                                    </b>
-                                </p>
-                            @endif
-
-                            <p class="product__all-price">
-
-                                @if ($product->discount)
-                                    <del class="text-muted me-2">
-                                        {{ number_format($product->price, 2) }} €
-                                    </del>
-
-                                    <span class="text-danger">
-                                        {{ number_format(
-                                            $product->price - ($product->price * $product->discount) / 100,
-                                            2,
-                                        ) }}
-                                        €
-                                    </span>
-
-                                    (-{{ $product->discount }}%)
-                                @else
-                                    {{ number_format($product->price, 2) }} €
-                                @endif
-
-                            </p>
-
-                            <form method="POST"
-                                action="{{ route('wishlist.add', $product) }}"
-                                class="product__all-btn-box d-flex justify-content-center wishlist-form">
-
-                                @csrf
-
-                                <a class="thm-btn product__all-btn p-2"
-                                    href="{{ route('shop.show', $product->slug) }}">
-
-                                    Разгледай
-                                </a>
-
-                                @php
-                                    $wishlist = Session::get('wishlist', []);
-                                    $isInWishlist = isset($wishlist[$product->id]);
-                                @endphp
-
-                                <button type="submit"
-                                    class="wishlist-btn"
-                                    aria-label="Добави в любими">
-
-                                    <i class="{{ $isInWishlist ? 'fa-solid' : 'fa-regular' }} fa-heart"></i>
-                                </button>
-
-                            </form>
-
-                        </div>
-                    </div>
-
-                </div>
-
-            @empty
-
-                <div class="splide__slide">
-                    <div class="alert alert-info text-center">
-
-                        @if ($category)
-                            Няма налични продукти с филтрите, които сте избрали.
-                        @else
-                            Все още няма налични продукти.
-                        @endif
-
-                    </div>
-                </div>
-
-            @endforelse
-
-        </div>
-
-    </div>
-</div>
 
                     </div>
                 </div>
@@ -865,10 +865,10 @@
                 pauseOnFocus: false,
                 speed: 800,
                 breakpoints: {
-        991: {
-            perPage: 1,
-        },
-    },
+                    991: {
+                        perPage: 1,
+                    },
+                },
             }).mount();
         });
     </script>

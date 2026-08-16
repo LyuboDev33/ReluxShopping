@@ -13,9 +13,7 @@
         <ul class="sub-menu">
             <li>
                 <a href="{{ route('shop.index') }}">Продукти</a>
-                 <a href="/shop/">Часовници</a>
-                 <a href="/shop/drugi">Други</a>
-
+            
                 <a href="{{ route('cart') }}">Количка</a>
             </li>
         </ul>

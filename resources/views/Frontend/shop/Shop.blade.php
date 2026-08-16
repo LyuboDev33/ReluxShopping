@@ -27,7 +27,6 @@
 
         <meta property="og:url" content="{{ route('shop.index') }}">
 
-        <meta property="og:image" content="{{ asset('assets/images/seo/valente-optics-shop.jpg') }}">
 
         <meta property="og:image:secure_url" content="{{ asset('assets/images/seo/valente-optics-shop.jpg') }}">
 

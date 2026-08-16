@@ -1,7 +1,36 @@
 <x-frontend>
 
     @section('SEO')
+        <title>Любими продукти | ReLux TopShopping</title>
 
+        <meta name="description"
+            content="Прегледайте продуктите, които сте добавили в любими в ReLux TopShopping. Запазете предпочитаните луксозни часовници и премиум аксесоари за по-късно.">
+
+        <meta name="robots" content="noindex,nofollow">
+
+        <meta name="googlebot" content="noindex,nofollow">
+
+        <meta property="og:locale" content="bg_BG">
+        <meta property="og:type" content="website">
+        <meta property="og:site_name" content="ReLux TopShopping">
+
+        <meta property="og:title" content="Любими продукти | ReLux TopShopping">
+
+        <meta property="og:description"
+            content="Прегледайте запазените от вас луксозни часовници и премиум аксесоари в списъка с любими продукти.">
+
+        <meta name="twitter:card" content="summary_large_image">
+
+        <meta name="twitter:title" content="Любими продукти | ReLux TopShopping">
+
+        <meta name="twitter:description"
+            content="Вижте продуктите, които сте добавили в любими, и се върнете към тях по всяко време.">
+
+        <meta name="author" content="ReLux TopShopping">
+
+        <meta name="application-name" content="ReLux TopShopping">
+
+        <meta name="theme-color" content="#171717">
     @endsection
 
     <div class="main-content-wrapper">
@@ -28,15 +57,13 @@
                                     <tbody>
 
                                         @forelse ($wishlist as $product)
-
                                             <tr>
 
 
                                                 {{-- Image --}}
                                                 <td>
                                                     <a href="{{ $product['url'] }}">
-                                                        <img
-                                                            src="{{ asset('assets/images/products/' . $product['image']) }}"
+                                                        <img src="{{ asset('assets/images/products/' . $product['image']) }}"
                                                             alt="{{ $product['name'] }}">
                                                     </a>
                                                 </td>
@@ -73,11 +100,10 @@
 
                                                 </td>
 
-                                   
+
                                                 {{-- View Product --}}
                                                 <td>
-                                                    <a
-                                                        href="{{ $product['url'] }}"
+                                                    <a href="{{ $product['url'] }}"
                                                         class="btn add-to-cart btn-medium btn-style-2">
                                                         Разгледай
                                                     </a>
@@ -96,7 +122,6 @@
 
                                                 </td>
                                             </tr>
-
                                         @endforelse
 
                                     </tbody>

@@ -6,6 +6,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta property="og:image" content="https://reluxtop.com/assets/img/watch.png">
+
 
     @yield('SEO')
 
@@ -164,6 +166,7 @@
                     searchEnabled: true,
                     searchChoices: true,
                     itemSelectText: '',
+                    searchResultLimit: -1,
                     searchPlaceholderValue: 'Търси стойност...',
                     noResultsText: 'Няма намерени резултати',
                     noChoicesText: 'Няма налични стойности',
@@ -176,7 +179,6 @@
             });
         }
     </script>
-
 
 </body>
 

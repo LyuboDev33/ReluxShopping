@@ -71,13 +71,15 @@
 
                 <div class="col-lg-6 col-xl-6 product-add">
 
-                    <div class="card rounded-5 p-4 shadow product-page-image ">
+                    <div class="card rounded-5 p-4 shadow product-page-image">
 
                         <div class="product-details__top">
                             <h3 class="product-details__title">
                                 {{ $product->name }}
                                 <br>
+
                                 <span>Цена: </span>
+
                                 @if ($product->discount)
                                     <span>
                                         <del class="text-muted">
@@ -94,7 +96,7 @@
                                     </span>
                                 @else
                                     <span>
-                                        <u> {{ number_format($productFinalPrice, 2) }} €</u>
+                                        <u>{{ number_format($productFinalPrice, 2) }} €</u>
                                     </span>
                                 @endif
                             </h3>
@@ -102,6 +104,7 @@
 
                         @if ($product->attributeValues->count())
                             <div class="product-details__attributes mt-4">
+
                                 <h3 class="product-details__quantity-title">
                                     Характеристики
                                 </h3>
@@ -119,6 +122,7 @@
                                         </li>
                                     @endforeach
                                 </ul>
+
                             </div>
                         @endif
 
@@ -134,26 +138,51 @@
                             @else
                                 Няма наличност
                             @endif
+
                         </p>
 
                         <div class="product-details__buttons">
                             <div class="product-details__buttons-2">
+
                                 <button type="submit" class="thm-btn">
                                     Добави в количката
                                 </button>
+
                             </div>
                         </div>
 
+                        <div class="alert alert-info mt-4 mb-2">
+                            <div class="d-flex align-items-start gap-3">
+
+                                <div>
+                                    <i class="fa-solid fa-building-columns"></i>
+                                </div>
+
+                                <div>
+                                    <strong>Плащане по банков път</strong>
+
+                                    <p class="mb-0 mt-1">
+                                        Ако желаете да заплатите поръчката си по банков път,
+                                        след нейното успешно завършване ще получите имейл с
+                                        данните на банковата сметка и необходимите инструкции
+                                        за извършване на плащането.
+                                    </p>
+                                </div>
+
+                            </div>
+                        </div>
 
                         @if ((int) $product->stock > 0)
                             <div class="d-flex mt-3 mb-3 justify-content-center">
 
                                 <div class="product-details__quantity d-flex flex-column">
+
                                     <h3 class="product-details__quantity-title">
                                         Изберете брой
                                     </h3>
 
                                     <div class="quantity-box">
+
                                         <button type="button" class="sub">
                                             <i class="fa fa-minus"></i>
                                         </button>
@@ -164,6 +193,7 @@
                                         <button type="button" class="add">
                                             <i class="fa fa-plus"></i>
                                         </button>
+
                                     </div>
 
                                     @error('quantity')
@@ -171,9 +201,8 @@
                                             {{ $message }}
                                         </p>
                                     @enderror
+
                                 </div>
-
-
 
                             </div>
                         @endif

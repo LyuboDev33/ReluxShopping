@@ -1,13 +1,37 @@
 <x-frontend>
 
     @section('SEO')
-        <title>За нас | ReLux TopShopping</title>
+        <title>За нас | ReLux TopShopping – Луксозни часовници и премиум аксесоари</title>
 
         <meta name="description"
-            content="ReLux TopShopping предлага внимателно подбрана селекция от 100% автентични премиум часовници и луксозни аксесоари от световноутвърдени марки. Доказан стил, качество и персонализирано отношение.">
+            content="Научете повече за ReLux TopShopping – доверено място за 100% автентични луксозни часовници и премиум аксесоари. Подбрана селекция, качество, персонализирано отношение и сигурно пазаруване.">
 
         <meta name="keywords"
-            content="за нас, ReLux TopShopping, луксозни часовници, премиум часовници, автентични часовници, луксозни аксесоари, маркови часовници, часовници за колекционери">
+            content="за нас ReLux TopShopping, луксозни часовници, премиум часовници, автентични часовници, оригинални часовници, луксозни аксесоари, маркови часовници, часовници за колекционери, премиум аксесоари">
+
+        <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">
+
+        <meta name="googlebot" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">
+
+        <link rel="canonical" href="{{ url('/about') }}">
+        <meta property="og:locale" content="bg_BG">
+        <meta property="og:type" content="website">
+        <meta property="og:site_name" content="ReLux TopShopping">
+        <meta property="og:title" content="За нас | ReLux TopShopping – Луксозни часовници и премиум аксесоари">
+
+        <meta property="og:description"
+            content="ReLux TopShopping предлага внимателно подбрана селекция от 100% автентични премиум часовници и луксозни аксесоари, съчетани с персонализирано отношение, качество и сигурност.">
+
+        <meta property="og:url" content="{{ url('/about') }}">
+        <meta name="twitter:card" content="summary_large_image">
+        <meta name="twitter:title" content="За нас | ReLux TopShopping – Премиум часовници и аксесоари">
+        <meta name="twitter:description"
+            content="Открийте повече за ReLux TopShopping – автентични луксозни часовници, премиум аксесоари, внимателна селекция и персонализирано обслужване."> 
+        <meta name="author" content="ReLux TopShopping">
+
+        <meta name="application-name" content="ReLux TopShopping">
+
+        <meta name="theme-color" content="#171717">
     @endsection
 
 
@@ -93,8 +117,7 @@
                 <div class="brand-marquee__group" aria-hidden="true">
                     @foreach ($brands as $brand)
                         <div class="brand-marquee__item">
-                            <img src="{{ asset('assets/img/brands/' . $brand->getFilename()) }}"
-                                alt="">
+                            <img src="{{ asset('assets/img/brands/' . $brand->getFilename()) }}" alt="">
                         </div>
                     @endforeach
                 </div>
@@ -191,7 +214,7 @@
 
                             <li>
 
-                            <div class="text">
+                                <div class="text">
                                     <p>
                                         <b>Бързина и коректност</b>
 
@@ -259,8 +282,7 @@
 
                     </div>
 
-                    <div class="splide testimonial-showcase__splide"
-                        id="testimonialSplide"
+                    <div class="splide testimonial-showcase__splide" id="testimonialSplide"
                         aria-label="Отзиви от клиенти">
 
                         <div class="splide__track">
@@ -407,8 +429,7 @@
                     </div>
                 </div>
 
-                <div class="testimonial-showcase__image"
-                    role="img"
+                <div class="testimonial-showcase__image" role="img"
                     aria-label="Доволен клиент на ReLux TopShopping">
 
                     <div class="testimonial-showcase__image-content">

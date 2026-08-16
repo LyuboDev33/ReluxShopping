@@ -5,7 +5,7 @@
     </div>
     <hr>
 
-    <form class="d-flex gap-3" action="">
+    <form class="d-flex gap-3 flex-column" action="">
 
         <p>Потърсете поръчка по номер: </p>
 
@@ -77,9 +77,9 @@
                                     {{ $order->created_at->format('d.m.Y') }}
                                 </td>
 
-                                <td>
+                                <td class="text-end">
                                     <a href="{{ route('admin.orders.show', $order->order_number) }}"
-                                        class="thm-btn p-2 ps-4 pe-4">
+                                        class="btn btn-info rounded-pill">
                                         Отвори
                                     </a>
                                 </td>

@@ -1,21 +1,36 @@
 <x-frontend>
 
-    @section('SEO')
-        <title>Контакти | ReLux TopShopping</title>
+@section('SEO')
+    <title>Контакти | ReLux TopShopping – Луксозни часовници и аксесоари</title>
 
-        <meta name="description"
-            content="Свържете се с ReLux TopShopping на телефон 0876 904 056 за въпроси относно премиум часовници, аксесоари, поръчки и наличности.">
+    <meta name="description"
+        content="Свържете се с ReLux TopShopping за информация относно луксозни часовници, премиум аксесоари, наличности и поръчки. Телефон за контакт: 0876 904 056.">
+    <meta name="keywords"
+        content="контакти ReLux TopShopping, ReLux TopShopping телефон, луксозни часовници, премиум часовници, оригинални часовници, луксозни аксесоари, наличности часовници, поръчки часовници">
+    <meta name="robots"
+        content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">
+    <meta name="googlebot"
+        content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">
+    <link rel="canonical" href="{{ url('/contacts') }}">
 
-        <meta name="keywords"
-            content="контакти, ReLux TopShopping, луксозни часовници, премиум часовници, аксесоари, телефон ReLux TopShopping">
+    <meta property="og:locale" content="bg_BG">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="ReLux TopShopping">
+    <meta property="og:title"
+        content="Контакти | ReLux TopShopping – Луксозни часовници и аксесоари">
+    <meta property="og:description"
+        content="Свържете се с екипа на ReLux TopShopping за информация относно премиум часовници, аксесоари, наличности и направени поръчки.">
 
-        <meta property="og:title" content="Контакти | ReLux TopShopping">
-
-        <meta property="og:description"
-            content="Свържете се с екипа на ReLux TopShopping за информация относно продукти, наличности и поръчки.">
-
-        <meta property="og:type" content="website">
-    @endsection
+    <meta property="og:url" content="{{ url('/contacts') }}">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title"
+        content="Контакти | ReLux TopShopping">
+    <meta name="twitter:description"
+        content="Свържете се с ReLux TopShopping за въпроси относно луксозни часовници, премиум аксесоари, наличности и поръчки.">
+    <meta name="author" content="ReLux TopShopping">
+    <meta name="application-name" content="ReLux TopShopping">
+    <meta name="theme-color" content="#171717">
+@endsection
 
 
     <!-- Contact Start -->

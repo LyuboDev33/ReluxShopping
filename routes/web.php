@@ -4,11 +4,18 @@ use App\Http\Controllers\FrontEndController;
 use App\Http\Controllers\OrdersController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ShopController;
-use App\Services\SpeedyService;
+use App\Services\EkontService;
 use Illuminate\Support\Facades\Route;
 
 Route::fallback(function () {
     return view('404');
+});
+
+
+Route::get('/test', function () {
+
+       EkontService::insertOffices();
+
 });
 
 Route::get('/', [FrontEndController::class, 'welcome'])->name('home');

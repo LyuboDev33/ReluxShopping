@@ -29,7 +29,6 @@
             content="Прочетете Общите условия на Valente Optics относно използването на сайта, поръчките, плащанията, доставката, рекламациите и правата на потребителите.">
 
         <meta property="og:url" content="{{ url('/terms-and-conditions') }}">
-        <meta property="og:image" content="{{ asset('assets/images/seo/valente-optics-home.jpg') }}">
 
         <meta property="og:image:secure_url" content="{{ asset('assets/images/seo/valente-optics-home.jpg') }}">
 

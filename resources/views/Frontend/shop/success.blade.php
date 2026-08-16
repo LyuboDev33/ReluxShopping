@@ -1,13 +1,39 @@
 <x-frontend>
 
-    @section('SEO')
-        <title>Успешна поръчка | ReLux TopShopping</title>
+   @section('SEO')
+    <title>Успешна поръчка | ReLux TopShopping</title>
 
-        <meta name="description"
-            content="Вашата поръчка в ReLux TopShopping беше приета успешно. Очаквайте имейл за потвърждение и обаждане от нашия екип за уточняване на доставката.">
+    <meta name="description"
+        content="Вашата поръчка в ReLux TopShopping беше приета успешно. Очаквайте имейл за потвърждение и обаждане от нашия екип за уточняване на доставката.">
 
-        <meta name="robots" content="noindex, nofollow">
-    @endsection
+    <meta name="robots" content="noindex,nofollow">
+
+    <meta name="googlebot" content="noindex,nofollow">
+
+    <meta property="og:locale" content="bg_BG">
+
+    <meta property="og:type" content="website">
+
+    <meta property="og:site_name" content="ReLux TopShopping">
+
+    <meta property="og:title" content="Успешна поръчка | ReLux TopShopping">
+
+    <meta property="og:description"
+        content="Поръчката ви беше приета успешно. Очаквайте имейл с информация за поръчката и последващо потвърждение от екипа на ReLux TopShopping.">
+
+    <meta name="twitter:card" content="summary_large_image">
+
+    <meta name="twitter:title" content="Успешна поръчка | ReLux TopShopping">
+
+    <meta name="twitter:description"
+        content="Вашата поръчка беше приета успешно. Очаквайте потвърждение по имейл и контакт от нашия екип.">
+
+    <meta name="author" content="ReLux TopShopping">
+
+    <meta name="application-name" content="ReLux TopShopping">
+
+    <meta name="theme-color" content="#171717">
+@endsection
 
     <!-- Success Checkout Start -->
     <section class="about-five relux-about-section">

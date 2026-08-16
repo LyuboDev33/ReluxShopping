@@ -30,7 +30,7 @@
     --bs-gray-700: #495057;
     --bs-gray-800: #343a40;
     --bs-gray-900: #212529;
-    --bs-primary: #0d6efd;
+    --bs-primary: #dabe7b;
     --bs-secondary: #6c757d;
     --bs-success: #198754;
     --bs-info: #0dcaf0;
@@ -69,8 +69,8 @@
     --bs-border-radius-xl: 1rem;
     --bs-border-radius-2xl: 2rem;
     --bs-border-radius-pill: 50rem;
-    --bs-link-color: #0d6efd;
-    --bs-link-hover-color: #0a58ca;
+    --bs-link-color: #dabe7b;
+    --bs-link-hover-color: #dabe7b;
     --bs-code-color: #d63384;
     --bs-highlight-bg: #fff3cd
 }
@@ -5191,8 +5191,8 @@ fieldset:disabled .btn {
     --bs-pagination-focus-bg: #e9ecef;
     --bs-pagination-focus-box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
     --bs-pagination-active-color: #fff;
-    --bs-pagination-active-bg: #0d6efd;
-    --bs-pagination-active-border-color: #0d6efd;
+    --bs-pagination-active-bg: #dabe7b;
+    --bs-pagination-active-border-color: #dabe7b;
     --bs-pagination-disabled-color: #6c757d;
     --bs-pagination-disabled-bg: #fff;
     --bs-pagination-disabled-border-color: #dee2e6;
@@ -5205,7 +5205,7 @@ fieldset:disabled .btn {
     position: relative;
     display: block;
     padding: var(--bs-pagination-padding-y) var(--bs-pagination-padding-x);
-    font-size: var(--bs-pagination-font-size);
+    /* font-size: var(--bs-pagination-font-size); */
     color: var(--bs-pagination-color);
     text-decoration: none;
     background-color: var(--bs-pagination-bg);

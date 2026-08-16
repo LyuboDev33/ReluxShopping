@@ -48,10 +48,10 @@
                         <td align="center"
                             style="
                                 padding: 35px 25px 20px;
-                                background-color: #ffffff;
+                                background-color: black;
                             ">
 
-                            <img src="{{ url('/assets/images/resources/order-success.png') }}"
+                            <img src="https://reluxtop.com/assets/img/logo-relux.png"
                                 alt="Успешна поръчка"
                                 width="100"
                                 style="
@@ -68,7 +68,7 @@
                                     margin: 0 0 12px;
                                     font-size: 26px;
                                     line-height: 34px;
-                                    color: #222222;
+                                    color: #a3a3a3;
                                 ">
 
                                 Благодарим Ви за поръчката!
@@ -90,7 +90,7 @@
                                     margin: 0;
                                     font-size: 16px;
                                     line-height: 25px;
-                                    color: #333333;
+                                    color: white;
                                 ">
 
                                 Номер на поръчка:
@@ -486,6 +486,78 @@
                                                 EUR
                                             </strong>
                                         @endif
+
+                                    </td>
+                                </tr>
+
+                            </table>
+
+                        </td>
+                    </tr>
+
+                    {{-- Bank transfer information --}}
+                    <tr>
+                        <td style="padding: 25px 30px 5px;">
+
+                            <h2
+                                style="
+                                    margin: 0 0 15px;
+                                    font-size: 20px;
+                                    line-height: 28px;
+                                    color: #222222;
+                                ">
+
+                                Плащане по банков път
+                            </h2>
+
+                            <table width="100%"
+                                cellpadding="0"
+                                cellspacing="0"
+                                border="0"
+                                role="presentation"
+                                style="
+                                    border: 1px solid #e8e8e8;
+                                    border-radius: 8px;
+                                    background-color: #f9f9f9;
+                                ">
+
+                                <tr>
+                                    <td
+                                        style="
+                                            padding: 20px 18px;
+                                            font-size: 14px;
+                                            line-height: 24px;
+                                            color: #555555;
+                                        ">
+
+                                        <p style="margin: 0 0 16px;">
+                                            <strong>
+                                                Ако желаете да заплатите по банков път,
+                                                моля следвайте инструкциите по-долу:
+                                            </strong>
+                                        </p>
+
+                                        <p style="margin: 0 0 8px;">
+                                            <strong>Получател:</strong>
+                                            Daniel Iliev
+                                        </p>
+
+                                        <p style="margin: 0 0 8px;">
+                                            <strong>IBAN:</strong>
+                                            BG89FINV91501917873844
+                                        </p>
+
+                                        <p style="margin: 0 0 8px;">
+                                            <strong>Основание за плащане:</strong>
+                                            Поръчка номер {{ $order->order_number }}
+                                        </p>
+
+                                        <p style="margin: 16px 0 0; color: #777777;">
+                                            Моля, при извършване на банковия превод
+                                            посочете точно номера на поръчката в полето
+                                            „Основание за плащане“, за да можем да
+                                            идентифицираме плащането Ви коректно.
+                                        </p>
 
                                     </td>
                                 </tr>

@@ -21,7 +21,9 @@
 
     <link rel="stylesheet" href="/assets/css/shop.css?v=<?php echo time(); ?>" />
 
+    <link rel="stylesheet" href="https://unpkg.com/lenis@1.3.23/dist/lenis.css">
 
+    <script src="https://unpkg.com/lenis@1.3.23/dist/lenis.min.js" defer></script>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
         integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
@@ -70,6 +72,7 @@
             initSidebarToggle();
             initTinyMce();
             initializeChoicesJS();
+            initializeLenis();
         });
 
         function initDashboardDropdown() {
@@ -156,6 +159,29 @@
                 });
             });
         }
+
+          function initializeLenis() {
+
+            if (typeof Lenis === 'undefined') {
+                return;
+            }
+
+            const lenis = new Lenis({
+                duration: 1,
+                smoothWheel: true,
+                wheelMultiplier: 0.8,
+                touchMultiplier: 0.8,
+                lerp: 0.5
+            });
+
+            function raf(time) {
+                lenis.raf(time);
+                requestAnimationFrame(raf);
+            }
+
+            requestAnimationFrame(raf);
+        }
+
     </script>
 
 

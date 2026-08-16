@@ -34,7 +34,6 @@
         content="Научете как Valente Optics събира, обработва и защитава Вашите лични данни, както и какви права имате съгласно GDPR.">
 
     <meta property="og:url"              content="{{ route('privacy') }}">
-    <meta property="og:image"            content="{{ asset('assets/images/seo/valente-optics-home.jpg') }}">
     <meta property="og:image:secure_url" content="{{ asset('assets/images/seo/valente-optics-home.jpg') }}">
 
     <meta property="og:image:type" content="image/jpeg">

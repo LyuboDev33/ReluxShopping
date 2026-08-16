@@ -1361,7 +1361,7 @@ Product Details
     position: relative;
     display: block;
     background: var(--crank-white);
-    padding: 112px 0px 112px;
+    padding: 0 0px 112px;
 }
 
 .cart-page .table-responsive {

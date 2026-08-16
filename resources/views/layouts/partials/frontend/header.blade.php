@@ -9,7 +9,7 @@
 
                 <!-- Logo -->
                 <div class="col-lg-3 col-md-5 col-sm-6 col-6">
-                    <x-logo width="100" mobileWidth="90" />
+                    <x-logo width="100" mobileWidth="120" />
                 </div>
 
                 <!-- Desktop Navigation -->

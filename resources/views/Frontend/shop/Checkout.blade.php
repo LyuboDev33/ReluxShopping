@@ -4,11 +4,32 @@
         <title>Завършване на поръчката | ReLux TopShopping</title>
 
         <meta name="description"
-            content="Завършете своята поръчка в ReLux TopShopping. Въведете данни за доставка, изберете личен адрес или офис на Speedy и прегледайте продуктите в поръчката си.">
+            content="Завършете своята поръчка в ReLux TopShopping. Въведете данни за доставка, изберете адрес или офис на Еконт и прегледайте продуктите преди потвърждение.">
 
-        <meta name="robots" content="noindex, nofollow">
+        <meta name="robots" content="noindex,nofollow">
+
+        <meta name="googlebot" content="noindex,nofollow">
+
+        <meta property="og:locale" content="bg_BG">
+        <meta property="og:type" content="website">
+        <meta property="og:site_name" content="ReLux TopShopping">
+        <meta property="og:title" content="Завършване на поръчката | ReLux TopShopping">
+        <meta property="og:description"
+            content="Прегледайте своята поръчка, изберете начин на доставка и завършете покупката си в ReLux TopShopping.">
+
+        <meta name="twitter:card" content="summary_large_image">
+
+        <meta name="twitter:title" content="Завършване на поръчката | ReLux TopShopping">
+
+        <meta name="twitter:description"
+            content="Прегледайте продуктите, изберете начин на доставка и завършете своята поръчка в ReLux TopShopping.">
+
+        <meta name="author" content="ReLux TopShopping">
+
+        <meta name="application-name" content="ReLux TopShopping">
+
+        <meta name="theme-color" content="#171717">
     @endsection
-
     <!-- Main Content Wrapper Start -->
     <div class="main-content-wrapper">
 
@@ -17,28 +38,20 @@
             <div class="container">
 
                 @error('order')
-                    <div class="alert alert-danger alert-dismissible fade show mb-4"
-                        role="alert">
+                    <div class="alert alert-danger alert-dismissible fade show mb-4" role="alert">
 
                         {{ $message }}
 
-                        <button type="button"
-                            class="btn-close"
-                            data-bs-dismiss="alert"
-                            aria-label="Затвори">
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Затвори">
                         </button>
                     </div>
                 @enderror
 
-                <form action="{{ route('order.create') }}"
-                    method="POST"
-                    class="checkout-form">
+                <form action="{{ route('order.create') }}" method="POST" class="checkout-form">
 
                     @csrf
 
-                    <input type="hidden"
-                        name="promo_code"
-                        value="{{ old('promo_code') }}">
+                    <input type="hidden" name="promo_code" value="{{ old('promo_code') }}">
 
                     <div class="checkout-wrapper bg--2">
                         <div class="row">
@@ -58,17 +71,13 @@
                                     <div class="row mb--30">
 
                                         <div class="form__group col-md-6 mb-sm--30">
-                                            <label for="fname"
-                                                class="form__label">
+                                            <label for="fname" class="form__label">
 
                                                 Име <span>*</span>
                                             </label>
 
-                                            <input type="text"
-                                                name="fname"
-                                                id="fname"
-                                                class="form__input form__input--2"
-                                                placeholder="Въведете първото си име"
+                                            <input type="text" name="fname" id="fname"
+                                                class="form__input form__input--2" placeholder="Въведете първото си име"
                                                 value="{{ old('fname') }}">
 
                                             @error('fname')
@@ -79,17 +88,13 @@
                                         </div>
 
                                         <div class="form__group col-md-6">
-                                            <label for="lname"
-                                                class="form__label">
+                                            <label for="lname" class="form__label">
 
                                                 Фамилия <span>*</span>
                                             </label>
 
-                                            <input type="text"
-                                                name="lname"
-                                                id="lname"
-                                                class="form__input form__input--2"
-                                                placeholder="Въведете фамилията си"
+                                            <input type="text" name="lname" id="lname"
+                                                class="form__input form__input--2" placeholder="Въведете фамилията си"
                                                 value="{{ old('lname') }}">
 
                                             @error('lname')
@@ -104,18 +109,14 @@
                                     <div class="row mb--30">
 
                                         <div class="form__group col-md-6 mb-sm--30">
-                                            <label for="phone"
-                                                class="form__label">
+                                            <label for="phone" class="form__label">
 
                                                 Телефон <span>*</span>
                                             </label>
 
-                                            <input type="tel"
-                                                name="phone"
-                                                id="phone"
+                                            <input type="tel" name="phone" id="phone"
                                                 class="form__input form__input--2"
-                                                placeholder="Въведете телефонен номер"
-                                                value="{{ old('phone') }}">
+                                                placeholder="Въведете телефонен номер" value="{{ old('phone') }}">
 
                                             @error('phone')
                                                 <div class="text-danger mt-2">
@@ -125,17 +126,13 @@
                                         </div>
 
                                         <div class="form__group col-md-6">
-                                            <label for="email"
-                                                class="form__label">
+                                            <label for="email" class="form__label">
 
                                                 Имейл <span>*</span>
                                             </label>
 
-                                            <input type="email"
-                                                name="email"
-                                                id="email"
-                                                class="form__input form__input--2"
-                                                placeholder="Въведете имейл адрес"
+                                            <input type="email" name="email" id="email"
+                                                class="form__input form__input--2" placeholder="Въведете имейл адрес"
                                                 value="{{ old('email') }}">
 
                                             @error('email')
@@ -159,9 +156,7 @@
                                         <div class="d-flex flex-wrap gap-3">
 
                                             <div class="custom-radio">
-                                                <input type="radio"
-                                                    name="delivery_method"
-                                                    id="delivery-personal"
+                                                <input type="radio" name="delivery_method" id="delivery-personal"
                                                     value="personal"
                                                     {{ old('delivery_method', 'personal') === 'personal' ? 'checked' : '' }}>
 
@@ -172,15 +167,13 @@
                                             </div>
 
                                             <div class="custom-radio">
-                                                <input type="radio"
-                                                    name="delivery_method"
-                                                    id="delivery-office"
+                                                <input type="radio" name="delivery_method" id="delivery-office"
                                                     value="office"
                                                     {{ old('delivery_method') === 'office' ? 'checked' : '' }}>
 
                                                 <label for="delivery-office">
                                                     <i class="fa-solid fa-box me-2"></i>
-                                                    До офис на Speedy
+                                                    До офис на Еконт
                                                 </label>
                                             </div>
 
@@ -208,14 +201,12 @@
                                         <div class="row mb--30">
 
                                             <div class="form__group col-md-6 mb-sm--30">
-                                                <label for="city"
-                                                    class="form__label">
+                                                <label for="city" class="form__label">
 
                                                     Град <span>*</span>
                                                 </label>
 
-                                                <select name="city"
-                                                    id="city"
+                                                <select name="city" id="city"
                                                     class="form__input form__input--2 attribute-choice">
 
                                                     <option value="">
@@ -240,15 +231,12 @@
                                             </div>
 
                                             <div class="form__group col-md-6">
-                                                <label for="billing_address"
-                                                    class="form__label">
+                                                <label for="billing_address" class="form__label">
 
                                                     Адрес <span>*</span>
                                                 </label>
 
-                                                <input type="text"
-                                                    name="billing_address"
-                                                    id="billing_address"
+                                                <input type="text" name="billing_address" id="billing_address"
                                                     class="form__input form__input--2"
                                                     placeholder="Улица, номер, вход, етаж и апартамент"
                                                     value="{{ old('billing_address') }}">
@@ -265,34 +253,31 @@
                                     </div>
                                     <!-- Personal Address End -->
 
-                                    <!-- Speedy Office Start -->
+                                    <!-- Econt Office Start -->
                                     <div id="office-delivery"
                                         class="{{ old('delivery_method') === 'office' ? '' : 'd-none' }}">
 
                                         <div class="row mb--30">
+
                                             <div class="form__group col-12">
 
-                                                <label for="office_list"
-                                                    class="form__label">
-
-                                                    Град / офис на Speedy <span>*</span>
+                                                <label for="office_list" class="form__label">
+                                                    Град / офис на Еконт <span>*</span>
                                                 </label>
 
-                                                <select name="office_list"
-                                                    id="office_list"
+                                                <select name="office_list" id="office_list"
                                                     class="form__input form__input--2 attribute-choice">
 
                                                     <option value="">
-                                                        Изберете офис на Speedy
+                                                        Изберете офис на Еконт
                                                     </option>
 
-                                                    @foreach ($speedyOffices as $office)
+                                                    @foreach ($offices as $office)
                                                         <option
                                                             value="{{ $office->name }} [{{ $office->office_id }}]"
                                                             {{ old('office_list') === $office->name . ' [' . $office->office_id . ']' ? 'selected' : '' }}>
-
-                                                            {{ $office->name }}
-                                                            [{{ $office->office_id }}]
+                                                            {{ $office->name }} [{{ $office->office_id }}] —
+                                                            {{ $office->city }} — {{ $office->full_address }}
                                                         </option>
                                                     @endforeach
 
@@ -304,26 +289,28 @@
                                                     </div>
                                                 @enderror
 
+                                                <small class="d-block mt-2 text-muted">
+                                                    Изберете най-удобния за вас офис на Еконт. В списъка са посочени
+                                                    градът и пълният адрес на всеки офис.
+                                                </small>
+
                                             </div>
+
                                         </div>
 
                                     </div>
-                                    <!-- Speedy Office End -->
+                                    <!-- Econt Office End -->
 
                                     <!-- Invoice Start -->
                                     <div class="checkout-invoice">
 
                                         <div class="custom-checkbox">
 
-                                            <input type="checkbox"
-                                                name="request_invoice"
-                                                id="request_invoice"
-                                                class="form__checkbox"
-                                                value="1"
+                                            <input type="checkbox" name="request_invoice" id="request_invoice"
+                                                class="form__checkbox" value="1"
                                                 {{ old('request_invoice') ? 'checked' : '' }}>
 
-                                            <label for="request_invoice"
-                                                class="form__checkbox--label">
+                                            <label for="request_invoice" class="form__checkbox--label">
 
                                                 Желая фактура
                                             </label>
@@ -335,15 +322,12 @@
                                             <div class="row mb--30">
 
                                                 <div class="form__group col-md-6 mb-sm--30">
-                                                    <label for="company_name"
-                                                        class="form__label">
+                                                    <label for="company_name" class="form__label">
 
                                                         Име на фирма <span>*</span>
                                                     </label>
 
-                                                    <input type="text"
-                                                        name="company_name"
-                                                        id="company_name"
+                                                    <input type="text" name="company_name" id="company_name"
                                                         class="form__input form__input--2"
                                                         value="{{ old('company_name') }}">
 
@@ -355,15 +339,12 @@
                                                 </div>
 
                                                 <div class="form__group col-md-6">
-                                                    <label for="company_mol"
-                                                        class="form__label">
+                                                    <label for="company_mol" class="form__label">
 
                                                         МОЛ <span>*</span>
                                                     </label>
 
-                                                    <input type="text"
-                                                        name="company_mol"
-                                                        id="company_mol"
+                                                    <input type="text" name="company_mol" id="company_mol"
                                                         class="form__input form__input--2"
                                                         value="{{ old('company_mol') }}">
 
@@ -379,15 +360,12 @@
                                             <div class="row mb--30">
 
                                                 <div class="form__group col-md-6 mb-sm--30">
-                                                    <label for="company_bulstat"
-                                                        class="form__label">
+                                                    <label for="company_bulstat" class="form__label">
 
                                                         ЕИК / Булстат <span>*</span>
                                                     </label>
 
-                                                    <input type="text"
-                                                        name="company_bulstat"
-                                                        id="company_bulstat"
+                                                    <input type="text" name="company_bulstat" id="company_bulstat"
                                                         class="form__input form__input--2"
                                                         value="{{ old('company_bulstat') }}">
 
@@ -399,15 +377,12 @@
                                                 </div>
 
                                                 <div class="form__group col-md-6">
-                                                    <label for="company_address"
-                                                        class="form__label">
+                                                    <label for="company_address" class="form__label">
 
                                                         Адрес на фирма <span>*</span>
                                                     </label>
 
-                                                    <input type="text"
-                                                        name="company_address"
-                                                        id="company_address"
+                                                    <input type="text" name="company_address" id="company_address"
                                                         class="form__input form__input--2"
                                                         value="{{ old('company_address') }}">
 
@@ -468,15 +443,15 @@
                                                                 <a href="{{ route('shop.show', $product['slug']) }}">
 
                                                                     <img src="{{ asset('assets/images/products/' . $product['image']) }}"
-                                                                        alt="{{ $product['name'] }}"
-                                                                        width="75">
+                                                                        alt="{{ $product['name'] }}" width="75">
                                                                 </a>
 
                                                                 <div>
 
                                                                     <h4 class="mb-1">
 
-                                                                        <a href="{{ route('shop.show', $product['slug']) }}">
+                                                                        <a
+                                                                            href="{{ route('shop.show', $product['slug']) }}">
                                                                             {{ $product['name'] }}
                                                                         </a>
                                                                     </h4>
@@ -506,26 +481,17 @@
 
                                                             @if ((int) ($product['discount'] ?? 0) > 0)
                                                                 <del class="text-muted d-block">
-                                                                    {{ number_format(
-                                                                        $product['price'] * $product['quantity'],
-                                                                        2,
-                                                                    ) }}
+                                                                    {{ number_format($product['price'] * $product['quantity'], 2) }}
                                                                     €
                                                                 </del>
 
                                                                 <strong class="text-danger">
-                                                                    {{ number_format(
-                                                                        $product['final_price'] * $product['quantity'],
-                                                                        2,
-                                                                    ) }}
+                                                                    {{ number_format($product['final_price'] * $product['quantity'], 2) }}
                                                                     €
                                                                 </strong>
                                                             @else
                                                                 <strong>
-                                                                    {{ number_format(
-                                                                        $product['final_price'] * $product['quantity'],
-                                                                        2,
-                                                                    ) }}
+                                                                    {{ number_format($product['final_price'] * $product['quantity'], 2) }}
                                                                     €
                                                                 </strong>
                                                             @endif
@@ -613,33 +579,25 @@
 
                                         <div class="form__group">
 
-                                            <label for="promo-code-input"
-                                                class="form__label">
+                                            <label for="promo-code-input" class="form__label">
 
                                                 Код за отстъпка
                                             </label>
 
-                                            <input type="text"
-                                                id="promo-code-input"
-                                                class="form__input form__input--2"
-                                                placeholder="Въведете промо код"
+                                            <input type="text" id="promo-code-input"
+                                                class="form__input form__input--2" placeholder="Въведете промо код"
                                                 value="{{ session('promo_code.promo_code_name', '') }}"
                                                 autocomplete="off">
 
                                         </div>
 
-                                        <button type="button"
-                                            id="apply-promo-code"
+                                        <button type="button" id="apply-promo-code"
                                             class="btn btn-medium btn-style-3 mt--20">
 
-                                            {{ session()->has('promo_code')
-                                                ? 'Промокодът е приложен'
-                                                : 'Приложи промокода' }}
+                                            {{ session()->has('promo_code') ? 'Промокодът е приложен' : 'Приложи промокода' }}
                                         </button>
 
-                                        <div id="promo-code-message"
-                                            class="mt-2"
-                                            aria-live="polite">
+                                        <div id="promo-code-message" class="mt-2" aria-live="polite">
                                         </div>
 
                                     </div>
@@ -652,14 +610,10 @@
 
                                             <div class="custom-radio payment-radio">
 
-                                                <input type="radio"
-                                                    name="payment_method"
-                                                    id="cash-on-delivery"
-                                                    value="cash"
-                                                    checked>
+                                                <input type="radio" name="payment_method" id="cash-on-delivery"
+                                                    value="cash" checked>
 
-                                                <label class="payment-label"
-                                                    for="cash-on-delivery">
+                                                <label class="payment-label" for="cash-on-delivery">
 
                                                     <i class="fa-solid fa-money-bill-wave me-2"></i>
 
@@ -679,8 +633,7 @@
 
                                         <div class="payment-btn-group">
 
-                                            <button type="submit"
-                                                class="btn btn-style-3">
+                                            <button type="submit" class="btn btn-style-3">
 
                                                 <i class="fa-solid fa-check me-2"></i>
 
