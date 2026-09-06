@@ -30,13 +30,16 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/choices.js/public/assets/styles/choices.min.css">
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="/assets/css/bootstrap.css">
+    <link rel="stylesheet" href="/assets/css/bootstrap.css?v=<?php echo time(); ?>">
 
     <!-- Elegant Icons CSS -->
-    <link rel="stylesheet" href="/assets/css/elegent-icons.css">
+    <link rel="stylesheet" href="/assets/css/elegent-icons.css?v=<?php echo time(); ?>">
+
+        <link rel="stylesheet" href="/assets/css/custom.css?v=<?php echo time(); ?>">
+
 
     <!-- Template Plugins CSS -->
-    <link rel="stylesheet" href="/assets/css/plugins.css">
+    <link rel="stylesheet" href="/assets/css/plugins.css?v=<?php echo time(); ?>">
 
     <!-- Main Template CSS -->
     <link rel="stylesheet" href="{{ asset('assets/css/main.css') }}?v={{ time() }}">
@@ -47,16 +50,16 @@
 
 
     <!-- Modernizr JS -->
-    <script src="/assets/js/vendor/modernizr-2.8.3.min.js" defer></script>
+    <script src="/assets/js/vendor/modernizr-2.8.3.min.js?v=<?php echo time(); ?>" defer></script>
 
     <!-- jQuery JS -->
-    <script src="/assets/js/vendor/jquery.min.js"></script>
+    <script src="/assets/js/vendor/jquery.min.js?v=<?php echo time(); ?>"></script>
 
     <!-- Bootstrap and Popper Bundle JS -->
-    <script src="/assets/js/bootstrap.bundle.min.js" defer></script>
+    <script src="/assets/js/bootstrap.bundle.min.js?v=<?php echo time(); ?>" defer></script>
 
     <!-- Template Plugins JS -->
-    <script src="/assets/js/plugins.js" defer></script>
+    <script src="/assets/js/plugins.js?v=<?php echo time(); ?>" defer></script>
 
     <!-- Lenis JS -->
     <script src="https://unpkg.com/lenis@1.3.23/dist/lenis.min.js" defer></script>

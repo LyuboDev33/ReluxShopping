@@ -20,18 +20,24 @@ class ProductService
      */
     public static function filteredProducts(Builder $query, Request $request): Builder
     {
+        $query->where('stock', '>', 0);
+
         $filters = $request->except(['page', 'price-range']);
 
         foreach ($filters as $attributeTypeSlug => $attributeValueSlug) {
             $query->whereHas('attributeValues', function ($query) use ($attributeTypeSlug, $attributeValueSlug) {
-                $query->where('slug', $attributeValueSlug)->whereHas('type', function ($query) use ($attributeTypeSlug) {
-                    $query->where('slug', $attributeTypeSlug);
-                });
+                $query->where('slug', $attributeValueSlug)
+                    ->whereHas('type', function ($query) use ($attributeTypeSlug) {
+                        $query->where('slug', $attributeTypeSlug);
+                    });
             });
         }
 
         if ($request->filled('price-range')) {
-            $query->whereBetween('price', [0, $request->integer('price-range')]);
+            $query->whereBetween('price', [
+                0,
+                $request->integer('price-range')
+            ]);
         }
 
         return $query;

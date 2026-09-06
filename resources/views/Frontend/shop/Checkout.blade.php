@@ -608,38 +608,90 @@
 
                                         <div class="payment-group">
 
-                                            <div class="custom-radio payment-radio">
+                                            <h4 class="payment-group__title">
+                                                Начин на плащане
+                                            </h4>
+
+                                            <!-- Cash on Delivery -->
+                                            <div class="payment-option">
 
                                                 <input type="radio" name="payment_method" id="cash-on-delivery"
-                                                    value="cash" checked>
+                                                    value="cash_on_delivery" checked>
 
-                                                <label class="payment-label" for="cash-on-delivery">
+                                                <label for="cash-on-delivery" class="payment-option__label">
 
-                                                    <i class="fa-solid fa-money-bill-wave me-2"></i>
+                                                    <div class="payment-option__left">
 
-                                                    Плащане при получаване
+                                                        <span class="payment-option__radio"></span>
+
+                                                        <div class="payment-option__content">
+
+                                                            <span class="payment-option__title">
+                                                                Плащане при получаване
+                                                            </span>
+
+                                                            <span class="payment-option__description">
+                                                                Платете в брой при получаване на пратката от куриера.
+                                                            </span>
+
+                                                        </div>
+
+                                                    </div>
+
+                                                    <div class="payment-option__icon">
+                                                        <i class="fa-solid fa-money-bill-wave"></i>
+                                                    </div>
+
                                                 </label>
 
                                             </div>
 
-                                            <div class="payment-info">
-                                                <p>
-                                                    Платете в брой при получаване на
-                                                    пратката от куриера.
-                                                </p>
+
+                                            <!-- UniCredit -->
+                                            <div class="payment-option">
+
+                                                <input type="radio" name="payment_method" id="unicredit" value="unicredit">
+
+                                                <label for="unicredit" class="payment-option__label">
+
+                                                    <div class="payment-option__left">
+
+                                                        <span class="payment-option__radio"></span>
+
+                                                        <div class="payment-option__content">
+
+                                                            <span class="payment-option__title">
+                                                                Покупка на изплащане
+                                                            </span>
+
+                                                            <span class="payment-option__description">
+                                                                Купете продуктите на изплащане чрез UniCredit Consumer
+                                                                Financing.
+                                                            </span>
+
+                                                        </div>
+
+                                                    </div>
+
+                                                    <div class="payment-option__logo">
+                                                        <img src="/assets/img/unicredit.png"
+                                                            alt="UniCredit Consumer Financing">
+                                                    </div>
+                                                </label>
+
                                             </div>
 
                                         </div>
 
-                                        <div class="payment-btn-group">
 
+                                        <div class="payment-btn-group">
                                             <button type="submit" class="btn btn-style-3">
 
                                                 <i class="fa-solid fa-check me-2"></i>
 
                                                 Завърши поръчката
-                                            </button>
 
+                                            </button>
                                         </div>
 
                                     </div>

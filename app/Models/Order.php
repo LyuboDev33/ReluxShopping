@@ -29,7 +29,6 @@ class Order extends Model
         'delivery_method',
         'city',
         'personal_address',
-
         'courier',
         'office_list',
 

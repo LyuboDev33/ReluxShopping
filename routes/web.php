@@ -6,17 +6,15 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ShopController;
 use App\Services\EkontService;
 use Illuminate\Support\Facades\Route;
+use GuzzleHttp\Client;
+
 
 Route::fallback(function () {
     return view('404');
 });
 
 
-Route::get('/test', function () {
 
-       EkontService::insertOffices();
-
-});
 
 Route::get('/', [FrontEndController::class, 'welcome'])->name('home');
 
@@ -26,15 +24,19 @@ Route::get('/obshti-usloviya', [FrontEndController::class, 'conditions'])->name(
 Route::get('/politika-za-poveritelnost', [FrontEndController::class, 'privacy'])->name('privacy');
 
 /** All routes for the shop*/
-Route::get('/shop', [ShopController::class, 'index'])->name('shop.index');
-Route::get('/shop/category/{category_slug}', [ShopController::class, 'category'])->name('shop.category');
-Route::get('/shop/product/{slug}', [ShopController::class, 'show'])->name('shop.show');
+Route::prefix('/shop')->group(function () {
+
+    Route::get('/', [ShopController::class, 'index'])->name('shop.index');
+    Route::get('/category/{category_slug}', [ShopController::class, 'category'])->name('shop.category');
+    Route::get('/product/{slug}', [ShopController::class, 'show'])->name('shop.show');
+
+});
 
 Route::get('/cart', [ShopController::class, 'cart'])->name('cart');
 Route::get('/checkout', [ShopController::class, 'checkout'])->name('checkout');
 Route::get('/checkout/sucess', [ShopController::class, 'success'])->name('checkout.succes');
 
-Route::post('/checkout/promocode/apply',[ShopController::class, 'applyPromoCode'])->name('checkout.promo.apply');
+Route::post('/checkout/promocode/apply', [ShopController::class, 'applyPromoCode'])->name('checkout.promo.apply');
 
 Route::post('/cart/add/{product}', [OrdersController::class, 'addProduct'])->name('product.cart.add');
 Route::delete('/cart/remove/{productId}', [OrdersController::class, 'removeProduct'])->name('cart.remove');

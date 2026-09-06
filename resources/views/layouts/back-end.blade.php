@@ -21,6 +21,8 @@
 
     <link rel="stylesheet" href="/assets/css/shop.css?v=<?php echo time(); ?>" />
 
+    
+
     <link rel="stylesheet" href="https://unpkg.com/lenis@1.3.23/dist/lenis.css">
 
     <script src="https://unpkg.com/lenis@1.3.23/dist/lenis.min.js" defer></script>

@@ -146,16 +146,64 @@ class OrdersController extends Controller
 
             'delivery_method' => ['required', 'in:personal,office'],
 
-            'city' => ['required_if:delivery_method,personal', 'nullable', 'string', 'max:255'],
-            'billing_address' => ['required_if:delivery_method,personal', 'nullable', 'string', 'max:255'],
-            'office_list' => ['required_if:delivery_method,office', 'nullable', 'string', 'max:255'],
+            'payment_method' => [
+                'required',
+                'in:cash_on_delivery,unicredit',
+            ],
 
-            'request_invoice' => ['nullable', 'boolean'],
+            'city' => [
+                'required_if:delivery_method,personal',
+                'nullable',
+                'string',
+                'max:255',
+            ],
 
-            'company_name' => ['nullable', 'required_if:request_invoice,1', 'string', 'max:255'],
-            'company_mol' => ['nullable', 'required_if:request_invoice,1', 'string', 'max:255'],
-            'company_bulstat' => ['nullable', 'required_if:request_invoice,1', 'string', 'max:255'],
-            'company_address' => ['nullable', 'required_if:request_invoice,1', 'string', 'max:255'],
+            'billing_address' => [
+                'required_if:delivery_method,personal',
+                'nullable',
+                'string',
+                'max:255',
+            ],
+
+            'office_list' => [
+                'required_if:delivery_method,office',
+                'nullable',
+                'string',
+                'max:255',
+            ],
+
+            'request_invoice' => [
+                'nullable',
+                'boolean',
+            ],
+
+            'company_name' => [
+                'nullable',
+                'required_if:request_invoice,1',
+                'string',
+                'max:255',
+            ],
+
+            'company_mol' => [
+                'nullable',
+                'required_if:request_invoice,1',
+                'string',
+                'max:255',
+            ],
+
+            'company_bulstat' => [
+                'nullable',
+                'required_if:request_invoice,1',
+                'string',
+                'max:255',
+            ],
+
+            'company_address' => [
+                'nullable',
+                'required_if:request_invoice,1',
+                'string',
+                'max:255',
+            ],
         ], [
             'fname.required' => 'Моля, въведете вашето име.',
             'fname.max' => 'Името не може да бъде по-дълго от 255 символа.',
@@ -172,6 +220,9 @@ class OrdersController extends Controller
 
             'delivery_method.required' => 'Моля, изберете начин на доставка.',
             'delivery_method.in' => 'Избраният начин на доставка е невалиден.',
+
+            'payment_method.required' => 'Моля, изберете начин на плащане.',
+            'payment_method.in' => 'Избраният начин на плащане е невалиден.',
 
             'city.required_if' => 'Моля, изберете град.',
             'city.max' => 'Градът не може да бъде по-дълъг от 255 символа.',
@@ -221,12 +272,12 @@ class OrdersController extends Controller
                         (int) $product['quantity'];
                 }
 
-                $promoCodeName =
-                    $sessionPromoCode['promo_code_name'] ?? null;
+                $promoCodeName = $sessionPromoCode['promo_code_name'] ?? null;
 
                 $order = Order::create([
                     'order_number' =>
                     'ORD-' . date('dmy') . '-' . random_int(1000, 9999),
+
                     'first_name' => $validated['fname'],
                     'last_name' => $validated['lname'],
                     'phone' => $validated['phone'],
@@ -234,7 +285,8 @@ class OrdersController extends Controller
 
                     'delivery_method' => $validated['delivery_method'],
 
-                    'city' => $validated['delivery_method'] === 'personal'
+                    'city' =>
+                    $validated['delivery_method'] === 'personal'
                         ? ($validated['city'] ?? null)
                         : null,
 
@@ -269,11 +321,15 @@ class OrdersController extends Controller
                     $validated['company_address'] ?? null,
 
                     'subtotal' => $subtotal,
+
                     'promo_code' => $promoCodeName,
+
                     'delivery_price' => 0,
+
                     'total' => $subtotal,
 
-                    'payment_option' => 'cash_on_delivery',
+                    'payment_option' => $validated['payment_method'],
+
                     'status' => Order::STATUS_PENDING,
                 ]);
 
@@ -293,7 +349,9 @@ class OrdersController extends Controller
                     }
 
                     $currentStock = (int) $databaseProduct->stock;
-                    $orderedQuantity = (int) $product['quantity'];
+
+                    $orderedQuantity =
+                        (int) $product['quantity'];
 
                     if ($currentStock < $orderedQuantity) {
                         throw new \Exception(
@@ -303,24 +361,39 @@ class OrdersController extends Controller
                     }
 
                     $databaseProduct->update([
-                        'stock' => $currentStock - $orderedQuantity,
+                        'stock' =>
+                        $currentStock - $orderedQuantity,
                     ]);
 
                     $orderProduct = OrderProduct::create([
                         'order_id' => $order->id,
-                        'product_id' => $databaseProduct->id,
 
-                        'product_name' => $product['name'],
-                        'product_slug' => $product['slug'],
-                        'product_image' => $product['image'] ?? null,
+                        'product_id' =>
+                        $databaseProduct->id,
 
-                        'price' => (float) $product['price'],
-                        'discount' => $product['discount'] ?? null,
+                        'product_name' =>
+                        $product['name'],
 
-                        'base_price' => (float) $product['final_price'],
-                        'final_price' => (float) $product['final_price'],
+                        'product_slug' =>
+                        $product['slug'],
 
-                        'quantity' => $orderedQuantity,
+                        'product_image' =>
+                        $product['image'] ?? null,
+
+                        'price' =>
+                        (float) $product['price'],
+
+                        'discount' =>
+                        $product['discount'] ?? null,
+
+                        'base_price' =>
+                        (float) $product['final_price'],
+
+                        'final_price' =>
+                        (float) $product['final_price'],
+
+                        'quantity' =>
+                        $orderedQuantity,
                     ]);
 
                     $orderProducts[] = $orderProduct;
