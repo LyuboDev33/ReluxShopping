@@ -77,17 +77,22 @@
 
 
                         <form method="GET" class="shop-category product__sidebar-single relux-about-section__content">
-                            <h3 class="product__sidebar-title text-center">Филтри</h3>
+
+                            <h3 class="product__sidebar-title text-center">
+                                Филтри
+                            </h3>
 
 
                             @foreach ($filters as $filter)
                                 <div class="mb-3">
+
                                     <label class="form-label" for="filter-{{ $filter['slug'] }}">
                                         {{ $filter['name'] }}
                                     </label>
 
                                     <select id="filter-{{ $filter['slug'] }}" name="{{ $filter['slug'] }}"
                                         class="form-select attribute-choice p-0">
+
                                         <option value=""></option>
 
                                         @foreach ($filter['values'] as $value)
@@ -95,37 +100,91 @@
                                                 {{ $value['name'] }}
                                             </option>
                                         @endforeach
+
                                     </select>
+
                                 </div>
                             @endforeach
 
+
+                            {{-- Stock filter --}}
+                            <div class="mb-3">
+
+                                <label class="form-label" for="stock">
+                                    Наличност
+                                </label>
+
+                                <select id="stock" name="stock" class="form-select attribute-choice p-0">
+
+                                    <option value="">
+                                        Всички продукти
+                                    </option>
+
+                                    <option value="in_stock" @selected(request('stock') === 'in_stock')>
+                                        В наличност
+                                    </option>
+
+                                    <option value="out_of_stock" @selected(request('stock') === 'out_of_stock')>
+                                        Изчерпани
+                                    </option>
+
+                                </select>
+
+                            </div>
+
+
+                            {{-- Price filter --}}
                             <div class="price-filter">
+
                                 <div class="price-filter__header d-flex flex-column">
-                                    <label for="priceRange">Максимална цена</label>
+
+                                    <label for="priceRange">
+                                        Максимална цена
+                                    </label>
 
                                     <span>
-                                        До <strong id="priceRangeValue">1000</strong> €.
+                                        До
+                                        <strong id="priceRangeValue">
+                                            {{ request('price-range', 10000) }}
+                                        </strong>
+                                        €.
                                     </span>
+
                                 </div>
+
 
                                 <input type="range" id="priceRange" name="price-range" min="0" max="10000"
                                     step="10" value="{{ request('price-range', 10000) }}">
 
+
                                 <div class="price-filter__limits">
-                                    <span>0 €.</span>
-                                    <span>1000 €.</span>
+
+                                    <span>
+                                        0 €.
+                                    </span>
+
+                                    <span>
+                                        10000 €.
+                                    </span>
+
                                 </div>
+
                             </div>
 
+
                             <div class="d-flex gap-2">
+
                                 <button type="submit" class="btn btn-light rounded-pill">
                                     Филтрирай
                                 </button>
 
+
                                 <a href="{{ route('shop.index') }}" class="btn btn-light rounded-pill">
                                     Изчисти
                                 </a>
+
                             </div>
+
                         </form>
 
 
@@ -199,23 +258,31 @@
                                 @forelse ($products as $product)
                                     <!--Product Single Start-->
                                     <div class="col-xl-4 col-lg-4 col-md-6 col-6 mb-5">
+
                                         <div class="product__all-single shadow relux-about-section__content">
 
                                             <div class="product__all-img">
+
                                                 <a href="{{ route('shop.show', $product->slug) }}">
+
                                                     @if ($product->main_image)
                                                         <img src="{{ asset('assets/images/products/' . $product->main_image) }}"
                                                             alt="{{ $product->name }}" />
+
                                                         <img src="{{ asset('assets/images/products/' . $product->main_image) }}"
                                                             alt="{{ $product->name }}" />
                                                     @else
                                                         <img src="{{ asset('assets/images/shop/shop-product-1-1.jpg') }}"
                                                             alt="{{ $product->name }}" />
+
                                                         <img src="{{ asset('assets/images/shop/shop-product-1-1.jpg') }}"
                                                             alt="{{ $product->name }}" />
                                                     @endif
+
                                                 </a>
+
                                             </div>
+
 
                                             <div class="product__all-content">
 
@@ -225,19 +292,26 @@
                                                     </p>
                                                 @endif
 
+
                                                 <h4 class="product__all-title">
+
                                                     <a href="{{ route('shop.show', $product->slug) }}">
                                                         {{ $product->name }}
                                                     </a>
+
                                                 </h4>
+
 
                                                 @if ($product->brand)
                                                     <p class="product__all-brand mt-3 mb-3">
-                                                        <span>Марка:</span> <b>{{ $product->brand }}</b>
+                                                        <span>Марка:</span>
+                                                        <b>{{ $product->brand }}</b>
                                                     </p>
                                                 @endif
 
+
                                                 <p class="product__all-price">
+
                                                     @if ($product->discount)
                                                         <del class="text-muted me-2">
                                                             {{ number_format($product->price, 2) }} €
@@ -247,44 +321,77 @@
                                                             {{ number_format($product->price - ($product->price * $product->discount) / 100, 2) }}
                                                             €
                                                         </span>
+
                                                         (-{{ $product->discount }}%)
                                                     @else
                                                         {{ number_format($product->price, 2) }} €
                                                     @endif
+
                                                 </p>
 
+
                                                 <form method="POST" action="{{ route('wishlist.add', $product) }}"
-                                                    class="product__all-btn-box d-flex justify-content-center wishlist-form">
+                                                    class="product__all-btn-box d-flex justify-content-center align-items-center gap-2 wishlist-form">
 
                                                     @csrf
 
-                                                    <a class="thm-btn product__all-btn p-2 "
-                                                        href="{{ route('shop.show', $product->slug) }}">
-                                                        Разгледай
-                                                    </a>
-                                                    @php
-                                                        $wishlist = Session::get('wishlist', []);
-                                                        $isInWishlist = isset($wishlist[$product->id]);
-                                                    @endphp
-                                                    <button type="submit" class="wishlist-btn">
-                                                        <i
-                                                            class="{{ $isInWishlist ? 'fa-solid' : 'fa-regular' }} fa-heart"></i>
-                                                    </button>
+
+                                                    {{-- Product button --}}
+                                                    <div class="d-flex flex-column">
+
+                                                        <div class="d-flex gap-3 mb-3">
+                                                            <a class="thm-btn product__all-btn p-2"
+                                                                href="{{ route('shop.show', $product->slug) }}">
+                                                                Разгледай
+                                                            </a>
+
+
+                                                            {{-- Wishlist --}}
+                                                            @php
+                                                                $wishlist = Session::get('wishlist', []);
+                                                                $isInWishlist = isset($wishlist[$product->id]);
+                                                            @endphp
+
+                                                            <button type="submit" class="wishlist-btn">
+                                                                <i
+                                                                    class="{{ $isInWishlist ? 'fa-solid' : 'fa-regular' }} fa-heart"></i>
+                                                            </button>
+                                                        </div>
+
+                                                        @if ($product->stock <= 0)
+                                                            <span class="alert bg-danger rounded-pill px-3 py-2 text-white">
+                                                                Няма наличност
+                                                            </span>
+                                                        @endif
+
+                                                    </div>
+
+
+                                                    {{-- Out of stock --}}
+
                                                 </form>
 
                                             </div>
+
                                         </div>
+
                                     </div>
                                     <!--Product Single End-->
+
                                 @empty
+
                                     <div class="col-12">
+
                                         <div class="alert alert-info text-center">
+
                                             @if ($category)
                                                 Няма налични продукти с филтрите, които сте избрали
                                             @else
                                                 Все още няма налични продукти.
                                             @endif
+
                                         </div>
+
                                     </div>
                                 @endforelse
 

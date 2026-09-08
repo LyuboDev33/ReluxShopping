@@ -5,7 +5,14 @@
         </a>
     </li>
 
-    <li class="mainmenu__item menu-item-has-children has-children">
+
+    <li class="mainmenu__item">
+        <a href="{{ route('shop.index') }}" class="mainmenu__link">
+           Магазин
+        </a>
+    </li>
+
+    {{-- <li class="mainmenu__item menu-item-has-children has-children">
         <a href="{{ route('shop.index') }}" class="mainmenu__link">
             Магазин
         </a>
@@ -13,11 +20,11 @@
         <ul class="sub-menu">
             <li>
                 <a href="{{ route('shop.index') }}">Продукти</a>
-            
+
                 <a href="{{ route('cart') }}">Количка</a>
             </li>
         </ul>
-    </li>
+    </li> --}}
 
     <li class="mainmenu__item">
         <a href="{{ route('about') }}" class="mainmenu__link">
