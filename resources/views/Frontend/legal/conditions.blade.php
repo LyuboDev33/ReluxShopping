@@ -1,55 +1,48 @@
 <x-frontend>
 
-    @section('SEO')
-        {{-- Основно SEO --}}
-        <title>Общи условия | Valente Optics</title>
+   @section('SEO')
+    {{-- Основно SEO --}}
+    <title>Общи условия | ReLux TopShopping</title>
 
-        <meta name="description"
-            content="Запознайте се с Общите условия на Valente Optics за използване на онлайн магазина, поръчки, плащания, доставка, връщане на стоки, рекламации и защита на правата на потребителите.">
+    <meta name="description"
+        content="Запознайте се с Общите условия на ReLux TopShopping за използване на онлайн магазина, поръчки, плащания, доставка, връщане на стоки, рекламации и права на потребителите.">
 
-        <meta name="keywords"
-            content="общи условия, Valente Optics, условия за ползване, онлайн магазин, доставка, плащане, връщане на стоки, рекламации, отказ от договор, защита на потребителите, политика на магазина">
+    <meta name="keywords"
+        content="общи условия, ReLux TopShopping, условия за ползване, онлайн магазин, луксозни часовници, премиум аксесоари, доставка, плащане, връщане на стоки, рекламации, отказ от договор, права на потребителите">
 
-        <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">
+    <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">
 
-        <meta name="googlebot" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">
+    <meta name="googlebot" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">
 
-        <link rel="canonical" href="{{ url('/terms-and-conditions') }}">
+    <link rel="canonical" href="{{ url('/terms-and-conditions') }}">
 
-        {{-- Език и регион --}}
-        <meta property="og:locale" content="bg_BG">
+    {{-- Език и регион --}}
+    <meta property="og:locale" content="bg_BG">
 
-        {{-- Open Graph --}}
-        <meta property="og:type" content="article">
-        <meta property="og:site_name" content="Valente Optics">
+    {{-- Open Graph --}}
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="ReLux TopShopping">
 
-        <meta property="og:title" content="Общи условия | Valente Optics">
+    <meta property="og:title" content="Общи условия | ReLux TopShopping">
 
-        <meta property="og:description"
-            content="Прочетете Общите условия на Valente Optics относно използването на сайта, поръчките, плащанията, доставката, рекламациите и правата на потребителите.">
+    <meta property="og:description"
+        content="Прочетете Общите условия на ReLux TopShopping относно използването на сайта, поръчките, плащанията, доставката, връщането на стоки, рекламациите и правата на потребителите.">
 
-        <meta property="og:url" content="{{ url('/terms-and-conditions') }}">
+    <meta property="og:url" content="{{ url('/terms-and-conditions') }}">
 
-        <meta property="og:image:secure_url" content="{{ asset('assets/images/seo/valente-optics-home.jpg') }}">
+    {{-- Twitter / X Card --}}
+    <meta name="twitter:card" content="summary_large_image">
 
-        <meta property="og:image:type" content="image/jpeg">
-        <meta property="og:image:alt" content="Общи условия на Valente Optics">
+    <meta name="twitter:title" content="Общи условия | ReLux TopShopping">
 
-        {{-- Twitter / X Card --}}
-        <meta name="twitter:card" content="summary_large_image">
-        <meta name="twitter:title" content="Общи условия | Valente Optics">
+    <meta name="twitter:description"
+        content="Информация за условията за ползване на ReLux TopShopping, поръчките, плащанията, доставката, връщането на стоки, рекламациите и правата на потребителите.">
 
-        <meta name="twitter:description"
-            content="Информация относно условията за ползване на сайта, поръчките, плащанията, доставката, рекламациите и правата на потребителите.">
-
-        <meta name="twitter:image" content="{{ asset('assets/images/seo/valente-optics-home.jpg') }}">
-        <meta name="twitter:image:alt" content="Общи условия на Valente Optics">
-
-        {{-- Допълнителна информация --}}
-        <meta name="author" content="Valente Optics">
-        <meta name="application-name" content="Valente Optics">
-        <meta name="theme-color" content="#ffffff">
-    @endsection
+    {{-- Допълнителна информация --}}
+    <meta name="author" content="ReLux TopShopping">
+    <meta name="application-name" content="ReLux TopShopping">
+    <meta name="theme-color" content="#171717">
+@endsection
 
     <section class="terms-page py-5">
         <div class="container">

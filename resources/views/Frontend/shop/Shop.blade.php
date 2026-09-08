@@ -1,13 +1,13 @@
 <x-frontend>
 
     @section('SEO')
-        <title>Онлайн магазин за очила | Диоптрични рамки, слънчеви очила и аксесоари | Valente Optics</title>
+        <title>Онлайн магазин за луксозни часовници и аксесоари | ReLux TopShopping</title>
 
         <meta name="description"
-            content="Разгледайте онлайн магазина на Valente Optics с богат избор от диоптрични рамки, слънчеви очила, детски очила, стъкла и аксесоари. Открийте качествени марки, професионална консултация и бърза доставка в цяла България.">
+            content="Разгледайте онлайн магазина на ReLux TopShopping с внимателно подбрана селекция от автентични луксозни часовници и премиум аксесоари. Стил, качество и сигурно онлайн пазаруване.">
 
         <meta name="keywords"
-            content="Valente Optics, онлайн магазин за очила, диоптрични рамки, слънчеви очила, детски очила, компютърни очила, рамки за очила, стъкла за очила, прогресивни стъкла, фотосоларни стъкла, аксесоари за очила, оптика Бургас, оптика Равда">
+            content="ReLux TopShopping, онлайн магазин за часовници, луксозни часовници, премиум часовници, оригинални часовници, маркови часовници, мъжки часовници, дамски часовници, премиум аксесоари">
 
         <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">
 
@@ -16,41 +16,29 @@
         <link rel="canonical" href="{{ route('shop.index') }}">
 
         {{-- Open Graph --}}
-        <meta property="og:type" content="website">
         <meta property="og:locale" content="bg_BG">
-        <meta property="og:site_name" content="Valente Optics">
+        <meta property="og:type" content="website">
+        <meta property="og:site_name" content="ReLux TopShopping">
 
-        <meta property="og:title" content="Онлайн магазин за очила | Valente Optics">
+        <meta property="og:title" content="Онлайн магазин за луксозни часовници и аксесоари | ReLux TopShopping">
 
         <meta property="og:description"
-            content="Открийте диоптрични рамки, слънчеви и детски очила, качествени стъкла и аксесоари от Valente Optics. Пазарувайте онлайн с професионална консултация и доставка в цяла България.">
+            content="Открийте автентични луксозни часовници и премиум аксесоари, подбрани с внимание към качеството и стила.">
 
         <meta property="og:url" content="{{ route('shop.index') }}">
-
-
-        <meta property="og:image:secure_url" content="{{ asset('assets/images/seo/valente-optics-shop.jpg') }}">
-
-        <meta property="og:image:type" content="image/jpeg">
-
-        <meta property="og:image:alt"
-            content="Онлайн магазин Valente Optics – диоптрични рамки, слънчеви очила и аксесоари">
 
         {{-- Twitter / X --}}
         <meta name="twitter:card" content="summary_large_image">
 
-        <meta name="twitter:title" content="Онлайн магазин за очила | Valente Optics">
+        <meta name="twitter:title" content="Онлайн магазин за луксозни часовници и аксесоари | ReLux TopShopping">
 
         <meta name="twitter:description"
-            content="Разгледайте диоптрични рамки, слънчеви и детски очила, стъкла и аксесоари от Valente Optics с доставка в цяла България.">
+            content="Разгледайте селекцията от автентични премиум часовници и аксесоари в ReLux TopShopping.">
 
-        <meta name="twitter:image" content="{{ asset('assets/images/seo/valente-optics-shop.jpg') }}">
-
-        <meta name="twitter:image:alt" content="Онлайн магазин Valente Optics – очила, рамки, стъкла и аксесоари">
-
-        {{-- Допълнителни мета данни --}}
-        <meta name="author" content="Valente Optics">
-        <meta name="application-name" content="Valente Optics">
-        <meta name="theme-color" content="#ffffff">
+        {{-- Additional meta --}}
+        <meta name="author" content="ReLux TopShopping">
+        <meta name="application-name" content="ReLux TopShopping">
+        <meta name="theme-color" content="#171717">
 
         {{-- Required shop assets --}}
         <link href="/assets/css/tom-select.css" rel="stylesheet">
@@ -359,7 +347,8 @@
                                                         </div>
 
                                                         @if ($product->stock <= 0)
-                                                            <span class="alert bg-danger rounded-pill px-3 py-2 text-white">
+                                                            <span
+                                                                class="alert bg-danger rounded-pill px-3 py-2 text-white">
                                                                 Няма наличност
                                                             </span>
                                                         @endif
