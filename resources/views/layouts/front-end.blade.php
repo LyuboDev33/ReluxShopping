@@ -35,7 +35,7 @@
     <!-- Elegant Icons CSS -->
     <link rel="stylesheet" href="/assets/css/elegent-icons.css?v=<?php echo time(); ?>">
 
-        <link rel="stylesheet" href="/assets/css/custom.css?v=<?php echo time(); ?>">
+    <link rel="stylesheet" href="/assets/css/custom.css?v=<?php echo time(); ?>">
 
 
     <!-- Template Plugins CSS -->
@@ -75,6 +75,21 @@
 
     <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js" defer></script>
     <link href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css" rel="stylesheet">
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-LSKJFQVPVY"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+
+        gtag('config', 'G-LSKJFQVPVY');
+    </script>
+
+
 </head>
 
 <body class="font-sans antialiased">
