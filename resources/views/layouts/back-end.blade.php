@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Табло за управление | Оптика Valente</title>
+    <title>Табло за управление | ReluxTopShopping</title>
 
     <meta name="robots" content="noindex,nofollow">
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -21,7 +21,7 @@
 
     <link rel="stylesheet" href="/assets/css/shop.css?v=<?php echo time(); ?>" />
 
-    
+
 
     <link rel="stylesheet" href="https://unpkg.com/lenis@1.3.23/dist/lenis.css">
 

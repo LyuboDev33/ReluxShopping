@@ -88,20 +88,16 @@
                             </a>
                         </li>
 
-                        <li>
-                            <a href="#">
-                                Доставка и плащане
-                            </a>
-                        </li>
+    
 
                         <li>
-                            <a href="#">
+                            <a href="{{ route('privacy') }}">
                                 Политика за поверителност
                             </a>
                         </li>
 
                         <li>
-                            <a href="#">
+                            <a href="{{ route('conditions') }}">
                                 Общи условия
                             </a>
                         </li>
@@ -144,7 +140,7 @@
                             </a>
                         </li>
 
-                       
+
                         <li>
                             <a href="{{ route('contact') }}">
                                 Свържете се с нас
@@ -190,13 +186,13 @@
                     </li>
 
                     <li>
-                        <a href="#">
+                        <a href="{{ route('conditions') }}">
                             Общи условия
                         </a>
                     </li>
 
                     <li>
-                        <a href="#">
+                        <a href="{{ route('privacy') }}">
                             Политика за поверителност
                         </a>
                     </li>

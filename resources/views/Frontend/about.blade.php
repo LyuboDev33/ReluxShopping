@@ -26,7 +26,7 @@
         <meta name="twitter:card" content="summary_large_image">
         <meta name="twitter:title" content="За нас | ReLux TopShopping – Премиум часовници и аксесоари">
         <meta name="twitter:description"
-            content="Открийте повече за ReLux TopShopping – автентични луксозни часовници, премиум аксесоари, внимателна селекция и персонализирано обслужване."> 
+            content="Открийте повече за ReLux TopShopping – автентични луксозни часовници, премиум аксесоари, внимателна селекция и персонализирано обслужване.">
         <meta name="author" content="ReLux TopShopping">
 
         <meta name="application-name" content="ReLux TopShopping">
@@ -296,9 +296,9 @@
                                         </div>
 
                                         <p class="testimonial-showcase__text">
-                                            Изключително професионално отношение! Помогнаха ми с избора
-                                            на прогресивни стъкла и сега виждам перфектно както отблизо,
-                                            така и отдалече. Препоръчвам Valente Optics с пълна увереност.
+                                            Изключително съм доволен от покупката си. Часовникът пристигна
+                                            в отлично състояние и напълно отговаряше на описанието.
+                                            Професионално отношение и коректност от началото до края.
                                         </p>
 
                                         <div class="testimonial-showcase__author">
@@ -309,11 +309,11 @@
 
                                             <div class="testimonial-showcase__author-content">
                                                 <h4 class="testimonial-showcase__name">
-                                                    Стоянка Михайлова
+                                                    Николай Петров
                                                 </h4>
 
                                                 <p class="testimonial-showcase__location">
-                                                    Клиент, Бургас
+                                                    Доволен клиент
                                                 </p>
                                             </div>
 
@@ -330,9 +330,9 @@
                                         </div>
 
                                         <p class="testimonial-showcase__text">
-                                            Поръчах слънчеви очила с поляризация и съм изключително
-                                            доволна от качеството. Бърза изработка, внимателно обслужване
-                                            и винаги усмихнат екип, който помни своите клиенти.
+                                            Поръчката пристигна бързо и беше опакована с изключително
+                                            внимание. Получих точно това, което очаквах, а комуникацията
+                                            с екипа на ReLux TopShopping беше отлична.
                                         </p>
 
                                         <div class="testimonial-showcase__author">
@@ -343,11 +343,11 @@
 
                                             <div class="testimonial-showcase__author-content">
                                                 <h4 class="testimonial-showcase__name">
-                                                    Мария Тодорова
+                                                    Мария Георгиева
                                                 </h4>
 
                                                 <p class="testimonial-showcase__location">
-                                                    Клиент, Равда
+                                                    Клиент, София
                                                 </p>
                                             </div>
 
@@ -364,9 +364,9 @@
                                         </div>
 
                                         <p class="testimonial-showcase__text">
-                                            Дъщеря ми получи първите си очила във Valente Optics.
-                                            Екипът намери идеалната рамка за нея, прояви огромно търпение
-                                            и сега тя обича да ги носи. Благодаря за професионализма!
+                                            Търсех конкретен модел часовник и получих подробно съдействие
+                                            при избора. Всичко беше обяснено ясно, а продуктът изглежда
+                                            дори по-добре на живо. С удоволствие бих пазарувал отново.
                                         </p>
 
                                         <div class="testimonial-showcase__author">
@@ -377,45 +377,45 @@
 
                                             <div class="testimonial-showcase__author-content">
                                                 <h4 class="testimonial-showcase__name">
-                                                    Иван Георгиев
-                                                </h4>
-
-                                                <p class="testimonial-showcase__location">
-                                                    Доволен родител
-                                                </p>
-                                            </div>
-
-                                        </div>
-
-                                    </div>
-                                </li>
-
-                                <li class="splide__slide">
-                                    <div class="testimonial-showcase__single">
-
-                                        <div class="testimonial-showcase__quote">
-                                            <i class="fa-solid fa-quote-right"></i>
-                                        </div>
-
-                                        <p class="testimonial-showcase__text">
-                                            Стъклата с Blue Control защита промениха работата ми пред
-                                            компютъра. Никаква умора в очите дори след дълги часове.
-                                            Благодаря за съвета и за качествената изработка!
-                                        </p>
-
-                                        <div class="testimonial-showcase__author">
-
-                                            <div class="testimonial-showcase__author-icon">
-                                                <i class="fa-solid fa-user"></i>
-                                            </div>
-
-                                            <div class="testimonial-showcase__author-content">
-                                                <h4 class="testimonial-showcase__name">
-                                                    Петър Колев
+                                                    Александър Димитров
                                                 </h4>
 
                                                 <p class="testimonial-showcase__location">
                                                     Редовен клиент
+                                                </p>
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                </li>
+
+                                <li class="splide__slide">
+                                    <div class="testimonial-showcase__single">
+
+                                        <div class="testimonial-showcase__quote">
+                                            <i class="fa-solid fa-quote-right"></i>
+                                        </div>
+
+                                        <p class="testimonial-showcase__text">
+                                            За мен доверието е най-важно при покупката на луксозен часовник.
+                                            Останах впечатлен от вниманието към детайла, обслужването и
+                                            цялостното отношение. Определено бих препоръчал ReLux TopShopping.
+                                        </p>
+
+                                        <div class="testimonial-showcase__author">
+
+                                            <div class="testimonial-showcase__author-icon">
+                                                <i class="fa-solid fa-user"></i>
+                                            </div>
+
+                                            <div class="testimonial-showcase__author-content">
+                                                <h4 class="testimonial-showcase__name">
+                                                    Георги Иванов
+                                                </h4>
+
+                                                <p class="testimonial-showcase__location">
+                                                    Доволен клиент
                                                 </p>
                                             </div>
 

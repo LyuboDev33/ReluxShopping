@@ -1,20 +1,20 @@
 <x-frontend>
 
     @section('SEO')
-        <title>{{ $product->name }} | Valente Optics</title>
+        <title>{{ $product->name }}</title>
 
         <meta name="description" content="{{ strip_tags($product->description) }}">
 
         <meta name="keywords"
-            content="{{ $product->name }}, {{ $product->sku }}, диоптрични рамки, очила, маркови очила, онлайн магазин за очила, Valente Optics">
+            content="{{ $product->name }}, {{ $product->sku }}, луксозни часовници, премиум часовници, оригинални часовници, маркови часовници, премиум аксесоари, ReLux TopShopping">
 
         <meta name="robots" content="index, follow">
 
         <link rel="canonical" href="{{ url()->current() }}">
 
         <meta property="og:type" content="product">
-        <meta property="og:site_name" content="Valente Optics">
-        <meta property="og:title" content="{{ $product->name }} | Valente Optics">
+        <meta property="og:site_name" content="ReLux TopShopping">
+        <meta property="og:title" content="{{ $product->name }} | ReLux TopShopping">
         <meta property="og:description" content="{{ strip_tags($product->description) }}">
         <meta property="og:url" content="{{ url()->current() }}">
         <meta property="og:image" content="{{ url('assets/images/products/' . $product->main_image) }}">
@@ -26,7 +26,7 @@
         <meta property="product:availability" content="{{ (int) $product->stock > 0 ? 'in stock' : 'out of stock' }}">
 
         <meta name="twitter:card" content="summary_large_image">
-        <meta name="twitter:title" content="{{ $product->name }} | Valente Optics">
+        <meta name="twitter:title" content="{{ $product->name }} | ReLux TopShopping">
         <meta name="twitter:description" content="{{ strip_tags($product->description) }}">
         <meta name="twitter:image" content="{{ url('assets/images/products/' . $product->main_image) }}">
         <meta name="twitter:image:alt" content="{{ $product->name }}">
@@ -164,17 +164,20 @@
                             </div>
                         </div>
 
-                         <div class="product-details__buttons mt-3 text-center">
-                            <div class="product-details__buttons-2">
 
-                                <button type="submit" class="thm-btn">
-                                    Добави в количката
-                                </button>
-
-                            </div>
-                        </div>
 
                         @if ((int) $product->stock > 0)
+                        
+                            <div class="product-details__buttons mt-3 text-center">
+                                <div class="product-details__buttons-2">
+
+                                    <button type="submit" class="thm-btn">
+                                        Добави в количката
+                                    </button>
+
+                                </div>
+                            </div>
+
                             <div class="d-flex mt-3 mb-3 justify-content-center">
 
                                 <div class="product-details__quantity d-flex flex-column">

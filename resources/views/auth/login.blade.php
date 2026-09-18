@@ -5,28 +5,42 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Вход | Оптика Valente</title>
+    <title>Вход | ReLux TopShopping</title>
 
     <meta name="description"
-        content="Влезте в своя профил, за да управлявате поръчки, резервации и настройките на акаунта си.">
+        content="Влезте в своя профил в ReLux TopShopping, за да управлявате своите поръчки и настройките на акаунта си.">
 
     <meta name="robots" content="noindex,nofollow">
+    <meta name="googlebot" content="noindex,nofollow">
 
-    <meta property="og:title" content="Вход | Оптика Valente">
-    <meta property="og:description"
-        content="Влезте в своя профил и продължете оттам, докъдето сте стигнали.">
+    <meta property="og:locale" content="bg_BG">
     <meta property="og:type" content="website">
+    <meta property="og:site_name" content="ReLux TopShopping">
+
+    <meta property="og:title" content="Вход | ReLux TopShopping">
+
+    <meta property="og:description"
+        content="Влезте в своя профил в ReLux TopShopping и управлявайте своите поръчки и акаунт.">
+
+    <meta name="twitter:card" content="summary">
+
+    <meta name="twitter:title" content="Вход | ReLux TopShopping">
+
+    <meta name="twitter:description"
+        content="Влезте в своя профил в ReLux TopShopping и управлявайте своите поръчки и акаунт.">
+
+    <meta name="author" content="ReLux TopShopping">
+    <meta name="application-name" content="ReLux TopShopping">
+    <meta name="theme-color" content="#171717">
 
     {{-- FAVICONS --}}
-    <link rel="icon" type="image/png"
-        href="/assets/images/favicons/favicon-96x96.png?v=<?php echo time(); ?>"
+    <link rel="icon" type="image/png" href="/assets/images/favicons/favicon-96x96.png?v=<?php echo time(); ?>"
         sizes="96x96" />
 
     <link rel="icon" type="image/svg+xml"
         href="/assets/images/favicons/transparent-image.png?v=<?php echo time(); ?>" />
 
-    <link rel="shortcut icon"
-        href="/assets/images/favicons/favicon-96x96.png?v=<?php echo time(); ?>" />
+    <link rel="shortcut icon" href="/assets/images/favicons/favicon-96x96.png?v=<?php echo time(); ?>" />
 
     <link rel="apple-touch-icon" sizes="180x180"
         href="/assets/images/favicons/apple-touch-icon.png?v=<?php echo time(); ?>" />
@@ -34,8 +48,6 @@
     {{-- CSS --}}
     <link rel="stylesheet" href="/assets/css/bootstrap.min.css?v=<?php echo time(); ?>" />
     <link rel="stylesheet" href="/assets/css/custom.css?v=<?php echo time(); ?>" />
-
-
 </head>
 
 <body>
@@ -62,8 +74,7 @@
                         </p>
                     </div>
 
-                    <form action="{{ route('login') }}"
-                        method="post">
+                    <form action="{{ route('login') }}" method="post">
                         @csrf
 
                         <div class="auth__field">
@@ -72,14 +83,8 @@
                             </label>
 
                             <div class="auth__input-wrapper">
-                                <input
-                                    type="email"
-                                    name="email"
-                                    id="formEmail"
-                                    class="auth__input"
-                                    placeholder="Имейл адрес"
-                                    value="{{ old('email') }}"
-                                    required>
+                                <input type="email" name="email" id="formEmail" class="auth__input"
+                                    placeholder="Имейл адрес" value="{{ old('email') }}" required>
                             </div>
 
                             @error('email')
@@ -93,18 +98,10 @@
                             </label>
 
                             <div class="auth__input-wrapper">
-                                <input
-                                    type="password"
-                                    name="password"
-                                    id="formPassword"
-                                    class="auth__input auth__input--with-addon"
-                                    placeholder="Парола"
-                                    required>
+                                <input type="password" name="password" id="formPassword"
+                                    class="auth__input auth__input--with-addon" placeholder="Парола" required>
 
-                                <button
-                                    type="button"
-                                    class="auth__input-addon"
-                                    data-toggle-password="formPassword">
+                                <button type="button" class="auth__input-addon" data-toggle-password="formPassword">
 
                                     <i class="fas fa-eye"></i>
                                 </button>
@@ -147,8 +144,7 @@
             </div>
 
             {{-- ДЯСНА ЧАСТ --}}
-            <div
-                class="auth__side auth__side--right"
+            <div class="auth__side auth__side--right"
                 style="
                     background-image:url('{{ asset('/assets/img/slider1-mirora1-1920x634.jpg') }}');
                     background-size:cover;
@@ -160,4 +156,5 @@
     </div>
 
 </body>
+
 </html>

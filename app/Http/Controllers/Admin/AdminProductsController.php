@@ -348,13 +348,7 @@ class AdminProductsController extends Controller
             ], 404);
         }
 
-
-        $updatedGallery = array_values(
-            array_filter(
-                $gallery,
-                fn(string $galleryImage): bool => $galleryImage !== $imageName
-            )
-        );
+        $updatedGallery = array_values(array_filter($gallery, fn(string $galleryImage): bool => $galleryImage !== $imageName));
 
         $imagePath = public_path(
             'assets/images/product_gallery/' . $imageName

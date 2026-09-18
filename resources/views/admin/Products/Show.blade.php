@@ -339,10 +339,7 @@
                         type: "DELETE",
 
                         data: {
-                            _token: document
-                                .querySelector('meta[name="csrf-token"]')
-                                .getAttribute('content'),
-
+                            _token: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
                             image: deletionImage
                         },
 
@@ -351,8 +348,7 @@
                         },
 
                         error: function(xhr) {
-                            alert(
-                                xhr.responseJSON?.message ??
+                            alert(xhr.responseJSON?.message ??
                                 'Възникна грешка при изтриването на снимката.'
                             );
                         },

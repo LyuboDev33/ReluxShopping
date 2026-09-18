@@ -1,6 +1,6 @@
 <x-frontend>
 
-    @section('SEO')
+      @section('SEO')
         <title>Контакти | ReLux TopShopping – Луксозни часовници и аксесоари</title>
 
         <meta name="description"
